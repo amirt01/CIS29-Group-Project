@@ -8,6 +8,7 @@ private:
 	
 	bool quit;
 public:
+	// Constructors/Destructors
 	State(sf::RenderWindow* renderWindow);
 	virtual ~State();
 
@@ -16,7 +17,7 @@ public:
 	void quitState();
 
 	// Update
-	virtual void updateKeybinds(const float& deltaTime) = 0;
+	virtual void updateInput(const float& deltaTime) = 0;
 	virtual void updateState(const float& deltaTime) = 0;
 
 	// Render

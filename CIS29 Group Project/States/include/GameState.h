@@ -6,11 +6,12 @@ class GameState :
 	public State
 {
 public:
+	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow);
 	virtual ~GameState();
 
 	// Update
-	void updateKeybinds(const float& deltaTime);
+	void updateInput(const float& deltaTime);
 	void updateState(const float& deltaTime);
 
 	// Render

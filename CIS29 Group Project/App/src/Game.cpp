@@ -6,6 +6,7 @@
 //Initializers
 void Game::initializeVariables()
 {
+    deltaTime = 0.f;
 }
 
 void Game::initializeWindow()
@@ -33,7 +34,8 @@ void Game::initializeWindow()
     }
     else
     {
-        std::cout << "Error reading file window setting's file." << std::endl;
+        std::cout << "Error reading file window setting's file. "
+                  << "Loading default settings..." << std::endl;
         system("PAUSE");
     }
 
@@ -52,6 +54,7 @@ void Game::initializeStates()
 // Constructor / Destructors
 Game::Game()
 {
+    initializeVariables();
     initializeWindow();
     initializeStates();
 }

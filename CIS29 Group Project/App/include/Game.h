@@ -16,29 +16,28 @@ private:
 	// States
 	std::stack<State*> states;
 
-	//Initialization
+	// Initialization
 	void initializeVariables();
 	void initializeWindow();
 	void initializeStates();
 
 public:
-	//Constructors/Destructors
+	// Constructors/Destructors
 	Game();
 	virtual ~Game();
 
-	//Functions
-
-	//Regular
+	/* Functions */
+	// Regular
 	void endApplication();
 
-	//Update
+	// Update
 	void updateDeltaTime();
 	void updateSFMLEvents();
 	void updateGame();
 
-	//Render
+	// Render
 	void renderGame();
 
-	//Core
+	// Core
 	void runGame();
 };

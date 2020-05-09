@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "State.h"
 
-// Initializers
-
 // Constructors / destructors
 State::State(sf::RenderWindow* renderWindow)
 {

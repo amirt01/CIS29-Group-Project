@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 
+// Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow)
 	: State(renderWindow)
 {
@@ -10,7 +11,9 @@ GameState::~GameState()
 {
 }
 
-void GameState::updateKeybinds(const float& deltaTime)
+/* Functions */
+// Update
+void GameState::updateInput(const float& deltaTime)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
@@ -20,11 +23,12 @@ void GameState::updateKeybinds(const float& deltaTime)
 
 void GameState::updateState(const float& deltaTime)
 {
-	updateKeybinds(deltaTime);
+	updateInput(deltaTime);
 
 	std::cout << "Running GameState" << std::endl;
 }
 
+// Render
 void GameState::renderState(sf::RenderTarget* renderTarget)
 {
 }
