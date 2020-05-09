@@ -1,5 +1,4 @@
-#ifndef STDAFX_H
-#define STDAFX_H
+#pragma once
 
 //Streams
 #include<iostream>
@@ -21,5 +20,3 @@
 #include"SFML\Graphics.hpp"
 #include"SFML\Audio.hpp"
 #include"SFML\Network.hpp"
-
-#endif

@@ -1,5 +1,6 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
+
+#include "State.h"
 
 class Game
 {
@@ -36,5 +37,3 @@ public:
 	//Core
 	void runGame();
 };
-
-#endif
