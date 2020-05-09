@@ -5,16 +5,21 @@
 class Game
 {
 private:
-	//Variables
+	// Variables
 	sf::RenderWindow* renderWindow;
 	sf::Event event;
 
+	// Delta Time
 	sf::Clock deltaTimeClock;
 	float deltaTime;
 
+	// States
+	std::stack<State*> states;
+
 	//Initialization
+	void initializeVariables();
 	void initializeWindow();
-	void initVariables();
+	void initializeStates();
 
 public:
 	//Constructors/Destructors

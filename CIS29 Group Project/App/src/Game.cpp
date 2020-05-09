@@ -1,8 +1,10 @@
 #include "stdafx.h"
+
 #include "Game.h"
+#include "GameState.h"
 
 //Initializers
-void Game::initVariables()
+void Game::initializeVariables()
 {
 }
 
@@ -42,15 +44,27 @@ void Game::initializeWindow()
     renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
 }
 
+void Game::initializeStates()
+{
+    states.push(new GameState(renderWindow));
+}
+
 // Constructor / Destructors
 Game::Game()
 {
     initializeWindow();
+    initializeStates();
 }
 
 Game::~Game()
 {
 	delete renderWindow;
+
+    while (!states.empty())
+    {
+        delete states.top();
+        states.pop();
+    }
 }
 
 /* Functions */
@@ -65,7 +79,7 @@ void Game::updateDeltaTime()
 
     /* Use to print deltaTime to consol */
     system("cls");
-    std::cout << deltaTime;
+    std::cout << deltaTime << std::endl;
 }
 
 void Game::updateSFMLEvents()
@@ -81,6 +95,9 @@ void Game::updateSFMLEvents()
 void Game::updateGame()
 {
     updateSFMLEvents();
+
+    if (!states.empty())
+        states.top()->updateState(deltaTime);
 }
 
 // Core
@@ -88,7 +105,8 @@ void Game::renderGame()
 {
     renderWindow->clear();
     
-    // Render Items
+    if (!states.empty())
+        states.top()->renderState(renderWindow);
 
     renderWindow->display();
 }
