@@ -2,19 +2,26 @@
 #include "State.h"
 
 // Initializers
-void State::initializeVariables()
-{
-	quit = 0;
-}
 
 // Constructors / destructors
 State::State(sf::RenderWindow* renderWindow)
 {
-	initializeVariables();
 	this->renderWindow = renderWindow;
+	quit = false;
 }
 
 State::~State()
 {
 
+}
+
+const bool& State::getQuit() const
+{
+	return quit;
+}
+
+// Functions
+void State::quitState()
+{
+	quit = true;
 }

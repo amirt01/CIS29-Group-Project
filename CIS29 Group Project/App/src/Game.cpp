@@ -70,6 +70,7 @@ Game::~Game()
 /* Functions */
 void Game::endApplication()
 {
+    std::cout << "Application is closing...";
 }
 
 // Updates
@@ -97,7 +98,21 @@ void Game::updateGame()
     updateSFMLEvents();
 
     if (!states.empty())
+    {
         states.top()->updateState(deltaTime);
+        if (states.top()->getQuit())
+        {
+            states.top()->quitState();
+            delete states.top();
+            states.pop();
+        }
+    }
+    // states stack is empty, quit application
+    else
+    {
+        endApplication();
+        renderWindow->close();
+    }
 }
 
 // Core
