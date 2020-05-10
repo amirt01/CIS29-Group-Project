@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "GameState.h"
+#include "MainMenuState.h"
 
 //Initializers
 void Game::initializeVariables()
@@ -21,7 +22,7 @@ void Game::initializeWindow()
     */
     
     std::string game_title = "DEFAULT";
-    sf::VideoMode render_window_bounds(800, 600);
+    sf::VideoMode render_window_bounds(1280, 720);
     unsigned framerate_limt = 120;
     bool vertical_sync_enabled = false;
 
@@ -48,7 +49,7 @@ void Game::initializeWindow()
 
 void Game::initializeStates()
 {
-    states.push(new GameState(renderWindow));
+    states.push(new MainMenuState(renderWindow, &states));
 }
 
 // Constructor / Destructors

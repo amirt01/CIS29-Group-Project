@@ -2,9 +2,10 @@
 #include "State.h"
 
 // Constructors / destructors
-State::State(sf::RenderWindow* renderWindow)
+State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 {
 	this->renderWindow = renderWindow;
+	this->states = states;
 	quit = false;
 }
 

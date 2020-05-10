@@ -1,15 +1,18 @@
 #pragma once
 class State
 {
-private:
+protected:
 	//Variables
 	sf::RenderWindow* renderWindow;
 	std::vector<sf::Texture> texture;
 	
 	bool quit;
+
+	std::stack<State*>* states;
+
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* renderWindow);
+	State(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	virtual ~State();
 
 	// Quit State Functions

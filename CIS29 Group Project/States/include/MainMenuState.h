@@ -2,15 +2,16 @@
 
 #include "State.h"
 
-class GameState :
+class MainMenuState :
 	public State
 {
-protected:
-	std::stack<State*>* states;
+private:
+	sf::RectangleShape background;
+
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
-	virtual ~GameState();
+	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	virtual ~MainMenuState();
 
 	// Update
 	void updateInput(const float& deltaTime);

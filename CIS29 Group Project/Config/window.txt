@@ -1,4 +1,4 @@
 CIS29 Group Project
-800 600
+1280 720
 120
 0
