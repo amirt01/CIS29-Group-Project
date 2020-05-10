@@ -182,6 +182,9 @@
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\State.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Images\temp_background.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

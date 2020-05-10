@@ -8,6 +8,9 @@ private:
 	// Variables
 	sf::RenderWindow* renderWindow;
 	sf::Event event;
+	std::vector<sf::VideoMode> videoModes;
+	sf::ContextSettings windowSettings;
+	bool fullscreen;
 
 	// Delta Time
 	sf::Clock deltaTimeClock;

@@ -7,6 +7,11 @@ class GameState :
 {
 protected:
 	std::stack<State*>* states;
+	sf::RectangleShape background;
+	sf::Texture backgroundTexture;
+
+	// Initializers
+	void initializeBackground();
 public:
 	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
