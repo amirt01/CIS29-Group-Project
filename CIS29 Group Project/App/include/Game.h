@@ -11,6 +11,7 @@ private:
 	std::vector<sf::VideoMode> videoModes;
 	sf::ContextSettings windowSettings;
 	bool fullscreen;
+	std::map<std::string, int> keyboard;
 
 	// Delta Time
 	sf::Clock deltaTimeClock;

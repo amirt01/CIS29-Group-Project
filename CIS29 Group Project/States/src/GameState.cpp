@@ -4,8 +4,7 @@
 //Initializers
 void GameState::initializeBackground()
 {
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-		static_cast<float>(renderWindow->getSize().y)));
+	background.setSize(sf::Vector2f(renderWindow->getSize().x, renderWindow->getSize().y));
 
 	if (!backgroundTexture.loadFromFile("Resources/Images/temp_background.jpg"))
 	{

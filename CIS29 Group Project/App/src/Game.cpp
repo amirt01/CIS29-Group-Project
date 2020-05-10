@@ -58,8 +58,8 @@ void Game::initializeWindow()
     else
         renderWindow = new sf::RenderWindow(window_bounds, game_title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
 
-    this->renderWindow->setFramerateLimit(framerate_limit);
-    this->renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
+    renderWindow->setFramerateLimit(framerate_limit);
+    renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
 }
 
 void Game::initializeStates()
