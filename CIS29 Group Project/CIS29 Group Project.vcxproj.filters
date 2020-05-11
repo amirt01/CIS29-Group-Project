@@ -33,6 +33,9 @@
     <ClCompile Include="States\src\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\src\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -50,8 +53,17 @@
     <ClInclude Include="States\include\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GUI\include\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Config\render_window_settings.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Images\main_menu_background.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="Resources\Images\temp_background.jpg">
       <Filter>Resource Files</Filter>
     </Image>

@@ -10,6 +10,10 @@ protected:
 
 	std::stack<State*>* states;
 
+	sf::Vector2i mousePosScreen;
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
+
 public:
 	// Constructors/Destructors
 	State(sf::RenderWindow* renderWindow, std::stack<State*>* states);
@@ -20,6 +24,7 @@ public:
 	void quitState();
 
 	// Update
+	virtual void updateMousePositions();
 	virtual void updateInput(const float& deltaTime) = 0;
 	virtual void updateState(const float& deltaTime) = 0;
 

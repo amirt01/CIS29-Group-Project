@@ -12,7 +12,7 @@ void Game::initializeVariables()
 
 void Game::initializeWindow()
 {
-    std::ifstream fin("Config/window.txt");
+    std::ifstream fin("Config/render_window_settings.txt");
     
     /*
     Game Title
