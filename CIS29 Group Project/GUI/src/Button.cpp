@@ -17,15 +17,15 @@ Button::Button(float x, float y, float width, float height, sf::Font* font, std:
 	this->text.setString(text);
 	this->text.setCharacterSize(32);
 	this->text.setPosition(
-		(this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
-		(this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f) - (this->text.getGlobalBounds().height * 1.7 / 2.f)
+		(shape.getPosition().x + shape.getGlobalBounds().width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
+		(shape.getPosition().y + shape.getGlobalBounds().height / 2.f) - (this->text.getGlobalBounds().height * 1.7 / 2.f)
 	);
 
 	//Color
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
-	this->shape.setFillColor(this->idleColor);
+	shape.setFillColor(idleColor);
 }
 
 Button::~Button()
@@ -45,42 +45,42 @@ void Button::update(const sf::Vector2f mousePos)
 	/*Update the booleans for hover and pressed*/
 
 	//Idle
-	this->buttonState = BTN_IDLE;
+	buttonState = BTN_IDLE;
 
 	//Hover
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (shape.getGlobalBounds().contains(mousePos))
 	{
-		this->buttonState = BTN_HOVER;
+		buttonState = BTN_HOVER;
 		//Pressed
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			this->buttonState = BTN_ACTIVE;
+			buttonState = BTN_ACTIVE;
 		}
 	}
 
-	switch (this->buttonState)
+	switch (buttonState)
 	{
 	case BTN_IDLE:
-		this->shape.setFillColor(this->idleColor);
+		shape.setFillColor(idleColor);
 		break;
 
 	case BTN_HOVER:
-		this->shape.setFillColor(this->hoverColor);
+		shape.setFillColor(hoverColor);
 		break;
 
 	case BTN_ACTIVE:
-		this->shape.setFillColor(this->activeColor);
+		shape.setFillColor(activeColor);
 		break;
 
 	default:
-		this->shape.setFillColor(sf::Color::Red);
+		shape.setFillColor(sf::Color::Red);
 		break;
 	}
 }
 
 void Button::render(sf::RenderTarget* target)
 {
-	target->draw(this->shape);
+	target->draw(shape);
 
-	target->draw(this->text);
+	target->draw(text);
 }

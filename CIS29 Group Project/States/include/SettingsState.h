@@ -3,26 +3,24 @@
 #include "State.h"
 #include "Button.h"
 
-class MainMenuState :
+class SettingsState :
 	public State
 {
 private:
-	//Variables
+	// Variables
 	sf::Texture backgrounTexture;
 	sf::RectangleShape background;
 	sf::Font font;
 
 	std::map<std::string, Button*> buttons;
-
+	// Functions
 	// Initializers
 	void initializeBackground();
 	void initializeFonts();
 	void initializeButtons();
-
 public:
-	// Constructors/Destructors
-	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
-	virtual ~MainMenuState();
+	SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	~SettingsState();
 
 	// Update
 	void updateInput();
@@ -33,3 +31,4 @@ public:
 	void renderButtons(sf::RenderTarget* renderTarget);
 	void renderState(sf::RenderTarget* renderTarget = nullptr);
 };
+

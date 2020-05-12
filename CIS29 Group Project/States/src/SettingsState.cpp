@@ -1,10 +1,7 @@
 #include "stdafx.h"
-#include "MainMenuState.h"
-#include "GameState.h"
 #include "SettingsState.h"
 
-// Initializers
-void MainMenuState::initializeBackground()
+void SettingsState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 									static_cast<float>(renderWindow->getSize().y)));
@@ -17,7 +14,7 @@ void MainMenuState::initializeBackground()
 	background.setTexture(&backgrounTexture);
 }
 
-void MainMenuState::initializeFonts()
+void SettingsState::initializeFonts()
 {
 	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
 	{
@@ -25,24 +22,14 @@ void MainMenuState::initializeFonts()
 	}
 }
 
-void MainMenuState::initializeButtons()
+void SettingsState::initializeButtons()
 {
-	buttons["GAME_STATE"] = new Button(220, 250, 150, 50,
-		&font, "New Game",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["SETTINGS"] = new Button(220, 350, 150, 50,
-		&font, "Settings",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
 	buttons["EXIT_STATE"] = new Button(220, 450, 150, 50,
-		&font, "Quit",
+		&font, "Main Menu",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-
-// Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
+SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states)
 {
 	initializeBackground();
@@ -50,7 +37,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 	initializeButtons();
 }
 
-MainMenuState::~MainMenuState()
+SettingsState::~SettingsState()
 {
 	auto it = buttons.begin();
 	for (it = buttons.begin(); it != buttons.end(); ++it)
@@ -61,13 +48,13 @@ MainMenuState::~MainMenuState()
 
 /* Functions */
 // Update
-void MainMenuState::updateInput()
+void SettingsState::updateInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::G))
-		states->push(new GameState(renderWindow, states));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+		quitState();
 }
 
-void MainMenuState::updateButtons()
+void SettingsState::updateButtons()
 {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons)
@@ -75,15 +62,6 @@ void MainMenuState::updateButtons()
 		it.second->update(mousePosView);
 	}
 
-	//New Game
-	if (buttons["GAME_STATE"]->isPressed())
-	{
-		states->push(new GameState(renderWindow, states));
-	}
-	if (buttons["SETTINGS"]->isPressed())
-	{
-		states->push(new SettingsState(renderWindow, states));
-	}
 	//Quit This Game
 	if (buttons["EXIT_STATE"]->isPressed())
 	{
@@ -92,7 +70,7 @@ void MainMenuState::updateButtons()
 }
 
 
-void MainMenuState::updateState()
+void SettingsState::updateState()
 {
 	updateInput();
 	updateMousePositions();
@@ -101,7 +79,7 @@ void MainMenuState::updateState()
 }
 
 // Render
-void MainMenuState::renderButtons(sf::RenderTarget* target)
+void SettingsState::renderButtons(sf::RenderTarget* target)
 {
 	for (auto& it : buttons)
 	{
@@ -109,7 +87,7 @@ void MainMenuState::renderButtons(sf::RenderTarget* target)
 	}
 }
 
-void MainMenuState::renderState(sf::RenderTarget* renderTarget)
+void SettingsState::renderState(sf::RenderTarget* renderTarget)
 {
 
 	if (!renderTarget)

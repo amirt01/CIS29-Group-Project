@@ -118,7 +118,7 @@ void Game::updateGame()
 
     if (!states.empty())
     {
-        states.top()->updateState(deltaTime);
+        states.top()->updateState();
         if (states.top()->getQuit())
         {
             states.top()->quitState();

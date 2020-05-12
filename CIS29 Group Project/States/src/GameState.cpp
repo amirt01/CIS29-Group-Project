@@ -28,7 +28,7 @@ GameState::~GameState()
 
 /* Functions */
 // Update
-void GameState::updateInput(const float& deltaTime)
+void GameState::updateInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
@@ -36,9 +36,9 @@ void GameState::updateInput(const float& deltaTime)
 	}
 }
 
-void GameState::updateState(const float& deltaTime)
+void GameState::updateState()
 {
-	updateInput(deltaTime);
+	updateInput();
 
 	std::cout << "Running GameState" << std::endl;
 }
