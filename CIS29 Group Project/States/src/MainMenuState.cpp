@@ -1,62 +1,55 @@
 #include "stdafx.h"
 #include "MainMenuState.h"
 #include "GameState.h"
-#include "SettingsState.h"
 
 // Initializers
 void MainMenuState::initializeBackground()
 {
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-									static_cast<float>(renderWindow->getSize().y)));
+	this->background.setSize(sf::Vector2f(static_cast<float>(this->renderWindow->getSize().x),
+		static_cast<float>(this->renderWindow->getSize().y)));
 
-	if (!backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
+	if (!this->backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
-	background.setTexture(&backgrounTexture);
+	this->background.setTexture(&this->backgrounTexture);
 }
 
 void MainMenuState::initializeFonts()
 {
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-	{
+	if (!this->font.loadFromFile("Resources/Fonts/Motorless-Default.ttf"))
+	{ 
 		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
 	}
 }
 
 void MainMenuState::initializeButtons()
 {
-	buttons["GAME_STATE"] = new gui::Button(220, 250, 150, 50,
-		&font, "New Game",
+	this->buttons["GAME_STATE"] = new gui::Button(220, 250, 150, 50,
+		&this->font, "new game",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
-		&font, "Settings",
+	this->buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
+		&this->font, "settings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
-		&font, "Quit",
+	this->buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
+		&this->font, "quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
-
 
 // Constructors/Destructors
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states)
 {
-	initializeBackground();
-	initializeFonts();
-	initializeButtons();
+	this->initializeBackground();
+	this->initializeFonts();
+	this->initializeButtons();
 }
 
 MainMenuState::~MainMenuState()
 {
-	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it)
-	{
-		delete it->second;
-	}
 }
 
 /* Functions */
@@ -70,24 +63,21 @@ void MainMenuState::updateInput(unsigned short keyCode)
 void MainMenuState::updateButtons()
 {
 	/*Updates all the buttons in the state and handles their functionality*/
-	for (auto& it : buttons)
+	for (auto& it : this->buttons)
 	{
-		it.second->update(mousePosView);
+		it.second->update(this->mousePosView);
 	}
 
 	//New Game
-	if (buttons["GAME_STATE"]->isPressed())
+	if (this->buttons["GAME_STATE"]->isPressed())
 	{
-		states->push(new GameState(renderWindow, states));
+		this->states->push(new GameState(this->renderWindow, this->states));
 	}
-	if (buttons["SETTINGS"]->isPressed())
-	{
-		states->push(new SettingsState(renderWindow, states));
-	}
+
 	//Quit This Game
-	if (buttons["EXIT_STATE"]->isPressed())
+	if (this->buttons["EXIT_STATE"]->isPressed())
 	{
-		quitState();
+		this->quitState();
 	}
 }
 
@@ -100,11 +90,11 @@ void MainMenuState::updateState(const float& deltaTime)
 }
 
 // Render
-void MainMenuState::renderButtons(sf::RenderTarget* renderTarget)
+void MainMenuState::renderButtons(sf::RenderTarget* target)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(renderTarget);
+		it.second->render(target);
 	}
 }
 
@@ -112,10 +102,10 @@ void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 {
 
 	if (!renderTarget)
-		renderTarget = renderWindow;
+		renderTarget = this->renderWindow;
 
 	renderTarget->draw(background);
 
-	renderTarget->draw(background);
-	renderButtons(renderTarget);
+	renderTarget->draw(this->background);
+	this->renderButtons(renderTarget);
 }

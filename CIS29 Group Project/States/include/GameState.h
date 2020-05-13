@@ -1,6 +1,8 @@
 #pragma once
 
 #include "State.h"
+#include "Enemy.h"
+#include "Player.h"
 
 class GameState :
 	public State
@@ -10,8 +12,15 @@ protected:
 	sf::RectangleShape background;
 	sf::Texture backgroundTexture;
 
+	std::map<std::string, sf::Texture> textures;
+
+	Enemy* enemy;
+	Player* player;
+
 	// Initializers
+	void initializePlayer();
 	void initializeBackground();
+	void initializeTextures();
 public:
 	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
