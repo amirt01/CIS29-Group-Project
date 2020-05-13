@@ -27,15 +27,15 @@ void MainMenuState::initializeFonts()
 
 void MainMenuState::initializeButtons()
 {
-	buttons["GAME_STATE"] = new Button(220, 250, 150, 50,
+	buttons["GAME_STATE"] = new gui::Button(220, 250, 150, 50,
 		&font, "New Game",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["SETTINGS"] = new Button(220, 350, 150, 50,
+	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
 		&font, "Settings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["EXIT_STATE"] = new Button(220, 450, 150, 50,
+	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
@@ -101,11 +101,11 @@ void MainMenuState::updateState()
 }
 
 // Render
-void MainMenuState::renderButtons(sf::RenderTarget* target)
+void MainMenuState::renderButtons(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(target);
+		it.second->render(renderTarget);
 	}
 }
 

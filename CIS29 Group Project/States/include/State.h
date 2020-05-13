@@ -7,6 +7,7 @@ protected:
 	std::vector<sf::Texture> texture;
 	
 	bool quit;
+	bool paused;
 
 	std::stack<State*>* states;
 

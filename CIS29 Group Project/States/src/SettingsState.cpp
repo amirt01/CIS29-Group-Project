@@ -24,7 +24,7 @@ void SettingsState::initializeFonts()
 
 void SettingsState::initializeButtons()
 {
-	buttons["EXIT_STATE"] = new Button(220, 450, 150, 50,
+	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Main Menu",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
@@ -79,15 +79,15 @@ void SettingsState::updateState()
 }
 
 // Render
-void SettingsState::renderButtons(sf::RenderTarget* target)
+void SettingsState::renderButtons(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(target);
+		it.second->render(renderTarget);
 	}
 }
 
-void SettingsState::renderState(sf::RenderTarget* renderTarget)
+void SettingsState::renderState(sf::RenderTarget *renderTarget)
 {
 
 	if (!renderTarget)

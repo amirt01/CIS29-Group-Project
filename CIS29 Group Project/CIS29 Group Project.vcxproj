@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CIS29GroupProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -96,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\GUI\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -112,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\GUI\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -130,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\GUI\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -138,7 +139,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -150,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\GUI\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -158,7 +159,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -171,7 +172,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="GUI\src\Button.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
@@ -180,7 +180,6 @@
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
     <ClInclude Include="App\include\stdafx.h" />
-    <ClInclude Include="GUI\include\Button.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
@@ -192,6 +191,11 @@
   <ItemGroup>
     <Image Include="Resources\Images\main_menu_background.jpg" />
     <Image Include="Resources\Images\temp_background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GUI\GUI.vcxproj">
+      <Project>{fdf06b84-6fd5-4782-8238-c78cdc0eeef0}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "State.h"
-#include "Button.h"
+#include "GUI.h"
 
 class SettingsState :
 	public State
@@ -12,7 +12,8 @@ private:
 	sf::RectangleShape background;
 	sf::Font font;
 
-	std::map<std::string, Button*> buttons;
+	std::map<std::string, gui::Button*> buttons;
+
 	// Functions
 	// Initializers
 	void initializeBackground();
@@ -29,6 +30,6 @@ public:
 
 	// Render
 	void renderButtons(sf::RenderTarget* renderTarget);
-	void renderState(sf::RenderTarget* renderTarget = nullptr);
+	void renderState(sf::RenderTarget* renderTarget);
 };
 
