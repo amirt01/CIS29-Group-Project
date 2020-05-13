@@ -48,9 +48,9 @@ SettingsState::~SettingsState()
 
 /* Functions */
 // Update
-void SettingsState::updateInput()
+void SettingsState::updateInput(unsigned short keyCode)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+	if (sf::Keyboard::Key::Escape == keyCode)
 		quitState();
 }
 
@@ -70,9 +70,8 @@ void SettingsState::updateButtons()
 }
 
 
-void SettingsState::updateState()
+void SettingsState::updateState(const float& deltaTime)
 {
-	updateInput();
 	updateMousePositions();
 	updateButtons();
 	std::cout << "Running MainMenuState" << std::endl;

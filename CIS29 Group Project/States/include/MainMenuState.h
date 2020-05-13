@@ -25,9 +25,9 @@ public:
 	virtual ~MainMenuState();
 
 	// Update
-	void updateInput();
+	void updateInput(unsigned short keyCode);
 	void updateButtons();
-	void updateState();
+	void updateState(const float& deltaTime);
 
 	// Render
 	void renderButtons(sf::RenderTarget* renderTarget);

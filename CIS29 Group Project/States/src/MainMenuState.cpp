@@ -61,9 +61,9 @@ MainMenuState::~MainMenuState()
 
 /* Functions */
 // Update
-void MainMenuState::updateInput()
+void MainMenuState::updateInput(unsigned short keyCode)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::G))
+	if (sf::Keyboard::Key::G == keyCode)
 		states->push(new GameState(renderWindow, states));
 }
 
@@ -92,9 +92,8 @@ void MainMenuState::updateButtons()
 }
 
 
-void MainMenuState::updateState()
+void MainMenuState::updateState(const float& deltaTime)
 {
-	updateInput();
 	updateMousePositions();
 	updateButtons();
 	std::cout << "Running MainMenuState" << std::endl;

@@ -26,8 +26,8 @@ public:
 
 	// Update
 	virtual void updateMousePositions();
-	virtual void updateInput() = 0;
-	virtual void updateState() = 0;
+	virtual void updateInput(unsigned short keyCode) = 0;
+	virtual void updateState(const float& deltaTime) = 0;
 
 	// Render
 	virtual void renderState(sf::RenderTarget* renderTarget = nullptr) = 0;

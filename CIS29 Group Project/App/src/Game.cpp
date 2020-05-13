@@ -13,7 +13,7 @@ void Game::initializeVariables()
 void Game::initializeWindow()
 {
     std::ifstream fin("Config/render_window_settings.txt");
-    
+
     /*
     Game Title
     render window width _ render window height
@@ -22,7 +22,7 @@ void Game::initializeWindow()
     vertical sync enabled
     antialiasing
     */
-    
+
     std::string game_title = "DEFAULT";
     sf::VideoMode render_window_bounds(1280, 720);
     bool fullscreen = false;
@@ -43,7 +43,7 @@ void Game::initializeWindow()
     else
     {
         std::cout << "Error reading file window setting's file. "
-                  << "Loading default settings..." << std::endl;
+            << "Loading default settings..." << std::endl;
         system("PAUSE");
     }
 
@@ -77,7 +77,7 @@ Game::Game()
 
 Game::~Game()
 {
-	delete renderWindow;
+    delete renderWindow;
 
     while (!states.empty())
     {
@@ -107,8 +107,15 @@ void Game::updateSFMLEvents()
     sf::Event event;
     while (renderWindow->pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        switch (event.type)
+        {
+        case(sf::Event::Closed):
             renderWindow->close();
+        case(sf::Event::EventType::KeyPressed):
+            states.top()->updateInput(event.key.code);
+        default:
+            break;
+        }
     }
 }
 
@@ -118,7 +125,7 @@ void Game::updateGame()
 
     if (!states.empty())
     {
-        states.top()->updateState();
+        states.top()->updateState(deltaTime);
         if (states.top()->getQuit())
         {
             states.top()->quitState();
@@ -138,7 +145,7 @@ void Game::updateGame()
 void Game::renderGame()
 {
     renderWindow->clear();
-    
+
     if (!states.empty())
         states.top()->renderState(renderWindow);
 
@@ -149,9 +156,11 @@ void Game::runGame()
 {
     while (renderWindow->isOpen())
     {
+        sf::Event event;
+
         updateDeltaTime();
-		updateSFMLEvents();
-		updateGame();
-		renderGame();
+        updateSFMLEvents();
+        updateGame();
+        renderGame();
     }
 }

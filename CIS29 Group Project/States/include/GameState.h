@@ -18,8 +18,8 @@ public:
 	virtual ~GameState();
 
 	// Update
-	void updateInput();
-	void updateState();
+	void updateInput(unsigned short keyCode);
+	void updateState(const float& deltaTime);
 
 	// Render
 	void renderState(sf::RenderTarget* renderTarget = nullptr);

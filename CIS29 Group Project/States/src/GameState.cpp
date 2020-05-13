@@ -28,17 +28,28 @@ GameState::~GameState()
 
 /* Functions */
 // Update
-void GameState::updateInput()
+void GameState::updateInput(unsigned short keyCode)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::Escape == keyCode)
 	{
 		quitState();
 	}
+	if (sf::Keyboard::W == keyCode ||
+		sf::Keyboard::Up == keyCode)
+	{
+		// MOVE UP
+	}
+	else if (sf::Keyboard::D == keyCode ||
+		sf::Keyboard::Down == keyCode)
+	{
+		// MOVE DOWN
+	}
 }
 
-void GameState::updateState()
+void GameState::updateState(const float& deltaTime)
 {
-	updateInput();
+	// MOVE ENEMY
+	// UPDATE ENEMY
 
 	std::cout << "Running GameState" << std::endl;
 }
