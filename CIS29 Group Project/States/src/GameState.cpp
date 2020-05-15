@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "GameState.h"
 
+void GameState::togglePause()
+{
+	paused = !paused;
+}
+
 //Initializers
 void GameState::initializeBackground()
 {
@@ -16,8 +21,9 @@ void GameState::initializeBackground()
 
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+	: State(renderWindow, states), pauseState(renderWindow, states)
 {
+	paused = false;
 	this->states = states;
 	initializeBackground();
 }
@@ -28,11 +34,32 @@ GameState::~GameState()
 
 /* Functions */
 // Update
+
+
+void GameState::updateButtons()
+{
+	if (paused)
+	{
+		if (pauseState.isButtonPressed("RESUME"))
+		{
+			togglePause();
+		}
+		//Quit This Game
+		if (pauseState.isButtonPressed("QUIT"))
+		{
+			quitState();
+		}
+	}
+}
+
 void GameState::updateInput(unsigned short keyCode)
 {
+	if (paused)
+		pauseState.updateInput(keyCode);
+
 	if (sf::Keyboard::Escape == keyCode)
 	{
-		quitState();
+		togglePause();
 	}
 	if (sf::Keyboard::W == keyCode ||
 		sf::Keyboard::Up == keyCode)
@@ -48,14 +75,28 @@ void GameState::updateInput(unsigned short keyCode)
 
 void GameState::updateState(const float& deltaTime)
 {
-	// MOVE ENEMY
-	// UPDATE ENEMY
-
+	if (!paused)
+	{
+		// MOVE ENEMY
+		// UPDATE ENEMY
+	}
+	else
+	{
+		pauseState.updateState(deltaTime);
+		updateButtons();
+	}
 	std::cout << "Running GameState" << std::endl;
 }
 
 // Render
 void GameState::renderState(sf::RenderTarget* renderTarget)
 {
+	if (!renderTarget)
+		renderTarget = renderWindow;
+
 	renderTarget->draw(background);
+	if (paused)
+	{
+		pauseState.renderState(renderTarget);
+	}
 }

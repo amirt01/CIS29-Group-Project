@@ -5,11 +5,17 @@ void PauseState::initializeBackground() {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 									static_cast<float>(renderWindow->getSize().y)));
 
-	if (!backgroundTexture.loadFromFile("Resources/Images/main_menu_background.jpg")) {
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
+	background.setFillColor(sf::Color(20, 20, 20, 100));
+}
 
-	background.setTexture(&backgroundTexture);
+void PauseState::initializeContainer()
+{
+	container.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x) / 4.f,
+								   static_cast<float>(renderWindow->getSize().y)));
+
+	container.setFillColor(sf::Color(20, 20, 20, 200));
+	
+	container.setPosition(static_cast<float>(renderWindow->getSize().x) / 2.f - container.getSize().x / 2.f, 0);
 }
 
 void PauseState::initializeFonts() {
@@ -19,13 +25,22 @@ void PauseState::initializeFonts() {
 }
 
 void PauseState::initializeButtons() {
-	buttons["RESUME"] = new gui::Button(220, 450, 150, 50, &font, "Resume", sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	buttons["QUIT"] = new gui::Button(420, 450, 150, 50, &font, "Quit", sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	float width = 250.f;
+	float height = 100.f;
+	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
+
+	buttons["RESUME"] = new gui::Button(x, 200, width, height,
+						&font, "Resume",
+						sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	buttons["QUIT"] = new gui::Button(x, 400, width, height,
+					  &font, "Quit",
+					  sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 PauseState::PauseState(sf::RenderWindow * renderWindow, std::stack<State *> * states)
 	: State(renderWindow, states) {
 	initializeBackground();
+	initializeContainer();
 	initializeFonts();
 	initializeButtons();
 }
@@ -38,10 +53,14 @@ PauseState::~PauseState() {
 }
 
 /* Functions */
+const bool PauseState::isButtonPressed(std::string Button)
+{
+	return buttons[Button]->isPressed();
+}
+
 // Update
 void PauseState::updateInput(unsigned short keyCode) {
-	if (sf::Keyboard::Key::Escape == keyCode)
-		quitState();
+	// Any Unique Pause State Keyboard Input
 }
 
 void PauseState::updateButtons() {
@@ -49,18 +68,13 @@ void PauseState::updateButtons() {
 	for (auto & it : buttons) {
 		it.second->update(mousePosView);
 	}
-
-	//Resume or Quit This Game
-	if (buttons["RESUME"]->isPressed() || buttons["QUIT"]->isPressed()) {
-		quitState();
-	}
 }
-
 
 void PauseState::updateState(const float & deltaTime) {
 	updateMousePositions();
 	updateButtons();
-	std::cout << "Running MainMenuState" << std::endl;
+
+	std::cout << "Running PauseState" << std::endl;
 }
 
 // Render
@@ -71,12 +85,9 @@ void PauseState::renderButtons(sf::RenderTarget * renderTarget) {
 }
 
 void PauseState::renderState(sf::RenderTarget * renderTarget) {
-
 	if (!renderTarget)
 		renderTarget = renderWindow;
-
 	renderTarget->draw(background);
-
-	renderTarget->draw(background);
+	renderTarget->draw(container);
 	renderButtons(renderTarget);
 }
