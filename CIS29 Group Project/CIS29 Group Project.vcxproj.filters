@@ -73,5 +73,11 @@
     <Image Include="Resources\Images\temp_background.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\GameBackground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\MainMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

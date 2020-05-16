@@ -191,6 +191,8 @@
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\GameBackground.png" />
+    <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>

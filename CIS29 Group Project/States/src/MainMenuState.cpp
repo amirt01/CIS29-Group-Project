@@ -9,7 +9,7 @@ void MainMenuState::initializeBackground()
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 									static_cast<float>(renderWindow->getSize().y)));
 
-	if (!backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
+	if (!backgrounTexture.loadFromFile("Resources/Images/MainMenu.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}

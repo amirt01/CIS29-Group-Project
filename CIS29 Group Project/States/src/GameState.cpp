@@ -11,7 +11,7 @@ void GameState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(renderWindow->getSize().x, renderWindow->getSize().y));
 
-	if (!backgroundTexture.loadFromFile("Resources/Images/temp_background.jpg"))
+	if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
