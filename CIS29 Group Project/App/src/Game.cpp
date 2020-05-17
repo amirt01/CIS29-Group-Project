@@ -156,8 +156,6 @@ void Game::runGame()
 {
     while (renderWindow->isOpen())
     {
-        sf::Event event;
-
         updateDeltaTime();
         updateSFMLEvents();
         updateGame();

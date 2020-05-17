@@ -22,11 +22,14 @@ void SettingsState::initializeFonts()
 	}
 }
 
-void SettingsState::initializeButtons()
+void SettingsState::initializeGUI()
 {
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Main Menu",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+
+	std::string li[] = { "test 1", "test 2", "test 3", "test 4", "test 5" };
 }
 
 SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
@@ -34,7 +37,7 @@ SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>*
 {
 	initializeBackground();
 	initializeFonts();
-	initializeButtons();
+	initializeGUI();
 }
 
 SettingsState::~SettingsState()
@@ -54,7 +57,7 @@ void SettingsState::updateInput(unsigned short keyCode)
 		quitState();
 }
 
-void SettingsState::updateButtons()
+void SettingsState::updateGUI(const float& deltaTime)
 {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons)
@@ -73,12 +76,12 @@ void SettingsState::updateButtons()
 void SettingsState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
-	updateButtons();
+	updateGUI(deltaTime);
 	std::cout << "Running MainMenuState" << std::endl;
 }
 
 // Render
-void SettingsState::renderButtons(sf::RenderTarget* renderTarget)
+void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -95,5 +98,5 @@ void SettingsState::renderState(sf::RenderTarget *renderTarget)
 	renderTarget->draw(background);
 
 	renderTarget->draw(background);
-	renderButtons(renderTarget);
+	renerGUI(renderTarget);
 }

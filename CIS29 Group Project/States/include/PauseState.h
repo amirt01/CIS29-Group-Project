@@ -21,19 +21,19 @@ private:
 	void initializeBackground();
 	void initializeContainer();
 	void initializeFonts();
-	void initializeButtons();
+	void initializeGUI();
 public:
 	PauseState(sf::RenderWindow * renderWindow, std::stack<State *> * states);
 	~PauseState();
 
 	// Update
-	void updateButtons();
+	void updateGUI();
 	void updateInput(unsigned short keyCode);
 	void updateState(const float & deltaTime);
 
 	// Render
 	const bool isButtonPressed(std::string Button);
-	void renderButtons(sf::RenderTarget * renderTarget);
+	void renerGUI(sf::RenderTarget * renderTarget);
 	void renderState(sf::RenderTarget * renderTarget);
 };
 

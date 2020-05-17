@@ -24,7 +24,7 @@ void PauseState::initializeFonts() {
 	}
 }
 
-void PauseState::initializeButtons() {
+void PauseState::initializeGUI() {
 	float width = 250.f;
 	float height = 100.f;
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
@@ -42,7 +42,7 @@ PauseState::PauseState(sf::RenderWindow * renderWindow, std::stack<State *> * st
 	initializeBackground();
 	initializeContainer();
 	initializeFonts();
-	initializeButtons();
+	initializeGUI();
 }
 
 PauseState::~PauseState() {
@@ -63,7 +63,7 @@ void PauseState::updateInput(unsigned short keyCode) {
 	// Any Unique Pause State Keyboard Input
 }
 
-void PauseState::updateButtons() {
+void PauseState::updateGUI() {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto & it : buttons) {
 		it.second->update(mousePosView);
@@ -72,13 +72,13 @@ void PauseState::updateButtons() {
 
 void PauseState::updateState(const float & deltaTime) {
 	updateMousePositions();
-	updateButtons();
+	updateGUI();
 
 	std::cout << "Running PauseState" << std::endl;
 }
 
 // Render
-void PauseState::renderButtons(sf::RenderTarget * renderTarget) {
+void PauseState::renerGUI(sf::RenderTarget * renderTarget) {
 	for (auto & it : buttons) {
 		it.second->render(renderTarget);
 	}
@@ -89,5 +89,5 @@ void PauseState::renderState(sf::RenderTarget * renderTarget) {
 		renderTarget = renderWindow;
 	renderTarget->draw(background);
 	renderTarget->draw(container);
-	renderButtons(renderTarget);
+	renerGUI(renderTarget);
 }

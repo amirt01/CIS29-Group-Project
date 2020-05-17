@@ -17,7 +17,7 @@ private:
 	// Initializers
 	void initializeBackground();
 	void initializeFonts();
-	void initializeButtons();
+	void initializeGUI();
 
 public:
 	// Constructors/Destructors
@@ -26,10 +26,10 @@ public:
 
 	// Update
 	void updateInput(unsigned short keyCode);
-	void updateButtons();
+	void updateGUI();
 	void updateState(const float& deltaTime);
 
 	// Render
-	void renderButtons(sf::RenderTarget* renderTarget);
+	void renerGUI(sf::RenderTarget* renderTarget);
 	void renderState(sf::RenderTarget* renderTarget = nullptr);
 };

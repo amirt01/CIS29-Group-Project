@@ -13,23 +13,24 @@ private:
 	sf::Font font;
 
 	std::map<std::string, gui::Button*> buttons;
+	std::map<std::string, gui::DropDownMenu*> dropDownMenus;
 
 	// Functions
 	// Initializers
 	void initializeBackground();
 	void initializeFonts();
-	void initializeButtons();
+	void initializeGUI();
 public:
 	SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	~SettingsState();
 
 	// Update
 	void updateInput(unsigned short keyCode);
-	void updateButtons();
+	void updateGUI(const float& deltaTime);
 	void updateState(const float& deltaTime);
 
 	// Render
-	void renderButtons(sf::RenderTarget* renderTarget);
+	void renerGUI(sf::RenderTarget* renderTarget);
 	void renderState(sf::RenderTarget* renderTarget);
 };
 

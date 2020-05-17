@@ -36,7 +36,7 @@ GameState::~GameState()
 // Update
 
 
-void GameState::updateButtons()
+void GameState::updateGUI()
 {
 	if (paused)
 	{
@@ -83,7 +83,7 @@ void GameState::updateState(const float& deltaTime)
 	else
 	{
 		pauseState.updateState(deltaTime);
-		updateButtons();
+		updateGUI();
 	}
 	std::cout << "Running GameState" << std::endl;
 }

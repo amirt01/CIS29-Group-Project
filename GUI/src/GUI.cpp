@@ -98,4 +98,74 @@ namespace gui {
 	}
 
 	/************************* Drop Down List *************************/
+
+	DropDownMenu::DropDownMenu(float x, float y, float width, float height,
+		sf::Font& font, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index)
+		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(clickTimeMax)
+	{
+		for (size_t i = 0; i < numberOfElements; i++)
+		{
+			elements.push_back(new gui::Button(x, y + (i * height), width, height,
+				&font, listOfTexts[i],
+				sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)));
+		}
+
+		activeElement = new Button(*elements[default_index]);
+	}
+
+	DropDownMenu::~DropDownMenu()
+	{
+		delete activeElement;
+		for (auto& it : elements)
+			delete it;
+	}
+
+	const bool DropDownMenu::getClickTime()
+	{
+		if (clickTime >= clickTimeMax)
+		{
+			clickTime = 0.f;
+			return true;
+		}
+
+		return false;
+	}
+
+	void DropDownMenu::updateClickTime(const float& deltaTime)
+	{
+		if (clickTime < clickTimeMax)
+			clickTime += 10.f * deltaTime;
+	}
+
+	void DropDownMenu::update(const sf::Vector2f mousePos, const float& deltaTime)
+	{
+		updateClickTime(deltaTime);
+		activeElement->update(mousePos);
+
+		if (activeElement->isPressed() && getClickTime())
+		{
+			showMenu = !showMenu;
+		}
+
+		if (showMenu)
+		{
+			for (auto& it : elements)
+			{
+				it->update(mousePos);
+			}
+		}
+	}
+
+	void DropDownMenu::render(sf::RenderTarget* renderTarget)
+	{
+		activeElement->render(renderTarget);
+
+		if (showMenu)
+		{
+			for (auto& it : elements)
+			{
+				it->render(renderTarget);
+			}
+		}
+	}
 }

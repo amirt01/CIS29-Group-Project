@@ -23,7 +23,7 @@ public:
 	virtual ~GameState();
 
 	// Update
-	void updateButtons();
+	void updateGUI();
 	void updateInput(unsigned short keyCode);
 	void updateState(const float& deltaTime);
 

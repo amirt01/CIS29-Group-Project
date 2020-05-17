@@ -25,7 +25,7 @@ void MainMenuState::initializeFonts()
 	}
 }
 
-void MainMenuState::initializeButtons()
+void MainMenuState::initializeGUI()
 {
 	buttons["GAME_STATE"] = new gui::Button(220, 250, 150, 50,
 		&font, "New Game",
@@ -47,7 +47,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 {
 	initializeBackground();
 	initializeFonts();
-	initializeButtons();
+	initializeGUI();
 }
 
 MainMenuState::~MainMenuState()
@@ -67,7 +67,7 @@ void MainMenuState::updateInput(unsigned short keyCode)
 		states->push(new GameState(renderWindow, states));
 }
 
-void MainMenuState::updateButtons()
+void MainMenuState::updateGUI()
 {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons)
@@ -95,12 +95,12 @@ void MainMenuState::updateButtons()
 void MainMenuState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
-	updateButtons();
+	updateGUI();
 	std::cout << "Running MainMenuState" << std::endl;
 }
 
 // Render
-void MainMenuState::renderButtons(sf::RenderTarget* renderTarget)
+void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -117,5 +117,5 @@ void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 	renderTarget->draw(background);
 
 	renderTarget->draw(background);
-	renderButtons(renderTarget);
+	renerGUI(renderTarget);
 }
