@@ -133,6 +133,11 @@ namespace gui {
 		return false;
 	}
 
+	const std::string DropDownMenu::getActiveElementText()
+	{
+		return activeElement->getText();
+	}
+
 	void DropDownMenu::updateClickTime(const float& deltaTime)
 	{
 		if (clickTime < clickTimeMax)

@@ -31,7 +31,6 @@ namespace gui {
 
 		// Modifiers
 		void setText(const std::string text);
-		
 
 		//Functions
 		void update(const sf::Vector2f mousePos);
@@ -55,6 +54,8 @@ namespace gui {
 
 		//Functions
 		const bool getClickTime();
+		const std::string getActiveElementText();
+
 		void updateClickTime(const float& deltaTime);
 		void update(const sf::Vector2f mousePos, const float& deltaTime);
 		void render(sf::RenderTarget* renderTarget);

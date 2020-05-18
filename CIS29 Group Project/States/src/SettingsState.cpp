@@ -24,6 +24,10 @@ void SettingsState::initializeFonts()
 
 void SettingsState::initializeGUI()
 {
+	buttons["APPLY_SETTINGS"] = new gui::Button(700.f, 450.f, 150.f, 50.f,
+		&font, "Apply",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
 	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
 		&font, "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
@@ -72,7 +76,21 @@ void SettingsState::updateGUI(const float& deltaTime)
 		it.second->update(mousePosView);
 	}
 
-	//Quit This Game
+	// Apply Settings
+
+	/* THIS FUNCTION IS HELLA SCUFFED AND NEEDS TO BE UPDATED */
+	if (buttons["APPLY_SETTINGS"]->isPressed())
+	{
+		char width_str[10], height_str[10];
+
+		std::stringstream ss;
+		ss << dropDownMenus["RESOLUTION"]->getActiveElementText();
+		ss.getline(width_str, 10, 'x');
+		ss.getline(height_str, 10);
+		renderWindow->create(sf::VideoMode(atoi(width_str), atoi(height_str)), "test");
+	}
+
+	// Quit This Game
 	if (buttons["EXIT_STATE"]->isPressed())
 	{
 		quitState();
@@ -84,7 +102,6 @@ void SettingsState::updateGUI(const float& deltaTime)
 		it.second->update(mousePosView, deltaTime);
 	}
 }
-
 
 void SettingsState::updateState(const float& deltaTime)
 {
