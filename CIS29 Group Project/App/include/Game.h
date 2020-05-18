@@ -1,17 +1,15 @@
 #pragma once
 
 #include "State.h"
+#include "GraphicsSettings.h"
 
 class Game
 {
 private:
 	// Variables
+	GraphicsSettings graphicsSettings;
 	sf::RenderWindow* renderWindow;
 	sf::Event event;
-	std::vector<sf::VideoMode> videoModes;
-	sf::ContextSettings windowSettings;
-	bool fullscreen;
-	std::map<std::string, int> keyboard;
 
 	// Delta Time
 	sf::Clock deltaTimeClock;
@@ -22,6 +20,7 @@ private:
 
 	// Initialization
 	void initializeVariables();
+	void initGraphicsSettings();
 	void initializeWindow();
 	void initializeStates();
 

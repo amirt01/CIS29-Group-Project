@@ -42,8 +42,8 @@ void MainMenuState::initializeGUI()
 
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, GraphicsSettings& graphicsSettings, std::stack<State*>* states)
+	: State(renderWindow, states), graphicsSettings(graphicsSettings)
 {
 	initializeBackground();
 	initializeFonts();
@@ -82,7 +82,7 @@ void MainMenuState::updateGUI()
 	}
 	if (buttons["SETTINGS"]->isPressed())
 	{
-		states->push(new SettingsState(renderWindow, states));
+		states->push(new SettingsState(renderWindow, graphicsSettings, states));
 	}
 	//Quit This Game
 	if (buttons["EXIT_STATE"]->isPressed())

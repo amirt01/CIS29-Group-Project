@@ -36,8 +36,8 @@ void SettingsState::initializeGUI()
 	dropDownMenus["RESOLUTION"] = new gui::DropDownMenu(400.f, 200.f, 200.f, 50.f, font, resolutions, 3);
 }
 
-SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+SettingsState::SettingsState(sf::RenderWindow* renderWindow, GraphicsSettings& graphicsSettings, std::stack<State*>* states)
+	: State(renderWindow, states), graphicsSettings(graphicsSettings)
 {
 	initializeBackground();
 	initializeFonts();
@@ -87,7 +87,9 @@ void SettingsState::updateGUI(const float& deltaTime)
 		ss << dropDownMenus["RESOLUTION"]->getActiveElementText();
 		ss.getline(width_str, 10, 'x');
 		ss.getline(height_str, 10);
-		renderWindow->create(sf::VideoMode(atoi(width_str), atoi(height_str)), "test");
+		graphicsSettings.resolution = sf::VideoMode(atoi(width_str), atoi(height_str));
+
+		renderWindow->create(graphicsSettings.resolution, graphicsSettings.gameTitle, sf::Style::Titlebar | sf::Style::Close, graphicsSettings.contextSettings);
 	}
 
 	// Quit This Game

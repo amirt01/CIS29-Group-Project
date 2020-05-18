@@ -1,4 +1,7 @@
 #pragma once
+
+#include "GraphicsSettings.h"
+
 class State
 {
 protected:

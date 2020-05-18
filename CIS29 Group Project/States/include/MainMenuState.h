@@ -9,6 +9,7 @@ class MainMenuState :
 private:
 	//Variables
 	sf::Texture backgrounTexture;
+	GraphicsSettings& graphicsSettings;
 	sf::RectangleShape background;
 	sf::Font font;
 
@@ -21,7 +22,7 @@ private:
 
 public:
 	// Constructors/Destructors
-	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	MainMenuState(sf::RenderWindow* renderWindow, GraphicsSettings& graphicsSettings, std::stack<State*>* states);
 	virtual ~MainMenuState();
 
 	// Update

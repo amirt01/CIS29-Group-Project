@@ -9,6 +9,7 @@ class SettingsState :
 private:
 	// Variables
 	sf::Texture backgrounTexture;
+	GraphicsSettings& graphicsSettings;
 	sf::RectangleShape background;
 	sf::Font font;
 
@@ -21,7 +22,7 @@ private:
 	void initializeFonts();
 	void initializeGUI();
 public:
-	SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	SettingsState(sf::RenderWindow* renderWindow, GraphicsSettings& graphicsSettings,std::stack<State*>* states);
 	~SettingsState();
 
 	// Update

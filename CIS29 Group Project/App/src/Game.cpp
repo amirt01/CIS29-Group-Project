@@ -10,66 +10,33 @@ void Game::initializeVariables()
     deltaTime = 0.f;
 }
 
+void Game::initGraphicsSettings()
+{
+    graphicsSettings.loadFromFile("Config/render_window_settings.txt");
+}
+
 void Game::initializeWindow()
 {
-    std::ifstream fin("Config/render_window_settings.txt");
-
-    /*
-    Game Title
-    render window width _ render window height
-    fullscreen
-    framerate limit
-    vertical sync enabled
-    antialiasing
-    */
-
-    std::string game_title = "DEFAULT";
-    sf::VideoMode render_window_bounds(1280, 720);
-    bool fullscreen = false;
-    unsigned framerate_limit = 120;
-    sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-    bool vertical_sync_enabled = false;
-    unsigned antialiasing_level = 0;
-
-    if (fin.is_open())
-    {
-        std::getline(fin, game_title);
-        fin >> window_bounds.width >> window_bounds.height;
-        fin >> fullscreen;
-        fin >> framerate_limit;
-        fin >> vertical_sync_enabled;
-        fin >> antialiasing_level;
-    }
+    /* Creates a SFML window */
+    if (graphicsSettings.fullscreen)
+        renderWindow = new sf::RenderWindow(graphicsSettings.windowBounds, graphicsSettings.gameTitle, sf::Style::Fullscreen, graphicsSettings.contextSettings);
     else
-    {
-        std::cout << "Error reading file window setting's file. "
-            << "Loading default settings..." << std::endl;
-        system("PAUSE");
-    }
+        renderWindow = new sf::RenderWindow(graphicsSettings.resolution, graphicsSettings.gameTitle, sf::Style::Titlebar | sf::Style::Close, graphicsSettings.contextSettings);
 
-    fin.close();
-
-    /*Adjust window as needed*/
-    this->fullscreen = fullscreen;
-    this->windowSettings.antialiasingLevel = antialiasing_level;
-
-    if (fullscreen)
-        renderWindow = new sf::RenderWindow(window_bounds, game_title, sf::Style::Fullscreen, windowSettings);
-    else
-        renderWindow = new sf::RenderWindow(window_bounds, game_title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
-
-    renderWindow->setFramerateLimit(framerate_limit);
-    renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
+    renderWindow->setFramerateLimit(graphicsSettings.framerateLimit);
+    renderWindow->setVerticalSyncEnabled(graphicsSettings.verticalSyncEnabled);
 }
 
 void Game::initializeStates()
 {
-    states.push(new MainMenuState(renderWindow, &states));
+    states.push(new MainMenuState(renderWindow, graphicsSettings, &states));
 }
 
 // Constructor / Destructors
 Game::Game()
 {
+    initializeVariables();
+    initGraphicsSettings();
     initializeVariables();
     initializeWindow();
     initializeStates();
