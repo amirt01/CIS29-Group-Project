@@ -27,7 +27,7 @@ namespace gui {
 
 		// Accessors
 		const bool isPressed() const;
-		const std::string& getText() const;
+		const std::string getText() const;
 
 		// Modifiers
 		void setText(const std::string text);
@@ -60,4 +60,3 @@ namespace gui {
 		void render(sf::RenderTarget* renderTarget);
 	};
 }
-

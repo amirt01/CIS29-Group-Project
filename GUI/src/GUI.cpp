@@ -39,7 +39,7 @@ namespace gui {
 		return buttonState == BTN_ACTIVE;
 	}
 
-	const std::string& Button::getText() const
+	const std::string Button::getText() const
 	{
 		return text.getString();
 	}
@@ -101,16 +101,18 @@ namespace gui {
 
 	DropDownMenu::DropDownMenu(float x, float y, float width, float height,
 		sf::Font& font, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index)
-		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(clickTimeMax)
+		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(1.f)
 	{
+		activeElement = new gui::Button(x, y, width, height,
+			&font, listOfTexts[default_index],
+			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
 		for (size_t i = 0; i < numberOfElements; i++)
 		{
-			elements.push_back(new gui::Button(x, y + (i * height), width, height,
+			elements.push_back(new gui::Button(x, y + ((i+1) * height), width, height,
 				&font, listOfTexts[i],
 				sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)));
 		}
-
-		activeElement = new Button(*elements[default_index]);
 	}
 
 	DropDownMenu::~DropDownMenu()
@@ -152,6 +154,12 @@ namespace gui {
 			for (auto& it : elements)
 			{
 				it->update(mousePos);
+
+				if (it->isPressed() && getClickTime())
+				{
+					showMenu = false;
+					activeElement->setText(it->getText());
+				}
 			}
 		}
 	}

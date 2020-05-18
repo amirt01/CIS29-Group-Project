@@ -24,12 +24,12 @@ void SettingsState::initializeFonts()
 
 void SettingsState::initializeGUI()
 {
-	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
-		&font, "Main Menu",
+	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
+		&font, "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-
-	std::string li[] = { "test 1", "test 2", "test 3", "test 4", "test 5" };
+	std::string resolutions[] = { "1920x1080", "800x600", "640x480" };
+	dropDownMenus["RESOLUTION"] = new gui::DropDownMenu(400.f, 200.f, 200.f, 50.f, font, resolutions, 3);
 }
 
 SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
@@ -47,6 +47,12 @@ SettingsState::~SettingsState()
 	{
 		delete it->second;
 	}
+
+	auto it2 = dropDownMenus.begin();
+	for (it2 = dropDownMenus.begin(); it2 != dropDownMenus.end(); ++it2)
+	{
+		delete it2->second;
+	}
 }
 
 /* Functions */
@@ -59,7 +65,8 @@ void SettingsState::updateInput(unsigned short keyCode)
 
 void SettingsState::updateGUI(const float& deltaTime)
 {
-	/*Updates all the buttons in the state and handles their functionality*/
+	/*Updates all the GUI elements in the state and handles their functionality*/
+	// Buttons
 	for (auto& it : buttons)
 	{
 		it.second->update(mousePosView);
@@ -69,6 +76,12 @@ void SettingsState::updateGUI(const float& deltaTime)
 	if (buttons["EXIT_STATE"]->isPressed())
 	{
 		quitState();
+	}
+
+	// Drop Down Menus
+	for (auto& it : dropDownMenus)
+	{
+		it.second->update(mousePosView, deltaTime);
 	}
 }
 
@@ -84,6 +97,11 @@ void SettingsState::updateState(const float& deltaTime)
 void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
+	{
+		it.second->render(renderTarget);
+	}
+
+	for (auto& it : dropDownMenus)
 	{
 		it.second->render(renderTarget);
 	}
