@@ -2,7 +2,6 @@
 
 #include "GameState.h"
 
-enum level { TOP = 0, MIDDLE, BOTTOM };
 enum obsticle { MEDIUM = 0, LARGE, SMALL};
 
 class FreePlayState :
@@ -14,7 +13,6 @@ private:
 
 	sf::Clock GameClock;
 	sf::Clock spawnClock;
-	bool readyToSpawn;
 
 	// Initializers
 	void initializeVariables();
@@ -29,7 +27,6 @@ public:
 	~FreePlayState();
 
 	// Functions
-	
 	void updateState(const float& deltaTime);
 };
 

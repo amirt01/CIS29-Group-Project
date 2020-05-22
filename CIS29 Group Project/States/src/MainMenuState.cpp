@@ -64,7 +64,7 @@ MainMenuState::~MainMenuState()
 void MainMenuState::updateInput(unsigned short keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new GameState(renderWindow, states));
+		states->push(new FreePlayState(renderWindow, states));
 }
 
 void MainMenuState::updateGUI()

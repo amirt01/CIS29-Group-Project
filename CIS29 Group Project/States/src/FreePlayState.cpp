@@ -15,10 +15,9 @@ bool FreePlayState::checkForSpawn()
 
 void FreePlayState::updateSpawnClock()
 {
-	readyToSpawn = spawnClock.getElapsedTime().asSeconds() >= 1;
 	std::cout << spawnClock.getElapsedTime().asSeconds() << std::endl;
 
-	if (readyToSpawn)
+	if (spawnClock.getElapsedTime().asSeconds() >= 1) // ready to spawn
 	{
 		spawnObsticle(setObsticleStates());
 		spawnClock.restart();
@@ -27,8 +26,7 @@ void FreePlayState::updateSpawnClock()
 
 void FreePlayState::spawnObsticle(std::pair<short, short> obsticleStats)
 {
-	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
-	std::cout << obsticleStats.first << " at " << obsticleStats.second << std::endl;
+	spawnObject(obsticleStats.first, obsticleStats.second);
 	system("PAUSE");
 }
 
@@ -82,10 +80,11 @@ void FreePlayState::updateState(const float& deltaTime)
 {
 	if (!paused)
 	{
-		// MOVE ENEMY
-		// UPDATE ENEMY
 		updateSpawnClock();
-		//checkForSpawn();
+
+		std::cout << "test" << std::endl;
+		if (!objects.empty())
+			updateObjects(deltaTime);
 	}
 	else
 	{

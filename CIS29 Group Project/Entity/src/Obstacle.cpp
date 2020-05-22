@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Obstacle.h"
 
-Obstacle::Obstacle(short unsigned level)
-	: Object(level)
+Obstacle::Obstacle(unsigned short level, float maxVelocity, sf::Texture& texture)
+	: Object(level, maxVelocity, texture)
 {
 }
 

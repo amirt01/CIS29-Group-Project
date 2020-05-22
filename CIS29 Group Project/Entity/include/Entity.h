@@ -2,14 +2,21 @@
 #include "stdafx.h"
 #include "Collision.h"
 
-class Entity {
-public:
-	sf::RectangleShape rect;
-	sf::Sprite sprite;
-	sf::Text text;
-	sf::Texture texture;
+enum level { TOP = 0, MIDDLE, BOTTOM };
 
-	Entity();
-	virtual void update();
+class Entity
+{
+protected:
+	sf::Sprite sprite;
+
+	//Component functions
+	void setTexture(sf::Texture& texture);
+	void setPosition(const float x, const float y);
+
+public:
+	Entity(sf::Texture& texture);
 	virtual ~Entity();
+
+
+	void render(sf::RenderTarget* renderTarget);
 };

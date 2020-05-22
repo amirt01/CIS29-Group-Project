@@ -7,9 +7,9 @@ player::player() :
 	currentPosition(pos), //pos = Center/1
 	currentHealth(2) //2 being full health
 {
-	rect.setSize(sf::Vector2f(40.f, 40.f)); 
-	rect.setPosition(sf::Vector2f(300.f, 335.f)); //placed in center lane
-	rect.setFillColor(sf::Color::White);
+	//rect.setSize(sf::Vector2f(40.f, 40.f)); 
+	//rect.setPosition(sf::Vector2f(300.f, 335.f)); //placed in center lane
+	//rect.setFillColor(sf::Color::White);
 	
 	initializePlayerImage(); //current placeholder is 40px x 40px
 	sprite.setTexture(texture);

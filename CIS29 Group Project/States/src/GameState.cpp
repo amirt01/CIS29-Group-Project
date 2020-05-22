@@ -9,7 +9,10 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeBackground()
 {
-	background.setSize(sf::Vector2f(renderWindow->getSize().x, renderWindow->getSize().y));
+	if (!textures["OBSTACLE"].loadFromFile("Resources/Images/star(temp object).png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
+	}
 
 	if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 	{
@@ -23,6 +26,7 @@ void GameState::initializeBackground()
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states)
 {
+	background.setSize(sf::Vector2f(renderWindow->getSize().x, renderWindow->getSize().y));
 	paused = false;
 	this->states = states;
 	initializeBackground();
@@ -40,9 +44,12 @@ GameState::~GameState()
 void GameState::spawnObject(short unsigned level, short unsigned type)
 {
 	if (type == OBSTICLE)
-		objects.push_back(new Obstacle(level));
+		objects.push_back(new Obstacle(level, 10.f, textures.at("OBSTACLE")));
 	// if (type == COIN)
 		// objects.push(new Coin(level));
+
+	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
+	std::cout << type << " at " << level << std::endl;
 }
 
 /* Functions */
@@ -90,34 +97,17 @@ void GameState::updateInput(unsigned short keyCode)
 
 void GameState::updateObjects(const float& deltaTime)
 {
-	if (objects.front()->getCurrentPosition() <= 0)
+	if (objects.front()->getCurrentPosition() <= 0) // MAY NEED TO ADJUST BASED ON CENTER OF OBEJCT
 	{
 		delete objects.front();
 		objects.pop_front();
-		updateObjects(deltaTime); // incase there are multiple objects in the
-								  // same collumn, check recursively
 	}
-	else
-	{
-		for (auto it : objects)
-		{
-			it->updateMovement();
-		}
-	}
-}
 
-void GameState::updateState(const float& deltaTime)
-{
-	if (!paused)
+	for (auto it : objects)
 	{
-		updateObjects(deltaTime);
+		it->move(-10, deltaTime);
+		it->update(deltaTime);
 	}
-	else
-	{
-		pauseState.updateState(deltaTime);
-		updateGUI();
-	}
-	std::cout << "Running GameState" << std::endl;
 }
 
 // Render
@@ -130,5 +120,10 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	if (paused)
 	{
 		pauseState.renderState(renderTarget);
+	}
+
+	for (auto it : objects)
+	{
+		it->render(renderTarget);
 	}
 }

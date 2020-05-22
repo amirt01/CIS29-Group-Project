@@ -12,6 +12,7 @@ class GameState :
 protected:
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
+	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
 	void togglePause();
 
@@ -32,7 +33,6 @@ public:
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
 	void updateObjects(const float& deltaTime);
-	virtual void updateState(const float& deltaTime);
 
 	// Render
 	void renderState(sf::RenderTarget* renderTarget = nullptr);

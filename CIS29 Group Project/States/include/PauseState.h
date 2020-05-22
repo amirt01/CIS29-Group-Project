@@ -12,7 +12,7 @@ private:
 	
 	sf::Font font;
 
-	std::map<std::string, gui::Button *> buttons;
+	std::map<std::string, gui::Button*> buttons;
 	
 	unsigned short resumeQuit;
 
