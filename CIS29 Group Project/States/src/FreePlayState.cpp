@@ -20,14 +20,15 @@ void FreePlayState::updateSpawnClock()
 
 	if (readyToSpawn)
 	{
-		spawnObsticle();
+		spawnObsticle(setObsticleStates());
 		spawnClock.restart();
 	}
 }
 
-void FreePlayState::spawnObsticle()
+void FreePlayState::spawnObsticle(std::pair<short, short> obsticleStats)
 {
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
+	std::cout << obsticleStats.first << " at " << obsticleStats.second << std::endl;
 	system("PAUSE");
 }
 
@@ -41,8 +42,9 @@ FreePlayState::~FreePlayState()
 {
 }
 
-void FreePlayState::updateRNG()
+std::pair<short, short> FreePlayState::setObsticleStates()
 {
+	short level, obsticle;
 	switch (randomDevice() % 3)
 	{
 	case TOP:
@@ -73,14 +75,13 @@ void FreePlayState::updateRNG()
 		break;
 	}
 
-	std::cout << level << '\t' << obsticle << std::endl;
+	return std::make_pair(level, obsticle);
 }
 
 void FreePlayState::updateState(const float& deltaTime)
 {
 	if (!paused)
 	{
-		updateRNG();
 		// MOVE ENEMY
 		// UPDATE ENEMY
 		updateSpawnClock();

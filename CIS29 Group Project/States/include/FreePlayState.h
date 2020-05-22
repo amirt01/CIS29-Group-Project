@@ -16,22 +16,20 @@ private:
 	sf::Clock spawnClock;
 	bool readyToSpawn;
 
-	short unsigned level;
-	short unsigned obsticle;
-
 	// Initializers
 	void initializeVariables();
 
 	// Functions
+	std::pair<short, short> setObsticleStates();
 	bool checkForSpawn();
 	void updateSpawnClock();
-	void spawnObsticle();
+	void spawnObsticle(std::pair<short, short> obsticleStats);
 public:
 	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	~FreePlayState();
 
 	// Functions
-	void updateRNG();
+	
 	void updateState(const float& deltaTime);
 };
 
