@@ -39,6 +39,18 @@
     <ClCompile Include="States\src\PauseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -62,6 +74,18 @@
     <ClInclude Include="States\include\PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\include\Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
@@ -77,6 +101,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\MainMenu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\redCircle(temp player).png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\star(temp object).png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
