@@ -37,7 +37,6 @@ Game::Game()
 {
     initializeVariables();
     initGraphicsSettings();
-    initializeVariables();
     initializeWindow();
     initializeStates();
 }
