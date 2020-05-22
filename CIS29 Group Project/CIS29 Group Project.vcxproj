@@ -172,10 +172,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Entity\src\Collision.cpp" />
-    <ClCompile Include="Entity\src\Entity.cpp" />
-    <ClCompile Include="Entity\src\Object.cpp" />
-    <ClCompile Include="Entity\src\player.cpp" />
+    <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\PauseState.cpp" />
@@ -185,10 +182,7 @@
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
     <ClInclude Include="App\include\stdafx.h" />
-    <ClInclude Include="Entity\include\Collision.h" />
-    <ClInclude Include="Entity\include\Entity.h" />
-    <ClInclude Include="Entity\include\Object.h" />
-    <ClInclude Include="Entity\include\player.h" />
+    <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\PauseState.h" />

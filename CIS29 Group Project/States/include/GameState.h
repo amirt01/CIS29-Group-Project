@@ -25,7 +25,7 @@ public:
 	// Update
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
-	void updateState(const float& deltaTime);
+	virtual void updateState(const float& deltaTime);
 
 	// Render
 	void renderState(sf::RenderTarget* renderTarget = nullptr);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MainMenuState.h"
-#include "GameState.h"
+#include "FreePlayState.h"
 #include "SettingsState.h"
 
 // Initializers
@@ -78,7 +78,7 @@ void MainMenuState::updateGUI()
 	//New Game
 	if (buttons["GAME_STATE"]->isPressed())
 	{
-		states->push(new GameState(renderWindow, states));
+		states->push(new FreePlayState(renderWindow, states));
 	}
 	if (buttons["SETTINGS"]->isPressed())
 	{

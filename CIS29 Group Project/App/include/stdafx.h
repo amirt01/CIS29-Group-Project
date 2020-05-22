@@ -13,6 +13,7 @@
 //Other
 #include<cstdlib>
 #include<ctime>
+#include<random>
 
 //SFML Specific
 #include"SFML\System.hpp"
