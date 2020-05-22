@@ -30,6 +30,19 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 
 GameState::~GameState()
 {
+	while (!objects.empty())
+	{
+		delete objects.front();
+		objects.pop_front();
+	}
+}
+
+void GameState::spawnObject(short unsigned level, short unsigned type)
+{
+	if (type == OBSTICLE)
+		objects.push_back(new Obstacle(level));
+	// if (type == COIN)
+		// objects.push(new Coin(level));
 }
 
 /* Functions */
@@ -40,11 +53,13 @@ void GameState::updateGUI()
 {
 	if (paused)
 	{
+		// Resume the Game
 		if (pauseState.isButtonPressed("RESUME"))
 		{
 			togglePause();
 		}
-		//Quit This Game
+
+		// Quit This Game
 		if (pauseState.isButtonPressed("QUIT"))
 		{
 			quitState();
@@ -67,9 +82,27 @@ void GameState::updateInput(unsigned short keyCode)
 		// MOVE UP
 	}
 	else if (sf::Keyboard::D == keyCode ||
-		sf::Keyboard::Down == keyCode)
+			 sf::Keyboard::Down == keyCode)
 	{
 		// MOVE DOWN
+	}
+}
+
+void GameState::updateObjects(const float& deltaTime)
+{
+	if (objects.front()->getCurrentPosition() <= 0)
+	{
+		delete objects.front();
+		objects.pop_front();
+		updateObjects(deltaTime); // incase there are multiple objects in the
+								  // same collumn, check recursively
+	}
+	else
+	{
+		for (auto it : objects)
+		{
+			it->updateMovement();
+		}
 	}
 }
 
@@ -77,8 +110,7 @@ void GameState::updateState(const float& deltaTime)
 {
 	if (!paused)
 	{
-		// MOVE ENEMY
-		// UPDATE ENEMY
+		updateObjects(deltaTime);
 	}
 	else
 	{

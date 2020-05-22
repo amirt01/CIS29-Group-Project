@@ -1,16 +1,16 @@
 #pragma once
 #include "stdafx.h"
 
-class Collision{
+class Collision {
 
-sf::RectangleShape body;
+	sf::RectangleShape body;
 
 public:
-	Collision(sf::RectangleShap&);
+	Collision(sf::RectangleShape&);
 	~Collision();
 
 	void move(float, float);
-	bool checkCollision(Collision& , float);
+	bool checkCollision(Collision&, float);
 	sf::Vector2f getPosition();
 	sf::Vector2f getHalfSize();
-}
+};

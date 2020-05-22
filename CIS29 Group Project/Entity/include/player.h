@@ -1,6 +1,5 @@
 #pragma once
 #include "Entity.h"
-#include <string>
 
 class player:public Entity {
 protected:
@@ -11,7 +10,7 @@ protected:
 
 public:
 	player();
-	Collision getCollision();
+	//Collision getCollision();
 	
 	void initializePlayerImage();
 	void update();

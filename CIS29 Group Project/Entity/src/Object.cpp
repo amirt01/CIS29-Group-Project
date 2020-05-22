@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object() {
-	value(5);
+Object::Object(short unsigned level) {
+	//value(5);
 
 	rect.setSize(sf::Vector2f(30.f, 30.f));
 	rect.setFillColor(sf::Color::Green);
@@ -35,7 +35,10 @@ int Object::getValue() {
 	return value;
 }
 
-void Object::setValue(int v) :value(v) {}
+void Object::setValue(int v)
+{
+	value = v;
+}
 
 //might not be needed
 int Object::getCurrentPosition() {
@@ -43,4 +46,7 @@ int Object::getCurrentPosition() {
 }
 
 //might not be needed
-void Object::setCurrentPosition(int cp): currentPosition(cp) {}
+void Object::setCurrentPosition(int cp)
+{
+	currentPosition = cp;
+}

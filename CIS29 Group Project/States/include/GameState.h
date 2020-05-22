@@ -2,6 +2,9 @@
 
 #include "State.h"
 #include "PauseState.h"
+#include "Obstacle.h"
+
+enum type { OBSTICLE = 0, COIN };
 
 class GameState :
 	public State
@@ -9,6 +12,7 @@ class GameState :
 protected:
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
+	std::deque<Object*> objects;
 	void togglePause();
 
 	std::stack<State*>* states;
@@ -22,9 +26,12 @@ public:
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	virtual ~GameState();
 
+	void spawnObject(short unsigned level, short unsigned type);
+
 	// Update
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
+	void updateObjects(const float& deltaTime);
 	virtual void updateState(const float& deltaTime);
 
 	// Render

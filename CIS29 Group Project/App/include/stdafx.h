@@ -9,6 +9,7 @@
 #include<vector>
 #include<stack>
 #include<map>
+#include<deque>
 
 //Other
 #include<cstdlib>

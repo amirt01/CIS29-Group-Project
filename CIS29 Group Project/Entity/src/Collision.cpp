@@ -1,7 +1,7 @@
-#pragma once
+#include "stdafx.h"
 #include "Collision.h"
 
-Collision::Collision(sf::RectangleShap& body):
+Collision::Collision(sf::RectangleShape& body):
     body(body){}
 
 Collision::~Collision() {}
@@ -50,8 +50,6 @@ bool Collision::checkCollision(Collision& other, float push) {
         return false;
     }
 }
-
-
 
 void Collision::move(float dx, float dy) {
     body.move(dx, dy); 

@@ -16,9 +16,9 @@ player::player() :
 	update();
 }
 
-Collision player::getCollision() {
-	return Collision(body);
-}
+//Collision player::getCollision() {
+//	return Collision(body);
+//}
 
 void player::initializePlayerImage() {
 	if(!texture.loadFromFile("Resources/Images/redCircle(temp player).png"))
