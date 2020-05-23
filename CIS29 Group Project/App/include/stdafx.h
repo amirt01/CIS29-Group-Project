@@ -10,6 +10,7 @@
 #include<stack>
 #include<map>
 #include<deque>
+#include<queue>
 
 //Other
 #include<cstdlib>

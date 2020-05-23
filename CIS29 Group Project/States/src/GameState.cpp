@@ -16,7 +16,8 @@ void GameState::initializeBackground()
 
 	if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 	{
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+		system("PAUSE");
+		//throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
 	background.setTexture(&backgroundTexture);
