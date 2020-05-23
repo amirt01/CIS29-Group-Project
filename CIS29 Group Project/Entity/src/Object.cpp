@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, float maxVelocity, sf::Texture& texture)
+Object::Object(short unsigned level, sf::Texture& texture)
 	: Entity(texture)
 {
-	this->maxVelocity = maxVelocity;
-
 	std::cout << level << std::endl;
 
 	switch (level)
@@ -56,11 +54,12 @@ void Object::setValue(int v)
 
 void Object::move(const float x, const float& deltaTime)
 {
-	velocity.x = maxVelocity * x;
+	sprite.move(sf::Vector2f(x, 0) * deltaTime);
 }
 
 //might not be needed
-int Object::getCurrentPosition() {
+int Object::getCurrentPosition()
+{
 	return sprite.getPosition().x;
 }
 
@@ -72,6 +71,4 @@ void Object::setCurrentPosition(int cp)
 
 void Object::update(const float& deltaTime)
 {
-	std::cout << "velocity :" <<  velocity.x << std::endl;
-	sprite.move(velocity * deltaTime);
 }

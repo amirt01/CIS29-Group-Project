@@ -4,14 +4,11 @@
 class Object : public Entity
 {
 protected:
-	sf::Vector2f velocity;
-	float maxVelocity;
-
 	int currentPosition; //might be unnecessary
 	int value; //damage or pt value
 
 public:
-	Object(short unsigned level, float maxVelocity, sf::Texture& texture);
+	Object(short unsigned level, sf::Texture& texture);
 	
 	//void initializeObjectImage();
 	//void updateMovement();

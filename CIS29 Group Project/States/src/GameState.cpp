@@ -44,7 +44,7 @@ GameState::~GameState()
 void GameState::spawnObject(short unsigned level, short unsigned type)
 {
 	if (type == OBSTICLE)
-		objects.push_back(new Obstacle(level, 10.f, textures.at("OBSTACLE")));
+		objects.push_back(new Obstacle(level, textures.at("OBSTACLE")));
 	// if (type == COIN)
 		// objects.push(new Coin(level));
 
