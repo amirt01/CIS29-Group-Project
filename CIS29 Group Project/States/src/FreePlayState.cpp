@@ -3,6 +3,8 @@
 
 void FreePlayState::initializeVariables()
 {
+	frequency = 3; // seconds
+
 	spawnClock.restart();
 	GameClock.restart();
 }
@@ -17,7 +19,7 @@ void FreePlayState::updateSpawnClock()
 {
 	std::cout << spawnClock.getElapsedTime().asSeconds() << std::endl;
 
-	if (spawnClock.getElapsedTime().asSeconds() >= 1) // ready to spawn
+	if (spawnClock.getElapsedTime().asSeconds() >= frequency) // ready to spawn
 	{
 		spawnObsticle(setObsticleStates());
 		spawnClock.restart();
@@ -27,7 +29,6 @@ void FreePlayState::updateSpawnClock()
 void FreePlayState::spawnObsticle(std::pair<short, short> obsticleStats)
 {
 	spawnObject(obsticleStats.first, obsticleStats.second);
-	system("PAUSE");
 }
 
 FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states)

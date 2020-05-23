@@ -9,6 +9,7 @@ class FreePlayState :
 {
 private:
 	// Variables
+	float frequency;
 	std::random_device randomDevice;
 
 	sf::Clock GameClock;

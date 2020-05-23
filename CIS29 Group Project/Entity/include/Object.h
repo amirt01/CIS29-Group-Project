@@ -9,9 +9,6 @@ protected:
 
 public:
 	Object(short unsigned level, sf::Texture& texture);
-	
-	//void initializeObjectImage();
-	//void updateMovement();
 
 	int getCurrentPosition();
 	int getValue();

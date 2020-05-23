@@ -43,10 +43,12 @@ GameState::~GameState()
 
 void GameState::spawnObject(short unsigned level, short unsigned type)
 {
+
+	// TEMP, REMOVE LATER
+	type = OBSTICLE;
+
 	if (type == OBSTICLE)
 		objects.push_back(new Obstacle(level, textures.at("OBSTACLE")));
-	// if (type == COIN)
-		// objects.push(new Coin(level));
 
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
 	std::cout << type << " at " << level << std::endl;
@@ -105,7 +107,7 @@ void GameState::updateObjects(const float& deltaTime)
 
 	for (auto it : objects)
 	{
-		it->move(-10, deltaTime);
+		it->move(-75, deltaTime);
 		it->update(deltaTime);
 	}
 }
