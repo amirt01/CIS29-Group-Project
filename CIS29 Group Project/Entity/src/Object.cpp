@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, sf::Texture& texture)
-	: Entity(texture)
-{	
+Object::Object(short unsigned level, sf::Texture& texture, sf::IntRect intRect)
+	: Entity()
+{
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 250.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 250.f - (static_cast<float>(intRect.height) / 2.f)));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 375.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 375.f - (static_cast<float>(intRect.height) / 2.f)));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 525.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 525.f - (static_cast<float>(intRect.height) / 2.f)));
 		break;
 	default:
 		break;
 	}
 
 	//initializeObjectImage();
-	sprite.setTexture(texture);
+	setTexture(texture, intRect);
 }
 
 int Object::getValue() {

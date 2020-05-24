@@ -172,11 +172,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Entity\src\Animation.cpp" />
     <ClCompile Include="Entity\src\Collision.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
     <ClCompile Include="Entity\src\Object.cpp" />
     <ClCompile Include="Entity\src\Obstacle.cpp" />
-    <ClCompile Include="Entity\src\player.cpp" />
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
@@ -188,11 +188,11 @@
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
     <ClInclude Include="App\include\stdafx.h" />
+    <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\Collision.h" />
     <ClInclude Include="Entity\include\Entity.h" />
     <ClInclude Include="Entity\include\Object.h" />
     <ClInclude Include="Entity\include\Obstacle.h" />
-    <ClInclude Include="Entity\include\player.h" />
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
@@ -205,6 +205,7 @@
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\CarFrames.png" />
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />

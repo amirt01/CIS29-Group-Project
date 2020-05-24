@@ -57,7 +57,7 @@
     <ClCompile Include="States\src\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\src\player.cpp">
+    <ClCompile Include="Entity\src\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,7 +101,7 @@
     <ClInclude Include="States\include\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\include\player.h">
+    <ClInclude Include="Entity\include\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,6 +125,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\GameBackground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\CarFrames.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

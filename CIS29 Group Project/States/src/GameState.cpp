@@ -9,7 +9,7 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeBackground()
 {
-	if (!textures["OBSTACLE"].loadFromFile("Resources/Images/star(temp object).png"))
+	if (!textures["OBSTACLE"].loadFromFile("Resources/Images/CarFrames.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
@@ -49,7 +49,7 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	type = OBSTICLE;
 
 	if (type == OBSTICLE)
-		objects.push_back(new Obstacle(level, textures.at("OBSTACLE")));
+		objects.push_back(new Obstacle(level, textures.at("OBSTACLE"), sf::IntRect(sf::Vector2i(0,0), sf::Vector2i(320, 320))));
 
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
 	std::cout << type << " at " << level << std::endl;

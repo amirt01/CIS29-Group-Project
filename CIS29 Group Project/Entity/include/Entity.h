@@ -10,11 +10,11 @@ protected:
 	sf::Sprite sprite;
 
 	//Component functions
-	void setTexture(sf::Texture& texture);
+	void setTexture(sf::Texture& texture, sf::IntRect& intRect);
 	void setPosition(const float x, const float y);
 
 public:
-	Entity(sf::Texture& texture);
+	Entity();
 	virtual ~Entity();
 
 

@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Entity.h"
 
-void Entity::setTexture(sf::Texture& texture)
+void Entity::setTexture(sf::Texture& texture, sf::IntRect& intRect)
 {
 	sprite.setTexture(texture);
+	sprite.setTextureRect(intRect);
 }
 
 void Entity::setPosition(const float x, const float y)
@@ -11,9 +12,8 @@ void Entity::setPosition(const float x, const float y)
 	sprite.setPosition(x, y);
 }
 
-Entity::Entity(sf::Texture& texture)
+Entity::Entity()
 {
-	setTexture(texture);
 }
 
 Entity::~Entity() {

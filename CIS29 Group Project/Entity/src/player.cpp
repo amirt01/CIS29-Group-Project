@@ -6,7 +6,7 @@ player::player(sf::Texture texture) :
 	movementShift(200), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
 	currentHealth(2), //2 being full health
-	Entity(texture)
+	Entity()
 {
 	//rect.setSize(sf::Vector2f(40.f, 40.f)); 
 	//rect.setPosition(sf::Vector2f(300.f, 335.f)); //placed in center lane
