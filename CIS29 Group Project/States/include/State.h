@@ -24,6 +24,8 @@ public:
 	const bool& getQuit() const;
 	void quitState();
 
+	virtual std::string name() const;
+
 	// Update
 	virtual void updateMousePositions();
 	virtual void updateInput(unsigned short keyCode) = 0;

@@ -2,14 +2,11 @@
 
 #include "GameState.h"
 
-enum obsticle { MEDIUM = 0, LARGE, SMALL};
-
 class FreePlayState :
 	public GameState
 {
 private:
 	// Variables
-	float frequency;
 	std::random_device randomDevice;
 
 	sf::Clock GameClock;

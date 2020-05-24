@@ -26,6 +26,17 @@ void State::quitState()
 	quit = true;
 }
 
+std::string State::name() const
+{
+	std::string name = typeid(*this).name();
+#ifdef _MSC_VER       // for MS Visual Studio
+	name = name.substr(6);
+#else                 // for other compilers
+	name = name.substr(name.find_first_not_of("0123456789"));
+#endif
+	return name;
+}
+
 void State::updateMousePositions()
 {
 	mousePosScreen = sf::Mouse::getPosition();

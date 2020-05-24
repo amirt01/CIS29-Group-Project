@@ -2,23 +2,25 @@
 
 #include "GameState.h"
 
+unsigned char leftNibble(unsigned char data);
+unsigned char rightNibble(unsigned char data);
+
 class Level : public GameState
 {
+private:
 	// Variables
-	float frequency;
 	sf::Clock spawnClock;
 
-	std::queue<
+	std::queue<unsigned char> waves;
 
 	// Initializers
 	void initializeVariables();
 	void initializeLevel(std::string path);
 
 	// Functions
-	std::pair<short, short> setObsticleStates();
 	bool checkForSpawn();
 	void updateSpawnClock();
-	void spawnObsticle(std::pair<short, short> obsticleStats);
+	void spawnObsticle(unsigned short level, unsigned short type);
 public:
 	Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states);
 	~Level();

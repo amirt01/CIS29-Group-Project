@@ -16,8 +16,7 @@ void GameState::initializeBackground()
 
 	if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 	{
-		system("PAUSE");
-		//throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
 	background.setTexture(&backgroundTexture);
@@ -27,7 +26,9 @@ void GameState::initializeBackground()
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states)
 {
-	background.setSize(sf::Vector2f(renderWindow->getSize().x, renderWindow->getSize().y));
+	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), static_cast<float>(renderWindow->getSize().y)));
+	speed = -75;
+	frequency = 2;
 	paused = false;
 	this->states = states;
 	initializeBackground();
@@ -42,9 +43,8 @@ GameState::~GameState()
 	}
 }
 
-void GameState::spawnObject(short unsigned level, short unsigned type)
+void GameState::spawnObject(unsigned short level, unsigned short type)
 {
-
 	// TEMP, REMOVE LATER
 	type = OBSTICLE;
 
@@ -100,7 +100,7 @@ void GameState::updateInput(unsigned short keyCode)
 
 void GameState::updateObjects(const float& deltaTime)
 {
-	if (objects.front()->getCurrentPosition() <= 0) // MAY NEED TO ADJUST BASED ON CENTER OF OBEJCT
+	if (objects.front()->getCurrentPosition() <= 0.f) // MAY NEED TO ADJUST BASED ON CENTER OF OBEJCT
 	{
 		delete objects.front();
 		objects.pop_front();
@@ -108,7 +108,7 @@ void GameState::updateObjects(const float& deltaTime)
 
 	for (auto it : objects)
 	{
-		it->move(-75, deltaTime);
+		it->move(speed, deltaTime);
 		it->update(deltaTime);
 	}
 }

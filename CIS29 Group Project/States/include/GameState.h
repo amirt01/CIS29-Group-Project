@@ -5,11 +5,15 @@
 #include "Obstacle.h"
 
 enum type { OBSTICLE = 0, COIN };
+enum obsticle { MEDIUM = 0, LARGE, SMALL };
 
 class GameState :
 	public State
 {
 protected:
+	float speed;
+	float frequency;
+
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
@@ -27,7 +31,7 @@ public:
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	virtual ~GameState();
 
-	void spawnObject(short unsigned level, short unsigned type);
+	void spawnObject(unsigned short level, unsigned short type);
 
 	// Update
 	void updateGUI();

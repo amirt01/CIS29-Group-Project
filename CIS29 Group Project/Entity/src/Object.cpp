@@ -40,7 +40,7 @@ void Object::move(const float x, const float& deltaTime)
 }
 
 //might not be needed
-int Object::getCurrentPosition()
+float Object::getCurrentPosition()
 {
 	return sprite.getPosition().x;
 }

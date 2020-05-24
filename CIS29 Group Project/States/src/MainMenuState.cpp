@@ -2,6 +2,7 @@
 #include "MainMenuState.h"
 #include "FreePlayState.h"
 #include "SettingsState.h"
+#include "Level.h"
 
 // Initializers
 void MainMenuState::initializeBackground()
@@ -27,8 +28,12 @@ void MainMenuState::initializeFonts()
 
 void MainMenuState::initializeGUI()
 {
-	buttons["GAME_STATE"] = new gui::Button(220, 250, 150, 50,
-		&font, "New Game",
+	buttons["FREE_PLAY"] = new gui::Button(220, 250, 150, 50,
+		&font, "Free Play",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_1"] = new gui::Button(520, 250, 150, 50,
+		&font, "Level 1",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
@@ -76,9 +81,13 @@ void MainMenuState::updateGUI()
 	}
 
 	//New Game
-	if (buttons["GAME_STATE"]->isPressed())
+	if (buttons["FREE_PLAY"]->isPressed())
 	{
 		states->push(new FreePlayState(renderWindow, states));
+	}
+	if (buttons["LEVEL_1"]->isPressed())
+	{
+		states->push(new Level(renderWindow, "Config/TestLevel.bin", states));
 	}
 	if (buttons["SETTINGS"]->isPressed())
 	{
@@ -96,7 +105,6 @@ void MainMenuState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
 	updateGUI();
-	std::cout << "Running MainMenuState" << std::endl;
 }
 
 // Render

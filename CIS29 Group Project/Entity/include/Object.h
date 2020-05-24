@@ -10,7 +10,7 @@ protected:
 public:
 	Object(short unsigned level, sf::Texture& texture);
 
-	int getCurrentPosition();
+	float getCurrentPosition();
 	int getValue();
 
 	void move(const float x, const float& deltaTime);

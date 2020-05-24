@@ -11,6 +11,7 @@
 #include<map>
 #include<deque>
 #include<queue>
+#include<tuple>
 
 //Other
 #include<cstdlib>

@@ -3,8 +3,6 @@
 
 void FreePlayState::initializeVariables()
 {
-	frequency = 3; // seconds
-
 	spawnClock.restart();
 	GameClock.restart();
 }
@@ -83,7 +81,6 @@ void FreePlayState::updateState(const float& deltaTime)
 	{
 		updateSpawnClock();
 
-		std::cout << "test" << std::endl;
 		if (!objects.empty())
 			updateObjects(deltaTime);
 	}
@@ -92,6 +89,5 @@ void FreePlayState::updateState(const float& deltaTime)
 		pauseState.updateState(deltaTime);
 		updateGUI();
 	}
-	std::cout << "Running GameState" << std::endl;
 }
 

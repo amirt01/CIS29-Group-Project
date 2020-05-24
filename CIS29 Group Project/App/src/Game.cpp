@@ -132,6 +132,8 @@ void Game::updateGame()
             delete states.top();
             states.pop();
         }
+
+        std::cout << "Running " << states.top()->name() << std::endl;
     }
     // states stack is empty, quit application
     else
