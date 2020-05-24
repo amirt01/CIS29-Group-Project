@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "player.h"
 
-player::player() :
+player::player(sf::Texture texture) :
 	pos(Center),
 	movementShift(200), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
-	currentHealth(2) //2 being full health
+	currentHealth(2), //2 being full health
+	Entity(texture)
 {
 	//rect.setSize(sf::Vector2f(40.f, 40.f)); 
 	//rect.setPosition(sf::Vector2f(300.f, 335.f)); //placed in center lane
@@ -21,10 +22,10 @@ player::player() :
 //}
 
 void player::initializePlayerImage() {
-	if(!texture.loadFromFile("Resources/Images/redCircle(temp player).png"))
+	/*if(!texture.loadFromFile("Resources/Images/redCircle(temp player).png"))
 	{
 		std::cout << "player image cannot load" << std::endl;
-	}
+	}*/
 }
 
 void player::update() {
@@ -37,7 +38,7 @@ void player::update() {
 	else if (currentPosition == 2) {
 		setPosition(Down);
 	}
-	sprite.setPosition(rect.getPosition());
+	//sprite.setPosition(rect.getPosition());
 }
 
 void player::updateMovement() {
@@ -46,13 +47,13 @@ void player::updateMovement() {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		if (checkPosition(-1)) {
-			rect.move(sf::Vector2f(0, -movementShift)); //move into upper lane
+			sprite.move(sf::Vector2f(0, -movementShift)); //move into upper lane
 			setCurrentPosition(currentPos - 1);
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		if (checkPosition(1)) {
-			rect.move(sf::Vector2f(0, movementShift)); //move into lower lane
+			sprite.move(sf::Vector2f(0, movementShift)); //move into lower lane
 			setCurrentPosition(currentPos + 1);
 		}
 	}

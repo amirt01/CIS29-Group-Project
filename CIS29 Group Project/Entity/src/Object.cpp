@@ -3,19 +3,17 @@
 
 Object::Object(short unsigned level, sf::Texture& texture)
 	: Entity(texture)
-{
-	std::cout << level << std::endl;
-
+{	
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 300.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 250.f));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 450.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 375.f));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 600.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 525.f));
 		break;
 	default:
 		break;

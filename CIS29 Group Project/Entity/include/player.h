@@ -9,7 +9,7 @@ protected:
 	int currentHealth;
 
 public:
-	player();
+	player(sf::Texture texture);
 	//Collision getCollision();
 	
 	void initializePlayerImage();
