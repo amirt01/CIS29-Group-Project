@@ -14,10 +14,11 @@ protected:
 	float speed;
 	float frequency;
 
-	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
+
+	PauseState pauseState;
 	void togglePause();
 
 	std::stack<State*>* states;

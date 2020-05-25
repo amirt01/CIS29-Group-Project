@@ -70,6 +70,7 @@ void Level::updateSpawnClock()
 		}
 		else if (objects.empty())
 		{
+			// MAKE NICER LATER
 			std::cout << "YOU WIN!!!" << std::endl;
 			system("PAUSE");
 			quitState();
