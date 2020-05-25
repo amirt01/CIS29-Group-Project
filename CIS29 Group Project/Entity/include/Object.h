@@ -7,16 +7,19 @@ protected:
 	int currentPosition; //might be unnecessary
 	int value; //damage or pt value
 
+	void initComponents();
+
 public:
-	Object(short unsigned level, sf::Texture& texture, sf::IntRect intRect);
+	Object(short unsigned level, sf::Texture& texture);
 
 	float getCurrentPosition();
 	int getValue();
 
-	void move(const float x, const float& deltaTime);
-
 	void setCurrentPosition(int);
 	void setValue(int);
 
+	void move(const float x, const float& deltaTime);
+
+	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);
 };

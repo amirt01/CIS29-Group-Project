@@ -1,26 +1,32 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, sf::Texture& texture, sf::IntRect intRect)
+Object::Object(short unsigned level, sf::Texture& texture_sheet)
 	: Entity()
 {
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 250.f - (static_cast<float>(intRect.height) / 2.f)));
+		sprite.setPosition(sf::Vector2f(1080.f, 250.f));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 375.f - (static_cast<float>(intRect.height) / 2.f)));
+		sprite.setPosition(sf::Vector2f(1080.f, 375.f));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 525.f - (static_cast<float>(intRect.height) / 2.f)));
+		sprite.setPosition(sf::Vector2f(1080.f, 525.f));
 		break;
 	default:
 		break;
 	}
 
+	createAnimationComponent(texture_sheet);
+
 	//initializeObjectImage();
-	setTexture(texture, intRect);
+	//setTexture(texture, intRect);
+}
+
+void Object::initComponents()
+{
 }
 
 int Object::getValue() {
@@ -49,6 +55,12 @@ void Object::setCurrentPosition(int cp)
 	currentPosition = cp;
 }
 
+void Object::updateAnimation(const float& deltaTime)
+{
+	animationComponent->play("IDLE", deltaTime);
+}
+
 void Object::update(const float& deltaTime)
 {
+	updateAnimation(deltaTime);
 }

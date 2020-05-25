@@ -12,12 +12,18 @@ void Entity::setPosition(const float x, const float y)
 	sprite.setPosition(x, y);
 }
 
+void Entity::createAnimationComponent(sf::Texture& texture_sheet)
+{
+	animationComponent = new AnimationComponent(sprite, texture_sheet);
+}
+
 Entity::Entity()
 {
 }
 
-Entity::~Entity() {
-
+Entity::~Entity()
+{
+	delete animationComponent;
 }
 
 void Entity::render(sf::RenderTarget* renderTarget)
