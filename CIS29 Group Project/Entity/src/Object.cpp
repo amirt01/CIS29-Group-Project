@@ -20,7 +20,7 @@ Object::Object(short unsigned level, sf::Texture& texture)
 	}
 
 	//initializeObjectImage();
-	sprite.setTexture(texture);
+	//sprite.setTexture(texture);
 }
 
 int Object::getValue() {

@@ -7,16 +7,18 @@ protected:
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
+	sf::Clock clock;
 
 public:
 	player(sf::Texture texture);
 	//Collision getCollision();
 	
-	void initializePlayerImage();
 	void update();
-	void updateMovement();
+	void updateMovement(int);
 	bool checkPosition(int);
 
+	void resetClock();
+	int getTimeEllapsed();
 	void setCurrentHealth(int);
 	int getCurrentHealth();
 	void setMovementShift(float);

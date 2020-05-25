@@ -3,6 +3,7 @@
 #include "State.h"
 #include "PauseState.h"
 #include "Obstacle.h"
+#include "player.h"
 
 enum type { OBSTICLE = 0, COIN };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -18,6 +19,7 @@ protected:
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
+	player* players;
 	void togglePause();
 
 	std::stack<State*>* states;
@@ -31,6 +33,7 @@ public:
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	virtual ~GameState();
 
+	void spawnPlayer();
 	void spawnObject(unsigned short level, unsigned short type);
 
 	// Update

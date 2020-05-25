@@ -208,7 +208,7 @@
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
-    <Image Include="Resources\Images\redCircle(temp player).png" />
+    <Image Include="Resources\Images\motorbiker(test player).png" />
     <Image Include="Resources\Images\star(temp object).png" />
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>
