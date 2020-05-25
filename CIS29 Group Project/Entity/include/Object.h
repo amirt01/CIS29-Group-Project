@@ -13,10 +13,10 @@ public:
 	float getCurrentPosition();
 	int getValue();
 
-	void move(const float x, const float& deltaTime);
-
 	void setCurrentPosition(int);
 	void setValue(int);
+
+	void move(const float x, const float& deltaTime);
 
 	void update(const float& deltaTime);
 };

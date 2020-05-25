@@ -17,6 +17,5 @@ public:
 	Entity(sf::Texture& texture);
 	virtual ~Entity();
 
-
 	void render(sf::RenderTarget* renderTarget);
 };

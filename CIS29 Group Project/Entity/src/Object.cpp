@@ -32,11 +32,6 @@ void Object::setValue(int v)
 	value = v;
 }
 
-void Object::move(const float x, const float& deltaTime)
-{
-	sprite.move(sf::Vector2f(x, 0) * deltaTime);
-}
-
 //might not be needed
 float Object::getCurrentPosition()
 {
@@ -47,6 +42,11 @@ float Object::getCurrentPosition()
 void Object::setCurrentPosition(int cp)
 {
 	currentPosition = cp;
+}
+
+void Object::move(const float x, const float& deltaTime)
+{
+	sprite.move(sf::Vector2f(x, 0) * deltaTime);
 }
 
 void Object::update(const float& deltaTime)

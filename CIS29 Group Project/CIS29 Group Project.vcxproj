@@ -174,6 +174,7 @@
     </ClCompile>
     <ClCompile Include="Entity\src\Collision.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
+    <ClCompile Include="Entity\src\HUD.cpp" />
     <ClCompile Include="Entity\src\Object.cpp" />
     <ClCompile Include="Entity\src\Obstacle.cpp" />
     <ClCompile Include="Entity\src\player.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Collision.h" />
     <ClInclude Include="Entity\include\Entity.h" />
+    <ClInclude Include="Entity\include\HUD.h" />
     <ClInclude Include="Entity\include\Object.h" />
     <ClInclude Include="Entity\include\Obstacle.h" />
     <ClInclude Include="Entity\include\player.h" />
