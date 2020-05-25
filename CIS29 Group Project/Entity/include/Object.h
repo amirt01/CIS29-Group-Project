@@ -7,8 +7,6 @@ protected:
 	int currentPosition; //might be unnecessary
 	int value; //damage or pt value
 
-	void initComponents();
-
 public:
 	Object(short unsigned level, sf::Texture& texture);
 

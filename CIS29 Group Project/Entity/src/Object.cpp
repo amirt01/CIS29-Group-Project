@@ -19,14 +19,8 @@ Object::Object(short unsigned level, sf::Texture& texture_sheet)
 		break;
 	}
 
-	createAnimationComponent(texture_sheet);
-
 	//initializeObjectImage();
-	//setTexture(texture, intRect);
-}
-
-void Object::initComponents()
-{
+	setTexture(texture_sheet);
 }
 
 int Object::getValue() {
@@ -57,7 +51,8 @@ void Object::setCurrentPosition(int cp)
 
 void Object::updateAnimation(const float& deltaTime)
 {
-	animationComponent->play("IDLE", deltaTime);
+	animations["IDLE"]->update(deltaTime);
+	sprite.setTextureRect(animations["IDLE"]->textureRect);
 }
 
 void Object::update(const float& deltaTime)

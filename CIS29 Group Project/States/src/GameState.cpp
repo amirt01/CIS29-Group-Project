@@ -28,7 +28,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), static_cast<float>(renderWindow->getSize().y)));
 	speed = -75;
-	frequency = 2;
+	frequency = 5;
 	paused = false;
 	this->states = states;
 	initializeBackground();
