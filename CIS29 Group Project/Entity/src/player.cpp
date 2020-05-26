@@ -8,6 +8,7 @@ player::player(sf::Texture texture) :
 	currentPosition(pos), //pos = Center/1
 	currentHealth(2) //2 being full health
 {	
+	sprite.setTexture(texture);
 	sprite.setPosition(sf::Vector2f(50,350));
 	resetClock();
 	update();

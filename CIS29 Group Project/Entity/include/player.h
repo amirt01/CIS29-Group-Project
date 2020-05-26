@@ -10,7 +10,7 @@ protected:
 	sf::Clock clock;
 
 public:
-	player(sf::Texture texture);
+	player(sf::Texture);
 	//Collision getCollision();
 	
 	void update();
