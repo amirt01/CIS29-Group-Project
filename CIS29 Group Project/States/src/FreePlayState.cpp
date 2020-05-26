@@ -7,12 +7,6 @@ void FreePlayState::initializeVariables()
 	GameClock.restart();
 }
 
-bool FreePlayState::checkForSpawn()
-{
-	//if ()
-	return 0;
-}
-
 void FreePlayState::updateSpawnClock()
 {
 	std::cout << spawnClock.getElapsedTime().asSeconds() << std::endl;
