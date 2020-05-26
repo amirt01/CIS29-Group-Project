@@ -1,9 +1,8 @@
 #pragma once
 #include "Entity.h"
-
 class Player:public Entity {
 protected:
-	enum position {Up=0, Center=1, Down=2} pos;
+	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	float movementShift;
 	int currentPosition;
 	int currentHealth;

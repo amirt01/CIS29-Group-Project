@@ -8,6 +8,7 @@ Player::Player(sf::Texture texture) :
 	currentPosition(pos), //pos = Center/1
 	currentHealth(2) //2 being full health
 {	
+	sprite.setTexture(texture);
 	sprite.setPosition(sf::Vector2f(50,350));
 	resetClock();
 	update();
@@ -18,7 +19,7 @@ void Player::resetClock() {
 }
 
 int Player::getTimeEllapsed() {
-	return 0;// clock.getElapsedTime().asMilliseconds();
+	return clock.getElapsedTime().asMilliseconds();
 }
 
 //Collision player::getCollision() {
@@ -38,7 +39,7 @@ void Player::update() {
 }
 
 void Player::updateMovement(int shift) {
-	position currentPos = getPosition();
+	unsigned short currentPos = pos;
 
 	if (shift == -1) {
 		if (checkPosition(-1)) {

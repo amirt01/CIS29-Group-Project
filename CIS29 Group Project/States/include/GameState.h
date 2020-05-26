@@ -5,7 +5,7 @@
 #include "Obstacle.h"
 #include "Player.h"
 
-enum type { OBSTICLE = 0, COIN };
+enum color { Red = 0, Yellow, Orange };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
 
 class GameState :

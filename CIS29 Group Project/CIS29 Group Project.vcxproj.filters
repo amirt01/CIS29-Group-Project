@@ -136,10 +136,13 @@
     <Image Include="Resources\Images\GameBackground.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\CarFrames.png">
+    <Image Include="Resources\Images\motorbiker(test player).png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\motorbiker(test player).png">
+    <Image Include="Resources\Images\CarFramesYellow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\CarFramesRed.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
