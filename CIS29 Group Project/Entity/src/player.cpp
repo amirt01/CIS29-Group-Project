@@ -2,31 +2,28 @@
 #include "player.h"
 
 player::player(sf::Texture texture) :
+	Entity(texture),
 	pos(Center),
-	movementShift(200), //shift space (distance between lanes)
+	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
-	currentHealth(2), //2 being full health
-	Entity()
-{
-	//rect.setSize(sf::Vector2f(40.f, 40.f)); 
-	//rect.setPosition(sf::Vector2f(300.f, 335.f)); //placed in center lane
-	//rect.setFillColor(sf::Color::White);
-	
-	initializePlayerImage(); //current placeholder is 40px x 40px
-	sprite.setTexture(texture);
+	currentHealth(2) //2 being full health
+{	
+	sprite.setPosition(sf::Vector2f(50,350));
+	resetClock();
 	update();
+}
+
+void player::resetClock() {
+	clock.restart();
+}
+
+int player::getTimeEllapsed() {
+	return clock.getElapsedTime().asMilliseconds();
 }
 
 //Collision player::getCollision() {
 //	return Collision(body);
 //}
-
-void player::initializePlayerImage() {
-	/*if(!texture.loadFromFile("Resources/Images/redCircle(temp player).png"))
-	{
-		std::cout << "player image cannot load" << std::endl;
-	}*/
-}
 
 void player::update() {
 	if (currentPosition == 0) {
@@ -38,27 +35,24 @@ void player::update() {
 	else if (currentPosition == 2) {
 		setPosition(Down);
 	}
-	//sprite.setPosition(rect.getPosition());
 }
 
-void player::updateMovement() {
+void player::updateMovement(int shift) {
 	position currentPos = getPosition();
 
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (shift == -1) {
 		if (checkPosition(-1)) {
-			sprite.move(sf::Vector2f(0, -movementShift)); //move into upper lane
+			sprite.move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
+			clock.restart();
 		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	else if (shift == 1) {
 		if (checkPosition(1)) {
-			sprite.move(sf::Vector2f(0, movementShift)); //move into lower lane
+			sprite.move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
+			clock.restart();
 		}
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		//leaving jumb empty for now
 	}
 
 	update(); //update sprite
@@ -78,6 +72,10 @@ bool player::checkPosition(int direction) {
 			return true;
 		}
 		else { return false; }
+	}
+	else
+	{
+		return false; //temp
 	}
 }
 

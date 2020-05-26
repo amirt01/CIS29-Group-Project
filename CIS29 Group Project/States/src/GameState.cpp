@@ -9,6 +9,11 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeBackground()
 {
+	//player texture
+	if (!textures["Player"].loadFromFile("Resources/Images/motorbiker(test player).png")) {
+		throw "ERROR::Game_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
+	}
+
 	if (!textures["OBSTACLE"].loadFromFile("Resources/Images/CarFrames.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
@@ -41,6 +46,13 @@ GameState::~GameState()
 		delete objects.front();
 		objects.pop_front();
 	}
+}
+
+void GameState::spawnPlayer()
+{
+	players = new player(textures.at("Player"));
+	std::cout << "Player Spawned" << std::endl;
+	players->resetClock();
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -86,15 +98,23 @@ void GameState::updateInput(unsigned short keyCode)
 	{
 		togglePause();
 	}
-	if (sf::Keyboard::W == keyCode ||
-		sf::Keyboard::Up == keyCode)
-	{
-		// MOVE UP
-	}
-	else if (sf::Keyboard::D == keyCode ||
-			 sf::Keyboard::Down == keyCode)
-	{
-		// MOVE DOWN
+
+	//100 milliseconds time gap 
+	std::cout << "timer: " << players->getTimeEllapsed() << std::endl;
+	if (players->getTimeEllapsed() > 100) {
+		std::cout << "player moving" << std::endl;
+		if (sf::Keyboard::W == keyCode ||
+			sf::Keyboard::Up == keyCode)
+		{
+			players->updateMovement(-1);
+			// MOVE UP
+		}
+		else if (sf::Keyboard::D == keyCode ||
+			sf::Keyboard::Down == keyCode)
+		{
+			// MOVE DOWN
+			players->updateMovement(1);
+		}
 	}
 }
 
@@ -123,6 +143,10 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	if (paused)
 	{
 		pauseState.renderState(renderTarget);
+	}
+
+	if (players != nullptr) {
+		players->render(renderTarget);
 	}
 
 	for (auto it : objects)

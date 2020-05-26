@@ -60,6 +60,9 @@
     <ClCompile Include="Entity\src\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\src\HUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -104,6 +107,9 @@
     <ClInclude Include="Entity\include\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\include\HUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
@@ -118,9 +124,6 @@
     <Image Include="Resources\Images\MainMenu.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\redCircle(temp player).png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Images\star(temp object).png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -128,6 +131,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\CarFrames.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\motorbiker(test player).png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

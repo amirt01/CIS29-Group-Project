@@ -175,6 +175,7 @@
     <ClCompile Include="Entity\src\Animation.cpp" />
     <ClCompile Include="Entity\src\Collision.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
+    <ClCompile Include="Entity\src\HUD.cpp" />
     <ClCompile Include="Entity\src\Object.cpp" />
     <ClCompile Include="Entity\src\Obstacle.cpp" />
     <ClCompile Include="States\src\FreePlayState.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\Collision.h" />
     <ClInclude Include="Entity\include\Entity.h" />
+    <ClInclude Include="Entity\include\HUD.h" />
     <ClInclude Include="Entity\include\Object.h" />
     <ClInclude Include="Entity\include\Obstacle.h" />
     <ClInclude Include="States\include\FreePlayState.h" />
@@ -209,7 +211,7 @@
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
-    <Image Include="Resources\Images\redCircle(temp player).png" />
+    <Image Include="Resources\Images\motorbiker(test player).png" />
     <Image Include="Resources\Images\star(temp object).png" />
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>

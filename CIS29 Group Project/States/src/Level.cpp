@@ -63,13 +63,13 @@ void Level::updateSpawnClock()
 			default:
 				level = -1;
 			}
-
 			spawnObsticle(level, 0);
 			spawnClock.restart();
 			waves.pop();
 		}
 		else if (objects.empty())
 		{
+			// MAKE NICER LATER
 			std::cout << "YOU WIN!!!" << std::endl;
 			system("PAUSE");
 			quitState();
@@ -95,6 +95,10 @@ Level::~Level()
 
 void Level::updateState(const float& deltaTime)
 {
+	if (players == nullptr) {
+		spawnPlayer();
+	}
+
 	if (!paused)
 	{
 		updateSpawnClock();
