@@ -18,5 +18,6 @@ public:
 
 	void move(const float x, const float& deltaTime);
 
+	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);
 };

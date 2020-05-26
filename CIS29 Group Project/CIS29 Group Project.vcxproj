@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -172,12 +172,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Entity\src\Animation.cpp" />
     <ClCompile Include="Entity\src\Collision.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
     <ClCompile Include="Entity\src\HUD.cpp" />
     <ClCompile Include="Entity\src\Object.cpp" />
     <ClCompile Include="Entity\src\Obstacle.cpp" />
-    <ClCompile Include="Entity\src\player.cpp" />
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
@@ -189,12 +189,12 @@
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
     <ClInclude Include="App\include\stdafx.h" />
+    <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\Collision.h" />
     <ClInclude Include="Entity\include\Entity.h" />
     <ClInclude Include="Entity\include\HUD.h" />
     <ClInclude Include="Entity\include\Object.h" />
     <ClInclude Include="Entity\include\Obstacle.h" />
-    <ClInclude Include="Entity\include\player.h" />
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
@@ -207,6 +207,7 @@
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\CarFrames.png" />
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
