@@ -50,9 +50,9 @@ GameState::~GameState()
 
 void GameState::spawnPlayer()
 {
-	players = new player(textures.at("Player"));
+	player = new Player(textures.at("Player"));
 	std::cout << "Player Spawned" << std::endl;
-	players->resetClock();
+	player->resetClock();
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -61,7 +61,7 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	type = OBSTICLE;
 
 	if (type == OBSTICLE)
-		objects.push_back(new Obstacle(level, textures.at("OBSTACLE"), sf::IntRect(sf::Vector2i(0,0), sf::Vector2i(320, 320))));
+		objects.push_back(new Obstacle(level, textures.at("OBSTACLE"), 320, 320));
 
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
 	std::cout << type << " at " << level << std::endl;
@@ -100,22 +100,22 @@ void GameState::updateInput(unsigned short keyCode)
 	}
 
 	//100 milliseconds time gap 
-	std::cout << "timer: " << players->getTimeEllapsed() << std::endl;
-	if (players->getTimeEllapsed() > 100) {
+	//std::cout << "timer: " << player->getTimeEllapsed() << std::endl;
+	//if (player->getTimeEllapsed() > 100) {
 		std::cout << "player moving" << std::endl;
 		if (sf::Keyboard::W == keyCode ||
 			sf::Keyboard::Up == keyCode)
 		{
-			players->updateMovement(-1);
+			player->updateMovement(-1);
 			// MOVE UP
 		}
 		else if (sf::Keyboard::D == keyCode ||
 			sf::Keyboard::Down == keyCode)
 		{
 			// MOVE DOWN
-			players->updateMovement(1);
+			player->updateMovement(1);
 		}
-	}
+	//}
 }
 
 void GameState::updateObjects(const float& deltaTime)
@@ -145,8 +145,8 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		pauseState.renderState(renderTarget);
 	}
 
-	if (players != nullptr) {
-		players->render(renderTarget);
+	if (player != nullptr) {
+		player->render(renderTarget);
 	}
 
 	for (auto it : objects)

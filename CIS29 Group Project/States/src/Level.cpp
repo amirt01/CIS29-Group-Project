@@ -95,7 +95,7 @@ Level::~Level()
 
 void Level::updateState(const float& deltaTime)
 {
-	if (players == nullptr) {
+	if (player == nullptr) {
 		spawnPlayer();
 	}
 

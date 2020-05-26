@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, sf::Texture& texture_sheet)
+Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int height)
 	: Entity()
 {
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 250.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 250.f - static_cast<float>(height / 2)));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 375.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 375.f - static_cast<float>(height / 2)));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 525.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 525.f - static_cast<float>(height / 2)));
 		break;
 	default:
 		break;

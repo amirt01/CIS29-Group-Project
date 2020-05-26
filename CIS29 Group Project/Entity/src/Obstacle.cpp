@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Obstacle.h"
 
-Obstacle::Obstacle(unsigned short level, sf::Texture& texture_sheet, sf::IntRect intRect)
-	: Object(level, texture_sheet)
+Obstacle::Obstacle(unsigned short level, sf::Texture& texture_sheet, int width, int height)
+	: Object(level, texture_sheet, width, height)
 {
-	addAnimation("IDLE", 0.1f, 0, 7, 320, 320);
+	// MAKE SURE TO CREATE VARIABLES LATER
+	addAnimation("IDLE", 0.1f, 0, 7, width, height);
 }
 
 Obstacle::~Obstacle()

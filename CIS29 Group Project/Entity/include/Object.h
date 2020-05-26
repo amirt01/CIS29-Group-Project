@@ -8,7 +8,7 @@ protected:
 	int value; //damage or pt value
 
 public:
-	Object(short unsigned level, sf::Texture& texture);
+	Object(short unsigned level, sf::Texture& texture, int width, int height);
 
 	float getCurrentPosition();
 	int getValue();

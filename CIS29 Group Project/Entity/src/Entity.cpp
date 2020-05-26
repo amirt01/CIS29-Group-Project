@@ -22,7 +22,6 @@ Entity::~Entity()
 void Entity::addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height)
 {
 	animations[key] = new Animation(
-		sprite, textureSheet,
 		animation_time,
 		animation_level, frames, width, height
 	);
