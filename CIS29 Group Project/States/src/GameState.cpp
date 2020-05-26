@@ -10,11 +10,21 @@ void GameState::togglePause()
 void GameState::initializeBackground()
 {
 	//player texture
-	if (!textures["Player"].loadFromFile("Resources/Images/motorbiker(test player).png")) {
+	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png")) {
 		throw "ERROR::Game_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
 	}
 
-	if (!textures["OBSTACLE"].loadFromFile("Resources/Images/CarFrames.png"))
+	if (!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
+	}
+
+	if (!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
+	}
+
+	if (!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
@@ -41,6 +51,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 
 GameState::~GameState()
 {
+	delete player;
 	while (!objects.empty())
 	{
 		delete objects.front();
@@ -50,7 +61,7 @@ GameState::~GameState()
 
 void GameState::spawnPlayer()
 {
-	player = new Player(textures.at("Player"));
+	player = new Player(textures.at("PLAYER"));
 	std::cout << "Player Spawned" << std::endl;
 	player->resetClock();
 }
@@ -58,10 +69,13 @@ void GameState::spawnPlayer()
 void GameState::spawnObject(unsigned short level, unsigned short type)
 {
 	// TEMP, REMOVE LATER
-	type = OBSTICLE;
 
-	if (type == OBSTICLE)
-		objects.push_back(new Obstacle(level, textures.at("OBSTACLE"), 320, 320));
+	if (type == Red)
+		objects.push_back(new Obstacle(level, textures.at("RED_CAR"), 320, 320));
+	if (type == Yellow)
+		objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 320, 320));
+	if (type == Orange)
+		objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 320, 320));
 
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
 	std::cout << type << " at " << level << std::endl;

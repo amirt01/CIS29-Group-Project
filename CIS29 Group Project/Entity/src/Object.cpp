@@ -7,13 +7,13 @@ Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int 
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 250.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(1080.f, 200.f - static_cast<float>(height / 2)));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 375.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(1080.f, 335.f - static_cast<float>(height / 2)));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 525.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(1080.f, 460.f - static_cast<float>(height / 2)));
 		break;
 	default:
 		break;
