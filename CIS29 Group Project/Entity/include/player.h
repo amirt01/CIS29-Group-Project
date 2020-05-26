@@ -1,16 +1,15 @@
 #pragma once
 #include "Entity.h"
-
-class player:public Entity {
+class Player:public Entity {
 protected:
-	enum position {Up=0, Center=1, Down=2} pos;
+	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
 	sf::Clock clock;
 
 public:
-	player(sf::Texture);
+	player(sf::Texture texture);
 	//Collision getCollision();
 	
 	void update();

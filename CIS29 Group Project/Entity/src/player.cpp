@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "player.h"
 
-player::player(sf::Texture texture) :
-	Entity(texture),
+Player::Player(sf::Texture texture) :
+	Entity(),
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
@@ -14,11 +14,11 @@ player::player(sf::Texture texture) :
 	update();
 }
 
-void player::resetClock() {
+void Player::resetClock() {
 	clock.restart();
 }
 
-int player::getTimeEllapsed() {
+int Player::getTimeEllapsed() {
 	return clock.getElapsedTime().asMilliseconds();
 }
 
@@ -26,7 +26,7 @@ int player::getTimeEllapsed() {
 //	return Collision(body);
 //}
 
-void player::update() {
+void Player::update() {
 	if (currentPosition == 0) {
 		setPosition(Up);
 	}
@@ -38,8 +38,8 @@ void player::update() {
 	}
 }
 
-void player::updateMovement(int shift) {
-	position currentPos = getPosition();
+void Player::updateMovement(int shift) {
+	unsigned short currentPos = pos;
 
 	if (shift == -1) {
 		if (checkPosition(-1)) {
@@ -59,7 +59,7 @@ void player::updateMovement(int shift) {
 	update(); //update sprite
 }
 
-bool player::checkPosition(int direction) {
+bool Player::checkPosition(int direction) {
 	if (direction == -1) {
 		//wants to move left
 		if (currentPosition != 0) {
@@ -81,33 +81,33 @@ bool player::checkPosition(int direction) {
 }
 
 //Getters and Setters
-void player::setCurrentHealth(int i) {
+void Player::setCurrentHealth(int i) {
 	currentHealth = i;
 }
 
-int player::getCurrentHealth() {
+int Player::getCurrentHealth() {
 	return currentHealth;
 }
 
-void player::setMovementShift(float i) {
+void Player::setMovementShift(float i) {
 	movementShift = i;
 }
 
-float player::getMovementShift() {
+float Player::getMovementShift() {
 	return movementShift;
 }
-void player::setCurrentPosition(int i) {
+void Player::setCurrentPosition(int i) {
 	currentPosition = i;
 }
-int player::getCurrentPosition() {
+int Player::getCurrentPosition() {
 	return currentPosition;
 }
 
-void player::setPosition(position x)
+void Player::setPosition(position x)
 {
 	pos = x;
 }
 
-player::position player::getPosition() const {
+Player::position Player::getPosition() const {
 	return pos;
 }

@@ -7,26 +7,16 @@ void FreePlayState::initializeVariables()
 	GameClock.restart();
 }
 
-bool FreePlayState::checkForSpawn()
-{
-	//if ()
-	return 0;
-}
-
-void FreePlayState::updateSpawnClock()
+void FreePlayState::updateSpawning()
 {
 	std::cout << spawnClock.getElapsedTime().asSeconds() << std::endl;
 
 	if (spawnClock.getElapsedTime().asSeconds() >= frequency) // ready to spawn
 	{
-		spawnObsticle(setObsticleStates());
+		spawnObject(static_cast<unsigned short>(randomDevice() % 3),  // random position
+					static_cast<unsigned short>(randomDevice() % 3)); // random color
 		spawnClock.restart();
 	}
-}
-
-void FreePlayState::spawnObsticle(std::pair<short, short> obsticleStats)
-{
-	spawnObject(obsticleStats.first, obsticleStats.second);
 }
 
 FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
@@ -39,47 +29,11 @@ FreePlayState::~FreePlayState()
 {
 }
 
-std::pair<short, short> FreePlayState::setObsticleStates()
-{
-	short level, obsticle;
-	switch (randomDevice() % 3)
-	{
-	case TOP:
-		level = TOP;
-		break;
-	case MIDDLE:
-		level = MIDDLE;
-		break;
-	case BOTTOM:
-		level = BOTTOM;
-		break;
-	default:
-		break;
-	}
-
-	switch (randomDevice() % 3)
-	{
-	case MEDIUM:
-		obsticle = MEDIUM;
-		break;
-	case LARGE:
-		obsticle = LARGE;
-		break;
-	case SMALL:
-		obsticle = SMALL;
-		break;
-	default:
-		break;
-	}
-
-	return std::make_pair(level, obsticle);
-}
-
 void FreePlayState::updateState(const float& deltaTime)
 {
 	if (!paused)
 	{
-		updateSpawnClock();
+		updateSpawning();
 
 		if (!objects.empty())
 			updateObjects(deltaTime);

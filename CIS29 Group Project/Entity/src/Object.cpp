@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, sf::Texture& texture)
-	: Entity(texture)
-{	
+Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int height)
+	: Entity()
+{
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 250.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 200.f - static_cast<float>(height / 2)));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 375.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 335.f - static_cast<float>(height / 2)));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 525.f));
+		sprite.setPosition(sf::Vector2f(1080.f, 460.f - static_cast<float>(height / 2)));
 		break;
 	default:
 		break;
 	}
 
 	//initializeObjectImage();
-	sprite.setTexture(texture);
+	setTexture(texture_sheet);
 }
 
 int Object::getValue() {
@@ -44,6 +44,12 @@ void Object::setCurrentPosition(int cp)
 	currentPosition = cp;
 }
 
+void Object::updateAnimation(const float& deltaTime)
+{
+	animations["IDLE"]->update(deltaTime);
+	sprite.setTextureRect(animations["IDLE"]->textureRect);
+}
+
 void Object::move(const float x, const float& deltaTime)
 {
 	sprite.move(sf::Vector2f(x, 0) * deltaTime);
@@ -51,4 +57,5 @@ void Object::move(const float x, const float& deltaTime)
 
 void Object::update(const float& deltaTime)
 {
+	updateAnimation(deltaTime);
 }

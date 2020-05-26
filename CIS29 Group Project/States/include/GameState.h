@@ -3,9 +3,9 @@
 #include "State.h"
 #include "PauseState.h"
 #include "Obstacle.h"
-#include "player.h"
+#include "Player.h"
 
-enum type { OBSTICLE = 0, COIN };
+enum color { Red = 0, Yellow, Orange };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
 
 class GameState :
@@ -19,7 +19,7 @@ protected:
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
-	player* players;
+	Player* player;
 	void togglePause();
 
 	std::stack<State*>* states;

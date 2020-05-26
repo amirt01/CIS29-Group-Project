@@ -1,15 +1,8 @@
 #include "stdafx.h"
 #include "Level.h"
 
-unsigned char leftNibble(unsigned char data)
-{
-	return data >> 4;
-}
-
-unsigned char rightNibble(unsigned char data)
-{
-	return data & 0xF;
-}
+unsigned char leftNibble(unsigned char data) { return data >> 4; }
+unsigned char rightNibble(unsigned char data) { return data & 0xF; }
 
 void Level::initializeVariables()
 {
@@ -48,7 +41,7 @@ void Level::updateSpawnClock()
 	{
 		if (!waves.empty())
 		{
-			unsigned short level;
+			unsigned short level, color;
 			switch (rightNibble(waves.front()))
 			{
 			case(0x1): // Top
@@ -63,7 +56,22 @@ void Level::updateSpawnClock()
 			default:
 				level = -1;
 			}
-			spawnObsticle(level, 0);
+
+			switch (leftNibble(waves.front()))
+			{
+			case(0x1): // Top
+				color = Red;
+				break;
+			case(0x2): // Middle
+				color = Yellow;
+				break;
+			case(0x4): // Bottom
+				color = Orange;
+				break;
+			default:
+				color = -1;
+			}
+			spawnObsticle(level, color);
 			spawnClock.restart();
 			waves.pop();
 		}
@@ -95,7 +103,7 @@ Level::~Level()
 
 void Level::updateState(const float& deltaTime)
 {
-	if (players == nullptr) {
+	if (player == nullptr) {
 		spawnPlayer();
 	}
 

@@ -16,10 +16,7 @@ private:
 	void initializeVariables();
 
 	// Functions
-	std::pair<short, short> setObsticleStates();
-	bool checkForSpawn();
-	void updateSpawnClock();
-	void spawnObsticle(std::pair<short, short> obsticleStats);
+	void updateSpawning();
 public:
 	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	~FreePlayState();
