@@ -31,6 +31,10 @@ FreePlayState::~FreePlayState()
 
 void FreePlayState::updateState(const float& deltaTime)
 {
+	if (player == nullptr) {
+		spawnPlayer();
+	}
+
 	if (!paused)
 	{
 		updateSpawning();
