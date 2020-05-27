@@ -42,7 +42,7 @@ public:
 	void updateObjects(const float& deltaTime);
 
 	//Collision Detection
-	void chkCollision();
+	void checkCollision();
 
 	// Render
 	void renderState(sf::RenderTarget* renderTarget = nullptr);

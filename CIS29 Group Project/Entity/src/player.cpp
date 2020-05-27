@@ -9,7 +9,7 @@ Player::Player(sf::Texture& texture) :
 	currentHealth(2) //2 being full health
 {	
 	setTexture(texture);
-	sprite.setPosition(sf::Vector2f(50,350));
+	sprite.setPosition(sf::Vector2f(50,300));
 	resetClock();
 	update();
 }

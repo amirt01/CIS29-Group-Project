@@ -40,7 +40,10 @@ void FreePlayState::updateState(const float& deltaTime)
 		updateSpawning();
 
 		if (!objects.empty())
+		{
+			checkCollision();
 			updateObjects(deltaTime);
+		}
 	}
 	else
 	{
