@@ -41,6 +41,9 @@ public:
 	void updateInput(unsigned short keyCode);
 	void updateObjects(const float& deltaTime);
 
+	//Collision Detection
+	void chkCollision();
+
 	// Render
 	void renderState(sf::RenderTarget* renderTarget = nullptr);
 };

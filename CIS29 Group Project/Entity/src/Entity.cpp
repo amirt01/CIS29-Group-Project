@@ -19,6 +19,15 @@ Entity::~Entity()
 {
 }
 
+
+ Collision Entity::getCollision() {
+	auto width = sprite.getTextureRect().width;
+	auto height = sprite.getTextureRect().height;
+	sf::RectangleShape entityRect(sf::Vector2f(width, height));
+	entityRect.setPosition(sprite.getPosition());
+	return Collision(entityRect);
+}
+
 void Entity::addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height)
 {
 	animations[key] = new Animation(

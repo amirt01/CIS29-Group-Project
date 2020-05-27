@@ -20,7 +20,9 @@ protected:
 public:
 	Entity();
 	virtual ~Entity();
-  
+
+	Collision getCollision();
+
 	void addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height);
   
 	void render(sf::RenderTarget* renderTarget);

@@ -113,23 +113,20 @@ void GameState::updateInput(unsigned short keyCode)
 		togglePause();
 	}
 
-	//100 milliseconds time gap 
-	//std::cout << "timer: " << player->getTimeEllapsed() << std::endl;
-	//if (player->getTimeEllapsed() > 100) {
-		std::cout << "player moving" << std::endl;
-		if (sf::Keyboard::W == keyCode ||
-			sf::Keyboard::Up == keyCode)
-		{
-			player->updateMovement(-1);
-			// MOVE UP
-		}
-		else if (sf::Keyboard::D == keyCode ||
-			sf::Keyboard::Down == keyCode)
-		{
-			// MOVE DOWN
-			player->updateMovement(1);
-		}
-	//}
+	std::cout << "player moving" << std::endl;
+	if (sf::Keyboard::W == keyCode ||
+		sf::Keyboard::Up == keyCode)
+	{
+		player->updateMovement(-1);
+		// MOVE UP
+	}
+	else if (sf::Keyboard::D == keyCode ||
+		sf::Keyboard::Down == keyCode)
+	{
+		// MOVE DOWN
+		player->updateMovement(1);
+	}
+
 }
 
 void GameState::updateObjects(const float& deltaTime)
@@ -146,6 +143,15 @@ void GameState::updateObjects(const float& deltaTime)
 		it->update(deltaTime);
 	}
 }
+
+//Collision Detection
+void GameState::chkCollision() {
+	Collision objC(objects.front()->getCollision());
+	if (player->getCollision().checkCollision(objC, 100)) {
+		std::cout << "Collision!!!" << std::endl;
+	}
+}
+
 
 // Render
 void GameState::renderState(sf::RenderTarget* renderTarget)

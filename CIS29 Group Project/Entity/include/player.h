@@ -10,7 +10,6 @@ protected:
 
 public:
 	Player(sf::Texture& texture);
-	//Collision getCollision();
 	
 	void update();
 	void updateMovement(int);

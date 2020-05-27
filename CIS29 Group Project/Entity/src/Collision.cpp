@@ -21,8 +21,8 @@ bool Collision::checkCollision(Collision& other, float push) {
 
         if (intersectx < 0.0f && intersecty < 0.0f) {
 
-            //if we want the object and player to "push/bounce" off each other when they collide
-            //direction it "pushes" off each other depends if there more overlap in the x or y direction
+            /**if we want the object and player to "push/bounce" off each other when they collide
+            direction it "pushes" off each other depends if there more overlap in the x or y direction
             push = std::min(std::max(push, 0.0f), 1.0f); //clamping
             if (abs(intersectx) < abs(intersecty)) {
                 if (deltax > 0.0f) {
@@ -43,7 +43,7 @@ bool Collision::checkCollision(Collision& other, float push) {
                     move(0.0f, -intersecty * (1.0f - push));
                     other.move(0.0f, intersecty * push);
                 }
-            }
+            }**/
             return true;
         }
 

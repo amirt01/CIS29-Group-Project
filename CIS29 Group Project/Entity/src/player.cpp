@@ -22,10 +22,6 @@ int Player::getTimeEllapsed() {
 	return clock.getElapsedTime().asMilliseconds();
 }
 
-//Collision player::getCollision() {
-//	return Collision(body);
-//}
-
 void Player::update() {
 	if (currentPosition == 0) {
 		setPosition(Up);
@@ -61,14 +57,14 @@ void Player::updateMovement(int shift) {
 
 bool Player::checkPosition(int direction) {
 	if (direction == -1) {
-		//wants to move left
+		//wants to move up
 		if (currentPosition != 0) {
 			return true;
 		}
 		else { return false; }
 	}
 	else if (direction == 1) {
-		//wants to move right
+		//wants to move down
 		if (currentPosition != 2) {
 			return true;
 		}

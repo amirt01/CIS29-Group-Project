@@ -111,8 +111,10 @@ void Level::updateState(const float& deltaTime)
 	{
 		updateSpawnClock();
 
-		if (!objects.empty())
+		if (!objects.empty()) {
 			updateObjects(deltaTime);
+			chkCollision();
+		}
 	}
 	else
 	{
