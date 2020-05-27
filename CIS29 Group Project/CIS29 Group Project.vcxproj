@@ -209,6 +209,7 @@
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\CarFramesOrange.png" />
     <Image Include="Resources\Images\CarFramesRed.png" />
     <Image Include="Resources\Images\CarFramesYellow.png" />
     <Image Include="Resources\Images\GameBackground.png" />
