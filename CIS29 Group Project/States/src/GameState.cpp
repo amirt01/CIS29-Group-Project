@@ -71,11 +71,11 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	// TEMP, REMOVE LATER
 
 	if (type == Red)
-		objects.push_back(new Obstacle(level, textures.at("RED_CAR"), 320, 320));
+		objects.push_back(new Obstacle(level, textures.at("RED_CAR"), 280, 100));
 	if (type == Yellow)
-		objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 320, 320));
+		objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 280, 100));
 	if (type == Orange)
-		objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 320, 320));
+		objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 280, 100));
 
 	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
 	std::cout << type << " at " << level << std::endl;
