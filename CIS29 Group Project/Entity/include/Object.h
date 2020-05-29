@@ -12,6 +12,7 @@ public:
 
 	float getCurrentPosition();
 	int getValue();
+	const int getWidth() const;
 
 	void setCurrentPosition(int);
 	void setValue(int);

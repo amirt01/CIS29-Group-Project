@@ -27,7 +27,7 @@ protected:
 	sf::Texture backgroundTexture;
 
 	// Initializers
-	void initializeBackground();
+	void initializeTextures();
 public:
 	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
