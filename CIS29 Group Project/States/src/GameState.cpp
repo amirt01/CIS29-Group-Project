@@ -8,7 +8,7 @@ void GameState::togglePause()
 }
 
 //Initializers
-void GameState::initializeBackground()
+void GameState::initializeTextures()
 {
 	//player texture
 	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png")) {
@@ -47,7 +47,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	frequency = 5;
 	paused = false;
 	this->states = states;
-	initializeBackground();
+	initializeTextures();
 }
 
 GameState::~GameState()
@@ -69,22 +69,16 @@ void GameState::spawnPlayer()
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
 {
-	// TEMP, REMOVE LATER
-
 	if (type == Red)
 		objects.push_back(new Obstacle(level, textures.at("RED_CAR"), 280, 100));
 	if (type == Yellow)
 		objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 280, 100));
 	if (type == Orange)
 		objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 280, 100));
-
-	std::cout << "OBSTICLE SPAWNED!!!" << std::endl;
-	std::cout << type << " at " << level << std::endl;
 }
 
 /* Functions */
 // Update
-
 
 void GameState::updateGUI()
 {
@@ -132,7 +126,7 @@ void GameState::updateInput(unsigned short keyCode)
 
 void GameState::updateObjects(const float& deltaTime)
 {
-	if (objects.front()->getCurrentPosition() <= 0.f) // MAY NEED TO ADJUST BASED ON CENTER OF OBEJCT
+	if (objects.front()->getCurrentPosition() <= - objects.front()->getWidth())
 	{
 		delete objects.front();
 		objects.pop_front();
@@ -167,7 +161,6 @@ void GameState::checkCollision() {
 	}**/
 }
 
-
 // Render
 void GameState::renderState(sf::RenderTarget* renderTarget)
 {
@@ -175,6 +168,12 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		renderTarget = renderWindow;
 
 	renderTarget->draw(background);
+
+	for (auto it : objects)
+	{
+		it->render(renderTarget);
+	}
+
 	if (paused)
 	{
 		pauseState.renderState(renderTarget);
@@ -182,10 +181,5 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 
 	if (player != nullptr) {
 		player->render(renderTarget);
-	}
-
-	for (auto it : objects)
-	{
-		it->render(renderTarget);
 	}
 }

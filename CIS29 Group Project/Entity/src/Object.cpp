@@ -27,6 +27,11 @@ int Object::getValue() {
 	return value;
 }
 
+const int Object::getWidth() const
+{
+	return sprite.getGlobalBounds().width;
+}
+
 void Object::setValue(int v)
 {
 	value = v;
