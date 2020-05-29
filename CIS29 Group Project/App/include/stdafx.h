@@ -13,6 +13,7 @@
 #include<queue>
 #include<tuple>
 #include<string>
+#include<array>
 
 //Other
 #include<cstdlib>

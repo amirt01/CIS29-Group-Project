@@ -37,6 +37,7 @@ void FreePlayState::updateState(const float& deltaTime)
 
 	if (!paused)
 	{
+		updateBackground(deltaTime);
 		updateSpawning();
 
 		if (!objects.empty())

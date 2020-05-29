@@ -20,11 +20,13 @@ protected:
 	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
 	Player* player;
-	void togglePause();
 
 	std::stack<State*>* states;
+	std::array<sf::RectangleShape, 2> backgrounds;
 	sf::RectangleShape background;
 	sf::Texture backgroundTexture;
+
+	void togglePause();
 
 	// Initializers
 	void initializeTextures();
@@ -40,6 +42,7 @@ public:
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
 	void updateObjects(const float& deltaTime);
+	void updateBackground(const float& deltaTime);
 
 	//Collision Detection
 	void checkCollision();
