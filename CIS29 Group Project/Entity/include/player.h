@@ -17,6 +17,7 @@ public:
 
 	void resetClock();
 	int getTimeEllapsed();
+	void takeDamage();
 	void setCurrentHealth(int);
 	int getCurrentHealth();
 	void setMovementShift(float);

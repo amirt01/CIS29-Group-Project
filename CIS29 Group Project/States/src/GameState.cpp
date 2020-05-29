@@ -150,6 +150,12 @@ void GameState::checkCollision() {
 	if (CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
 	{
 		std::cout << "Collision!!!" << std::endl;
+		//implement timer
+		player->takeDamage();
+		if (player->getCurrentHealth() == 0) {
+			togglePause(); //for now pausing the screen when player collides with cars 3 times
+		}
+		
 	}
 	
 	

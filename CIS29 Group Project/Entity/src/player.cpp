@@ -6,7 +6,7 @@ Player::Player(sf::Texture& texture) :
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
-	currentHealth(2) //2 being full health
+	currentHealth(3) //3 being full health
 {	
 	setTexture(texture);
 	sprite.setPosition(sf::Vector2f(50,300));
@@ -74,6 +74,10 @@ bool Player::checkPosition(int direction) {
 	{
 		return false; //temp
 	}
+}
+
+void Player::takeDamage() {
+	currentHealth -= 1;
 }
 
 //Getters and Setters
