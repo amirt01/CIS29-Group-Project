@@ -121,25 +121,24 @@ void Game::updateSFMLEvents()
 
 void Game::updateGame()
 {
-    updateSFMLEvents();
-
     if (!states.empty())
     {
+        updateSFMLEvents();
         states.top()->updateState(deltaTime);
+        std::cout << "Running " << states.top()->name() << std::endl;
         if (states.top()->getQuit())
         {
             states.top()->quitState();
             delete states.top();
             states.pop();
         }
-
-        std::cout << "Running " << states.top()->name() << std::endl;
     }
+
     // states stack is empty, quit application
     else
     {
+        std::cout << "ending aplication" << std::endl;
         endApplication();
-        renderWindow->close();
     }
 }
 
@@ -148,8 +147,14 @@ void Game::renderGame()
 {
     renderWindow->clear();
 
-    if (!states.empty())
+    if (!states.empty()) {
         states.top()->renderState(renderWindow);
+    }
+    else
+    {
+        renderWindow->close();
+    }
+        
 
     renderWindow->display();
 }
@@ -159,7 +164,6 @@ void Game::runGame()
     while (renderWindow->isOpen())
     {
         updateDeltaTime();
-        updateSFMLEvents();
         updateGame();
         renderGame();
     }
