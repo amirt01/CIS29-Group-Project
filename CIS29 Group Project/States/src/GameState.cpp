@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameState.h"
+#include "CollisionDetection.h"
 
 void GameState::togglePause()
 {
@@ -140,10 +141,18 @@ void GameState::updateObjects(const float& deltaTime)
 
 //Collision Detection
 void GameState::checkCollision() {
+	if (CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
+	{
+		std::cout << "Collision!!!" << std::endl;
+	}
+	
+	
+	
+	/**
 	Collision objC(objects.front()->getCollision());
 	if (player->getCollision().checkCollision(objC, 100)) {
 		std::cout << "Collision!!!" << std::endl;
-	}
+	}**/
 }
 
 // Render

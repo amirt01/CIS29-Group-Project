@@ -21,7 +21,8 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	Collision getCollision();
+	//Collision getCollision();
+	sf::Sprite getSprite();
 
 	void addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height);
   
