@@ -39,7 +39,7 @@ void GameState::initializeTextures()
 			throw TextureError("Resources/Images/CarFramesOrange.png");
 		}
 
-		if (!backgroundTexture.loadFromFile("Resources/Images/GameBakground.png"))
+		if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 		{
 			throw TextureError("Resources/Images/GameBackground.png");
 		}
