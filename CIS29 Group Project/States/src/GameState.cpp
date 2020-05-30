@@ -98,6 +98,8 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 280, 100));
 	if (type == Orange)
 		objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 280, 100));
+
+	updateFrequency();
 }
 
 /* Functions */
@@ -135,8 +137,8 @@ void GameState::updateInput(unsigned short keyCode)
 	if (sf::Keyboard::W == keyCode ||
 		sf::Keyboard::Up == keyCode)
 	{
-		player->updateMovement(-1);
 		// MOVE UP
+		player->updateMovement(-1);
 	}
 	else if (sf::Keyboard::D == keyCode ||
 		sf::Keyboard::Down == keyCode)
@@ -145,6 +147,17 @@ void GameState::updateInput(unsigned short keyCode)
 		player->updateMovement(1);
 	}
 
+}
+
+void GameState::updateSpeed(const float& deltaTime)
+{
+	speed -= deltaTime * 10.f;
+}
+
+void GameState::updateFrequency()
+{
+	if (frequency > 1.f)
+		frequency -= 1.f / frequency;
 }
 
 void GameState::updateObjects(const float& deltaTime)
@@ -199,17 +212,14 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		renderTarget->draw(backgrounds[i]);
 
 	for (auto it : objects)
-	{
 		it->render(renderTarget);
-	}
 
-	if (player != nullptr) {
+	if (player != nullptr)
 		player->render(renderTarget);
+
+	if (hud != nullptr)
 		hud->render(renderTarget);
-	}
 
 	if (paused)
-	{
 		pauseState.renderState(renderTarget);
-	}
 }

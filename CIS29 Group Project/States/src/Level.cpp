@@ -109,6 +109,7 @@ void Level::updateState(const float& deltaTime)
 
 	if (!paused)
 	{
+		updateSpeed(deltaTime);
 		updateSpawnClock();
 
 		if (!objects.empty()) {

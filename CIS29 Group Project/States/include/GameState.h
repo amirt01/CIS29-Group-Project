@@ -44,6 +44,8 @@ public:
 	// Update
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
+	void updateSpeed(const float& deltaTime);
+	void updateFrequency();
 	void updateObjects(const float& deltaTime);
 	void updateBackground(const float& deltaTime);
 
