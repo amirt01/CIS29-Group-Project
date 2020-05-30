@@ -23,7 +23,7 @@ protected:
 
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 2> backgrounds;
-	sf::RectangleShape background;
+	//sf::RectangleShape background;
 	sf::Texture backgroundTexture;
 
 	void togglePause();
