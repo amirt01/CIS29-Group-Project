@@ -39,7 +39,7 @@ void GameState::initializeTextures()
 			throw TextureError("Resources/Images/CarFramesOrange.png");
 		}
 
-		if (!backgroundTexture.loadFromFile("Resources/Images/GameBakground.png"))
+		if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 		{
 			throw TextureError("Resources/Images/GameBackground.png");
 		}
@@ -50,15 +50,19 @@ void GameState::initializeTextures()
 		exit(-1);
 	}
 
-
-	background.setTexture(&backgroundTexture);
+	for (int i = 0; i < backgrounds.size(); i++)
+		backgrounds[i].setTexture(&backgroundTexture);
 }
 
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states)
 {
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), static_cast<float>(renderWindow->getSize().y)));
+	for (int i = 0; i < backgrounds.size(); i++)
+		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), static_cast<float>(renderWindow->getSize().y)));
+
+	backgrounds[1].move(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), 0));
+
 	speed = -75;
 	frequency = 5;
 	paused = false;
@@ -158,7 +162,11 @@ void GameState::updateObjects(const float& deltaTime)
 void GameState::updateBackground(const float& deltaTime)
 {
 	// SOMETHING LIKE:
-	background.move(speed * deltaTime, 0);
+	for (int i = 0; i < backgrounds.size(); i++) {
+		backgrounds[i].move(speed * deltaTime, 0);
+		if (backgrounds[i].getPosition().x+ backgrounds[i].getSize().x < 0)
+			backgrounds[i].move(sf::Vector2f(static_cast<float>(2*renderWindow->getSize().x), 0));
+	}
 }
 
 //Collision Detection
@@ -182,7 +190,10 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
-	renderTarget->draw(background);
+
+
+	for (int i = 0; i < backgrounds.size(); i++)
+		renderTarget->draw(backgrounds[i]);
 
 	for (auto it : objects)
 	{
