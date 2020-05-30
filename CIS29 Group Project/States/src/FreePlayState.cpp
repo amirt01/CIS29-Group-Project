@@ -40,6 +40,8 @@ void FreePlayState::updateState(const float& deltaTime)
 		updateSpeed(deltaTime);
 		updateBackground(deltaTime);
 		updateSpawning();
+		player->updateScore(deltaTime);
+		hud->update();
 
 		if (!objects.empty())
 		{

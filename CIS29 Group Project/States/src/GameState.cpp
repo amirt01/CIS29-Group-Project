@@ -14,43 +14,30 @@ void GameState::initializeTextures()
 	try
 	{
 		if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png"))
-		{
 			throw std::invalid_argument("Resources/Images/motorbiker(test player).png");
-		}
 
 		if (!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png"))
-		{
 			throw std::invalid_argument("Resources/Images/CarFramesRed.png");
-		}
 
 		if (!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png"))
-		{
 			throw std::invalid_argument("Resources/Images/CarFramesYellow.png");
-		}
 
 		if (!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png"))
-		{
 			throw std::invalid_argument("Resources/Images/CarFramesOrange.png");
-		}
 
-		if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
-		{
+		if (!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png"))
 			throw std::invalid_argument("Resources/Images/GameBackground.png");
-		}
 
 		if (!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
-		{
 			throw std::invalid_argument("Resources/Images/Heart.png"); 
-		}
 	}
 	catch (const std::invalid_argument& error)
 	{
-		std::cout << error.what() << std::endl;
 		exit(-1);
 	}
 
-	for (int i = 0; i < backgrounds.size(); i++)
-		backgrounds[i].setTexture(&backgroundTexture);
+	for (auto& t : backgrounds)
+		t.setTexture(&textures.at("BACKGROUND"));
 }
 
 // Constructors/Destructors
@@ -179,7 +166,7 @@ void GameState::updateBackground(const float& deltaTime)
 {
 	// SOMETHING LIKE:
 	for (int i = 0; i < backgrounds.size(); i++) {
-		backgrounds[i].move(speed * deltaTime, 0);
+		backgrounds[i].move(2 * speed * deltaTime, 0);
 		if (backgrounds[i].getPosition().x+ backgrounds[i].getSize().x < 0)
 			backgrounds[i].move(sf::Vector2f(static_cast<float>(2*renderWindow->getSize().x), 0));
 	}

@@ -14,7 +14,7 @@ public:
 
 	float getCurrentPosition();
 	int getValue();
-	const int getWidth() const;
+	const float getWidth() const;
 
 	void setCurrentPosition(int);
 	void setValue(int);

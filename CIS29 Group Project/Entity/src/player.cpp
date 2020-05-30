@@ -6,12 +6,13 @@ Player::Player(sf::Texture& playerTexture) :
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
-	currentHealth(3) //3 being full health
+	currentHealth(3), //3 being full health
+	score(0)
 {	
 	setTexture(playerTexture);
 	sprite.setPosition(sf::Vector2f(50,300));
 	resetClock();
-	update();
+	//update();
 }
 
 void Player::resetClock() {
@@ -22,16 +23,8 @@ int Player::getTimeEllapsed() {
 	return clock.getElapsedTime().asMilliseconds();
 }
 
-void Player::update() {
-	if (currentPosition == 0) {
-		setPosition(Up);
-	}
-	else if (currentPosition == 1) {
-		setPosition(Center);
-	}
-	else if (currentPosition == 2) {
-		setPosition(Down);
-	}
+void Player::updateScore(const float& deltaTime) {
+	score += deltaTime;
 }
 
 void Player::updateMovement(int shift) {
@@ -52,7 +45,15 @@ void Player::updateMovement(int shift) {
 		}
 	}
 
-	update(); //update sprite
+	if (currentPosition == 0) {
+		setPosition(Up);
+	}
+	else if (currentPosition == 1) {
+		setPosition(Center);
+	}
+	else if (currentPosition == 2) {
+		setPosition(Down);
+	}
 }
 
 bool Player::checkPosition(int direction) {
@@ -87,6 +88,11 @@ void Player::setCurrentHealth(int i) {
 
 int Player::getCurrentHealth() {
 	return currentHealth;
+}
+
+float Player::getCurrentScore()
+{
+	return score;
 }
 
 void Player::setMovementShift(float i) {

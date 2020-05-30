@@ -8,14 +8,17 @@ protected:
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
+	float score;
 
 	sf::Clock clock;
 
 public:
 	Player(sf::Texture& playerTexture);
 	
-	void update();
+	// void update();
 	void updateMovement(int);
+	void updateScore(const float& deltaTime);
+
 	bool checkPosition(int);
 
 	void resetClock();
@@ -23,6 +26,9 @@ public:
 	void takeDamage();
 	void setCurrentHealth(int);
 	int getCurrentHealth();
+
+	float getCurrentScore();
+
 	void setMovementShift(float);
 	float getMovementShift();
 	void setCurrentPosition(int);

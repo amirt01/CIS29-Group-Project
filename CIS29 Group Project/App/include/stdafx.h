@@ -20,6 +20,7 @@
 #include<ctime>
 #include<random>
 #include<algorithm>
+#include<cmath>
 
 //SFML Specific
 #include"SFML\System.hpp"

@@ -27,7 +27,7 @@ int Object::getValue() {
 	return value;
 }
 
-const int Object::getWidth() const
+const float Object::getWidth() const
 {
 	return sprite.getGlobalBounds().width;
 }
