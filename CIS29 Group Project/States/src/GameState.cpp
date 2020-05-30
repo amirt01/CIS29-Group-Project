@@ -171,12 +171,13 @@ void GameState::updateBackground(const float& deltaTime)
 
 //Collision Detection
 void GameState::checkCollision() {
-	if (CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
+	if (objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
 	{
 		std::cout << "Collision!!!" << std::endl;
 		//implement timer
 		player->takeDamage();
 		std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
+		objects.front()-> hit = true;
 		if (player->getCurrentHealth() == 0) {
 			togglePause(); //for now pausing the screen when player collides with cars 3 times
 		}
@@ -190,8 +191,6 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
-
-
 
 	for (int i = 0; i < backgrounds.size(); i++)
 		renderTarget->draw(backgrounds[i]);

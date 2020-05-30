@@ -2,7 +2,7 @@
 #include "Object.h"
 
 Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int height)
-	: Entity()
+	: Entity(), hit(false)
 {
 	switch (level)
 	{
