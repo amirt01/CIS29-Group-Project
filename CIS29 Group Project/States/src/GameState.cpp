@@ -7,12 +7,6 @@ void GameState::togglePause()
 	paused = !paused;
 }
 
-class TextureError : public std::invalid_argument
-{
-public:
-	TextureError(std::string path) : std::invalid_argument(path) {};
-};
-
 //Initializers
 void GameState::initializeTextures()
 {
@@ -21,30 +15,35 @@ void GameState::initializeTextures()
 	{
 		if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png"))
 		{
-			throw TextureError("Resources/Images/motorbiker(test player).png");
+			throw std::invalid_argument("Resources/Images/motorbiker(test player).png");
 		}
 
 		if (!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png"))
 		{
-			throw TextureError("Resources/Images/CarFramesRed.png");
+			throw std::invalid_argument("Resources/Images/CarFramesRed.png");
 		}
 
 		if (!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png"))
 		{
-			throw TextureError("Resources/Images/CarFramesYellow.png");
+			throw std::invalid_argument("Resources/Images/CarFramesYellow.png");
 		}
 
 		if (!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png"))
 		{
-			throw TextureError("Resources/Images/CarFramesOrange.png");
+			throw std::invalid_argument("Resources/Images/CarFramesOrange.png");
 		}
 
 		if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
 		{
-			throw TextureError("Resources/Images/GameBackground.png");
+			throw std::invalid_argument("Resources/Images/GameBackground.png");
+		}
+
+		if (!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
+		{
+			throw std::invalid_argument("Resources/Images/Heart.png"); 
 		}
 	}
-	catch (const TextureError& error)
+	catch (const std::invalid_argument& error)
 	{
 		std::cout << error.what() << std::endl;
 		exit(-1);
@@ -83,6 +82,10 @@ GameState::~GameState()
 void GameState::spawnPlayer()
 {
 	player = new Player(textures.at("PLAYER"));
+
+
+	hud = new HUD(player, textures.at("HEART"));
+
 	std::cout << "Player Spawned" << std::endl;
 	player->resetClock();
 }
@@ -181,7 +184,7 @@ void GameState::checkCollision() {
 		if (player->getCurrentHealth() == 0) {
 			togglePause(); //for now pausing the screen when player collides with cars 3 times
 		}
-		
+
 	}
 	
 }
@@ -200,12 +203,13 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		it->render(renderTarget);
 	}
 
+	if (player != nullptr) {
+		player->render(renderTarget);
+		hud->render(renderTarget);
+	}
+
 	if (paused)
 	{
 		pauseState.renderState(renderTarget);
-	}
-
-	if (player != nullptr) {
-		player->render(renderTarget);
 	}
 }

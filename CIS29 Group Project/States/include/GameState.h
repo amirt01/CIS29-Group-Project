@@ -4,6 +4,7 @@
 #include "PauseState.h"
 #include "Obstacle.h"
 #include "Player.h"
+#include "HUD.h"
 
 enum color { Red = 0, Yellow, Orange };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -19,7 +20,9 @@ protected:
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
 	std::deque<Object*> objects;
+
 	Player* player;
+	HUD* hud;
 
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 2> backgrounds;

@@ -1,15 +1,18 @@
 #pragma once
+
 #include "Entity.h"
+
 class Player:public Entity {
 protected:
 	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
+
 	sf::Clock clock;
 
 public:
-	Player(sf::Texture& texture);
+	Player(sf::Texture& playerTexture);
 	
 	void update();
 	void updateMovement(int);

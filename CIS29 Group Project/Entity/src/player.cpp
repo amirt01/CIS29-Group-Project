@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "player.h"
 
-Player::Player(sf::Texture& texture) :
+Player::Player(sf::Texture& playerTexture) :
 	Entity(),
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
 	currentHealth(3) //3 being full health
 {	
-	setTexture(texture);
+	setTexture(playerTexture);
 	sprite.setPosition(sf::Vector2f(50,300));
 	resetClock();
 	update();
