@@ -7,12 +7,6 @@ void GameState::togglePause()
 	paused = !paused;
 }
 
-class TextureError : public std::invalid_argument
-{
-public:
-	TextureError(std::string path) : std::invalid_argument(path) {};
-};
-
 //Initializers
 void GameState::initializeTextures()
 {
@@ -46,10 +40,8 @@ void GameState::initializeTextures()
 	}
 	catch (const std::invalid_argument& error)
 	{
-		std::cout << error.what() << std::endl;
 		exit(-1);
 	}
-
 
 	background.setTexture(&backgroundTexture);
 }
@@ -154,13 +146,6 @@ void GameState::updateObjects(const float& deltaTime)
 		it->move(speed, deltaTime);
 		it->update(deltaTime);
 	}
-}
-
-void GameState::updateBackground(const float& deltaTime)
-{
-	// SOMETHING LIKE:
-	for (sf::RectangleShape rs : backgrounds)
-		rs.move(speed * deltaTime, 0);
 }
 
 //Collision Detection

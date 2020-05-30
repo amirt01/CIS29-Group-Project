@@ -14,17 +14,18 @@ void Level::initializeLevel(std::string path)
 	unsigned char buffer;
 
 	std::ifstream fin(path);
-	
-	if (fin.is_open())
-	{
-		while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
-		{
-			waves.push(buffer);
-		}
+	try {
+		if(!fin.is_open())
+			throw std::invalid_argument(path);
 	}
-	else
+	catch (std::invalid_argument& error)
 	{
-		throw "ERROR::LEVEL::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+		exit(-1);
+	}
+
+	while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
+	{
+		waves.push(buffer);
 	}
 }
 
