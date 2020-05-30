@@ -17,15 +17,17 @@ void Level::initializeLevel(std::string path)
 	try {
 		if(!fin.is_open())
 			throw std::invalid_argument(path);
+
+		while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
+		{
+			waves.push(buffer);
+		}
+
+		fin.close();
 	}
 	catch (std::invalid_argument& error)
 	{
 		exit(-1);
-	}
-
-	while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
-	{
-		waves.push(buffer);
 	}
 }
 
