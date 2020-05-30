@@ -1,6 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include "Collision.h"
 #include "Animation.h"
 
 enum level { TOP = 0, MIDDLE, BOTTOM };
@@ -21,7 +20,6 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	//Collision getCollision();
 	sf::Sprite getSprite();
 
 	void addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height);

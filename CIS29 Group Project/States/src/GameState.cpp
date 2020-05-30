@@ -175,12 +175,6 @@ void GameState::checkCollision() {
 		
 	}
 	
-
-	/**
-	Collision objC(objects.front()->getCollision());
-	if (player->getCollision().checkCollision(objC, 100)) {
-		std::cout << "Collision!!!" << std::endl;
-	}**/
 }
 
 // Render
