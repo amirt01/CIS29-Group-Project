@@ -7,33 +7,49 @@ void GameState::togglePause()
 	paused = !paused;
 }
 
+class TextureError : public std::invalid_argument
+{
+public:
+	TextureError(std::string path) : std::invalid_argument(path) {};
+};
+
 //Initializers
 void GameState::initializeTextures()
 {
 	//player texture
-	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png")) {
-		throw "ERROR::Game_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
+	try
+	{
+		if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png"))
+		{
+			throw std::invalid_argument("Resources/Images/motorbiker(test player).png");
+		}
+
+		if (!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png"))
+		{
+			throw std::invalid_argument("Resources/Images/CarFramesRed.png");
+		}
+
+		if (!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png"))
+		{
+			throw std::invalid_argument("Resources/Images/CarFramesYellow.png");
+		}
+
+		if (!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png"))
+		{
+			throw std::invalid_argument("Resources/Images/CarFramesOrange.png");
+		}
+
+		if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
+		{
+			throw std::invalid_argument("Resources/Images/GameBackground.png");
+		}
+	}
+	catch (const std::invalid_argument& error)
+	{
+		std::cout << error.what() << std::endl;
+		exit(-1);
 	}
 
-	if (!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png"))
-	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
-	}
-
-	if (!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png"))
-	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
-	}
-
-	if (!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png"))
-	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
-	}
-
-	if (!backgroundTexture.loadFromFile("Resources/Images/GameBackground.png"))
-	{
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
 
 	background.setTexture(&backgroundTexture);
 }
@@ -42,7 +58,8 @@ void GameState::initializeTextures()
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states)
 {
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), static_cast<float>(renderWindow->getSize().y)));
+	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
+									static_cast<float>(renderWindow->getSize().y)));
 	speed = -75;
 	frequency = 5;
 	paused = false;
@@ -139,6 +156,13 @@ void GameState::updateObjects(const float& deltaTime)
 	}
 }
 
+void GameState::updateBackground(const float& deltaTime)
+{
+	// SOMETHING LIKE:
+	for (sf::RectangleShape rs : backgrounds)
+		rs.move(speed * deltaTime, 0);
+}
+
 //Collision Detection
 void GameState::checkCollision() {
 	if (CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
@@ -146,8 +170,7 @@ void GameState::checkCollision() {
 		std::cout << "Collision!!!" << std::endl;
 	}
 	
-	
-	
+
 	/**
 	Collision objC(objects.front()->getCollision());
 	if (player->getCollision().checkCollision(objC, 100)) {
