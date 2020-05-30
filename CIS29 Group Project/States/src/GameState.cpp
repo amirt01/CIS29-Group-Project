@@ -168,6 +168,7 @@ void GameState::checkCollision() {
 		std::cout << "Collision!!!" << std::endl;
 		//implement timer
 		player->takeDamage();
+		std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
 		if (player->getCurrentHealth() == 0) {
 			togglePause(); //for now pausing the screen when player collides with cars 3 times
 		}

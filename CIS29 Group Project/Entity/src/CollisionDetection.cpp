@@ -56,9 +56,9 @@ CollisionDetection::BitmaskManager bitMaskManager;
 bool CollisionDetection::PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit)
 {
 	sf::FloatRect Intersection;
-	if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds())) 
+	if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds(),Intersection)) 
 	{
-		/**Might not be needed due to the nature of how our objects move
+		//Might not be needed due to the nature of how our objects move
 		sf::IntRect SubRect1 = Object1.getTextureRect();
 		sf::IntRect SubRect2 = Object2.getTextureRect();
 
@@ -84,8 +84,8 @@ bool CollisionDetection::PixelPerfectTest(const sf::Sprite& Object1, const sf::S
 					}
 				}
 			}
-		}**/
-		return true;
+		}
+		//return true;
 	}
 	return false;
 }
