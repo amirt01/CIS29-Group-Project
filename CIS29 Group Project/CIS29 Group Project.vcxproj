@@ -222,6 +222,9 @@
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exception Handler\Exception Handler.vcxproj">
+      <Project>{66d17ece-9f26-4e36-803d-659614a11b28}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\GUI\GUI.vcxproj">
       <Project>{fdf06b84-6fd5-4782-8238-c78cdc0eeef0}</Project>
     </ProjectReference>
