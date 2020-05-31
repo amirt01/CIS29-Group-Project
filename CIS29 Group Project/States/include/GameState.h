@@ -49,7 +49,7 @@ public:
 	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
 	void updateBackground(const float& deltaTime);
-	virtual void updateState(const float& deltaTime);
+	void updateState(const float& deltaTime);
 
 	//Collision Detection
 	void checkCollision();
