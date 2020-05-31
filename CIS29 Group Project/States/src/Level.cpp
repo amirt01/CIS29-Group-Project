@@ -109,7 +109,11 @@ void Level::updateState(const float& deltaTime)
 
 	if (!paused)
 	{
+		updateSpeed(deltaTime);
+		updateBackground(deltaTime);
 		updateSpawnClock();
+		player->updateScore(deltaTime);
+		hud->update();
 
 		if (!objects.empty()) {
 			checkCollision();

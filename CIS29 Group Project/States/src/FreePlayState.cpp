@@ -37,8 +37,11 @@ void FreePlayState::updateState(const float& deltaTime)
 
 	if (!paused)
 	{
+		updateSpeed(deltaTime);
 		updateBackground(deltaTime);
 		updateSpawning();
+		player->updateScore(deltaTime);
+		hud->update();
 
 		if (!objects.empty())
 		{

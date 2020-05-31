@@ -34,6 +34,5 @@ void Entity::addAnimation(const std::string key, float animation_time, int anima
 
 void Entity::render(sf::RenderTarget* renderTarget)
 {
-	std::cout << sprite.getPosition().x << std::endl;
 	renderTarget->draw(sprite);
 }

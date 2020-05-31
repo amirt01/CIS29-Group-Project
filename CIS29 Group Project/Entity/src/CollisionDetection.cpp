@@ -65,17 +65,17 @@ bool CollisionDetection::PixelPerfectTest(const sf::Sprite& Object1, const sf::S
 		auto mask1 = bitMaskManager.getMask(Object1.getTexture());
 		auto mask2 = bitMaskManager.getMask(Object2.getTexture());
 
-		for (int i = Intersection.left; i < Intersection.left + Intersection.width; i++)
+		for (float i = Intersection.left; i < Intersection.left + Intersection.width; i++)
 		{
-			for (int j = Intersection.top; j < Intersection.top + Intersection.height; j++)
+			for (float j = Intersection.top; j < Intersection.top + Intersection.height; j++)
 			{
-				sf::Vector2f Obj1_vector = Object1.getInverseTransform().transformPoint(i, j);
-				sf::Vector2f Obj2_vector = Object2.getInverseTransform().transformPoint(i, j);
-
+				sf::Vector2u Obj1_vector(Object1.getInverseTransform().transformPoint(i, j));
+				sf::Vector2u Obj2_vector(Object2.getInverseTransform().transformPoint(i, j));
+				
 				if (Obj1_vector.x > 0 && Obj1_vector.y > 0 && Obj2_vector.x > 0
-					&& Obj2_vector.y > 0 && Obj1_vector.x < SubRect1.width
-					&& Obj1_vector.y < SubRect1.height && Obj2_vector.x < SubRect2.width
-					&& Obj2_vector.y < SubRect2.height)
+					&& Obj2_vector.y > 0 && Obj1_vector.x < static_cast<unsigned>(SubRect1.width)
+					&& Obj1_vector.y < static_cast<unsigned>(SubRect1.height) && Obj2_vector.x < static_cast<unsigned>(SubRect2.width)
+					&& Obj2_vector.y < static_cast<unsigned>(SubRect2.height))
 				{
 					if (bitMaskManager.getPixel(mask1, Object1.getTexture(), (int)(Obj1_vector.x) + SubRect1.left, (int)(Obj1_vector.y) + SubRect1.top) > AlphaLimit &&
 						bitMaskManager.getPixel(mask2, Object2.getTexture(), (int)(Obj2_vector.x) + SubRect2.left, (int)(Obj2_vector.y) + SubRect2.top) > AlphaLimit)
