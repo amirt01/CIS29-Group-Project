@@ -13,12 +13,14 @@
 #include<queue>
 #include<tuple>
 #include<string>
+#include<array>
 
 //Other
 #include<cstdlib>
 #include<ctime>
 #include<random>
 #include<algorithm>
+#include<cmath>
 
 //SFML Specific
 #include"SFML\System.hpp"

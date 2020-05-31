@@ -2,7 +2,7 @@
 #include "Object.h"
 
 Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int height)
-	: Entity()
+	: Entity(), hit(false)
 {
 	switch (level)
 	{
@@ -27,7 +27,7 @@ int Object::getValue() {
 	return value;
 }
 
-const int Object::getWidth() const
+const float Object::getWidth() const
 {
 	return sprite.getGlobalBounds().width;
 }

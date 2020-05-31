@@ -42,9 +42,6 @@
     <ClCompile Include="States\src\FreePlayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\src\Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\src\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
     <ClInclude Include="States\include\FreePlayState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\include\Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\include\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,9 +130,6 @@
     <Image Include="Resources\Images\MainMenu.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\star(temp object).png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Images\GameBackground.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -152,6 +143,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\CarFramesOrange.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\Heart.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

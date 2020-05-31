@@ -1,17 +1,18 @@
 #include "stdafx.h"
 #include "player.h"
 
-Player::Player(sf::Texture& texture) :
+Player::Player(sf::Texture& playerTexture) :
 	Entity(),
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
-	currentHealth(2) //2 being full health
+	currentHealth(3), //3 being full health
+	score(0)
 {	
-	setTexture(texture);
+	setTexture(playerTexture);
 	sprite.setPosition(sf::Vector2f(50,300));
 	resetClock();
-	update();
+	//update();
 }
 
 void Player::resetClock() {
@@ -22,16 +23,8 @@ int Player::getTimeEllapsed() {
 	return clock.getElapsedTime().asMilliseconds();
 }
 
-void Player::update() {
-	if (currentPosition == 0) {
-		setPosition(Up);
-	}
-	else if (currentPosition == 1) {
-		setPosition(Center);
-	}
-	else if (currentPosition == 2) {
-		setPosition(Down);
-	}
+void Player::updateScore(const float& deltaTime) {
+	score += deltaTime;
 }
 
 void Player::updateMovement(int shift) {
@@ -52,7 +45,15 @@ void Player::updateMovement(int shift) {
 		}
 	}
 
-	update(); //update sprite
+	if (currentPosition == 0) {
+		setPosition(Up);
+	}
+	else if (currentPosition == 1) {
+		setPosition(Center);
+	}
+	else if (currentPosition == 2) {
+		setPosition(Down);
+	}
 }
 
 bool Player::checkPosition(int direction) {
@@ -76,6 +77,10 @@ bool Player::checkPosition(int direction) {
 	}
 }
 
+void Player::takeDamage() {
+	currentHealth -= 1;
+}
+
 //Getters and Setters
 void Player::setCurrentHealth(int i) {
 	currentHealth = i;
@@ -83,6 +88,11 @@ void Player::setCurrentHealth(int i) {
 
 int Player::getCurrentHealth() {
 	return currentHealth;
+}
+
+float Player::getCurrentScore()
+{
+	return score;
 }
 
 void Player::setMovementShift(float i) {
