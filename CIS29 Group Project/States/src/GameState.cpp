@@ -36,8 +36,8 @@ void GameState::initializeTextures()
 		exit(-1);
 	}
 
-	for (auto& t : backgrounds)
-		t.setTexture(&textures.at("BACKGROUND"));
+	for (sf::RectangleShape& rs : backgrounds)
+		rs.setTexture(&textures.at("BACKGROUND"));
 }
 
 // Constructors/Destructors
