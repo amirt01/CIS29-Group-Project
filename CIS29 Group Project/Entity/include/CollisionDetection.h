@@ -2,7 +2,7 @@
 #ifndef CollisionDetection_H
 #define CollisionDetection_H
 #include "stdafx.h"
-//PixelPerfectTest comes form SonarSystem's code
+//PixelPerfectTest comes form SFML docs
 
 namespace CollisionDetection {
 	class BitmaskManager
@@ -18,8 +18,8 @@ namespace CollisionDetection {
 
 	bool PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit = 0);
 	bool BoundingBoxTest(const sf::Sprite& Object1, const sf::Sprite& Object2);
-}
 
+}
 
 
 #endif // !CollisionDetection_H
