@@ -4,11 +4,6 @@
 unsigned char leftNibble(unsigned char data) { return data >> 4; }
 unsigned char rightNibble(unsigned char data) { return data & 0xF; }
 
-void Level::initializeVariables()
-{
-	spawnClock.restart();
-}
-
 void Level::initializeLevel(std::string path)
 {
 	unsigned char buffer;
@@ -31,20 +26,14 @@ void Level::initializeLevel(std::string path)
 	}
 }
 
-bool Level::checkForSpawn()
+void Level::updateSpawning()
 {
-	return false;
-}
-
-void Level::updateSpawnClock()
-{
-	std::cout << spawnClock.getElapsedTime().asSeconds() << std::endl;
-
-	if (spawnClock.getElapsedTime().asSeconds() >= frequency) // ready to spawn
+	if (spawnTime >= frequency) // ready to spawn
 	{
 		if (!waves.empty())
 		{
 			unsigned short level, color;
+			spawnTime = 0;
 			switch (rightNibble(waves.front()))
 			{
 			case(0x1): // Top
@@ -74,8 +63,7 @@ void Level::updateSpawnClock()
 			default:
 				color = -1;
 			}
-			spawnObsticle(level, color);
-			spawnClock.restart();
+			spawnObject(level, color);
 			waves.pop();
 		}
 		else if (objects.empty())
@@ -88,44 +76,12 @@ void Level::updateSpawnClock()
 	}
 }
 
-void Level::spawnObsticle(unsigned short level, unsigned short type)
-{
-	spawnObject(level, type);
-}
-
 Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states)
 	: GameState(renderWindow, states)
 {
 	initializeLevel(path);
-	initializeVariables();
 }
 
 Level::~Level()
 {
-}
-
-void Level::updateState(const float& deltaTime)
-{
-	if (player == nullptr) {
-		spawnPlayer();
-	}
-
-	if (!paused)
-	{
-		updateSpeed(deltaTime);
-		updateBackground(deltaTime);
-		updateSpawnClock();
-		player->updateScore(deltaTime);
-		hud->update();
-
-		if (!objects.empty()) {
-			checkCollision();
-			updateObjects(deltaTime);
-		}
-	}
-	else
-	{
-		pauseState.updateState(deltaTime);
-		updateGUI();
-	}
 }

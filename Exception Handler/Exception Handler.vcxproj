@@ -155,10 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Exception Handler.cpp" />
+    <ClCompile Include="src\ExceptionHandler.cpp" />
     <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ExceptionHandler.h" />
     <ClInclude Include="include\pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

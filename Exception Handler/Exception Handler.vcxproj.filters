@@ -18,12 +18,15 @@
     <ClCompile Include="src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Exception Handler.cpp">
+    <ClCompile Include="src\ExceptionHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ExceptionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
