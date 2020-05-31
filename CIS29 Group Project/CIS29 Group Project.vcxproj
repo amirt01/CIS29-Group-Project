@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\Exception Handler\include;$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\Exception Handler\include;$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\Exception Handler\include;$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\amirt\source\repos\CIS29-Group-Project\Exception Handler\include;$(SolutionDir)CIS29 Group Project\Components\include;$(SolutionDir)CIS29 Group Project\Entity\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -220,6 +220,9 @@
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exception Handler\Exception Handler.vcxproj">
+      <Project>{66d17ece-9f26-4e36-803d-659614a11b28}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\GUI\GUI.vcxproj">
       <Project>{fdf06b84-6fd5-4782-8238-c78cdc0eeef0}</Project>
     </ProjectReference>

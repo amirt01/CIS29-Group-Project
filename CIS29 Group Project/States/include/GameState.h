@@ -16,6 +16,8 @@ protected:
 	float speed;
 	float frequency;
 
+	float spawnTime;
+
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
 	std::map<std::string, sf::Texture> textures;
@@ -31,6 +33,8 @@ protected:
 
 	// Initializers
 	void initializeTextures();
+	virtual void updateSpawning() = 0;
+
 public:
 	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
@@ -42,10 +46,10 @@ public:
 	// Update
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
-	void updateSpeed(const float& deltaTime);
-	void updateFrequency();
+	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
 	void updateBackground(const float& deltaTime);
+	virtual void updateState(const float& deltaTime);
 
 	//Collision Detection
 	void checkCollision();

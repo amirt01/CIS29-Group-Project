@@ -8,11 +8,16 @@
 void MainMenuState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-		static_cast<float>(renderWindow->getSize().y)));
-
-	if (!backgrounTexture.loadFromFile("Resources/Images/MainMenu.png"))
+									static_cast<float>(renderWindow->getSize().y)));
+	try {
+		if (!backgrounTexture.loadFromFile("Resources/Images/MainMenu.png"))
+		{
+			throw std::invalid_argument("Resources/Images/MainMenu.png");
+		}
+	}
+	catch (std::invalid_argument& error)
 	{
-		std::cout << "ERROR:MAIN_MENU_STATE:FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+		exit(-1);
 	}
 
 	background.setTexture(&backgrounTexture);
@@ -20,9 +25,15 @@ void MainMenuState::initializeBackground()
 
 void MainMenuState::initializeFonts()
 {
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
+	try {
+		if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
+		{
+			throw std::invalid_argument("Resources/Fonts/Dosis-Light.ttf");
+		}
+	}
+	catch (std::invalid_argument& error)
 	{
-		std::cout << "ERROR:MAINMENUSTATE:COULD NOT LOAD FONT";
+		exit(-1);
 	}
 }
 
