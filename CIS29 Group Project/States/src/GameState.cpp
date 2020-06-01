@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 #include "CollisionDetection.h"
-
+ 
 void GameState::togglePause()
 {
 	paused = !paused;
