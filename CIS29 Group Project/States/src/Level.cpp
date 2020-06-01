@@ -22,6 +22,7 @@ void Level::initializeLevel(std::string path)
 	}
 	catch (std::invalid_argument& error)
 	{
+		std::cout << error.what() << std::endl;
 		exit(-1);
 	}
 }

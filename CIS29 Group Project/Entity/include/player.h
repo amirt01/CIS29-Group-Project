@@ -3,12 +3,13 @@
 #include "Entity.h"
 
 class Player:public Entity {
-protected:
+private:
 	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
 	float score;
+	unsigned int coins;
 
 	sf::Clock clock;
 
@@ -18,6 +19,9 @@ public:
 	// void update();
 	void updateMovement(int);
 	void updateScore(const float& deltaTime);
+
+	void gainCoin();
+	unsigned int getCoins();
 
 	bool checkPosition(int);
 

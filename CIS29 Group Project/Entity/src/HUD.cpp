@@ -4,9 +4,7 @@
 void HUD::initializeContainer()
 {
 	container.setSize(sf::Vector2f(425.f, 64.f));
-
 	container.setFillColor(sf::Color(20, 20, 20, 200));
-
 	container.setPosition(100.f, container.getSize().y / 2.f);
 }
 
@@ -29,11 +27,11 @@ void HUD::initializeScore()
 
 void HUD::initializeHearts(sf::Texture& heartTexture)
 {
-	float position = 1.5 * score.getGlobalBounds().width + score.getPosition().x;
+	float position = 1.5f * score.getGlobalBounds().width + score.getPosition().x;
 	for (Entity& heart : hearts)
 	{
 		heart.setTexture(heartTexture);
-		heart.setPosition(position += 1.5 * heart.getSprite().getTextureRect().width,
+		heart.setPosition(position += 1.5f * static_cast<float>(heart.getSprite().getTextureRect().width),
 						 (container.getPosition().y + container.getSize().y / 2) -
 						 (heart.getSprite().getTextureRect().height / 2) );
 	}
@@ -55,11 +53,17 @@ HUD::~HUD()
 void HUD::update()
 {
 	updateScore();
+	updateCoins();
 }
 
 void HUD::updateScore()
 {
 	score.setString(sf::String(std::to_string(player->getCurrentScore())));
+}
+
+void HUD::updateCoins()
+{
+	coins.setString(sf::String(std::to_string(player->getCoins())));
 }
 
 void HUD::render(sf::RenderTarget* renderTarget)

@@ -20,26 +20,22 @@ void GameState::initializeTextures()
 		!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
 		exit(-1); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
-
-	for (sf::RectangleShape& rs : backgrounds)
-		rs.setTexture(&textures.at("BACKGROUND"));
 }
 
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states), pauseState(renderWindow, states)
+	: State(renderWindow, states), pauseState(renderWindow, states),
+	speed(-75), frequency(5), states(states), paused(false)
 {
+	initializeTextures();
+	spawnPlayer();
+
 	for (int i = 0; i < backgrounds.size(); i++)
-		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
+		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x * (i + 1)),
 											static_cast<float>(renderWindow->getSize().y)));
 
-	backgrounds[1].move(sf::Vector2f(static_cast<float>(renderWindow->getSize().x), 0));
-
-	speed = -75;
-	frequency = 5;
-	paused = false;
-	this->states = states;
-	initializeTextures();
+	for (sf::RectangleShape& rs : backgrounds)
+		rs.setTexture(&textures.at("BACKGROUND"));
 }
 
 GameState::~GameState()
@@ -68,13 +64,13 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		switch (type)
 		{
 		case Red:
-			objects.push_back(new Obstacle(level, textures.at("RED_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100));
 			break;
 		case Yellow:
-			objects.push_back(new Obstacle(level, textures.at("YELLOW_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100));
 			break;
 		case Orange:
-			objects.push_back(new Obstacle(level, textures.at("ORANGE_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100));
 			break;
 		default:
 			throw exc::SpawnError<unsigned short>(type);
@@ -174,10 +170,6 @@ void GameState::updateBackground(const float& deltaTime)
 
 void GameState::updateState(const float& deltaTime)
 {
-	if (player == nullptr) {
-		spawnPlayer();
-	}
-
 	if (!paused)
 	{
 		updateGameSpeed(deltaTime);
@@ -203,17 +195,25 @@ void GameState::updateState(const float& deltaTime)
 void GameState::checkCollision() {
 	if (objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
 	{
-		std::cout << "Collision!!!" << std::endl;
-		//implement timer
-		player->takeDamage();
-		std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
-		objects.front()-> hit = true;
-		if (player->getCurrentHealth() == 0) {
-			togglePause(); //for now pausing the screen when player collides with cars 3 times
+		switch (objects.front()->type)
+		{
+		case Obstacle:
+			std::cout << "Collision!!!" << std::endl;
+			//implement timer
+			player->takeDamage();
+			std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
+			objects.front()->hit = true;
+			if (player->getCurrentHealth() == 0) {
+				togglePause(); //for now pausing the screen when player collides with cars 3 times
+			}
+			break;
+		case Coin:
+			player->gainCoin();
+			break;
+		default:
+			break;
 		}
-
 	}
-	
 }
 
 // Render

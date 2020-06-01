@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Animation.h"
 
-Animation::Animation(float animation_time, int animation_level, int frames, int width, int height)
+Animation::Animation(float animation_time, int animation_level, unsigned int frames, int width, int height)
 {
 	animationTime = animation_time;
 	timer = 0.f;
