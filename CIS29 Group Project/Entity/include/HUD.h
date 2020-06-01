@@ -30,5 +30,3 @@ public:
 	void updateCoins();
 	void render(sf::RenderTarget* renderTarget);
 };
-
-

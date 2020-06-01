@@ -32,7 +32,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 
 	for (int i = 0; i < backgrounds.size(); i++)
 		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x * (i + 1)),
-											static_cast<float>(renderWindow->getSize().y)));
+			static_cast<float>(renderWindow->getSize().y)));
 
 	for (sf::RectangleShape& rs : backgrounds)
 		rs.setTexture(&textures.at("BACKGROUND"));
@@ -128,24 +128,21 @@ void GameState::updateInput(unsigned short keyCode)
 		// MOVE DOWN
 		player->updateMovement(1);
 	}
-
 }
 
 void GameState::updateGameSpeed(const float& deltaTime)
 {
-
 	spawnTime += deltaTime;
 
 	speed -= deltaTime * 10.f;
 
 	// UPDATE THE SPAWNING FREQUENCY
-	if (spawnTime >= frequency && frequency > 1.f)
-		frequency -= 1.f / frequency;
+	frequency = -35.f / (speed * deltaTime);
 }
 
 void GameState::updateObjects(const float& deltaTime)
 {
-	if (objects.front()->getCurrentPosition() <= - objects.front()->getWidth())
+	if (objects.front()->getCurrentPosition() <= -objects.front()->getWidth())
 	{
 		delete objects.front();
 		objects.pop_front();
@@ -163,8 +160,8 @@ void GameState::updateBackground(const float& deltaTime)
 	// SOMETHING LIKE:
 	for (int i = 0; i < backgrounds.size(); i++) {
 		backgrounds[i].move(2 * speed * deltaTime, 0);
-		if (backgrounds[i].getPosition().x+ backgrounds[i].getSize().x < 0)
-			backgrounds[i].move(sf::Vector2f(static_cast<float>(2*renderWindow->getSize().x), 0));
+		if (backgrounds[i].getPosition().x + backgrounds[i].getSize().x < 0)
+			backgrounds[i].move(sf::Vector2f(static_cast<float>(2 * renderWindow->getSize().x), 0));
 	}
 }
 

@@ -7,7 +7,7 @@ void FreePlayState::updateSpawning()
 	{
 		spawnTime = 0;
 		spawnObject(static_cast<unsigned short>(randomDevice() % 3),  // random position
-					static_cast<unsigned short>(randomDevice() % 3)); // random color
+			static_cast<unsigned short>(randomDevice() % 3)); // random color
 	}
 }
 
@@ -19,4 +19,3 @@ FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>*
 FreePlayState::~FreePlayState()
 {
 }
-

@@ -109,7 +109,7 @@ namespace gui {
 
 		for (size_t i = 0; i < numberOfElements; i++)
 		{
-			elements.push_back(new gui::Button(x, y + ((i+1) * height), width, height,
+			elements.push_back(new gui::Button(x, y + ((i + 1) * height), width, height,
 				&font, listOfTexts[i],
 				sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)));
 		}

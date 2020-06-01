@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-class Player:public Entity {
+class Player :public Entity {
 private:
 	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	float movementShift;
@@ -15,7 +15,7 @@ private:
 
 public:
 	Player(sf::Texture& playerTexture);
-	
+
 	// void update();
 	void updateMovement(int);
 	void updateScore(const float& deltaTime);

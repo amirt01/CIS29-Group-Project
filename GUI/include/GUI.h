@@ -31,7 +31,6 @@ namespace gui {
 
 		// Modifiers
 		void setText(const std::string text);
-		
 
 		//Functions
 		void update(const sf::Vector2f mousePos);

@@ -9,9 +9,9 @@ Player::Player(sf::Texture& playerTexture) :
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(0)
-{	
+{
 	setTexture(playerTexture);
-	sprite.setPosition(sf::Vector2f(50,300));
+	sprite.setPosition(sf::Vector2f(50, 300));
 	resetClock();
 }
 

@@ -23,7 +23,7 @@ sf::Uint8* CollisionDetection::BitmaskManager::getMask(const sf::Texture* tex)
 {
 	sf::Uint8* mask;
 	auto pair = Bitmasks.find(tex);
-	if (pair == Bitmasks.end()) 
+	if (pair == Bitmasks.end())
 	{
 		sf::Image img = tex->copyToImage();
 		mask = createMask(tex, img);
@@ -56,7 +56,7 @@ CollisionDetection::BitmaskManager bitMaskManager;
 bool CollisionDetection::PixelPerfectTest(const sf::Sprite& Object1, const sf::Sprite& Object2, sf::Uint8 AlphaLimit)
 {
 	sf::FloatRect Intersection;
-	if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds(),Intersection)) 
+	if (Object1.getGlobalBounds().intersects(Object2.getGlobalBounds(), Intersection))
 	{
 		//Might not be needed due to the nature of how our objects move
 		sf::IntRect SubRect1 = Object1.getTextureRect();
@@ -71,7 +71,7 @@ bool CollisionDetection::PixelPerfectTest(const sf::Sprite& Object1, const sf::S
 			{
 				sf::Vector2u Obj1_vector(Object1.getInverseTransform().transformPoint(i, j));
 				sf::Vector2u Obj2_vector(Object2.getInverseTransform().transformPoint(i, j));
-				
+
 				if (Obj1_vector.x > 0 && Obj1_vector.y > 0 && Obj2_vector.x > 0
 					&& Obj2_vector.y > 0 && Obj1_vector.x < static_cast<unsigned>(SubRect1.width)
 					&& Obj1_vector.y < static_cast<unsigned>(SubRect1.height) && Obj2_vector.x < static_cast<unsigned>(SubRect2.width)

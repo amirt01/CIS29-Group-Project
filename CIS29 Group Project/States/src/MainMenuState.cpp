@@ -70,7 +70,6 @@ void MainMenuState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-
 // Constructors/Destructors
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states)
@@ -141,7 +140,6 @@ void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 
 void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 {
-
 	if (!renderTarget)
 		renderTarget = renderWindow;
 

@@ -10,7 +10,7 @@ void Level::initializeLevel(std::string path)
 
 	std::ifstream fin(path);
 	try {
-		if(!fin.is_open())
+		if (!fin.is_open())
 			throw std::invalid_argument(path);
 
 		while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))

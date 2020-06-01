@@ -15,4 +15,3 @@ public:
 	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	~FreePlayState();
 };
-

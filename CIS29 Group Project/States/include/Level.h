@@ -20,4 +20,3 @@ public:
 	Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states);
 	~Level();
 };
-

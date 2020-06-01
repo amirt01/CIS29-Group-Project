@@ -2,6 +2,4 @@
 #include "ExceptionHandler.h"
 
 namespace exc {
-
-
 }

@@ -22,7 +22,7 @@ void HUD::initializeScore()
 	score.setFillColor(sf::Color::White);
 	score.setString(sf::String("0:00"));
 	score.setPosition(container.getPosition().x + 10.f, (container.getPosition().y + container.getSize().y / 2) -
-														(score.getGlobalBounds().height - 5.f ));
+		(score.getGlobalBounds().height - 5.f));
 }
 
 void HUD::initializeHearts(sf::Texture& heartTexture)
@@ -32,8 +32,8 @@ void HUD::initializeHearts(sf::Texture& heartTexture)
 	{
 		heart.setTexture(heartTexture);
 		heart.setPosition(position += 1.5f * static_cast<float>(heart.getSprite().getTextureRect().width),
-						 (container.getPosition().y + container.getSize().y / 2) -
-						 (heart.getSprite().getTextureRect().height / 2) );
+			(container.getPosition().y + container.getSize().y / 2) -
+			(heart.getSprite().getTextureRect().height / 2));
 	}
 }
 
