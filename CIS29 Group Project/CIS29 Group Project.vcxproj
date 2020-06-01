@@ -173,7 +173,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entity\src\Animation.cpp" />
-    <ClCompile Include="Entity\src\Coin.cpp" />
     <ClCompile Include="Entity\src\CollisionDetection.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
     <ClCompile Include="Entity\src\HUD.cpp" />
@@ -191,7 +190,6 @@
     <ClInclude Include="App\include\Game.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
-    <ClInclude Include="Entity\include\Coin.h" />
     <ClInclude Include="Entity\include\CollisionDetection.h" />
     <ClInclude Include="Entity\include\Entity.h" />
     <ClInclude Include="Entity\include\HUD.h" />
