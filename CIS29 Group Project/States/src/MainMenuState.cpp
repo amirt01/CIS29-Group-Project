@@ -3,6 +3,7 @@
 #include "FreePlayState.h"
 #include "SettingsState.h"
 #include "Level.h"
+#include "LevelEditor.h"
 
 // Initializers
 void MainMenuState::initializeTextures()
@@ -61,8 +62,8 @@ void MainMenuState::initializeGUI()
 		&font, "Level 9",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
-	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
-		&font, "Settings",
+	buttons["LEVEL_EDITOR"] = new gui::Button(220, 350, 150, 50,
+		&font, "Level Editor",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
@@ -93,9 +94,14 @@ MainMenuState::~MainMenuState()
 	}
 }
 
+void MainMenuState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
+}
+
 /* Functions */
 // Update
-void MainMenuState::updateInput(unsigned short keyCode)
+void MainMenuState::updateKeyboard(unsigned short keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
 		states->push(new FreePlayState(renderWindow, states));
@@ -117,8 +123,8 @@ void MainMenuState::updateGUI()
 		states->push(new Level(renderWindow, "Config/level2.bin", states));
 	if (buttons["LEVEL_3"]->isPressed())
 		states->push(new Level(renderWindow, "Config/level3.bin", states));
-	if (buttons["SETTINGS"]->isPressed())
-		states->push(new SettingsState(renderWindow, states));
+	if (buttons["LEVEL_EDITOR"]->isPressed())
+		states->push(new LevelEditor(renderWindow, states));
 	if (buttons["EXIT_STATE"]->isPressed())
 		quitState();
 }

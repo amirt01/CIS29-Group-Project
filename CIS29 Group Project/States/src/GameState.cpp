@@ -11,7 +11,6 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeTextures()
 {
-	//player texture
 	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png") ||
 		!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png") ||
 		!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png") ||
@@ -28,14 +27,13 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	speed(-75), frequency(5), states(states), paused(false)
 {
 	initializeTextures();
-	spawnPlayer();
 
 	for (int i = 0; i < backgrounds.size(); i++)
+	{
 		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x * (i + 1)),
 			static_cast<float>(renderWindow->getSize().y)));
-
-	for (sf::RectangleShape& rs : backgrounds)
-		rs.setTexture(&textures.at("BACKGROUND"));
+		backgrounds[i].setTexture(&textures.at("BACKGROUND"));
+	}
 }
 
 GameState::~GameState()
@@ -63,13 +61,13 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	try {
 		switch (type)
 		{
-		case Red:
+		case RED:
 			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100));
 			break;
-		case Yellow:
+		case YELLOW:
 			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100));
 			break;
-		case Orange:
+		case ORANGE:
 			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100));
 			break;
 		default:
@@ -105,29 +103,33 @@ void GameState::updateGUI()
 	}
 }
 
-void GameState::updateInput(unsigned short keyCode)
+void GameState::updateKeyboard(unsigned short keyCode)
 {
 	if (paused)
-		pauseState.updateInput(keyCode);
+		pauseState.updateKeyboard(keyCode);
 
 	if (sf::Keyboard::Escape == keyCode)
 	{
 		togglePause();
 	}
 
-	std::cout << "player moving" << std::endl;
 	if (sf::Keyboard::W == keyCode ||
 		sf::Keyboard::Up == keyCode)
 	{
 		// MOVE UP
 		player->updateMovement(-1);
 	}
-	else if (sf::Keyboard::D == keyCode ||
+	else if (sf::Keyboard::S == keyCode ||
 		sf::Keyboard::Down == keyCode)
 	{
 		// MOVE DOWN
 		player->updateMovement(1);
 	}
+}
+
+void GameState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
 }
 
 void GameState::updateGameSpeed(const float& deltaTime)
@@ -155,13 +157,16 @@ void GameState::updateObjects(const float& deltaTime)
 	}
 }
 
-void GameState::updateBackground(const float& deltaTime)
+void GameState::updateBackground(const float& deltaTime, const short dir)
 {
 	// SOMETHING LIKE:
-	for (int i = 0; i < backgrounds.size(); i++) {
-		backgrounds[i].move(2 * speed * deltaTime, 0);
-		if (backgrounds[i].getPosition().x + backgrounds[i].getSize().x < 0)
-			backgrounds[i].move(sf::Vector2f(static_cast<float>(2 * renderWindow->getSize().x), 0));
+	for (sf::RectangleShape& background : backgrounds) {
+		background.move(2 * speed * dir * deltaTime, 0);
+
+		if (dir > 0 && background.getPosition().x + background.getSize().x < 0)
+			background.move(sf::Vector2f(2.f * renderWindow->getSize().x, 0.f));
+		if (dir < 0 && background.getPosition().x > 0)
+			background.move(sf::Vector2f(-1.f * renderWindow->getSize().x, 0.f));
 	}
 }
 
@@ -170,7 +175,7 @@ void GameState::updateState(const float& deltaTime)
 	if (!paused)
 	{
 		updateGameSpeed(deltaTime);
-		updateBackground(deltaTime);
+		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
 		player->updateScore(deltaTime);
 		hud->update();

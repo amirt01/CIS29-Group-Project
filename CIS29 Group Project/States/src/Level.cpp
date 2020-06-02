@@ -53,13 +53,13 @@ void Level::updateSpawning()
 			switch (leftNibble(waves.front()))
 			{
 			case(0x1): // Top
-				color = Red;
+				color = RED;
 				break;
 			case(0x2): // Middle
-				color = Yellow;
+				color = YELLOW;
 				break;
 			case(0x4): // Bottom
-				color = Orange;
+				color = ORANGE;
 				break;
 			default:
 				color = -1;
@@ -81,6 +81,7 @@ Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*
 	: GameState(renderWindow, states)
 {
 	initializeLevel(path);
+	spawnPlayer();
 }
 
 Level::~Level()

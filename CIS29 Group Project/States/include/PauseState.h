@@ -28,7 +28,8 @@ public:
 
 	// Update
 	void updateGUI();
-	void updateInput(unsigned short keyCode);
+	void updateMouseWheel(short mouseDelta);
+	void updateKeyboard(unsigned short keyCode);
 	void updateState(const float& deltaTime);
 
 	// Render

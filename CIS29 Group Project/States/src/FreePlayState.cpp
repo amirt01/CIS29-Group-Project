@@ -14,6 +14,7 @@ void FreePlayState::updateSpawning()
 FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: GameState(renderWindow, states)
 {
+	spawnPlayer();
 }
 
 FreePlayState::~FreePlayState()

@@ -24,7 +24,8 @@ public:
 	virtual ~MainMenuState();
 
 	// Update
-	void updateInput(unsigned short keyCode);
+	void updateMouseWheel(short mouseDelta);
+	void updateKeyboard(unsigned short keyCode);
 	void updateGUI();
 	void updateState(const float& deltaTime);
 

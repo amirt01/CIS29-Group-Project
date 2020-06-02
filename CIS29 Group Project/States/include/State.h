@@ -29,7 +29,8 @@ public:
 
 	// Update
 	virtual void updateMousePositions();
-	virtual void updateInput(unsigned short keyCode) = 0;
+	virtual void updateMouseWheel(short mouseDelta) = 0;
+	virtual void updateKeyboard(unsigned short keyCode) = 0;
 	virtual void updateState(const float& deltaTime) = 0;
 
 	// Render
