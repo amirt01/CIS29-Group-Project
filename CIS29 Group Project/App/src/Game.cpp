@@ -112,7 +112,9 @@ void Game::updateSFMLEvents()
 		case(sf::Event::Closed):
 			renderWindow->close();
 		case(sf::Event::EventType::KeyPressed):
-			states.top()->updateInput(event.key.code);
+			states.top()->updateKeyboard(event.key.code);
+		case(sf::Event::MouseWheelMoved):
+			states.top()->updateMouseWheel(event.mouseWheel.delta);
 		default:
 			break;
 		}

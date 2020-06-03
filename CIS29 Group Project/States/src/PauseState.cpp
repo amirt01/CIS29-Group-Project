@@ -59,7 +59,7 @@ const bool PauseState::isButtonPressed(std::string Button)
 }
 
 // Update
-void PauseState::updateInput(unsigned short keyCode) {
+void PauseState::updateKeyboard(unsigned short keyCode) {
 	// Any Unique Pause State Keyboard Input
 }
 
@@ -68,6 +68,11 @@ void PauseState::updateGUI() {
 	for (auto& it : buttons) {
 		it.second->update(mousePosView);
 	}
+}
+
+void PauseState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
 }
 
 void PauseState::updateState(const float& deltaTime) {

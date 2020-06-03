@@ -181,6 +181,7 @@
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
+    <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\PauseState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
+    <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\PauseState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
