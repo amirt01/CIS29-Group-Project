@@ -23,7 +23,7 @@ private:
 	HUD* hud;
 
 	std::stack<State*>* states;
-	std::array<sf::RectangleShape, 2> backgrounds;
+	std::array<sf::RectangleShape, 3> backgrounds;
 
 	void togglePause();
 
@@ -54,6 +54,7 @@ public:
 	void updateObjects(const float& deltaTime);
 	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);
 	virtual void updateState(const float& deltaTime);
+	void updateCollision(Object* object);
 
 	//Collision Detection
 	void checkCollision();

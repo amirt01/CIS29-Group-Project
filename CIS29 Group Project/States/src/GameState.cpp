@@ -24,14 +24,15 @@ void GameState::initializeTextures()
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states),
-	speed(-75), frequency(5), states(states), paused(false)
+	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
 
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
-		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x * (i + 1)),
+		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 			static_cast<float>(renderWindow->getSize().y)));
+		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
 		backgrounds[i].setTexture(&textures.at("BACKGROUND"));
 	}
 }
@@ -163,10 +164,10 @@ void GameState::updateBackground(const float& deltaTime, const short dir)
 	for (sf::RectangleShape& background : backgrounds) {
 		background.move(2 * speed * dir * deltaTime, 0);
 
-		if (dir > 0 && background.getPosition().x + background.getSize().x < 0)
-			background.move(sf::Vector2f(2.f * renderWindow->getSize().x, 0.f));
-		if (dir < 0 && background.getPosition().x > 0)
-			background.move(sf::Vector2f(-1.f * renderWindow->getSize().x, 0.f));
+		if (background.getPosition().x + background.getSize().x < -background.getSize().x)
+			background.move(sf::Vector2f(3.f * renderWindow->getSize().x, 0.f));
+		if (background.getPosition().x > 2 * background.getSize().x)
+			background.move(sf::Vector2f(-3.f * renderWindow->getSize().x, 0.f));
 	}
 }
 
@@ -193,28 +194,35 @@ void GameState::updateState(const float& deltaTime)
 	}
 }
 
+void GameState::updateCollision(Object* object)
+{
+	switch (object->type)
+	{
+	case Obstacle:
+		//implement timer
+		player->takeDamage();
+		object->hit = true;
+		if (player->getCurrentHealth() == 0) {
+			togglePause(); //for now pausing the screen when player collides with cars 3 times
+		}
+		break;
+	case Coin:
+		player->gainCoin();
+		break;
+	default:
+		break;
+	}
+}
+
 //Collision Detection
 void GameState::checkCollision() {
-	if (objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite())))
 	{
-		switch (objects.front()->type)
-		{
-		case Obstacle:
-			std::cout << "Collision!!!" << std::endl;
-			//implement timer
-			player->takeDamage();
-			std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
-			objects.front()->hit = true;
-			if (player->getCurrentHealth() == 0) {
-				togglePause(); //for now pausing the screen when player collides with cars 3 times
-			}
-			break;
-		case Coin:
-			player->gainCoin();
-			break;
-		default:
-			break;
-		}
+		updateCollision(objects.front());
+	}
+	if (objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
+	{
+		updateCollision(objects.at(1));
 	}
 }
 
