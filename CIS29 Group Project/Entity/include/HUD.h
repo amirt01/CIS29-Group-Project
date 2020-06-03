@@ -11,6 +11,7 @@ private:
 
 	std::array<Entity, 3> hearts;
 	sf::Text score;
+	sf::Text coins;
 
 	sf::Font font;
 
@@ -26,7 +27,6 @@ public:
 
 	void update();
 	void updateScore();
+	void updateCoins();
 	void render(sf::RenderTarget* renderTarget);
 };
-
-

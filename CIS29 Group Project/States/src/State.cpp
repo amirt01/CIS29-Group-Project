@@ -3,16 +3,12 @@
 
 // Constructors / destructors
 State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states)
+	: renderWindow(renderWindow), states(states), quit(false)
 {
-	this->renderWindow = renderWindow;
-	this->states = states;
-	quit = false;
-	paused = false;
 }
 
 State::~State()
 {
-
 }
 
 const bool& State::getQuit() const

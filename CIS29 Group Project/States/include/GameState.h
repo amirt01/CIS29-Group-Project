@@ -2,24 +2,21 @@
 
 #include "State.h"
 #include "PauseState.h"
-#include "Obstacle.h"
+#include "Object.h"
 #include "Player.h"
 #include "HUD.h"
 
 enum color { Red = 0, Yellow, Orange };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
 
-class GameState :
-	public State
+class GameState : public State
 {
-protected:
+private:
 	float speed;
-	float frequency;
+	bool paused;
 
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
-	std::map<std::string, sf::Texture> textures;
-	std::deque<Object*> objects;
 
 	Player* player;
 	HUD* hud;
@@ -31,6 +28,15 @@ protected:
 
 	// Initializers
 	void initializeTextures();
+
+protected:
+	float frequency;
+	float spawnTime;
+
+	std::deque<Object*> objects;
+
+	virtual void updateSpawning() = 0;
+
 public:
 	// Constructors/Destructors
 	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
@@ -42,10 +48,10 @@ public:
 	// Update
 	void updateGUI();
 	void updateInput(unsigned short keyCode);
-	void updateSpeed(const float& deltaTime);
-	void updateFrequency();
+	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
 	void updateBackground(const float& deltaTime);
+	void updateState(const float& deltaTime);
 
 	//Collision Detection
 	void checkCollision();

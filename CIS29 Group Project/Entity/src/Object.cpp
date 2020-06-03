@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int height)
-	: Entity(), hit(false)
+Object::Object(Type type, short unsigned level, sf::Texture& texture_sheet, int width, int height)
+	: Entity(), hit(false), type(type)
 {
 	switch (level)
 	{
@@ -21,6 +21,9 @@ Object::Object(short unsigned level, sf::Texture& texture_sheet, int width, int 
 
 	//initializeObjectImage();
 	setTexture(texture_sheet);
+
+	// MAKE SURE TO CREATE VARIABLES LATER
+	addAnimation("IDLE", 0.1f, 0, 7, width, height);
 }
 
 int Object::getValue() {

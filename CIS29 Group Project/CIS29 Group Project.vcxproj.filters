@@ -48,9 +48,6 @@
     <ClCompile Include="Entity\src\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\src\Obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="States\src\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity\include\Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\include\Obstacle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\Level.h">
@@ -150,7 +144,13 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\TestLevel.bin">
+    <None Include="Config\level1.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\level2.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\level3.bin">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

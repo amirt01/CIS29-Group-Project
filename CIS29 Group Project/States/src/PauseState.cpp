@@ -3,7 +3,7 @@
 
 void PauseState::initializeBackground() {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-									static_cast<float>(renderWindow->getSize().y)));
+		static_cast<float>(renderWindow->getSize().y)));
 
 	background.setFillColor(sf::Color(20, 20, 20, 100));
 }
@@ -11,10 +11,10 @@ void PauseState::initializeBackground() {
 void PauseState::initializeContainer()
 {
 	container.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x) / 4.f,
-								   static_cast<float>(renderWindow->getSize().y)));
+		static_cast<float>(renderWindow->getSize().y)));
 
 	container.setFillColor(sf::Color(20, 20, 20, 200));
-	
+
 	container.setPosition(static_cast<float>(renderWindow->getSize().x) / 2.f - container.getSize().x / 2.f, 0);
 }
 
@@ -30,14 +30,14 @@ void PauseState::initializeGUI() {
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
 
 	buttons["RESUME"] = new gui::Button(x, 200, width, height,
-						&font, "Resume",
-						sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+		&font, "Resume",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	buttons["QUIT"] = new gui::Button(x, 400, width, height,
-					  &font, "Quit",
-					  sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+		&font, "Quit",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-PauseState::PauseState(sf::RenderWindow * renderWindow, std::stack<State *> * states)
+PauseState::PauseState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states) {
 	initializeBackground();
 	initializeContainer();
@@ -65,12 +65,12 @@ void PauseState::updateInput(unsigned short keyCode) {
 
 void PauseState::updateGUI() {
 	/*Updates all the buttons in the state and handles their functionality*/
-	for (auto & it : buttons) {
+	for (auto& it : buttons) {
 		it.second->update(mousePosView);
 	}
 }
 
-void PauseState::updateState(const float & deltaTime) {
+void PauseState::updateState(const float& deltaTime) {
 	updateMousePositions();
 	updateGUI();
 
@@ -78,13 +78,13 @@ void PauseState::updateState(const float & deltaTime) {
 }
 
 // Render
-void PauseState::renerGUI(sf::RenderTarget * renderTarget) {
-	for (auto & it : buttons) {
+void PauseState::renerGUI(sf::RenderTarget* renderTarget) {
+	for (auto& it : buttons) {
 		it.second->render(renderTarget);
 	}
 }
 
-void PauseState::renderState(sf::RenderTarget * renderTarget) {
+void PauseState::renderState(sf::RenderTarget* renderTarget) {
 	if (!renderTarget)
 		renderTarget = renderWindow;
 	renderTarget->draw(background);

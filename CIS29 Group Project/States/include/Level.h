@@ -9,23 +9,14 @@ class Level : public GameState
 {
 private:
 	// Variables
-	sf::Clock spawnClock;
-
 	std::queue<unsigned char> waves;
 
 	// Initializers
-	void initializeVariables();
 	void initializeLevel(std::string path);
 
 	// Functions
-	bool checkForSpawn();
-	void updateSpawnClock();
-	void spawnObsticle(unsigned short level, unsigned short type);
+	void updateSpawning();
 public:
 	Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states);
 	~Level();
-
-	// Functions
-	void updateState(const float& deltaTime);
 };
-

@@ -1,13 +1,14 @@
 #pragma once
 class State
 {
+private:
+
 protected:
 	//Variables
 	sf::RenderWindow* renderWindow;
-	std::vector<sf::Texture> texture;
-	
+	std::map<std::string, sf::Texture> textures;
+
 	bool quit;
-	bool paused;
 
 	std::stack<State*>* states;
 
@@ -34,4 +35,3 @@ public:
 	// Render
 	virtual void renderState(sf::RenderTarget* renderTarget = nullptr) = 0;
 };
-

@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+enum Type { Obstacle = 0, Coin };
+
 class Object : public Entity
 {
 protected:
@@ -9,8 +11,9 @@ protected:
 
 public:
 	bool hit;
+	Type type;
 
-	Object(short unsigned level, sf::Texture& texture, int width, int height);
+	Object(Type type, short unsigned level, sf::Texture& texture, int width, int height);
 
 	float getCurrentPosition();
 	int getValue();

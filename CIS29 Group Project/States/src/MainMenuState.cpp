@@ -5,25 +5,18 @@
 #include "Level.h"
 
 // Initializers
-void MainMenuState::initializeBackground()
+void MainMenuState::initializeTextures()
 {
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-		static_cast<float>(renderWindow->getSize().y)));
-
-	if (!backgrounTexture.loadFromFile("Resources/Images/MainMenu.png"))
-	{
-		std::cout << "ERROR:MAIN_MENU_STATE:FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
-
-	background.setTexture(&backgrounTexture);
+	if (!textures["BACKGROUND"].loadFromFile("Resources/Images/MainMenu.png"))
+		exit(-1); // the loadFromFile() function has an ouput
+				  // when it fails so no need to throw
 }
 
 void MainMenuState::initializeFonts()
 {
 	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-	{
-		std::cout << "ERROR:MAINMENUSTATE:COULD NOT LOAD FONT";
-	}
+		exit(-1); // the loadFromFile() function has an ouput
+				  // when it fails so no need to throw
 }
 
 void MainMenuState::initializeGUI()
@@ -36,6 +29,38 @@ void MainMenuState::initializeGUI()
 		&font, "Level 1",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["LEVEL_2"] = new gui::Button(520, 350, 150, 50,
+		&font, "Level 2",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_3"] = new gui::Button(520, 450, 150, 50,
+		&font, "Level 3",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	/*
+	buttons["LEVEL_4"] = new gui::Button(720, 250, 150, 50,
+		&font, "Level 4",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_5"] = new gui::Button(720, 350, 150, 50,
+		&font, "Level 5",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_6"] = new gui::Button(720, 450, 150, 50,
+		&font, "Level 6",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_7"] = new gui::Button(920, 250, 150, 50,
+		&font, "Level 7",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_8"] = new gui::Button(920, 350, 150, 50,
+		&font, "Level 8",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["LEVEL_9"] = new gui::Button(920, 450, 150, 50,
+		&font, "Level 9",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	*/
 	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
 		&font, "Settings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
@@ -45,14 +70,18 @@ void MainMenuState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-
 // Constructors/Destructors
 MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states)
 {
-	initializeBackground();
+	initializeTextures();
 	initializeFonts();
 	initializeGUI();
+
+	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
+		static_cast<float>(renderWindow->getSize().y)));
+
+	background.setTexture(&textures.at("BACKGROUND"));
 }
 
 MainMenuState::~MainMenuState()
@@ -80,26 +109,19 @@ void MainMenuState::updateGUI()
 		it.second->update(mousePosView);
 	}
 
-	//New Game
 	if (buttons["FREE_PLAY"]->isPressed())
-	{
 		states->push(new FreePlayState(renderWindow, states));
-	}
 	if (buttons["LEVEL_1"]->isPressed())
-	{
-		states->push(new Level(renderWindow, "Config/TestLevel.bin", states));
-	}
+		states->push(new Level(renderWindow, "Config/level1.bin", states));
+	if (buttons["LEVEL_2"]->isPressed())
+		states->push(new Level(renderWindow, "Config/level2.bin", states));
+	if (buttons["LEVEL_3"]->isPressed())
+		states->push(new Level(renderWindow, "Config/level3.bin", states));
 	if (buttons["SETTINGS"]->isPressed())
-	{
 		states->push(new SettingsState(renderWindow, states));
-	}
-	//Quit This Game
 	if (buttons["EXIT_STATE"]->isPressed())
-	{
 		quitState();
-	}
 }
-
 
 void MainMenuState::updateState(const float& deltaTime)
 {
@@ -118,7 +140,6 @@ void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 
 void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 {
-
 	if (!renderTarget)
 		renderTarget = renderWindow;
 

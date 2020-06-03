@@ -33,4 +33,3 @@ public:
 	void renerGUI(sf::RenderTarget* renderTarget);
 	void renderState(sf::RenderTarget* renderTarget);
 };
-

@@ -22,6 +22,6 @@ public:
 	void setTexture(sf::Texture& texture_sheet);
 	void setPosition(const float x, const float y);
 	void addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height);
-  
+
 	void render(sf::RenderTarget* renderTarget);
 };
