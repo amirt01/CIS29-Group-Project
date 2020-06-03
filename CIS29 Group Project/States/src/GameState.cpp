@@ -180,7 +180,6 @@ void GameState::updateState(const float& deltaTime)
 		updateSpawning();
 		player->updateScore(deltaTime);
 		hud->update();
-
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -220,7 +219,7 @@ void GameState::checkCollision() {
 	{
 		updateCollision(objects.front());
 	}
-	if (objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
 	{
 		updateCollision(objects.at(1));
 	}
