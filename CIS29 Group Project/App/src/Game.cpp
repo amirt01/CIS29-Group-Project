@@ -10,6 +10,11 @@ void Game::initializeVariables()
 	deltaTime = 0.f;
 }
 
+void Game::initializeLeaderboard()
+{
+	leaderboard.loadFromFile("Config/leaderboard.txt");
+}
+
 void Game::initializeWindow()
 {
 	std::ifstream fin("Config/render_window_settings.txt");
@@ -64,13 +69,14 @@ void Game::initializeWindow()
 
 void Game::initializeStates()
 {
-	states.push(new MainMenuState(renderWindow, &states));
+	states.push(new MainMenuState(renderWindow, &states, &leaderboard));
 }
 
 // Constructor / Destructors
 Game::Game()
 {
 	initializeVariables();
+	initializeLeaderboard();
 	initializeWindow();
 	initializeStates();
 }

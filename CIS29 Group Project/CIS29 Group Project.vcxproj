@@ -185,6 +185,7 @@
     <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\PauseState.cpp" />
+    <ClCompile Include="States\src\RankingsState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
   </ItemGroup>
@@ -204,6 +205,7 @@
     <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\PauseState.h" />
+    <ClInclude Include="States\include\RankingsState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
     <ClInclude Include="States\include\State.h" />
   </ItemGroup>

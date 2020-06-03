@@ -22,8 +22,8 @@ void GameState::initializeTextures()
 }
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states), pauseState(renderWindow, states),
+GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
+	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
 	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
@@ -203,6 +203,7 @@ void GameState::updateCollision(Object* object)
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) {
 			togglePause(); //for now pausing the screen when player collides with cars 3 times
+			leaderboard->addNewScore("default", player->getCurrentScore());
 		}
 		break;
 	case Coin:
