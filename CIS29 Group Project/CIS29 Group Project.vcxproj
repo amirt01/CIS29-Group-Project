@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\src\Leaderboard.cpp" />
     <ClCompile Include="App\src\main.cpp" />
     <ClCompile Include="App\src\Game.cpp" />
     <ClCompile Include="App\src\stdafx.cpp">
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
+    <ClInclude Include="App\include\Leaderboard.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\CollisionDetection.h" />

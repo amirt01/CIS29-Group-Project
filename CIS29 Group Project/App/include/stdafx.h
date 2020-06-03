@@ -14,6 +14,7 @@
 #include<tuple>
 #include<string>
 #include<array>
+#include<list>
 
 //Other
 #include<cstdlib>
