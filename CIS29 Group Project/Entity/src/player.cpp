@@ -3,6 +3,7 @@
 
 Player::Player(sf::Texture& playerTexture) :
 	Entity(),
+	moveType{-1,1},
 	pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
@@ -10,17 +11,9 @@ Player::Player(sf::Texture& playerTexture) :
 	score(0),
 	coins(0)
 {
+
 	setTexture(playerTexture);
 	sprite.setPosition(sf::Vector2f(50, 300));
-	resetClock();
-}
-
-void Player::resetClock() {
-	clock.restart();
-}
-
-int Player::getTimeEllapsed() {
-	return clock.getElapsedTime().asMilliseconds();
 }
 
 void Player::updateScore(const float& deltaTime) {
@@ -35,6 +28,23 @@ void Player::gainCoin()
 unsigned int Player::getCoins()
 {
 	return coins;
+}
+
+void Player::collisionMove()
+{
+	switch (currentPosition)
+	{
+	case 0:
+		updateMovement(moveType[1]);
+		break;
+	case 1:
+		updateMovement(moveType[static_cast<int>(rand() % sizeof(moveType))]);
+		break;
+	case 2:
+		updateMovement(moveType[0]);
+		break;
+	}
+
 }
 
 void Player::updateMovement(int shift) {

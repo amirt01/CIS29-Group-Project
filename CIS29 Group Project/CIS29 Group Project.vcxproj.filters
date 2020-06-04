@@ -63,6 +63,9 @@
     <ClCompile Include="Entity\src\CollisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\src\Collide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -110,6 +113,9 @@
     <ClInclude Include="Entity\include\CollisionDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\include\Collide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
@@ -140,6 +146,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\Heart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\CrashCartoon.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

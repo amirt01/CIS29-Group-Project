@@ -17,7 +17,8 @@ void GameState::initializeTextures()
 		!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png") ||
 		!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png") ||
 		!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png") ||
-		!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
+		!textures["HEART"].loadFromFile("Resources/Images/Heart.png") ||
+		!textures["COLLISION"].loadFromFile("Resources/Images/CrashCartoon.png"))
 		exit(-1); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
 }
@@ -25,7 +26,7 @@ void GameState::initializeTextures()
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: State(renderWindow, states), pauseState(renderWindow, states),
-	speed(-75), frequency(5), states(states), paused(false)
+	speed(-75), frequency(5), states(states), paused(false), collision(false)
 {
 	initializeTextures();
 	spawnPlayer();
@@ -53,9 +54,9 @@ void GameState::spawnPlayer()
 {
 	player = new Player(textures.at("PLAYER"));
 	hud = new HUD(player, textures.at("HEART"));
+	collide = new Collide(textures.at("COLLISION"));
 
 	std::cout << "Player Spawned" << std::endl;
-	player->resetClock();
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -203,6 +204,11 @@ void GameState::checkCollision() {
 			if (player->getCurrentHealth() == 0) {
 				togglePause(); //for now pausing the screen when player collides with cars 3 times
 			}
+			
+			collide->collisionPosition(player->getCurrentPosition());
+			player->collisionMove();
+			collision = true;
+
 			break;
 		case Coin:
 			player->gainCoin();
@@ -210,7 +216,11 @@ void GameState::checkCollision() {
 		default:
 			break;
 		}
+		
+		
+		
 	}
+	collision = false;
 }
 
 // Render
@@ -233,4 +243,7 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 
 	if (paused)
 		pauseState.renderState(renderTarget);
+
+	if (collision|| collide->collisionTiming())
+		collide->render(renderTarget);
 }
