@@ -3,7 +3,7 @@
 enum button_States { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
 
 namespace gui {
-	class Button
+	class Button : public sf::Drawable
 	{
 	private:
 		//Core
@@ -34,7 +34,7 @@ namespace gui {
 
 		//Functions
 		void update(const sf::Vector2f mousePos);
-		void render(sf::RenderTarget* renderTarget);
+		void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 	};
 
 	class DropDownMenu

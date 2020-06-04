@@ -4,35 +4,35 @@
 #include "GUI.h"
 #include "Leaderboard.h"
 
-class MainMenuState :
-	public State
+class RankingsState
+	: public State
 {
 private:
-	//Variables
+	// Variables
+	sf::Texture backgrounTexture;
 	sf::RectangleShape background;
 	sf::Font font;
 
-	Leaderboard* leaderboard;
-
 	std::map<std::string, gui::Button*> buttons;
 
+	Leaderboard* leaderboard;
+
+	// Functions
 	// Initializers
-	void initializeTextures();
+	void initializeBackground();
 	void initializeFonts();
 	void initializeGUI();
-
 public:
-	// Constructors/Destructors
-	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard);
-	virtual ~MainMenuState();
+	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard);
+	~RankingsState();
 
 	// Update
-	void updateMouseWheel(short mouseDelta);
 	void updateKeyboard(unsigned short keyCode);
-	void updateGUI();
+	void updateGUI(const float& deltaTime);
 	void updateState(const float& deltaTime);
+	void updateMouseWheel(short mouseDelta) {};
 
 	// Render
 	void renerGUI(sf::RenderTarget* renderTarget);
-	void renderState(sf::RenderTarget* renderTarget = nullptr);
+	void renderState(sf::RenderTarget* renderTarget);
 };

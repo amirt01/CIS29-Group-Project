@@ -90,11 +90,10 @@ namespace gui {
 		}
 	}
 
-	void Button::render(sf::RenderTarget* renderTarget)
+	void Button::draw(sf::RenderTarget& renderTarget, sf::RenderStates states) const
 	{
-		renderTarget->draw(shape);
-
-		renderTarget->draw(text);
+		renderTarget.draw(shape, states);
+		renderTarget.draw(text, states);
 	}
 
 	/************************* Drop Down List *************************/
@@ -166,13 +165,13 @@ namespace gui {
 
 	void DropDownMenu::render(sf::RenderTarget* renderTarget)
 	{
-		activeElement->render(renderTarget);
+		activeElement->draw(*renderTarget);
 
 		if (showMenu)
 		{
 			for (auto& it : elements)
 			{
-				it->render(renderTarget);
+				it->draw(*renderTarget);
 			}
 		}
 	}

@@ -17,13 +17,13 @@ void GameState::initializeTextures()
 		!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png") ||
 		!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png") ||
 		!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
-		exit(-1); // the loadFromFile() function has an ouput
+		exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
 }
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states), pauseState(renderWindow, states),
+GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
+	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
 	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
@@ -53,7 +53,6 @@ void GameState::spawnPlayer()
 	player = new Player(textures.at("PLAYER"));
 	hud = new HUD(player, textures.at("HEART"));
 
-	std::cout << "Player Spawned" << std::endl;
 	player->resetClock();
 }
 
@@ -79,7 +78,7 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	catch (exc::SpawnError<unsigned short>& error)
 	{
 		std::cout << error.what();
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -203,6 +202,7 @@ void GameState::updateCollision(Object* object)
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) {
 			togglePause(); //for now pausing the screen when player collides with cars 3 times
+			leaderboard->addNewScore("default", player->getCurrentScore());
 		}
 		break;
 	case Coin:

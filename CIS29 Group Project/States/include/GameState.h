@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "HUD.h"
+#include "Leaderboard.h"
 
 enum color { RED = 0, YELLOW, ORANGE };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -19,6 +20,7 @@ private:
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
 
+	Leaderboard* leaderboard;
 	Player* player;
 	HUD* hud;
 
@@ -40,7 +42,7 @@ protected:
 
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard = nullptr);
 	virtual ~GameState();
 
 	void spawnPlayer();

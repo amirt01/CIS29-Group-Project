@@ -66,6 +66,12 @@
     <ClCompile Include="States\src\LevelEditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="App\src\Leaderboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\RankingsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -116,6 +122,12 @@
     <ClInclude Include="States\include\LevelEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="App\include\Leaderboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\RankingsState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
@@ -157,6 +169,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Config\level3.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\leaderboard.txt">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

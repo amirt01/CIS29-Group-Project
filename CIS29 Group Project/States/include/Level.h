@@ -17,6 +17,6 @@ private:
 	// Functions
 	void updateSpawning();
 public:
-	Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states);
+	Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states, Leaderboard* leaderboard);
 	~Level();
 };

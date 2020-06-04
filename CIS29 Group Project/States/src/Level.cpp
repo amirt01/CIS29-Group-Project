@@ -77,8 +77,8 @@ void Level::updateSpawning()
 	}
 }
 
-Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states)
-	: GameState(renderWindow, states)
+Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states, Leaderboard* leaderboard)
+	: GameState(renderWindow, states, leaderboard)
 {
 	initializeLevel(path);
 	spawnPlayer();
