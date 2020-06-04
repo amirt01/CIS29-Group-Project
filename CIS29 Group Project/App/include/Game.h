@@ -24,7 +24,6 @@ private:
 	std::stack<State*> states;
 
 	// Initialization
-	void initializeVariables();
 	void initializeLeaderboard();
 	void initializeWindow();
 	void initializeStates();

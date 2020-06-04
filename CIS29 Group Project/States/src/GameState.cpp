@@ -62,13 +62,13 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		switch (type)
 		{
 		case RED:
-			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case YELLOW:
-			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case ORANGE:
-			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100));
+			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
 			throw exc::SpawnError<unsigned short>(type);
@@ -84,7 +84,6 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 
 /* Functions */
 // Update
-
 void GameState::updateGUI()
 {
 	if (paused)
@@ -114,13 +113,15 @@ void GameState::updateKeyboard(unsigned short keyCode)
 	}
 
 	if (sf::Keyboard::W == keyCode ||
-		sf::Keyboard::Up == keyCode)
+		sf::Keyboard::Up == keyCode &&
+		!paused)
 	{
 		// MOVE UP
 		player->updateMovement(-1);
 	}
 	else if (sf::Keyboard::S == keyCode ||
-		sf::Keyboard::Down == keyCode)
+		sf::Keyboard::Down == keyCode &&
+		!paused)
 	{
 		// MOVE DOWN
 		player->updateMovement(1);
@@ -139,7 +140,7 @@ void GameState::updateGameSpeed(const float& deltaTime)
 	speed -= deltaTime * 10.f;
 
 	// UPDATE THE SPAWNING FREQUENCY
-	frequency = -35.f / (speed * deltaTime);
+	frequency = -100.f / (speed * deltaTime);
 }
 
 void GameState::updateObjects(const float& deltaTime)

@@ -5,11 +5,6 @@
 #include "MainMenuState.h"
 
 //Initializers
-void Game::initializeVariables()
-{
-	deltaTime = 0.f;
-}
-
 void Game::initializeLeaderboard()
 {
 	if (!leaderboard.loadFromFile("Config/leaderboard.txt"))
@@ -78,11 +73,13 @@ void Game::initializeStates()
 
 // Constructor / Destructors
 Game::Game()
+	: deltaTime(0.f)
 {
-	initializeVariables();
+	//std::thread leaderboard(&Game::initializeLeaderboard);
 	initializeLeaderboard();
 	initializeWindow();
 	initializeStates();
+	//leaderboard.join();
 }
 
 Game::~Game()

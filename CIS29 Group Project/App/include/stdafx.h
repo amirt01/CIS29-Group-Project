@@ -22,6 +22,7 @@
 #include<random>
 #include<algorithm>
 #include<cmath>
+#include<thread>
 
 //SFML Specific
 #include"SFML\System.hpp"

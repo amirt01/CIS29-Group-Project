@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(Type type, short unsigned level, sf::Texture& texture_sheet, int width, int height)
+Object::Object(const Type type, const short unsigned level, sf::Texture& texture, const int width, const int height, const int startingLocation)
 	: Entity(), hit(false), type(type)
 {
 	switch (level)
 	{
 	case TOP:
-		sprite.setPosition(sf::Vector2f(1080.f, 200.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 200.f - static_cast<float>(height / 2)));
 		break;
 	case MIDDLE:
-		sprite.setPosition(sf::Vector2f(1080.f, 335.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 335.f - static_cast<float>(height / 2)));
 		break;
 	case BOTTOM:
-		sprite.setPosition(sf::Vector2f(1080.f, 460.f - static_cast<float>(height / 2)));
+		sprite.setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 460.f - static_cast<float>(height / 2)));
 		break;
 	default:
 		break;
 	}
 
 	//initializeObjectImage();
-	setTexture(texture_sheet);
+	setTexture(texture);
 
 	// MAKE SURE TO CREATE VARIABLES LATER
 	addAnimation("IDLE", 0.1f, 0, 7, width, height);
