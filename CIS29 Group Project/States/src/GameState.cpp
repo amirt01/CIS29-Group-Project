@@ -11,7 +11,6 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeTextures()
 {
-	//player texture
 	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png") ||
 		!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png") ||
 		!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png") ||
@@ -19,24 +18,24 @@ void GameState::initializeTextures()
 		!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png") ||
 		!textures["HEART"].loadFromFile("Resources/Images/Heart.png") ||
 		!textures["COLLISION"].loadFromFile("Resources/Images/CrashCartoon.png"))
-		exit(-1); // the loadFromFile() function has an ouput
+		exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
 }
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states), pauseState(renderWindow, states),
-	speed(-75), frequency(5), states(states), paused(false), collision(false)
+GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
+	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
+	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
-	spawnPlayer();
 
 	for (int i = 0; i < backgrounds.size(); i++)
-		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x * (i + 1)),
+	{
+		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 			static_cast<float>(renderWindow->getSize().y)));
-
-	for (sf::RectangleShape& rs : backgrounds)
-		rs.setTexture(&textures.at("BACKGROUND"));
+		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
+		backgrounds[i].setTexture(&textures.at("BACKGROUND"));
+	}
 }
 
 GameState::~GameState()
@@ -54,9 +53,7 @@ void GameState::spawnPlayer()
 {
 	player = new Player(textures.at("PLAYER"));
 	hud = new HUD(player, textures.at("HEART"));
-	collide = new Collide(textures.at("COLLISION"));
-
-	std::cout << "Player Spawned" << std::endl;
+	collide = new Collide(textures.at("COLLISION")); 
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -64,14 +61,14 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	try {
 		switch (type)
 		{
-		case Red:
-			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100));
+		case RED:
+			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case Yellow:
-			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100));
+		case YELLOW:
+			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case Orange:
-			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100));
+		case ORANGE:
+			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
 			throw exc::SpawnError<unsigned short>(type);
@@ -81,13 +78,12 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	catch (exc::SpawnError<unsigned short>& error)
 	{
 		std::cout << error.what();
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 }
 
 /* Functions */
 // Update
-
 void GameState::updateGUI()
 {
 	if (paused)
@@ -106,29 +102,35 @@ void GameState::updateGUI()
 	}
 }
 
-void GameState::updateInput(unsigned short keyCode)
+void GameState::updateKeyboard(unsigned short keyCode)
 {
 	if (paused)
-		pauseState.updateInput(keyCode);
+		pauseState.updateKeyboard(keyCode);
 
 	if (sf::Keyboard::Escape == keyCode)
 	{
 		togglePause();
 	}
 
-	std::cout << "player moving" << std::endl;
 	if (sf::Keyboard::W == keyCode ||
-		sf::Keyboard::Up == keyCode)
+		sf::Keyboard::Up == keyCode &&
+		!paused)
 	{
 		// MOVE UP
 		player->updateMovement(-1);
 	}
-	else if (sf::Keyboard::D == keyCode ||
-		sf::Keyboard::Down == keyCode)
+	else if (sf::Keyboard::S == keyCode ||
+		sf::Keyboard::Down == keyCode &&
+		!paused)
 	{
 		// MOVE DOWN
 		player->updateMovement(1);
 	}
+}
+
+void GameState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
 }
 
 void GameState::updateGameSpeed(const float& deltaTime)
@@ -138,7 +140,7 @@ void GameState::updateGameSpeed(const float& deltaTime)
 	speed -= deltaTime * 10.f;
 
 	// UPDATE THE SPAWNING FREQUENCY
-	frequency = -35.f / (speed * deltaTime);
+	frequency = -100.f / (speed * deltaTime);
 }
 
 void GameState::updateObjects(const float& deltaTime)
@@ -156,13 +158,16 @@ void GameState::updateObjects(const float& deltaTime)
 	}
 }
 
-void GameState::updateBackground(const float& deltaTime)
+void GameState::updateBackground(const float& deltaTime, const short dir)
 {
 	// SOMETHING LIKE:
-	for (int i = 0; i < backgrounds.size(); i++) {
-		backgrounds[i].move(2 * speed * deltaTime, 0);
-		if (backgrounds[i].getPosition().x + backgrounds[i].getSize().x < 0)
-			backgrounds[i].move(sf::Vector2f(static_cast<float>(2 * renderWindow->getSize().x), 0));
+	for (sf::RectangleShape& background : backgrounds) {
+		background.move(2 * speed * dir * deltaTime, 0);
+
+		if (background.getPosition().x + background.getSize().x < -background.getSize().x)
+			background.move(sf::Vector2f(3.f * renderWindow->getSize().x, 0.f));
+		if (background.getPosition().x > 2 * background.getSize().x)
+			background.move(sf::Vector2f(-3.f * renderWindow->getSize().x, 0.f));
 	}
 }
 
@@ -171,11 +176,10 @@ void GameState::updateState(const float& deltaTime)
 	if (!paused)
 	{
 		updateGameSpeed(deltaTime);
-		updateBackground(deltaTime);
+		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
 		player->updateScore(deltaTime);
 		hud->update();
-
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -189,38 +193,39 @@ void GameState::updateState(const float& deltaTime)
 	}
 }
 
+void GameState::updateCollision(Object* object)
+{
+	switch (object->type)
+	{
+	case Obstacle:
+		//implement timer
+		player->takeDamage();
+		object->hit = true;
+		if (player->getCurrentHealth() == 0) {
+			togglePause(); //for now pausing the screen when player collides with cars 3 times
+			leaderboard->addNewScore("default", player->getCurrentScore());
+		}
+		collide->collisionPosition(player->getCurrentPosition());
+		player->collisionMove();
+		break;
+	case Coin:
+		player->gainCoin();
+		break;
+	default:
+		break;
+	}
+}
+
 //Collision Detection
 void GameState::checkCollision() {
-	if (objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite())))
 	{
-		switch (objects.front()->type)
-		{
-		case Obstacle:
-			std::cout << "Collision!!!" << std::endl;
-			//implement timer
-			player->takeDamage();
-			std::cout << "Player hearts: " << player->getCurrentHealth() << std::endl;
-			objects.front()->hit = true;
-			if (player->getCurrentHealth() == 0) {
-				togglePause(); //for now pausing the screen when player collides with cars 3 times
-			}
-			
-			collide->collisionPosition(player->getCurrentPosition());
-			player->collisionMove();
-			collision = true;
-
-			break;
-		case Coin:
-			player->gainCoin();
-			break;
-		default:
-			break;
-		}
-		
-		
-		
+		updateCollision(objects.front());
 	}
-	collision = false;
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
+	{
+		updateCollision(objects.at(1));
+	}
 }
 
 // Render
@@ -244,6 +249,6 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	if (paused)
 		pauseState.renderState(renderTarget);
 
-	if (collision|| collide->collisionTiming())
+	if (collide->collisionTiming())
 		collide->render(renderTarget);
 }

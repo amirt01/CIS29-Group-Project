@@ -1,6 +1,7 @@
 #pragma once
 
 #include "State.h"
+#include "Leaderboard.h"
 
 class Game
 {
@@ -8,10 +9,12 @@ private:
 	// Variables
 	sf::RenderWindow* renderWindow;
 	sf::Event event;
+
 	std::vector<sf::VideoMode> videoModes;
 	sf::ContextSettings windowSettings;
 	bool fullscreen;
-	std::map<std::string, int> keyboard;
+
+	Leaderboard leaderboard;
 
 	// Delta Time
 	sf::Clock deltaTimeClock;
@@ -21,7 +24,7 @@ private:
 	std::stack<State*> states;
 
 	// Initialization
-	void initializeVariables();
+	void initializeLeaderboard();
 	void initializeWindow();
 	void initializeStates();
 

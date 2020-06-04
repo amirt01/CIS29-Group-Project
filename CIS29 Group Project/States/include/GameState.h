@@ -5,10 +5,12 @@
 #include "Object.h"
 #include "Player.h"
 #include "HUD.h"
+#include "Leaderboard.h"
 #include "Collide.h"
 
-enum color { Red = 0, Yellow, Orange };
+enum color { RED = 0, YELLOW, ORANGE };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
+enum direction { FORWARDS = 1, BACKWARDS = -1 };
 
 class GameState : public State
 {
@@ -20,17 +22,15 @@ private:
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
 
+	Leaderboard* leaderboard;
 	Player* player;
 	HUD* hud;
 	Collide* collide;
 
 	std::stack<State*>* states;
-	std::array<sf::RectangleShape, 2> backgrounds;
+	std::array<sf::RectangleShape, 3> backgrounds;
 
 	void togglePause();
-
-	// Initializers
-	void initializeTextures();
 
 protected:
 	float frequency;
@@ -38,11 +38,14 @@ protected:
 
 	std::deque<Object*> objects;
 
+	// Initializers
+	void initializeTextures();
+
 	virtual void updateSpawning() = 0;
 
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard = nullptr);
 	virtual ~GameState();
 
 	void spawnPlayer();
@@ -50,11 +53,13 @@ public:
 
 	// Update
 	void updateGUI();
-	void updateInput(unsigned short keyCode);
+	virtual void updateKeyboard(unsigned short keyCode);
+	void updateMouseWheel(short mouseDelta);
 	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
-	void updateBackground(const float& deltaTime);
-	void updateState(const float& deltaTime);
+	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);
+	virtual void updateState(const float& deltaTime);
+	void updateCollision(Object* object);
 
 	//Collision Detection
 	void checkCollision();

@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\src\Leaderboard.cpp" />
     <ClCompile Include="App\src\main.cpp" />
     <ClCompile Include="App\src\Game.cpp" />
     <ClCompile Include="App\src\stdafx.cpp">
@@ -182,13 +183,16 @@
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
+    <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\PauseState.cpp" />
+    <ClCompile Include="States\src\RankingsState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
+    <ClInclude Include="App\include\Leaderboard.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\Collide.h" />
@@ -200,8 +204,10 @@
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
+    <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\PauseState.h" />
+    <ClInclude Include="States\include\RankingsState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
     <ClInclude Include="States\include\State.h" />
   </ItemGroup>
@@ -229,6 +235,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\leaderboard.txt" />
     <None Include="Config\level1.bin" />
     <None Include="Config\level2.bin" />
     <None Include="Config\level3.bin" />

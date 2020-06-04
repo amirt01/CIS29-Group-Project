@@ -13,7 +13,7 @@ public:
 	bool hit;
 	Type type;
 
-	Object(Type type, short unsigned level, sf::Texture& texture, int width, int height);
+	Object(const Type type, const short unsigned level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 
 	float getCurrentPosition();
 	int getValue();

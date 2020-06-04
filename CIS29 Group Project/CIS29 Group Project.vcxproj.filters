@@ -63,9 +63,6 @@
     <ClCompile Include="Entity\src\CollisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\src\Collide.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -113,7 +110,16 @@
     <ClInclude Include="Entity\include\CollisionDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\include\Collide.h">
+      <ClInclude Include="States\include\LevelEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App\include\Leaderboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\RankingsState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+     <ClInclude Include="Entity\include\Collide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -160,6 +166,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Config\level3.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\leaderboard.txt">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
