@@ -232,6 +232,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\leaderboard.txt" />
     <None Include="Config\level1.bin" />
     <None Include="Config\level2.bin" />
     <None Include="Config\level3.bin" />

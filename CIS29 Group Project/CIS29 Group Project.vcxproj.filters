@@ -171,5 +171,8 @@
     <None Include="Config\level3.bin">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Config\leaderboard.txt">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

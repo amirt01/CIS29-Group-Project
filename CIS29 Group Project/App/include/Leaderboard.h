@@ -3,8 +3,6 @@
 class Leaderboard : public sf::Drawable
 {
 private:
-	const int MAXNUMBEROFSCORES;
-
 	class Date {
 	private:
 		const time_t date;
@@ -21,6 +19,7 @@ private:
 			delete ptm;
 			return sf::String(buffer);
 		};
+		const time_t getDate() const { return date; };
 		friend bool operator<(const Date& d1, const Date& d2) { return d1.date < d2.date; }
 		friend bool operator<(const Date& d1, const time_t& d2) { return d1.date < d2; }
 	};
@@ -32,11 +31,13 @@ private:
 		const float score;
 		Date date;
 	public:
-		Score(const std::string& name, const float& score)
-			: name(name), score(score), date(Date()) {};
+		Score()
+			: name(""), score(0), date() {};
+		Score(const std::string& name, const float& score, const time_t date = time(0))
+			: name(name), score(score), date(Date(date)) {};
 		const std::string const getName() { return name; };
-		const int getScore() const { return score; };
-		const Date getDate() const { return date; };
+		const float getScore() const { return score; };
+		const time_t getDate() const { return date.getDate(); };
 		void draw(sf::RenderTarget& renderTarget, sf::RenderStates states = sf::RenderStates::Default) const
 		{
 			sf::Font font;
@@ -69,14 +70,12 @@ private:
 public:
 	std::list<Score> scores;
 
-	Leaderboard() : MAXNUMBEROFSCORES(10)
-	{
-		addNewScore("test", 123);
-	};
+	Leaderboard() {};
 	~Leaderboard() {};
 
 	bool loadFromFile(const std::string& path);
+	bool writeToFile(const std::string& path);
 
-	bool addNewScore(const std::string& name, const float& score);
+	bool addNewScore(const std::string& name, const float& score, time_t date = time(0));
 	bool checkIfHighScore(const float& score);
 };

@@ -12,7 +12,11 @@ void Game::initializeVariables()
 
 void Game::initializeLeaderboard()
 {
-	leaderboard.loadFromFile("Config/leaderboard.txt");
+	if (!leaderboard.loadFromFile("Config/leaderboard.txt"))
+	{
+		std::cout << "Error loading leaderboard. Unknown Reason." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 void Game::initializeWindow()
@@ -95,7 +99,12 @@ Game::~Game()
 /* Functions */
 void Game::endApplication()
 {
-	std::cout << "Application is closing...";
+	/* Save Leaderboard Data */
+	if (!leaderboard.writeToFile("Config/leaderboard.txt"))
+	{
+		std::cout << "Error storing leaderboard. Unknown Reason." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 // Updates
@@ -129,24 +138,14 @@ void Game::updateSFMLEvents()
 
 void Game::updateGame()
 {
-	if (!states.empty())
+	updateSFMLEvents();
+	states.top()->updateState(deltaTime);
+	std::cout << "Running " << states.top()->name() << std::endl;
+	if (states.top()->getQuit())
 	{
-		updateSFMLEvents();
-		states.top()->updateState(deltaTime);
-		std::cout << "Running " << states.top()->name() << std::endl;
-		if (states.top()->getQuit())
-		{
-			states.top()->quitState();
-			delete states.top();
-			states.pop();
-		}
-	}
-
-	// states stack is empty, quit application
-	else
-	{
-		std::cout << "ending aplication" << std::endl;
-		endApplication();
+		states.top()->quitState();
+		delete states.top();
+		states.pop();
 	}
 }
 
@@ -174,4 +173,6 @@ void Game::runGame()
 		updateGame();
 		renderGame();
 	}
+
+	endApplication();
 }
