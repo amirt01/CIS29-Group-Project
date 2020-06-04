@@ -78,8 +78,6 @@ void PauseState::updateMouseWheel(short mouseDelta)
 void PauseState::updateState(const float& deltaTime) {
 	updateMousePositions();
 	updateGUI();
-
-	std::cout << "Running PauseState" << std::endl;
 }
 
 // Render

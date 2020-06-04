@@ -89,7 +89,6 @@ void SettingsState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
 	updateGUI(deltaTime);
-	std::cout << "Running MainMenuState" << std::endl;
 }
 
 // Render

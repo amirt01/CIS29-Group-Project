@@ -34,7 +34,6 @@ bool Leaderboard::loadFromFile(const std::string& path)
 
 	while (fin >> name >> score >> date)
 	{
-		std::cout << "test" << std::endl;
 		addNewScore(name, score, date);
 	}
 
