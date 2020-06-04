@@ -85,7 +85,7 @@ void PauseState::updateState(const float& deltaTime) {
 // Render
 void PauseState::renerGUI(sf::RenderTarget* renderTarget) {
 	for (auto& it : buttons) {
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 

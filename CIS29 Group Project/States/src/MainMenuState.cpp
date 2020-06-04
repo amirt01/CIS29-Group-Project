@@ -141,7 +141,7 @@ void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 

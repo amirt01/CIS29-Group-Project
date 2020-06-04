@@ -17,7 +17,7 @@ void GameState::initializeTextures()
 		!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png") ||
 		!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png") ||
 		!textures["HEART"].loadFromFile("Resources/Images/Heart.png"))
-		exit(-1); // the loadFromFile() function has an ouput
+		exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
 }
 
@@ -53,7 +53,6 @@ void GameState::spawnPlayer()
 	player = new Player(textures.at("PLAYER"));
 	hud = new HUD(player, textures.at("HEART"));
 
-	std::cout << "Player Spawned" << std::endl;
 	player->resetClock();
 }
 
@@ -79,7 +78,7 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 	catch (exc::SpawnError<unsigned short>& error)
 	{
 		std::cout << error.what();
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 }
 
