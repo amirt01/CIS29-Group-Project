@@ -174,6 +174,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entity\src\Animation.cpp" />
+    <ClCompile Include="Entity\src\Collide.cpp" />
     <ClCompile Include="Entity\src\CollisionDetection.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
     <ClCompile Include="Entity\src\HUD.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="App\include\Leaderboard.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
+    <ClInclude Include="Entity\include\Collide.h" />
     <ClInclude Include="Entity\include\CollisionDetection.h" />
     <ClInclude Include="Entity\include\Entity.h" />
     <ClInclude Include="Entity\include\HUD.h" />
@@ -216,6 +218,7 @@
     <Image Include="Resources\Images\CarFramesOrange.png" />
     <Image Include="Resources\Images\CarFramesRed.png" />
     <Image Include="Resources\Images\CarFramesYellow.png" />
+    <Image Include="Resources\Images\CrashCartoon.jpg" />
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\Heart.png" />
     <Image Include="Resources\Images\MainMenu.png" />

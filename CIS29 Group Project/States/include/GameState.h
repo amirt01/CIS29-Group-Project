@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "HUD.h"
 #include "Leaderboard.h"
+#include "Collide.h"
 
 enum color { RED = 0, YELLOW, ORANGE };
 enum obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -16,6 +17,7 @@ class GameState : public State
 private:
 	float speed;
 	bool paused;
+	bool collision;
 
 	PauseState pauseState;
 	std::map<std::string, gui::Button*> buttons;
@@ -23,6 +25,7 @@ private:
 	Leaderboard* leaderboard;
 	Player* player;
 	HUD* hud;
+	Collide* collide;
 
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 3> backgrounds;
