@@ -239,6 +239,12 @@
     <None Include="Config\level1.bin" />
     <None Include="Config\level2.bin" />
     <None Include="Config\level3.bin" />
+    <None Include="Resources\Audio\Collision.flac" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Audio\coin.wav" />
+    <Media Include="Resources\Audio\crash.wav" />
+    <Media Include="Resources\Audio\crash2.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -183,5 +183,19 @@
     <None Include="Config\leaderboard.txt">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Resources\Audio\Collision.flac">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Audio\crash.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\coin.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\crash2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

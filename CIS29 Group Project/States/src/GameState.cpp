@@ -212,7 +212,7 @@ void GameState::updateCollision(Object* object)
 	switch (object->type)
 	{
 	case Obstacle:
-		//implement timer
+		collide->playaudio(0);
 		player->takeDamage();
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) {
@@ -221,8 +221,10 @@ void GameState::updateCollision(Object* object)
 		}
 		collide->collisionPosition(player->getCurrentPosition());
 		player->collisionMove();
+		
 		break;
 	case Coin:
+		collide->playaudio(1);
 		player->gainCoin();
 		break;
 	default:
