@@ -62,7 +62,7 @@ const bool PauseState::isButtonPressed(std::string Button)
 }
 
 // Update
-void PauseState::updateInput(unsigned short keyCode) {
+void PauseState::updateKeyboard(unsigned short keyCode) {
 	// Any Unique Pause State Keyboard Input
 }
 
@@ -73,17 +73,20 @@ void PauseState::updateGUI() {
 	}
 }
 
+void PauseState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
+}
+
 void PauseState::updateState(const float& deltaTime) {
 	updateMousePositions();
 	updateGUI();
-
-	std::cout << "Running PauseState" << std::endl;
 }
 
 // Render
 void PauseState::renerGUI(sf::RenderTarget* renderTarget) {
 	for (auto& it : buttons) {
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 

@@ -3,7 +3,8 @@
 #include "FreePlayState.h"
 #include "SettingsState.h"
 #include "Level.h"
-#include "TutorialState.h"
+#include "LevelEditor.h"
+#include "RankingsState.h"
 
 // Initializers
 void MainMenuState::initializeTextures()
@@ -62,22 +63,18 @@ void MainMenuState::initializeGUI()
 		&font, "Level 9",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
-	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
-		&font, "Settings",
+	buttons["RANKGINGS_STATE"] = new gui::Button(220, 350, 150, 50,
+		&font, "Game Ranks",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["TUTORIAL_STATE"] = new gui::Button(820, 250, 150, 50,
-		&font, "Tutorial",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
+	: State(renderWindow, states), leaderboard(leaderboard)
 {
 	initializeTextures();
 	initializeFonts();
@@ -98,12 +95,17 @@ MainMenuState::~MainMenuState()
 	}
 }
 
+void MainMenuState::updateMouseWheel(short mouseDelta)
+{
+	// Any Unique Pause State Mouse Wheel Input
+}
+
 /* Functions */
 // Update
-void MainMenuState::updateInput(unsigned short keyCode)
+void MainMenuState::updateKeyboard(unsigned short keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states));
+		states->push(new FreePlayState(renderWindow, states, leaderboard));
 }
 
 void MainMenuState::updateGUI()
@@ -115,19 +117,17 @@ void MainMenuState::updateGUI()
 	}
 
 	if (buttons["FREE_PLAY"]->isPressed())
-		states->push(new FreePlayState(renderWindow, states));
+		states->push(new FreePlayState(renderWindow, states, leaderboard));
 	if (buttons["LEVEL_1"]->isPressed())
-		states->push(new Level(renderWindow, "Config/level1.bin", states));
+		states->push(new Level(renderWindow, "Config/level1.bin", states, leaderboard));
 	if (buttons["LEVEL_2"]->isPressed())
-		states->push(new Level(renderWindow, "Config/level2.bin", states));
+		states->push(new Level(renderWindow, "Config/level2.bin", states, leaderboard));
 	if (buttons["LEVEL_3"]->isPressed())
-		states->push(new Level(renderWindow, "Config/level3.bin", states));
-	if (buttons["SETTINGS"]->isPressed())
-		states->push(new SettingsState(renderWindow, states));
+		states->push(new Level(renderWindow, "Config/level3.bin", states, leaderboard));
+	if (buttons["RANKGINGS_STATE"]->isPressed())
+		states->push(new RankingsState(renderWindow, states, leaderboard));
 	if (buttons["EXIT_STATE"]->isPressed())
 		quitState();
-	if (buttons["TUTORIAL_STATE"]->isPressed())
-		states->push(new TutorialState(renderWindow, states));
 }
 
 void MainMenuState::updateState(const float& deltaTime)
@@ -141,7 +141,7 @@ void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 

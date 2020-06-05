@@ -5,9 +5,13 @@
 #include "MainMenuState.h"
 
 //Initializers
-void Game::initializeVariables()
+void Game::initializeLeaderboard()
 {
-	deltaTime = 0.f;
+	if (!leaderboard.loadFromFile("Config/leaderboard.txt"))
+	{
+		std::cout << "Error loading leaderboard. Unknown Reason." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 void Game::initializeWindow()
@@ -64,15 +68,18 @@ void Game::initializeWindow()
 
 void Game::initializeStates()
 {
-	states.push(new MainMenuState(renderWindow, &states));
+	states.push(new MainMenuState(renderWindow, &states, &leaderboard));
 }
 
 // Constructor / Destructors
 Game::Game()
+	: deltaTime(0.f)
 {
-	initializeVariables();
+	//std::thread leaderboard(&Game::initializeLeaderboard);
+	initializeLeaderboard();
 	initializeWindow();
 	initializeStates();
+	//leaderboard.join();
 }
 
 Game::~Game()
@@ -89,7 +96,12 @@ Game::~Game()
 /* Functions */
 void Game::endApplication()
 {
-	std::cout << "Application is closing...";
+	/* Save Leaderboard Data */
+	if (!leaderboard.writeToFile("Config/leaderboard.txt"))
+	{
+		std::cout << "Error storing leaderboard. Unknown Reason." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 }
 
 // Updates
@@ -112,7 +124,9 @@ void Game::updateSFMLEvents()
 		case(sf::Event::Closed):
 			renderWindow->close();
 		case(sf::Event::EventType::KeyPressed):
-			states.top()->updateInput(event.key.code);
+			states.top()->updateKeyboard(event.key.code);
+		case(sf::Event::MouseWheelMoved):
+			states.top()->updateMouseWheel(event.mouseWheel.delta);
 		default:
 			break;
 		}
@@ -121,24 +135,14 @@ void Game::updateSFMLEvents()
 
 void Game::updateGame()
 {
-	if (!states.empty())
+	updateSFMLEvents();
+	states.top()->updateState(deltaTime);
+	std::cout << "Running " << states.top()->name() << std::endl;
+	if (states.top()->getQuit())
 	{
-		updateSFMLEvents();
-		states.top()->updateState(deltaTime);
-		std::cout << "Running " << states.top()->name() << std::endl;
-		if (states.top()->getQuit())
-		{
-			states.top()->quitState();
-			delete states.top();
-			states.pop();
-		}
-	}
-
-	// states stack is empty, quit application
-	else
-	{
-		std::cout << "ending application" << std::endl;
-		endApplication();
+		states.top()->quitState();
+		delete states.top();
+		states.pop();
 	}
 }
 
@@ -166,4 +170,6 @@ void Game::runGame()
 		updateGame();
 		renderGame();
 	}
+
+	endApplication();
 }

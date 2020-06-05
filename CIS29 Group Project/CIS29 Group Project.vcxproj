@@ -97,14 +97,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,14 +113,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;$(SolutionDir)External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-system-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;C:\Users\R\source\repos\CIS29-Group-Project\CIS29 Group Project\States\include;$(SolutionDir)CIS29 Group Project\App\include;C:\Users\amirt\OneDrive\Documents\Code\CIS29 Group Project\External\SFML\include;%(AdditionalIncludeDirectories);$(SolutionDir)CIS29 Group Project\States\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -160,10 +160,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)External\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-system.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\src\Leaderboard.cpp" />
     <ClCompile Include="App\src\main.cpp" />
     <ClCompile Include="App\src\Game.cpp" />
     <ClCompile Include="App\src\stdafx.cpp">
@@ -173,6 +174,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entity\src\Animation.cpp" />
+    <ClCompile Include="Entity\src\Collide.cpp" />
     <ClCompile Include="Entity\src\CollisionDetection.cpp" />
     <ClCompile Include="Entity\src\Entity.cpp" />
     <ClCompile Include="Entity\src\HUD.cpp" />
@@ -181,16 +183,20 @@
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
+    <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="States\src\PauseState.cpp" />
+    <ClCompile Include="States\src\RankingsState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
     <ClCompile Include="States\src\TutorialState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
+    <ClInclude Include="App\include\Leaderboard.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
+    <ClInclude Include="Entity\include\Collide.h" />
     <ClInclude Include="Entity\include\CollisionDetection.h" />
     <ClInclude Include="Entity\include\Entity.h" />
     <ClInclude Include="Entity\include\HUD.h" />
@@ -199,8 +205,10 @@
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
+    <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="States\include\PauseState.h" />
+    <ClInclude Include="States\include\RankingsState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
     <ClInclude Include="States\include\State.h" />
     <ClInclude Include="States\include\TutorialState.h" />
@@ -212,6 +220,7 @@
     <Image Include="Resources\Images\CarFramesOrange.png" />
     <Image Include="Resources\Images\CarFramesRed.png" />
     <Image Include="Resources\Images\CarFramesYellow.png" />
+    <Image Include="Resources\Images\CrashCartoon.jpg" />
     <Image Include="Resources\Images\GameBackground.png" />
     <Image Include="Resources\Images\Heart.png" />
     <Image Include="Resources\Images\MainMenu.png" />
@@ -228,6 +237,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\leaderboard.txt" />
     <None Include="Config\level1.bin" />
     <None Include="Config\level2.bin" />
     <None Include="Config\level3.bin" />

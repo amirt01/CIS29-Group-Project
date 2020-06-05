@@ -5,6 +5,7 @@
 class Player :public Entity {
 private:
 	enum position { Up = 0, Center = 1, Down = 2 } pos;
+	int moveType[2];
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
@@ -16,23 +17,25 @@ private:
 public:
 	Player(sf::Texture& playerTexture);
 
-	// void update();
+	//update
 	void updateMovement(int);
 	void updateScore(const float& deltaTime);
 
+	//coins
 	void gainCoin();
 	unsigned int getCoins();
 
-	bool checkPosition(int);
-
-	void resetClock();
-	int getTimeEllapsed();
+	//player health
 	void takeDamage();
 	void setCurrentHealth(int);
 	int getCurrentHealth();
-
+	void collisionMove();
+	
+	//Score
 	float getCurrentScore();
 
+	//position and movement
+	bool checkPosition(int);
 	void setMovementShift(float);
 	float getMovementShift();
 	void setCurrentPosition(int);

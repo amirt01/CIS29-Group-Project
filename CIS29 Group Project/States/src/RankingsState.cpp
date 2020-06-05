@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "SettingsState.h"
+#include "RankingsState.h"
 
-void SettingsState::initializeBackground()
+void RankingsState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
@@ -14,7 +14,7 @@ void SettingsState::initializeBackground()
 	background.setTexture(&backgrounTexture);
 }
 
-void SettingsState::initializeFonts()
+void RankingsState::initializeFonts()
 {
 	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
 	{
@@ -22,48 +22,39 @@ void SettingsState::initializeFonts()
 	}
 }
 
-void SettingsState::initializeGUI()
+void RankingsState::initializeGUI()
 {
 	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
 		&font, "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	std::string resolutions[] = { "1920x1080", "800x600", "640x480" };
-	dropDownMenus["RESOLUTION"] = new gui::DropDownMenu(400.f, 200.f, 200.f, 50.f, font, resolutions, 3);
 }
 
-SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
+	: State(renderWindow, states), leaderboard(leaderboard)
 {
 	initializeBackground();
 	initializeFonts();
 	initializeGUI();
 }
 
-SettingsState::~SettingsState()
+RankingsState::~RankingsState()
 {
 	auto it = buttons.begin();
 	for (it = buttons.begin(); it != buttons.end(); ++it)
 	{
 		delete it->second;
 	}
-
-	auto it2 = dropDownMenus.begin();
-	for (it2 = dropDownMenus.begin(); it2 != dropDownMenus.end(); ++it2)
-	{
-		delete it2->second;
-	}
 }
 
 /* Functions */
 // Update
-void SettingsState::updateInput(unsigned short keyCode)
+void RankingsState::updateKeyboard(unsigned short keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
 		quitState();
 }
 
-void SettingsState::updateGUI(const float& deltaTime)
+void RankingsState::updateGUI(const float& deltaTime)
 {
 	/*Updates all the GUI elements in the state and handles their functionality*/
 	// Buttons
@@ -77,41 +68,29 @@ void SettingsState::updateGUI(const float& deltaTime)
 	{
 		quitState();
 	}
-
-	// Drop Down Menus
-	for (auto& it : dropDownMenus)
-	{
-		it.second->update(mousePosView, deltaTime);
-	}
 }
 
-void SettingsState::updateState(const float& deltaTime)
+void RankingsState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
 	updateGUI(deltaTime);
 }
 
 // Render
-void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
+void RankingsState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
 		it.second->draw(*renderTarget);
 	}
-
-	for (auto& it : dropDownMenus)
-	{
-		it.second->render(renderTarget);
-	}
 }
 
-void SettingsState::renderState(sf::RenderTarget* renderTarget)
+void RankingsState::renderState(sf::RenderTarget* renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
 	renderTarget->draw(background);
-
-	renderTarget->draw(background);
+	renderTarget->draw(*leaderboard);
 	renerGUI(renderTarget);
 }

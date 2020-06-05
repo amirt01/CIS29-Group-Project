@@ -3,7 +3,7 @@
 
 void HUD::initializeContainer()
 {
-	container.setSize(sf::Vector2f(425.f, 64.f));
+	container.setSize(sf::Vector2f(390.f, 64.f));
 	container.setFillColor(sf::Color(20, 20, 20, 200));
 	container.setPosition(100.f, container.getSize().y / 2.f);
 }
@@ -20,14 +20,14 @@ void HUD::initializeScore()
 	score.setCharacterSize(48);
 	score.setStyle(sf::Text::Bold);
 	score.setFillColor(sf::Color::White);
-	score.setString(sf::String("0:00"));
+	score.setString(sf::String("0.00"));
 	score.setPosition(container.getPosition().x + 10.f, (container.getPosition().y + container.getSize().y / 2) -
 		(score.getGlobalBounds().height - 5.f));
 }
 
 void HUD::initializeHearts(sf::Texture& heartTexture)
 {
-	float position = 1.5f * score.getGlobalBounds().width + score.getPosition().x;
+	float position = score.getGlobalBounds().width + score.getPosition().x;
 	for (Entity& heart : hearts)
 	{
 		heart.setTexture(heartTexture);
@@ -58,7 +58,8 @@ void HUD::update()
 
 void HUD::updateScore()
 {
-	score.setString(sf::String(std::to_string(player->getCurrentScore())));
+	sf::String strScore(std::to_string(player->getCurrentScore()));
+	score.setString(strScore.substring(0, strScore.find('.') + 3));
 }
 
 void HUD::updateCoins()
