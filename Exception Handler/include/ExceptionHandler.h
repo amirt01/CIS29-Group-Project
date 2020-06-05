@@ -1,25 +1,57 @@
 #pragma once
 
 namespace exc {
-	template<typename T>
 	class SpawnError
 	{
 	private:
-		T holder;
+		const unsigned int level;
+		const unsigned int type;
 	public:
-		SpawnError(const T& error) : holder(error) {};
-		std::string Typeid() const {
-			std::string id = typeid(T).name();
-			return id.substr(id.find_first_not_of("0123456789"));;
-		};
+		SpawnError(const unsigned int& level, const unsigned int& type) : level(level), type(type) {};
+
 		const std::string what() const {
 			static std::string ret;
-			ret = "Error spawning object.\nReason: Invalid input.\nInput: ";
-			ret += std::to_string(holder);
-			ret += "\nInput Type: ";
-			ret += Typeid();
+			ret = "Error spawning object.\n";
+			ret += "Level: ";
+			ret += std::to_string(level);
+			ret += "\nType: ";
+			ret += type;
 			ret += "\n";
 			return ret;
 		};
+	};
+
+	class LoadFromFileError
+	{
+	private:
+		std::string path;
+	public:
+		LoadFromFileError(const std::string& path) : path(path) {};
+
+		const std::string what() const {
+			static std::string ret;
+			ret = "Error Loading data from file.\n";
+			ret += "File path: ";
+			ret += path;
+			ret += "\n";
+			return ret;
+		};
+	};
+
+	class WriteToFileError
+	{
+	private:
+		std::string path;
+	public:
+		WriteToFileError(const std::string& path) : path(path) {};
+
+		const std::string what() const {
+			static std::string ret;
+			ret = "Error writing data to file.\n";
+			ret += "File path: ";
+			ret += path;
+			ret += "\n";
+			return ret;
+		}
 	};
 }

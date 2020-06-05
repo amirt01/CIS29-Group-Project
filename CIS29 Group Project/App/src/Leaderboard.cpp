@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Leaderboard.h"
+#include "ExceptionHandler.h"
 
 void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
@@ -24,8 +25,7 @@ bool Leaderboard::loadFromFile(const std::string& path)
 
 	if (!fin.is_open())
 	{
-		std::cout << "Error opening scores file path: " << path << std::endl;
-		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	std::string name;
@@ -46,11 +46,9 @@ bool Leaderboard::writeToFile(const std::string& path)
 {
 	std::ofstream fout;
 	fout.open(path, std::ios::trunc);
-
 	if (!fout.is_open())
 	{
-		std::cout << "Error opening output file path: " << path << std::endl;
-		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	auto it = scores.rbegin();
@@ -61,7 +59,7 @@ bool Leaderboard::writeToFile(const std::string& path)
 
 	fout.close();
 
-	return false;
+	return true;
 }
 
 bool Leaderboard::addNewScore(const std::string& name, const float& score, time_t date)

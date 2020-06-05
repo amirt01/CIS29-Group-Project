@@ -1,54 +1,80 @@
 #include "stdafx.h"
 
+#include "ExceptionHandler.h"
 #include "Game.h"
 #include "GameState.h"
 #include "MainMenuState.h"
 
 //Initializers
-void Game::initializeLeaderboard()
+void Game::initializeLeaderboard(std::string path)
 {
-	if (!leaderboard.loadFromFile("Config/leaderboard.txt"))
+	try
 	{
-		std::cout << "Error loading leaderboard. Unknown Reason." << std::endl;
+		if (!leaderboard.loadFromFile(path))
+			throw exc::LoadFromFileError(path);
+	}
+	catch (exc::LoadFromFileError& error)
+	{
+		std::cout << error.what();
 		exit(EXIT_FAILURE);
 	}
 }
 
-void Game::initializeWindow()
+void Game::initializeWindow(std::string path)
 {
-	std::ifstream fin("Config/render_window_settings.txt");
+	std::ifstream fin(path);
+	std::string game_title;
+	sf::VideoMode render_window_bounds;
+	bool fullscreen;
+	unsigned framerate_limit;
+	sf::VideoMode window_bounds;
+	bool vertical_sync_enabled;
+	unsigned antialiasing_level;
 
-	/*
-	Game Title
-	render window width _ render window height
-	fullscreen
-	framerate limit
-	vertical sync enabled
-	antialiasing
-	*/
-
-	std::string game_title = "DEFAULT";
-	sf::VideoMode render_window_bounds(1280, 720);
-	bool fullscreen = false;
-	unsigned framerate_limit = 120;
-	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-	bool vertical_sync_enabled = false;
-	unsigned antialiasing_level = 0;
-
-	if (fin.is_open())
+	try
 	{
-		std::getline(fin, game_title);
-		fin >> window_bounds.width >> window_bounds.height;
-		fin >> fullscreen;
-		fin >> framerate_limit;
-		fin >> vertical_sync_enabled;
-		fin >> antialiasing_level;
+		/*
+		Game Title
+		render window width _ render window height
+		fullscreen
+		framerate limit
+		vertical sync enabled
+		antialiasing
+		*/
+
+		if (fin.is_open())
+		{
+			std::getline(fin, game_title);
+			fin >> window_bounds.width >> window_bounds.height;
+			fin >> fullscreen;
+			fin >> framerate_limit;
+			fin >> vertical_sync_enabled;
+			fin >> antialiasing_level;
+		}
+		else
+			throw exc::LoadFromFileError(path);
 	}
-	else
-	{
+	catch (exc::LoadFromFileError& error) {
+		unsigned int in;
+
 		std::cout << "Error reading file window setting's file. "
-			<< "Loading default settings..." << std::endl;
-		system("PAUSE");
+			<< "(1) Load Default Settings\n"
+			<< "(2) Exit\n";
+		std::cin >> in;
+
+		if (in == 1)
+		{
+			game_title = "DEFAULT";
+			render_window_bounds.height = 720;
+			render_window_bounds.width = 1280;
+			fullscreen = false;
+			framerate_limit = 120;
+			window_bounds = sf::VideoMode::getDesktopMode();
+			vertical_sync_enabled = false;
+			antialiasing_level = 0;
+		}
+		else
+			exit(EXIT_FAILURE);
 	}
 
 	fin.close();
@@ -76,8 +102,8 @@ Game::Game()
 	: deltaTime(0.f)
 {
 	//std::thread leaderboard(&Game::initializeLeaderboard);
-	initializeLeaderboard();
-	initializeWindow();
+	initializeLeaderboard("Config/leaderboard.txt");
+	initializeWindow("Config/render_window_settings.txt");
 	initializeStates();
 	//leaderboard.join();
 }
@@ -94,12 +120,17 @@ Game::~Game()
 }
 
 /* Functions */
-void Game::endApplication()
+void Game::endApplication(std::string leaderboardPath)
 {
 	/* Save Leaderboard Data */
-	if (!leaderboard.writeToFile("Config/leaderboard.txt"))
+	try
 	{
-		std::cout << "Error storing leaderboard. Unknown Reason." << std::endl;
+		if (!leaderboard.writeToFile(leaderboardPath))
+			throw exc::WriteToFileError(leaderboardPath);
+	}
+	catch (exc::WriteToFileError& error)
+	{
+		std::cout << error.what() << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -171,5 +202,5 @@ void Game::runGame()
 		renderGame();
 	}
 
-	endApplication();
+	endApplication("Config/leaderboard.txt");
 }

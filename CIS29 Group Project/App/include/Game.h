@@ -24,8 +24,8 @@ private:
 	std::stack<State*> states;
 
 	// Initialization
-	void initializeLeaderboard();
-	void initializeWindow();
+	void initializeLeaderboard(std::string path);
+	void initializeWindow(std::string path);
 	void initializeStates();
 
 public:
@@ -35,7 +35,7 @@ public:
 
 	/* Functions */
 	// Regular
-	void endApplication();
+	void endApplication(std::string leaderboardPath);
 
 	// Update
 	void updateDeltaTime();

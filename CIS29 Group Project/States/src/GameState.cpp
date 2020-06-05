@@ -54,7 +54,7 @@ void GameState::spawnPlayer()
 {
 	player = new Player(textures.at("PLAYER"));
 	hud = new HUD(player, textures.at("HEART"));
-	collide = new Collide(textures.at("COLLISION")); 
+	collide = new Collide(textures.at("COLLISION"));
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -72,11 +72,11 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
-			throw exc::SpawnError<unsigned short>(type);
+			throw exc::SpawnError(level, type);
 			break;
 		}
 	}
-	catch (exc::SpawnError<unsigned short>& error)
+	catch (exc::SpawnError& error)
 	{
 		std::cout << error.what();
 		exit(EXIT_FAILURE);

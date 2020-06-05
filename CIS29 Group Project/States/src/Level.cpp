@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Level.h"
+#include "ExceptionHandler.h"
 
 unsigned char leftNibble(unsigned char data) { return data >> 4; }
 unsigned char rightNibble(unsigned char data) { return data & 0xF; }
@@ -11,7 +12,7 @@ void Level::initializeLevel(std::string path)
 	std::ifstream fin(path);
 	try {
 		if (!fin.is_open())
-			throw std::invalid_argument(path);
+			throw exc::LoadFromFileError(path);
 
 		while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
 		{
@@ -20,7 +21,7 @@ void Level::initializeLevel(std::string path)
 
 		fin.close();
 	}
-	catch (std::invalid_argument& error)
+	catch (exc::LoadFromFileError& error)
 	{
 		std::cout << error.what() << std::endl;
 		exit(-1);
