@@ -5,6 +5,7 @@
 #include "Level.h"
 #include "LevelEditor.h"
 #include "RankingsState.h"
+#include "TutorialState.h"
 
 // Initializers
 void MainMenuState::initializeTextures()
@@ -67,6 +68,10 @@ void MainMenuState::initializeGUI()
 		&font, "Game Ranks",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["TUTORIAL_STATE"] = new gui::Button(920, 450, 150, 50,
+		&font, "Tutorial",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
@@ -126,6 +131,8 @@ void MainMenuState::updateGUI()
 		states->push(new Level(renderWindow, "Config/level3.bin", states, leaderboard));
 	if (buttons["RANKGINGS_STATE"]->isPressed())
 		states->push(new RankingsState(renderWindow, states, leaderboard));
+	if (buttons["TUTORIAL_STATE"]->isPressed())
+		states->push(new TutorialState(renderWindow, states));
 	if (buttons["EXIT_STATE"]->isPressed())
 		quitState();
 }
@@ -149,8 +156,6 @@ void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
-
-	renderTarget->draw(background);
 
 	renderTarget->draw(background);
 	renerGUI(renderTarget);

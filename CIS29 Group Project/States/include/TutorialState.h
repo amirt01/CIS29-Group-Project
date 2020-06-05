@@ -30,7 +30,9 @@ public:
 	virtual ~TutorialState();
 
 	// Update
-	void updateInput(unsigned short keyCode);
+	void updateKeyboard(unsigned short keyCode);
+	void updateMouseWheel(short mouseDelta);
+
 	void updateGUI();
 	void updateState(const float& deltaTime);
 

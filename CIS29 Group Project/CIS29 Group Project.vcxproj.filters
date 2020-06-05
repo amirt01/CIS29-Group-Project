@@ -33,9 +33,6 @@
     <ClCompile Include="States\src\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\SettingsState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="States\src\PauseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,6 +60,21 @@
     <ClCompile Include="Entity\src\CollisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="App\src\Leaderboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Collide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\LevelEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\RankingsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\TutorialState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -78,9 +90,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\MainMenuState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="States\include\SettingsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\PauseState.h">
@@ -110,7 +119,7 @@
     <ClInclude Include="Entity\include\CollisionDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-      <ClInclude Include="States\include\LevelEditor.h">
+    <ClInclude Include="States\include\LevelEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="App\include\Leaderboard.h">
@@ -119,7 +128,10 @@
     <ClInclude Include="States\include\RankingsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-     <ClInclude Include="Entity\include\Collide.h">
+    <ClInclude Include="Entity\include\Collide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\TutorialState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

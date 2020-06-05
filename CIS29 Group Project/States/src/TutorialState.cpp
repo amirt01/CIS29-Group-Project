@@ -8,7 +8,7 @@
 // Initializers
 void TutorialState::initializeTextures()
 {
-	if (!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png"))
+	if (!textures["BACKGROUND"].loadFromFile("Resources/Images/MainMenu.png"))
 		exit(-1); // the loadFromFile() function has an ouput
 				  // when it fails so no need to throw
 }
@@ -25,15 +25,6 @@ void TutorialState::initializeGUI()
 	buttons["MAINMENU_STATE"] = new gui::Button(220, 225, 150, 50,
 		&font, "Main Menu",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["SETTINGS"] = new gui::Button(220, 350, 150, 50,
-		&font, "Settings",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["EXIT_STATE"] = new gui::Button(220, 475, 150, 50,
-		&font, "Back",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
 }
 
 // Constructors/Destructors
@@ -48,7 +39,6 @@ TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>*
 		static_cast<float>(renderWindow->getSize().y)));
 
 	background.setTexture(&textures.at("BACKGROUND"));
-
 }
 
 TutorialState::~TutorialState()
@@ -62,10 +52,12 @@ TutorialState::~TutorialState()
 
 /* Functions */
 // Update
-void TutorialState::updateInput(unsigned short keyCode)
+void TutorialState::updateKeyboard(unsigned short keyCode)
 {
-	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states));
+}
+
+void TutorialState::updateMouseWheel(short mouseDelta)
+{
 }
 
 void TutorialState::updateGUI()
@@ -77,10 +69,6 @@ void TutorialState::updateGUI()
 	}
 
 	if (buttons["MAINMENU_STATE"]->isPressed())
-		states->push(new MainMenuState(renderWindow, states));
-	if (buttons["SETTINGS"]->isPressed())
-		states->push(new SettingsState(renderWindow, states));
-	if (buttons["EXIT_STATE"]->isPressed())
 		quitState();
 }
 
@@ -95,7 +83,7 @@ void TutorialState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 
@@ -103,8 +91,6 @@ void TutorialState::renderState(sf::RenderTarget* renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
-
-	renderTarget->draw(background);
 
 	renderTarget->draw(background);
 	renerGUI(renderTarget);

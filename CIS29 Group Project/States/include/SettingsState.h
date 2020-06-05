@@ -25,7 +25,7 @@ public:
 	~SettingsState();
 
 	// Update
-	void updateInput(unsigned short keyCode);
+	void updateKeyboard(unsigned short keyCode);
 	void updateGUI(const float& deltaTime);
 	void updateState(const float& deltaTime);
 
