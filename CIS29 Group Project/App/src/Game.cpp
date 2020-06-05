@@ -137,7 +137,7 @@ void Game::updateGame()
 	// states stack is empty, quit application
 	else
 	{
-		std::cout << "ending aplication" << std::endl;
+		std::cout << "ending application" << std::endl;
 		endApplication();
 	}
 }

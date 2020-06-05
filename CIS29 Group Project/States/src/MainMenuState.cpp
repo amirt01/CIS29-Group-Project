@@ -3,6 +3,7 @@
 #include "FreePlayState.h"
 #include "SettingsState.h"
 #include "Level.h"
+#include "TutorialState.h"
 
 // Initializers
 void MainMenuState::initializeTextures()
@@ -68,6 +69,10 @@ void MainMenuState::initializeGUI()
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["TUTORIAL_STATE"] = new gui::Button(820, 250, 150, 50,
+		&font, "Tutorial",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
@@ -121,6 +126,8 @@ void MainMenuState::updateGUI()
 		states->push(new SettingsState(renderWindow, states));
 	if (buttons["EXIT_STATE"]->isPressed())
 		quitState();
+	if (buttons["TUTORIAL_STATE"]->isPressed())
+		states->push(new TutorialState(renderWindow, states));
 }
 
 void MainMenuState::updateState(const float& deltaTime)

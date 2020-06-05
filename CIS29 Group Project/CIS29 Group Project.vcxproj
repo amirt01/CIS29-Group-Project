@@ -185,6 +185,7 @@
     <ClCompile Include="States\src\PauseState.cpp" />
     <ClCompile Include="States\src\SettingsState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
+    <ClCompile Include="States\src\TutorialState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="States\include\PauseState.h" />
     <ClInclude Include="States\include\SettingsState.h" />
     <ClInclude Include="States\include\State.h" />
+    <ClInclude Include="States\include\TutorialState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />

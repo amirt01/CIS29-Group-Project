@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "CollisionDetection.h"
 #include "ExceptionHandler.h"
+#include "TutorialState.h"
 
 void GameState::togglePause()
 {
@@ -95,6 +96,12 @@ void GameState::updateGUI()
 		if (pauseState.isButtonPressed("RESUME"))
 		{
 			togglePause();
+		}
+
+		//Go to Tutorial Screen
+		if (pauseState.isButtonPressed("TUTORIAL_STATE"))
+		{
+			states->push(new TutorialState(renderWindow, states));
 		}
 
 		// Quit This Game
