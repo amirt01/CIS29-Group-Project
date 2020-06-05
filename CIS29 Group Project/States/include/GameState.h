@@ -39,6 +39,7 @@ protected:
 
 	// Initializers
 	void initializeTextures();
+	void initializeSounds();
 
 	virtual void updateSpawning() = 0;
 

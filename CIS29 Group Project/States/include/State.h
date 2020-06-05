@@ -7,6 +7,7 @@ protected:
 	//Variables
 	sf::RenderWindow* renderWindow;
 	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::SoundBuffer> soundBuffers;
 
 	bool quit;
 

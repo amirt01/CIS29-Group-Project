@@ -37,27 +37,8 @@ bool Collide::collisionTiming()
 	}
 }
 
-void Collide::playaudio(int i)
+void Collide::playaudio(sf::SoundBuffer& soundBuffer)
 {
-	switch (i)
-	{
-
-	case 0:
-		//obstacle collide
-		if (!soundBuffer.loadFromFile("Resources/Audio/crash2.wav"))
-		{
-			std::cout << "Sound didn't load" << std::endl; //temp
-		}
-		break;
-	case 1:
-		//coin
-		if (!soundBuffer.loadFromFile("Resources/Audio/coin.wav"))
-		{
-			std::cout << "Sound didn't load" << std::endl; //temp
-		}
-		break;
-	}
-
 	sound.setBuffer(soundBuffer);
 	sound.setVolume(20);
 	sound.play();

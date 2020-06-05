@@ -15,6 +15,12 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"COLLISION", "Resources/Images/CrashCartoon.png"}
 };
 
+const std::map<const std::string, const std::string> AUDIO_PATHS =
+{
+	{"CRASH", "Resources/Audio/crash2.wav"},
+	{"COIN", "Resources/Audio/coin.wav"}
+};
+
 void GameState::togglePause()
 {
 	paused = !paused;
@@ -31,12 +37,22 @@ void GameState::initializeTextures()
 	}
 }
 
+void GameState::initializeSounds()
+{
+	for (auto& kv : AUDIO_PATHS)
+	{
+		if (!soundBuffers[kv.first].loadFromFile(kv.second))
+			exit(1); //temp
+	}
+}
+
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
 	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
 	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
+	initializeSounds();
 
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
@@ -220,7 +236,7 @@ void GameState::updateCollision(Object* object)
 	switch (object->type)
 	{
 	case Obstacle:
-		collide->playaudio(0);
+		collide->playaudio(soundBuffers.at("CRASH"));
 		player->takeDamage();
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) {
@@ -232,7 +248,7 @@ void GameState::updateCollision(Object* object)
 		
 		break;
 	case Coin:
-		collide->playaudio(1);
+		collide->playaudio(soundBuffers.at("COIN"));
 		player->gainCoin();
 		break;
 	default:

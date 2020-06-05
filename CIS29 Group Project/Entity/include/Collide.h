@@ -12,5 +12,5 @@ public:
 	Collide(sf::Texture& texture);
 	void collisionPosition(int position);
 	bool collisionTiming();
-	void playaudio(int i);
+	void playaudio(sf::SoundBuffer& soundBuffer);
 };
