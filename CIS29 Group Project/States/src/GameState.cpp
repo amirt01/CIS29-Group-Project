@@ -126,6 +126,13 @@ void GameState::updateKeyboard(unsigned short keyCode)
 		// MOVE DOWN
 		player->updateMovement(1);
 	}
+	else if (sf::Keyboard::Tab == keyCode &&
+		!paused)
+	{
+		updateGameSpeed(10.f);
+		player->updateScore(10.f);
+		objects.clear();
+	}
 }
 
 void GameState::updateMouseWheel(short mouseDelta)
@@ -140,7 +147,7 @@ void GameState::updateGameSpeed(const float& deltaTime)
 	speed -= deltaTime * 10.f;
 
 	// UPDATE THE SPAWNING FREQUENCY
-	frequency = -100.f / (speed * deltaTime);
+	frequency = -650.f / (speed);
 }
 
 void GameState::updateObjects(const float& deltaTime)
