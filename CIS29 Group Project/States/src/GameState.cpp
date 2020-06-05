@@ -4,6 +4,17 @@
 #include "ExceptionHandler.h"
 #include "TutorialState.h"
 
+const std::map<const std::string, const std::string> TEXTRUE_PATHS =
+{
+	{"PLAYER", "Resources/Images/motorbiker(test player).png"},
+	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
+	{"YELLOW_CAR", "Resources/Images/CarFramesYellow.png"},
+	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
+	{"BACKGROUND", "Resources/Images/GameBackground.png"},
+	{"HEART", "Resources/Images/Heart.png"},
+	{"COLLISION", "Resources/Images/CrashCartoon.png"}
+};
+
 void GameState::togglePause()
 {
 	paused = !paused;
@@ -12,15 +23,12 @@ void GameState::togglePause()
 //Initializers
 void GameState::initializeTextures()
 {
-	if (!textures["PLAYER"].loadFromFile("Resources/Images/motorbiker(test player).png") ||
-		!textures["RED_CAR"].loadFromFile("Resources/Images/CarFramesRed.png") ||
-		!textures["YELLOW_CAR"].loadFromFile("Resources/Images/CarFramesYellow.png") ||
-		!textures["ORANGE_CAR"].loadFromFile("Resources/Images/CarFramesOrange.png") ||
-		!textures["BACKGROUND"].loadFromFile("Resources/Images/GameBackground.png") ||
-		!textures["HEART"].loadFromFile("Resources/Images/Heart.png") ||
-		!textures["COLLISION"].loadFromFile("Resources/Images/CrashCartoon.png"))
-		exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-				  // when it fails so no need to throw
+	for (auto& kv : TEXTRUE_PATHS)
+	{
+		if (!textures[kv.first].loadFromFile(kv.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
+	}
 }
 
 // Constructors/Destructors

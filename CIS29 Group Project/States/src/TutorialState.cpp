@@ -5,12 +5,19 @@
 #include "SettingsState.h"
 #include "Level.h"
 
+const std::map<const std::string, const std::string> TEXTRUE_PATHS =
+{ {"BACKGROUND", "Resources/Images/MainMenu.png"}
+};
+
 // Initializers
 void TutorialState::initializeTextures()
 {
-	if (!textures["BACKGROUND"].loadFromFile("Resources/Images/MainMenu.png"))
-		exit(-1); // the loadFromFile() function has an ouput
-				  // when it fails so no need to throw
+	for (auto& kv : TEXTRUE_PATHS)
+	{
+		if (!textures[kv.first].loadFromFile(kv.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
+	}
 }
 
 void TutorialState::initializeFonts()

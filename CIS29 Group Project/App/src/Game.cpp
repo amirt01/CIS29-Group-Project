@@ -5,6 +5,9 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 
+const std::string LEADERBOARD_PATH = "Config/leaderboard.txt";
+const std::string SFML_WINDOW_SETTINGS_PATH = "Config/render_window_settings.txt";
+
 //Initializers
 void Game::initializeLeaderboard(std::string path)
 {
@@ -102,8 +105,8 @@ Game::Game()
 	: deltaTime(0.f)
 {
 	//std::thread leaderboard(&Game::initializeLeaderboard);
-	initializeLeaderboard("Config/leaderboard.txt");
-	initializeWindow("Config/render_window_settings.txt");
+	initializeLeaderboard(LEADERBOARD_PATH);
+	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
 	initializeStates();
 	//leaderboard.join();
 }
