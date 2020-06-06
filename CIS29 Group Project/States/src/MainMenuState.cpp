@@ -82,10 +82,6 @@ void MainMenuState::initializeGUI()
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["TEXT_BOX"] = new gui::TextBox(500, 500, 150, 50,
-		&font, "",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
@@ -123,8 +119,6 @@ void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
 		states->push(new FreePlayState(renderWindow, states, leaderboard));
-
-	buttons["TEXT_BOX"]->addText(keyCode);
 }
 
 void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
