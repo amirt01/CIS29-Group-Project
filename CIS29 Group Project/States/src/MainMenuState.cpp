@@ -82,6 +82,10 @@ void MainMenuState::initializeGUI()
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["TEXT_BOX"] = new gui::TextBox(500, 500, 150, 50,
+		&font, "",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
@@ -107,7 +111,7 @@ MainMenuState::~MainMenuState()
 	}
 }
 
-void MainMenuState::updateMouseWheel(short mouseDelta)
+void MainMenuState::updateMouseWheel(const short& mouseDelta)
 {
 	// Any Unique Pause State Mouse Wheel Input
 }
@@ -115,10 +119,26 @@ void MainMenuState::updateMouseWheel(short mouseDelta)
 // Functions
 
 // Update
-void MainMenuState::updateKeyboard(unsigned short keyCode)
+void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
 		states->push(new FreePlayState(renderWindow, states, leaderboard));
+
+	buttons["TEXT_BOX"]->addText(keyCode);
+}
+
+void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	switch (button)
+	{
+	case sf::Mouse::Button::Left:
+		for (auto& button : buttons)
+		{
+			button.second->checkBounds(mousePosView);
+		}
+	default:
+		break;
+	}
 }
 
 void MainMenuState::updateGUI()
@@ -126,22 +146,22 @@ void MainMenuState::updateGUI()
 	// Updates all the buttons in the state and handles their functionality
 	for (auto& it : buttons)
 	{
-		it.second->update(mousePosView);
+		it.second->updateColor(mousePosView);
 	}
 
-	if (buttons["FREE_PLAY"]->isPressed())
+	if (buttons["FREE_PLAY"]->getIsActivated())
 		states->push(new FreePlayState(renderWindow, states, leaderboard));
-	if (buttons["LEVEL_1"]->isPressed())
+	if (buttons["LEVEL_1"]->getIsActivated())
 		states->push(new Level(renderWindow, "Config/level1.bin", states, leaderboard));
-	if (buttons["LEVEL_2"]->isPressed())
+	if (buttons["LEVEL_2"]->getIsActivated())
 		states->push(new Level(renderWindow, "Config/level2.bin", states, leaderboard));
-	if (buttons["LEVEL_3"]->isPressed())
+	if (buttons["LEVEL_3"]->getIsActivated())
 		states->push(new Level(renderWindow, "Config/level3.bin", states, leaderboard));
-	if (buttons["RANKGINGS_STATE"]->isPressed())
+	if (buttons["RANKGINGS_STATE"]->getIsActivated())
 		states->push(new RankingsState(renderWindow, states, leaderboard));
-	if (buttons["TUTORIAL_STATE"]->isPressed())
+	if (buttons["TUTORIAL_STATE"]->getIsActivated())
 		states->push(new TutorialState(renderWindow, states));
-	if (buttons["EXIT_STATE"]->isPressed())
+	if (buttons["EXIT_STATE"]->getIsActivated())
 		quitState();
 }
 

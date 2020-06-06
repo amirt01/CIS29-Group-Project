@@ -50,7 +50,8 @@ PauseState::PauseState(sf::RenderWindow* renderWindow, std::stack<State*>* state
 
 PauseState::~PauseState() {
 	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it) {
+	for (it = buttons.begin(); it != buttons.end(); ++it)
+	{
 		delete it->second;
 	}
 }
@@ -58,22 +59,37 @@ PauseState::~PauseState() {
 /* Functions */
 const bool PauseState::isButtonPressed(std::string Button)
 {
-	return buttons[Button]->isPressed();
+	return buttons[Button]->getIsActivated();
 }
 
 // Update
-void PauseState::updateKeyboard(unsigned short keyCode) {
+void PauseState::updateKeyboard(const sf::Keyboard::Key& keyCode)
+{
 	// Any Unique Pause State Keyboard Input
 }
 
 void PauseState::updateGUI() {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons) {
-		it.second->update(mousePosView);
+		it.second->updateColor(mousePosView);
 	}
 }
 
-void PauseState::updateMouseWheel(short mouseDelta)
+void PauseState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	switch (button)
+	{
+	case sf::Mouse::Button::Left:
+		for (auto& button : buttons)
+		{
+			button.second->checkBounds(mousePosView);
+		}
+	default:
+		break;
+	}
+}
+
+void PauseState::updateMouseWheel(const short& mouseDelta)
 {
 	// Any Unique Pause State Mouse Wheel Input
 }

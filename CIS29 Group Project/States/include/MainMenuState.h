@@ -27,8 +27,9 @@ public:
 	virtual ~MainMenuState();
 
 	// Update
-	void updateMouseWheel(short mouseDelta);
-	void updateKeyboard(unsigned short keyCode);
+	void updateMouseWheel(const short& mouseDelta);
+	void updateKeyboard(const sf::Keyboard::Key& keyCode);
+	void updateMouseButtons(const sf::Mouse::Button& button);
 	void updateGUI();
 	void updateState(const float& deltaTime);
 

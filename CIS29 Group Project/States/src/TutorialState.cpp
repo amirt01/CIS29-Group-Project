@@ -57,13 +57,27 @@ TutorialState::~TutorialState()
 	}
 }
 
+void TutorialState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	switch (button)
+	{
+	case sf::Mouse::Button::Left:
+		for (auto& button : buttons)
+		{
+			button.second->checkBounds(mousePosView);
+		}
+	default:
+		break;
+	}
+}
+
 /* Functions */
 // Update
-void TutorialState::updateKeyboard(unsigned short keyCode)
+void TutorialState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 }
 
-void TutorialState::updateMouseWheel(short mouseDelta)
+void TutorialState::updateMouseWheel(const short& mouseDelta)
 {
 }
 
@@ -72,10 +86,10 @@ void TutorialState::updateGUI()
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons)
 	{
-		it.second->update(mousePosView);
+		it.second->updateColor(mousePosView);
 	}
 
-	if (buttons["MAINMENU_STATE"]->isPressed())
+	if (buttons["MAINMENU_STATE"]->getIsActivated())
 		quitState();
 }
 

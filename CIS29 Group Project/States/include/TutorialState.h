@@ -30,8 +30,9 @@ public:
 	virtual ~TutorialState();
 
 	// Update
-	void updateKeyboard(unsigned short keyCode);
-	void updateMouseWheel(short mouseDelta);
+	void updateMouseButtons(const sf::Mouse::Button& button);
+	void updateKeyboard(const sf::Keyboard::Key& keyCode);
+	void updateMouseWheel(const short& mouseDelta);
 
 	void updateGUI();
 	void updateState(const float& deltaTime);

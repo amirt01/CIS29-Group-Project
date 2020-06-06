@@ -46,9 +46,23 @@ RankingsState::~RankingsState()
 	}
 }
 
+void RankingsState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	switch (button)
+	{
+	case sf::Mouse::Button::Left:
+		for (auto& button : buttons)
+		{
+			button.second->checkBounds(mousePosView);
+		}
+	default:
+		break;
+	}
+}
+
 /* Functions */
 // Update
-void RankingsState::updateKeyboard(unsigned short keyCode)
+void RankingsState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
 		quitState();
@@ -60,11 +74,11 @@ void RankingsState::updateGUI(const float& deltaTime)
 	// Buttons
 	for (auto& it : buttons)
 	{
-		it.second->update(mousePosView);
+		it.second->updateColor(mousePosView);
 	}
 
 	//Quit This Game
-	if (buttons["EXIT_STATE"]->isPressed())
+	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
 		quitState();
 	}

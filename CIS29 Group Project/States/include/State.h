@@ -31,8 +31,9 @@ public:
 
 	// Update
 	virtual void updateMousePositions();
-	virtual void updateMouseWheel(short mouseDelta) = 0;
-	virtual void updateKeyboard(unsigned short keyCode) = 0;
+	virtual void updateMouseButtons(const sf::Mouse::Button& button) = 0;
+	virtual void updateMouseWheel(const short& mouseDelta) = 0;
+	virtual void updateKeyboard(const sf::Keyboard::Key& keyCode) = 0;
 	virtual void updateState(const float& deltaTime) = 0;
 
 	// Render

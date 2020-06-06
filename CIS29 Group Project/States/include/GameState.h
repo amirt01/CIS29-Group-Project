@@ -53,8 +53,9 @@ public:
 
 	// Update
 	void updateGUI();
-	virtual void updateKeyboard(unsigned short keyCode);
-	void updateMouseWheel(short mouseDelta);
+	void updateMouseButtons(const sf::Mouse::Button& button);
+	virtual void updateKeyboard(const sf::Keyboard::Key& keyCode);
+	void updateMouseWheel(const short& mouseDelta);
 	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
 	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);

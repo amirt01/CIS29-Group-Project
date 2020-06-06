@@ -130,7 +130,13 @@ void GameState::updateGUI()
 	}
 }
 
-void GameState::updateKeyboard(unsigned short keyCode)
+void GameState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	if (paused)
+		pauseState.updateMouseButtons(button);
+}
+
+void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (paused)
 		pauseState.updateKeyboard(keyCode);
@@ -163,7 +169,7 @@ void GameState::updateKeyboard(unsigned short keyCode)
 	}
 }
 
-void GameState::updateMouseWheel(short mouseDelta)
+void GameState::updateMouseWheel(const short& mouseDelta)
 {
 	// Any Unique Pause State Mouse Wheel Input
 }

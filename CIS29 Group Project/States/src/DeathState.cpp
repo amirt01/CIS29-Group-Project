@@ -64,7 +64,7 @@ DeathState::~DeathState() {
 
 /* Functions */
 const bool DeathState::isButtonPressed(std::string Button) {
-	return buttons[Button]->isPressed();
+	return buttons[Button]->getIsActivated();
 }
 
 // Update
@@ -75,7 +75,7 @@ void DeathState::updateKeyboard(unsigned short keyCode) {
 void DeathState::updateGUI() {
 	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons) {
-		it.second->update(mousePosView);
+		it.second->updateColor(mousePosView);
 	}
 }
 

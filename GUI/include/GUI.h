@@ -5,10 +5,9 @@ enum button_States { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
 namespace gui {
 	class Button : public sf::Drawable
 	{
-	private:
+	protected:
 		//Core
-		unsigned short buttonState;
-		bool isReleased;
+		bool isActivated;
 
 		//Graphics
 		sf::RectangleShape shape;
@@ -27,14 +26,16 @@ namespace gui {
 		~Button();
 
 		// Accessors
-		const bool isPressed() const;
+		const bool getIsActivated();
 		const std::string getText() const;
 
 		// Modifiers
+		void checkBounds(const sf::Vector2f mousePos);
 		void setText(const std::string text);
+		virtual void addText(const sf::Keyboard::Key& keycode) {};
 
 		//Functions
-		void update(const sf::Vector2f mousePos);
+		virtual void updateColor(const sf::Vector2f mousePos);
 		void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 	};
 
@@ -58,5 +59,19 @@ namespace gui {
 		void updateClickTime(const float& deltaTime);
 		void update(const sf::Vector2f mousePos, const float& deltaTime);
 		void render(sf::RenderTarget* renderTarget);
+	};
+
+	class TextBox : public Button
+	{
+	private:
+		enum textBoxState { IDLE = 0, SELECTED } state;
+	public:
+		TextBox(float x, float y, float width, float height,
+			sf::Font* font, std::string text,
+			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
+		~TextBox();
+
+		void updateColor(const sf::Vector2f mousePos);
+		void addText(const sf::Keyboard::Key& keycode);
 	};
 }

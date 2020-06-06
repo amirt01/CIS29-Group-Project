@@ -28,8 +28,9 @@ public:
 
 	// Update
 	void updateGUI();
-	void updateMouseWheel(short mouseDelta);
-	void updateKeyboard(unsigned short keyCode);
+	void updateMouseButtons(const sf::Mouse::Button& button);
+	void updateMouseWheel(const short& mouseDelta);
+	void updateKeyboard(const sf::Keyboard::Key& keyCode);
 	void updateState(const float& deltaTime);
 
 	// Render

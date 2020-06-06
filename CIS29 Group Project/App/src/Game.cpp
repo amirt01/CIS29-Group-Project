@@ -161,7 +161,7 @@ void Game::updateSFMLEvents()
 		case(sf::Event::EventType::KeyPressed):
 			states.top()->updateKeyboard(event.key.code);
 		case(sf::Event::MouseButtonReleased):
-			//states.top()->updateGUI(event.mouseButton.button);
+			states.top()->updateMouseButtons(event.mouseButton.button);
 		case(sf::Event::MouseWheelMoved):
 			states.top()->updateMouseWheel(event.mouseWheel.delta);
 		default:

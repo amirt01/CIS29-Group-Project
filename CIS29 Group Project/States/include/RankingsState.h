@@ -27,10 +27,11 @@ public:
 	~RankingsState();
 
 	// Update
-	void updateKeyboard(unsigned short keyCode);
+	void updateMouseButtons(const sf::Mouse::Button& button);
+	void updateKeyboard(const sf::Keyboard::Key& keyCode);
 	void updateGUI(const float& deltaTime);
 	void updateState(const float& deltaTime);
-	void updateMouseWheel(short mouseDelta) {};
+	void updateMouseWheel(const short& mouseDelta) {};
 
 	// Render
 	void renerGUI(sf::RenderTarget* renderTarget);
