@@ -7,18 +7,9 @@ namespace exc {
 		const unsigned int level;
 		const unsigned int type;
 	public:
-		SpawnError(const unsigned int& level, const unsigned int& type) : level(level), type(type) {};
+		SpawnError(const unsigned int& level, const unsigned int& type);
 
-		const std::string what() const {
-			static std::string ret;
-			ret = "Error spawning object.\n";
-			ret += "Level: ";
-			ret += std::to_string(level);
-			ret += "\nType: ";
-			ret += type;
-			ret += "\n";
-			return ret;
-		};
+		const std::string what() const;
 	};
 
 	class LoadFromFileError
@@ -26,16 +17,9 @@ namespace exc {
 	private:
 		std::string path;
 	public:
-		LoadFromFileError(const std::string& path) : path(path) {};
+		LoadFromFileError(const std::string& path);
 
-		const std::string what() const {
-			static std::string ret;
-			ret = "Error Loading data from file.\n";
-			ret += "File path: ";
-			ret += path;
-			ret += "\n";
-			return ret;
-		};
+		const std::string what() const;
 	};
 
 	class WriteToFileError
@@ -43,15 +27,8 @@ namespace exc {
 	private:
 		std::string path;
 	public:
-		WriteToFileError(const std::string& path) : path(path) {};
+		WriteToFileError(const std::string& path);
 
-		const std::string what() const {
-			static std::string ret;
-			ret = "Error writing data to file.\n";
-			ret += "File path: ";
-			ret += path;
-			ret += "\n";
-			return ret;
-		}
+		const std::string what() const;
 	};
 }

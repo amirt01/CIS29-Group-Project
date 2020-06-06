@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-class Player :public Entity {
+class Player : public Entity {
 private:
 	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	int moveType[2];
@@ -30,7 +30,7 @@ public:
 	void setCurrentHealth(int);
 	int getCurrentHealth();
 	void collisionMove();
-	
+
 	//Score
 	float getCurrentScore();
 

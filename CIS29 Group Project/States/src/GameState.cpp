@@ -30,20 +30,17 @@ void GameState::togglePause()
 void GameState::initializeTextures()
 {
 	for (auto& kv : TEXTRUE_PATHS)
-	{
 		if (!textures[kv.first].loadFromFile(kv.second))
 			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 								// when it fails so no need to throw
-	}
 }
 
 void GameState::initializeSounds()
 {
 	for (auto& kv : AUDIO_PATHS)
-	{
 		if (!soundBuffers[kv.first].loadFromFile(kv.second))
-			exit(1); //temp
-	}
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
 }
 
 // Constructors/Destructors
@@ -198,7 +195,6 @@ void GameState::updateObjects(const float& deltaTime)
 
 void GameState::updateBackground(const float& deltaTime, const short dir)
 {
-	// SOMETHING LIKE:
 	for (sf::RectangleShape& background : backgrounds) {
 		background.move(2 * speed * dir * deltaTime, 0);
 
@@ -245,7 +241,7 @@ void GameState::updateCollision(Object* object)
 		}
 		collide->collisionPosition(player->getCurrentPosition());
 		player->collisionMove();
-		
+
 		break;
 	case Coin:
 		collide->playaudio(soundBuffers.at("COIN"));

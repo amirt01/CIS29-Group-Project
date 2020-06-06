@@ -61,7 +61,7 @@ public:
 	virtual void updateState(const float& deltaTime);
 	void updateCollision(Object* object);
 
-	//Collision Detection
+	// Collision Detection
 	void checkCollision();
 
 	// Render

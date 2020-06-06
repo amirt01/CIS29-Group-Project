@@ -3,6 +3,8 @@
 class Leaderboard : public sf::Drawable
 {
 private:
+	const int MAX_NUM_OF_SCORES;
+
 	class Date {
 	private:
 		const time_t date;
@@ -70,7 +72,7 @@ private:
 public:
 	std::list<Score> scores;
 
-	Leaderboard() {};
+	Leaderboard(const int MAX_NUM_OF_SCORES) : MAX_NUM_OF_SCORES(MAX_NUM_OF_SCORES) {};
 	~Leaderboard() {};
 
 	bool loadFromFile(const std::string& path);

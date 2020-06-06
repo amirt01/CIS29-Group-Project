@@ -72,7 +72,7 @@ void MainMenuState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
 	buttons["RANKGINGS_STATE"] = new gui::Button(220, 350, 150, 50,
-		&font, "Game Ranks",
+		&font, "Rankings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["TUTORIAL_STATE"] = new gui::Button(920, 450, 150, 50,
@@ -112,7 +112,8 @@ void MainMenuState::updateMouseWheel(short mouseDelta)
 	// Any Unique Pause State Mouse Wheel Input
 }
 
-/* Functions */
+// Functions
+
 // Update
 void MainMenuState::updateKeyboard(unsigned short keyCode)
 {
@@ -122,7 +123,7 @@ void MainMenuState::updateKeyboard(unsigned short keyCode)
 
 void MainMenuState::updateGUI()
 {
-	/*Updates all the buttons in the state and handles their functionality*/
+	// Updates all the buttons in the state and handles their functionality
 	for (auto& it : buttons)
 	{
 		it.second->update(mousePosView);

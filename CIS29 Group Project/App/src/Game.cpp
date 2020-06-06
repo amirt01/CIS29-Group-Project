@@ -7,8 +7,9 @@
 
 const std::string LEADERBOARD_PATH = "Config/leaderboard.txt";
 const std::string SFML_WINDOW_SETTINGS_PATH = "Config/render_window_settings.txt";
+const int MAX_NUM_OF_SCORES = 10;
 
-//Initializers
+// Initializers
 void Game::initializeLeaderboard(std::string path)
 {
 	try
@@ -102,7 +103,7 @@ void Game::initializeStates()
 
 // Constructor / Destructors
 Game::Game()
-	: deltaTime(0.f)
+	: leaderboard(MAX_NUM_OF_SCORES), deltaTime(0.f)
 {
 	//std::thread leaderboard(&Game::initializeLeaderboard);
 	initializeLeaderboard(LEADERBOARD_PATH);
@@ -122,10 +123,10 @@ Game::~Game()
 	}
 }
 
-/* Functions */
+// Functions
 void Game::endApplication(std::string leaderboardPath)
 {
-	/* Save Leaderboard Data */
+	// Save Leaderboard Data
 	try
 	{
 		if (!leaderboard.writeToFile(leaderboardPath))
@@ -143,7 +144,7 @@ void Game::updateDeltaTime()
 {
 	deltaTime = deltaTimeClock.restart().asSeconds();
 
-	/* Use to print deltaTime to consol */
+	// Use to print deltaTime to consol
 	system("cls");
 	std::cout << deltaTime << std::endl;
 }
@@ -159,6 +160,8 @@ void Game::updateSFMLEvents()
 			renderWindow->close();
 		case(sf::Event::EventType::KeyPressed):
 			states.top()->updateKeyboard(event.key.code);
+		case(sf::Event::MouseButtonReleased):
+			//states.top()->updateGUI(event.mouseButton.button);
 		case(sf::Event::MouseWheelMoved):
 			states.top()->updateMouseWheel(event.mouseWheel.delta);
 		default:

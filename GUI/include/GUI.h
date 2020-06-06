@@ -8,6 +8,7 @@ namespace gui {
 	private:
 		//Core
 		unsigned short buttonState;
+		bool isReleased;
 
 		//Graphics
 		sf::RectangleShape shape;
