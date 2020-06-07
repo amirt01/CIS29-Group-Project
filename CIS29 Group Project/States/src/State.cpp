@@ -1,14 +1,38 @@
 #include "stdafx.h"
 #include "State.h"
 
+const std::map<const std::string, const std::string> AUDIO_PATHS =
+{
+	{"CRASH", "Resources/Audio/crash2.wav"},
+	{"COIN", "Resources/Audio/coin.wav"}
+};
+
+
 // Constructors / destructors
 State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: renderWindow(renderWindow), states(states), quit(false)
 {
+	initializeSounds();
 }
 
 State::~State()
 {
+}
+
+
+void State::initializeSounds()
+{
+	for (auto& kv : AUDIO_PATHS)
+		if (!soundBuffers[kv.first].loadFromFile(kv.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
+}
+
+void State::playSound(std::string soundBuffer, float volume)
+{
+	sounds.setBuffer(soundBuffers[soundBuffer]);
+	sounds.setVolume(volume);
+	sounds.play();
 }
 
 const bool& State::getQuit() const

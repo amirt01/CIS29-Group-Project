@@ -11,7 +11,10 @@ private:
 	int currentHealth;
 	float score;
 	unsigned int coins;
+	bool isDamaged;
 
+	sf::Texture playerTexture;
+	sf::Color playerColor;
 	sf::Clock clock;
 
 public:
@@ -29,7 +32,9 @@ public:
 	void takeDamage();
 	void setCurrentHealth(int);
 	int getCurrentHealth();
-	void collisionMove();
+	void collisionMove(); // player auto moves
+	void playerDamage(); // player transparency
+	void revertPlayer();
 
 	//Score
 	float getCurrentScore();

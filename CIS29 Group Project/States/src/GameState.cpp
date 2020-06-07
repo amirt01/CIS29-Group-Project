@@ -15,12 +15,6 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"COLLISION", "Resources/Images/CrashCartoon.png"}
 };
 
-const std::map<const std::string, const std::string> AUDIO_PATHS =
-{
-	{"CRASH", "Resources/Audio/crash2.wav"},
-	{"COIN", "Resources/Audio/coin.wav"}
-};
-
 void GameState::togglePause()
 {
 	paused = !paused;
@@ -35,21 +29,12 @@ void GameState::initializeTextures()
 								// when it fails so no need to throw
 }
 
-void GameState::initializeSounds()
-{
-	for (auto& kv : AUDIO_PATHS)
-		if (!soundBuffers[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-}
-
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
 	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
 	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
 {
 	initializeTextures();
-	initializeSounds();
 
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
@@ -238,7 +223,7 @@ void GameState::updateCollision(Object* object)
 	switch (object->type)
 	{
 	case Obstacle:
-		collide->playaudio(soundBuffers.at("CRASH"));
+		playSound("CRASH", 20.f);
 		player->takeDamage();
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) {
@@ -246,11 +231,11 @@ void GameState::updateCollision(Object* object)
 			leaderboard->addNewScore("default", player->getCurrentScore());
 		}
 		collide->collisionPosition(player->getCurrentPosition());
-		player->collisionMove();
+		//player->collisionMove();
 
 		break;
 	case Coin:
-		collide->playaudio(soundBuffers.at("COIN"));
+		playSound("COIN", 50.f);
 		player->gainCoin();
 		break;
 	default:
@@ -267,6 +252,16 @@ void GameState::checkCollision() {
 	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
 	{
 		updateCollision(objects.at(1));
+	}
+
+	// player transparency when damaged
+	if (objects.front()->hit == true && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite()))
+	{
+		player->playerDamage();
+	}
+	else
+	{
+		player->revertPlayer();
 	}
 }
 

@@ -14,6 +14,7 @@ Player::Player(sf::Texture& playerTexture) :
 
 	setTexture(playerTexture);
 	sprite.setPosition(sf::Vector2f(50, 300));
+	playerColor = sprite.getColor();
 }
 
 void Player::updateScore(const float& deltaTime) {
@@ -45,6 +46,28 @@ void Player::collisionMove()
 		break;
 	}
 
+}
+
+void Player::playerDamage()
+{
+	if (isDamaged) {
+		sprite.setColor(playerColor);
+		isDamaged = false;
+	}
+	else
+	{
+		sprite.setColor(sf::Color::Transparent);
+		isDamaged = true;
+	}
+
+}
+
+void Player::revertPlayer()
+{
+	if (isDamaged)
+	{
+		sprite.setColor(playerColor);
+	}
 }
 
 void Player::updateMovement(int shift) {

@@ -8,6 +8,7 @@ protected:
 	sf::RenderWindow* renderWindow;
 	std::map<std::string, sf::Texture> textures;
 	std::map<std::string, sf::SoundBuffer> soundBuffers;
+	sf::Sound sounds;
 
 	bool quit;
 	bool isMouseReleased;
@@ -18,10 +19,15 @@ protected:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 
+	void initializeSounds();
+
 public:
 	// Constructors/Destructors
 	State(sf::RenderWindow* renderWindow, std::stack<State*>* states);
 	virtual ~State();
+
+	// Sound Functions
+	void playSound(std::string soundBuffer, float volume);
 
 	// Quit State Functions
 	const bool& getQuit() const;
