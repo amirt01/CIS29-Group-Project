@@ -19,7 +19,6 @@ State::~State()
 {
 }
 
-
 void State::initializeSounds()
 {
 	for (auto& kv : AUDIO_PATHS)
