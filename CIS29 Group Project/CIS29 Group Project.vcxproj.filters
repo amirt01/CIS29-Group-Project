@@ -157,9 +157,6 @@
     <Image Include="Resources\Images\GameBackground.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\motorbiker(test player).png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Images\CarFramesYellow.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -173,6 +170,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\CrashCartoon.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\motorbiker.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

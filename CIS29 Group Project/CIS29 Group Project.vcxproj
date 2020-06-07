@@ -225,7 +225,7 @@
     <Image Include="Resources\Images\Heart.png" />
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
-    <Image Include="Resources\Images\motorbiker(test player).png" />
+    <Image Include="Resources\Images\motorbiker.png" />
     <Image Include="Resources\Images\temp_background.jpg" />
   </ItemGroup>
   <ItemGroup>

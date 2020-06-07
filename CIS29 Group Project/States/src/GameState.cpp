@@ -6,7 +6,7 @@
 
 const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 {
-	{"PLAYER", "Resources/Images/motorbiker(test player).png"},
+	{"PLAYER", "Resources/Images/motorbiker.png"},
 	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
 	{"YELLOW_CAR", "Resources/Images/CarFramesYellow.png"},
 	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
@@ -73,7 +73,7 @@ GameState::~GameState()
 
 void GameState::spawnPlayer()
 {
-	player = new Player(textures.at("PLAYER"));
+	player = new Player(textures.at("PLAYER"), 104, 107);
 	hud = new HUD(player, textures.at("HEART"));
 	collide = new Collide(textures.at("COLLISION"));
 }
@@ -219,6 +219,7 @@ void GameState::updateState(const float& deltaTime)
 		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
 		player->updateScore(deltaTime);
+		player->updateAnimation(deltaTime);
 		hud->update();
 		if (!objects.empty())
 		{

@@ -15,11 +15,12 @@ private:
 	sf::Clock clock;
 
 public:
-	Player(sf::Texture& playerTexture);
+	Player(sf::Texture& playerTexture, const int width, const int height);
 
 	//update
 	void updateMovement(int);
 	void updateScore(const float& deltaTime);
+	void updateAnimation(const float& deltaTime);
 
 	//coins
 	void gainCoin();

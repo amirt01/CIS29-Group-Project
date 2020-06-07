@@ -1,23 +1,29 @@
 #include "stdafx.h"
 #include "player.h"
 
-Player::Player(sf::Texture& playerTexture) :
-	Entity(),
-	moveType{-1,1},
-	pos(Center),
+Player::Player(sf::Texture& playerTexture, const int width, const int height)
+	: Entity(), moveType{ -1,1 }, pos(Center),
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(pos), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(0)
 {
-
 	setTexture(playerTexture);
+
+	addAnimation("IDLE", 0.1f, 0, 4, width, height);
+
 	sprite.setPosition(sf::Vector2f(50, 300));
 }
 
 void Player::updateScore(const float& deltaTime) {
 	score += deltaTime;
+}
+
+void Player::updateAnimation(const float& deltaTime)
+{
+	animations["IDLE"]->update(deltaTime);
+	sprite.setTextureRect(animations["IDLE"]->textureRect);
 }
 
 void Player::gainCoin()
@@ -44,7 +50,6 @@ void Player::collisionMove()
 		updateMovement(moveType[0]);
 		break;
 	}
-
 }
 
 void Player::updateMovement(int shift) {
