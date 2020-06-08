@@ -14,6 +14,7 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	addAnimation("IDLE", 0.1f, 0, 4, width, height);
 
 	sprite.setPosition(sf::Vector2f(50, 300));
+	playerColor = sprite.getColor();
 }
 
 void Player::updateScore(const float& deltaTime) {
@@ -49,6 +50,28 @@ void Player::collisionMove()
 	case 2:
 		updateMovement(moveType[0]);
 		break;
+	}
+}
+
+void Player::playerDamage()
+{
+	if (isDamaged) {
+		sprite.setColor(playerColor);
+		isDamaged = false;
+	}
+	else
+	{
+		sprite.setColor(sf::Color::Transparent);
+		isDamaged = true;
+	}
+
+}
+
+void Player::revertPlayer()
+{
+	if (isDamaged)
+	{
+		sprite.setColor(playerColor);
 	}
 }
 

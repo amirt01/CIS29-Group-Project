@@ -37,11 +37,3 @@ bool Collide::collisionTiming()
 	}
 }
 
-void Collide::playaudio(sf::SoundBuffer& soundBuffer)
-{
-	sound.setBuffer(soundBuffer);
-	sound.setVolume(20);
-	sound.play();
-}
-
-
