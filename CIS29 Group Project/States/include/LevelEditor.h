@@ -13,7 +13,7 @@ private:
 
 public:
 	// Constructors/Destructors
-	LevelEditor(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	LevelEditor(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures);
 	virtual ~LevelEditor();
 
 	void updateKeyboard(unsigned short keyCode);

@@ -14,6 +14,8 @@ private:
 	sf::ContextSettings windowSettings;
 	bool fullscreen;
 
+	std::map<std::string, sf::Texture> textures;
+
 	Leaderboard leaderboard;
 
 	// Delta Time
@@ -27,6 +29,7 @@ private:
 	void initializeLeaderboard(std::string path);
 	void initializeWindow(std::string path);
 	void initializeStates();
+	void initializeTextures();
 
 public:
 	// Constructors/Destructors

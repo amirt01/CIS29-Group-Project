@@ -40,13 +40,11 @@ protected:
 	std::deque<Object*> objects;
 
 	// Initializers
-	void initializeTextures();
-
 	virtual void updateSpawning() = 0;
 
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard = nullptr);
+	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard = nullptr);
 	virtual ~GameState();
 
 	void spawnPlayer();

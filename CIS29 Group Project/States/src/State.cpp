@@ -2,8 +2,8 @@
 #include "State.h"
 
 // Constructors / destructors
-State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: renderWindow(renderWindow), states(states), quit(false)
+State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures)
+	: renderWindow(renderWindow), states(states), textures(textures), quit(false)
 {
 	initializeSounds();
 }

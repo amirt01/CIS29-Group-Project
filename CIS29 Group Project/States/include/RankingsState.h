@@ -23,7 +23,7 @@ private:
 	void initializeFonts();
 	void initializeGUI();
 public:
-	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard);
+	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures);
 	~RankingsState();
 
 	// Update

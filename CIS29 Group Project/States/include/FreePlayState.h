@@ -12,6 +12,6 @@ private:
 	// Functions
 	void updateSpawning();
 public:
-	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard);
+	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard);
 	~FreePlayState();
 };

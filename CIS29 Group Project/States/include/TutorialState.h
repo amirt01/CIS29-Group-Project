@@ -14,13 +14,12 @@ private:
 	std::map<std::string, gui::Button*> buttons;
 
 	// Initializers
-	void initializeTextures();
 	void initializeFonts();
 	void initializeGUI();
 
 public:
 	// Constructors/Destructors
-	TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures);
 	virtual ~TutorialState();
 
 	// Update

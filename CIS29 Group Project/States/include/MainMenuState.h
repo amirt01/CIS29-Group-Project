@@ -17,13 +17,12 @@ private:
 	std::map<std::string, gui::Button*> buttons;
 
 	// Initializers
-	void initializeTextures();
 	void initializeFonts();
 	void initializeGUI();
 
 public:
 	// Constructors/Destructors
-	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard);
+	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures);
 	virtual ~MainMenuState();
 
 	// Update

@@ -5,29 +5,18 @@
 #include "TutorialState.h"
 #include "Constants.h"
 
-//Initializers
-void GameState::initializeTextures()
-{
-	for (auto& kv : TEXTRUE_PATHS)
-		if (!textures[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-}
-
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
-	: State(renderWindow, states), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
+GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard)
+	: State(renderWindow, states, textures), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow), deathMenu(renderWindow)
 {
-	initializeTextures();
-
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
 		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 			static_cast<float>(renderWindow->getSize().y)));
 		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
-		backgrounds[i].setTexture(&textures.at("GAME_BACKGROUND"));
+		backgrounds[i].setTexture(&textures->at("GAME_BACKGROUND"));
 	}
 }
 
@@ -44,9 +33,9 @@ GameState::~GameState()
 
 void GameState::spawnPlayer()
 {
-	player = new Player(textures.at("BLUE_PLAYER"), 104, 107);
-	hud = new HUD(player, textures.at("HEART"));
-	collide = new Collide(textures.at("COLLISION"));
+	player = new Player(textures->at("BLUE_PLAYER"), 104, 107);
+	hud = new HUD(player, textures->at("HEART"));
+	collide = new Collide(textures->at("COLLISION"));
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -55,13 +44,13 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		switch (type)
 		{
 		case RED:
-			objects.push_back(new Object(Obstacle, level, textures.at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(new Object(Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case YELLOW:
-			objects.push_back(new Object(Obstacle, level, textures.at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(new Object(Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case ORANGE:
-			objects.push_back(new Object(Obstacle, level, textures.at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(new Object(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
 			throw exc::SpawnError(level, type);
@@ -99,7 +88,7 @@ void GameState::updateGUI()
 
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
-			states->push(new TutorialState(renderWindow, states));
+			states->push(new TutorialState(renderWindow, states, textures));
 
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())

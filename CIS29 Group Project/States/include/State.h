@@ -9,7 +9,7 @@ private:
 protected:
 	//Variables
 	sf::RenderWindow* renderWindow;
-	std::map<std::string, sf::Texture> textures;
+	std::map<std::string, sf::Texture>* textures;
 	std::map<std::string, sf::SoundBuffer> soundBuffers;
 	sf::Sound sounds;
 
@@ -25,7 +25,7 @@ protected:
 
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* renderWindow, std::stack<State*>* states);
+	State(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures);
 	virtual ~State();
 
 	// Sound Functions

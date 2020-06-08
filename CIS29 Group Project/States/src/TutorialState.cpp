@@ -6,16 +6,6 @@
 #include "Level.h"
 
 // Initializers
-void TutorialState::initializeTextures()
-{
-	for (auto& kv : TEXTRUE_PATHS)
-	{
-		if (!textures[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-	}
-}
-
 void TutorialState::initializeFonts()
 {
 	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
@@ -31,17 +21,16 @@ void TutorialState::initializeGUI()
 }
 
 // Constructors/Destructors
-TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures)
+	: State(renderWindow, states, textures)
 {
-	initializeTextures();
 	initializeFonts();
 	initializeGUI();
 
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures.at("BACKGROUND"));
+	background.setTexture(&textures->at("BACKGROUND"));
 }
 
 TutorialState::~TutorialState()

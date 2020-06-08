@@ -40,8 +40,8 @@ void FreePlayState::updateSpawning()
 	}
 }
 
-FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
-	: GameState(renderWindow, states, leaderboard)
+FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard)
+	: GameState(renderWindow, states, textures, leaderboard)
 {
 	spawnPlayer();
 }

@@ -29,8 +29,8 @@ void RankingsState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
-	: State(renderWindow, states), leaderboard(leaderboard)
+RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures)
+	: State(renderWindow, states, textures), leaderboard(leaderboard)
 {
 	initializeBackground();
 	initializeFonts();

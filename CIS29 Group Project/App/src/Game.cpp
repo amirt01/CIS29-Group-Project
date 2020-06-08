@@ -95,7 +95,15 @@ void Game::initializeWindow(std::string path)
 
 void Game::initializeStates()
 {
-	states.push(new MainMenuState(renderWindow, &states, &leaderboard));
+	states.push(new MainMenuState(renderWindow, &states, &leaderboard, &textures));
+}
+
+void Game::initializeTextures()
+{
+	for (auto& kv : TEXTRUE_PATHS)
+		if (!textures[kv.first].loadFromFile(kv.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
 }
 
 // Constructor / Destructors
@@ -103,6 +111,7 @@ Game::Game()
 	: leaderboard(MAX_NUM_OF_SCORES), deltaTime(0.f)
 {
 	//std::thread leaderboard(&Game::initializeLeaderboard);
+	initializeTextures();
 	initializeLeaderboard(LEADERBOARD_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
 	initializeStates();

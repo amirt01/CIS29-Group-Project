@@ -9,15 +9,6 @@
 #include "Constants.h"
 
 // Initializers
-void MainMenuState::initializeTextures()
-{
-	for (auto& kv : TEXTRUE_PATHS)
-	{
-		if (!textures[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-	}
-}
 
 void MainMenuState::initializeFonts()
 {
@@ -82,17 +73,16 @@ void MainMenuState::initializeGUI()
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
-	: State(renderWindow, states), leaderboard(leaderboard)
+MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures)
+	: State(renderWindow, states, textures), leaderboard(leaderboard)
 {
-	initializeTextures();
 	initializeFonts();
 	initializeGUI();
 
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures.at("MAIN_MENU_BACKGROUND"));
+	background.setTexture(&textures->at("MAIN_MENU_BACKGROUND"));
 }
 
 MainMenuState::~MainMenuState()
@@ -115,7 +105,7 @@ void MainMenuState::updateMouseWheel(const short& mouseDelta)
 void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, leaderboard));
 }
 
 void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -141,17 +131,17 @@ void MainMenuState::updateGUI()
 	}
 
 	if (buttons["FREE_PLAY"]->getIsActivated())
-		states->push(new FreePlayState(renderWindow, states, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, leaderboard));
 	if (buttons["LEVEL_1"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level1.bin", states, leaderboard));
+		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, leaderboard));
 	if (buttons["LEVEL_2"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level2.bin", states, leaderboard));
+		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, leaderboard));
 	if (buttons["LEVEL_3"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level3.bin", states, leaderboard));
+		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, leaderboard));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
-		states->push(new RankingsState(renderWindow, states, leaderboard));
+		states->push(new RankingsState(renderWindow, states, leaderboard, textures));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
-		states->push(new TutorialState(renderWindow, states));
+		states->push(new TutorialState(renderWindow, states, textures));
 	if (buttons["EXIT_STATE"]->getIsActivated())
 		quitState();
 }
