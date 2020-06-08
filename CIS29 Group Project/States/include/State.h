@@ -10,7 +10,6 @@ protected:
 	std::map<std::string, sf::SoundBuffer> soundBuffers;
 
 	bool quit;
-	bool isMouseReleased;
 
 	std::stack<State*>* states;
 

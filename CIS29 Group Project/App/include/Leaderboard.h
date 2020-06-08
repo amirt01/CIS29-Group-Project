@@ -37,7 +37,7 @@ private:
 			: name(""), score(0), date() {};
 		Score(const std::string& name, const float& score, const time_t date = time(0))
 			: name(name), score(score), date(Date(date)) {};
-		const std::string const getName() { return name; };
+		const std::string getName() const { return name; };
 		const float getScore() const { return score; };
 		const time_t getDate() const { return date.getDate(); };
 		void draw(sf::RenderTarget& renderTarget, sf::RenderStates states = sf::RenderStates::Default) const

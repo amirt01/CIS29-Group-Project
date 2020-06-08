@@ -1,25 +1,29 @@
 #pragma once
 
 #include "State.h"
-#include "PauseState.h"
-#include "Object.h"
+#include "PauseMenu.h"
+#include "DeathMenu.h"
 #include "Player.h"
 #include "Leaderboard.h"
 #include "Collide.h"
 #include "HUD.h"
+#include "Object.h"
 
-enum color { RED = 0, YELLOW, ORANGE };
-enum obsticle { MEDIUM = 0, LARGE, SMALL };
-enum direction { FORWARDS = 1, BACKWARDS = -1 };
+enum Color { RED = 0, YELLOW, ORANGE };
+enum Obsticle { MEDIUM = 0, LARGE, SMALL };
+enum Direction { FORWARDS = 1, BACKWARDS = -1 };
+enum GameStates { PLAY = 0, PAUSED, DEAD, WIN };
 
 class GameState : public State
 {
 private:
 	float speed;
-	bool paused;
 
-	PauseState pauseState;
-	std::map<std::string, gui::Button*> buttons;
+	GameStates currentState;
+
+	PauseMenu pauseMenu;
+	DeathMenu deathMenu;
+	const std::map<std::string, gui::Button*>* buttons;
 
 	Leaderboard* leaderboard;
 	Player* player;
@@ -28,8 +32,6 @@ private:
 
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 3> backgrounds;
-
-	void togglePause();
 
 protected:
 	float frequency;

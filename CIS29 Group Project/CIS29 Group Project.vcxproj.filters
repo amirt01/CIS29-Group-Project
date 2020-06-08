@@ -33,9 +33,6 @@
     <ClCompile Include="States\src\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\PauseState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="States\src\FreePlayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,7 +72,13 @@
     <ClCompile Include="States\src\TutorialState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\DeathState.cpp">
+    <ClCompile Include="Overlays\src\Overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\DeathMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,9 +96,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\MainMenuState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="States\include\PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\FreePlayState.h">
@@ -137,7 +137,13 @@
     <ClInclude Include="States\include\TutorialState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="States\include\DeathState.h">
+    <ClInclude Include="Overlays\include\Overlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\DeathMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,7 +6,8 @@
 
 const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 {
-	{"PLAYER", "Resources/Images/motorbiker.png"},
+	{"DEFAULT_PLAYER", "Resources/Images/motorbiker.png"},
+	{"BLUE_PLAYER", "Resources/Images/motorbiker-blue.png"},
 	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
 	{"YELLOW_CAR", "Resources/Images/CarFramesYellow.png"},
 	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
@@ -18,13 +19,9 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 const std::map<const std::string, const std::string> AUDIO_PATHS =
 {
 	{"CRASH", "Resources/Audio/crash2.wav"},
-	{"COIN", "Resources/Audio/coin.wav"}
+	{"COIN", "Resources/Audio/coin.wav"},
+	{"WOOSH", "Resources/Audio/woosh.wav"}
 };
-
-void GameState::togglePause()
-{
-	paused = !paused;
-}
 
 //Initializers
 void GameState::initializeTextures()
@@ -45,8 +42,9 @@ void GameState::initializeSounds()
 
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard)
-	: State(renderWindow, states), pauseState(renderWindow, states), leaderboard(leaderboard),
-	speed(-75), frequency(5), states(states), paused(false), spawnTime(frequency)
+	: State(renderWindow, states), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
+	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
+	pauseMenu(renderWindow), deathMenu(renderWindow)
 {
 	initializeTextures();
 	initializeSounds();
@@ -73,7 +71,7 @@ GameState::~GameState()
 
 void GameState::spawnPlayer()
 {
-	player = new Player(textures.at("PLAYER"), 104, 107);
+	player = new Player(textures.at("BLUE_PLAYER"), 104, 107);
 	hud = new HUD(player, textures.at("HEART"));
 	collide = new Collide(textures.at("COLLISION"));
 }
@@ -108,60 +106,81 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 // Update
 void GameState::updateGUI()
 {
-	if (paused)
+	if (buttons != nullptr)
 	{
+		/*Updates all the buttons in the state and handles their functionality*/
+		for (auto& it : *buttons) {
+			it.second->updateColor(mousePosView);
+		};
+	}
+
+	switch (currentState)
+	{
+	case PLAY:
+		buttons = nullptr;
+		break;
+	case PAUSED:
 		// Resume the Game
-		if (pauseState.isButtonPressed("RESUME"))
-		{
-			togglePause();
-		}
+		if (buttons->at("RESUME")->getIsActivated())
+			currentState = PLAY;
 
 		//Go to Tutorial Screen
-		if (pauseState.isButtonPressed("TUTORIAL_STATE"))
-		{
+		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
 			states->push(new TutorialState(renderWindow, states));
-		}
 
 		// Quit This Game
-		if (pauseState.isButtonPressed("QUIT"))
-		{
+		if (buttons->at("QUIT")->getIsActivated())
 			quitState();
-		}
+		break;
+	case DEAD:
+		// Quit This Game
+		if (buttons->at("QUIT")->getIsActivated())
+			quitState();
+		break;
+	case WIN:
+		break;
+	default:
+		buttons = nullptr;
+		break;
 	}
 }
 
 void GameState::updateMouseButtons(const sf::Mouse::Button& button)
 {
-	if (paused)
-		pauseState.updateMouseButtons(button);
+	switch (button)
+	{
+	case sf::Mouse::Button::Left:
+		if (buttons != nullptr)
+			for (auto button : *buttons)
+				button.second->checkBounds(mousePosView);
+	default:
+		break;
+	}
 }
 
 void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
-	if (paused)
-		pauseState.updateKeyboard(keyCode);
-
 	if (sf::Keyboard::Escape == keyCode)
 	{
-		togglePause();
+		currentState = PAUSED;
 	}
 
 	if (sf::Keyboard::W == keyCode ||
 		sf::Keyboard::Up == keyCode &&
-		!paused)
+		currentState == PLAY)
 	{
 		// MOVE UP
 		player->updateMovement(-1);
 	}
 	else if (sf::Keyboard::S == keyCode ||
 		sf::Keyboard::Down == keyCode &&
-		!paused)
+		currentState == PLAY)
 	{
 		// MOVE DOWN
 		player->updateMovement(1);
 	}
 	else if (sf::Keyboard::Tab == keyCode &&
-		!paused)
+		currentState == PLAY)
 	{
 		updateGameSpeed(10.f);
 		player->updateScore(10.f);
@@ -213,8 +232,11 @@ void GameState::updateBackground(const float& deltaTime, const short dir)
 
 void GameState::updateState(const float& deltaTime)
 {
-	if (!paused)
+	updateMousePositions();
+	updateGUI();
+	switch (currentState)
 	{
+	case PLAY:
 		updateGameSpeed(deltaTime);
 		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
@@ -226,11 +248,16 @@ void GameState::updateState(const float& deltaTime)
 			checkCollision();
 			updateObjects(deltaTime);
 		}
-	}
-	else
-	{
-		pauseState.updateState(deltaTime);
-		updateGUI();
+		break;
+	case PAUSED:
+		buttons = pauseMenu.getButtons();
+		break;
+	case DEAD:
+		break;
+	case WIN:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -242,13 +269,14 @@ void GameState::updateCollision(Object* object)
 		collide->playaudio(soundBuffers.at("CRASH"));
 		player->takeDamage();
 		object->hit = true;
-		if (player->getCurrentHealth() == 0) {
-			togglePause(); //for now pausing the screen when player collides with cars 3 times
+		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
+			currentState = DEAD;
+			buttons = deathMenu.getButtons();
+			deathMenu.setScore(player->getCurrentScore());
 			leaderboard->addNewScore("default", player->getCurrentScore());
 		}
 		collide->collisionPosition(player->getCurrentPosition());
 		player->collisionMove();
-
 		break;
 	case Coin:
 		collide->playaudio(soundBuffers.at("COIN"));
@@ -289,8 +317,21 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	if (hud != nullptr)
 		hud->render(renderTarget);
 
-	if (paused)
-		pauseState.renderState(renderTarget);
+	switch (currentState)
+	{
+	case PLAY:
+		break;
+	case PAUSED:
+		renderTarget->draw(pauseMenu);
+		break;
+	case DEAD:
+		renderTarget->draw(deathMenu);
+		break;
+	case WIN:
+		break;
+	default:
+		break;
+	}
 
 	if (collide->collisionTiming())
 		collide->render(renderTarget);

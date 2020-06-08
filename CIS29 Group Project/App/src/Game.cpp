@@ -58,7 +58,7 @@ void Game::initializeWindow(std::string path)
 		else
 			throw exc::LoadFromFileError(path);
 	}
-	catch (exc::LoadFromFileError& error) {
+	catch (exc::LoadFromFileError&) {
 		unsigned int in;
 
 		std::cout << "Error reading file window setting's file. "

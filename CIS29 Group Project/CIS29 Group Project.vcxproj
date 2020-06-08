@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Overlays/include;$(SolutionDir)Exception Handler/include;$(SolutionDir)External\SFML\include;$(SolutionDir)GUI\include;$(ProjectDir)Overlays\include;$(ProjectDir)Entity\include;$(ProjectDir)States\include;$(ProjectDir)App\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Overlays\include;$(SolutionDir)Exception Handler/include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Overlays/include;$(SolutionDir)Exception Handler/include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Overlays\include;$(SolutionDir)Exception Handler/include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -180,13 +180,14 @@
     <ClCompile Include="Entity\src\HUD.cpp" />
     <ClCompile Include="Entity\src\Object.cpp" />
     <ClCompile Include="Entity\src\Player.cpp" />
-    <ClCompile Include="States\src\DeathState.cpp" />
+    <ClCompile Include="Overlays\src\Overlay.cpp" />
+    <ClCompile Include="Overlays\src\DeathMenu.cpp" />
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
     <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
-    <ClCompile Include="States\src\PauseState.cpp" />
+    <ClCompile Include="Overlays\src\PauseMenu.cpp" />
     <ClCompile Include="States\src\RankingsState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
     <ClCompile Include="States\src\TutorialState.cpp" />
@@ -202,13 +203,14 @@
     <ClInclude Include="Entity\include\HUD.h" />
     <ClInclude Include="Entity\include\Object.h" />
     <ClInclude Include="Entity\include\Player.h" />
-    <ClInclude Include="States\include\DeathState.h" />
+    <ClInclude Include="Overlays\include\Overlay.h" />
+    <ClInclude Include="Overlays\include\DeathMenu.h" />
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
     <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
-    <ClInclude Include="States\include\PauseState.h" />
+    <ClInclude Include="Overlays\include\PauseMenu.h" />
     <ClInclude Include="States\include\RankingsState.h" />
     <ClInclude Include="States\include\State.h" />
     <ClInclude Include="States\include\TutorialState.h" />

@@ -3,6 +3,8 @@
 enum button_States { BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE };
 
 namespace gui {
+	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode);
+
 	class Button : public sf::Drawable
 	{
 	protected:
@@ -15,9 +17,9 @@ namespace gui {
 		sf::Text text;
 
 		//Color
-		sf::Color idleColor;
-		sf::Color hoverColor;
-		sf::Color activeColor;
+		const sf::Color idleColor;
+		const sf::Color hoverColor;
+		const sf::Color activeColor;
 
 	public:
 		Button(float x, float y, float width, float height,
@@ -32,7 +34,7 @@ namespace gui {
 		// Modifiers
 		void checkBounds(const sf::Vector2f mousePos);
 		void setText(const std::string text);
-		virtual void addText(const sf::Keyboard::Key& keycode) {};
+		virtual void addText(const sf::Keyboard::Key& keycode);
 
 		//Functions
 		virtual void updateColor(const sf::Vector2f mousePos);
