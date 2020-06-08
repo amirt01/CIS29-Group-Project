@@ -78,8 +78,12 @@ void Level::updateSpawning()
 	}
 }
 
-Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard)
-	: GameState(renderWindow, states, textures, leaderboard)
+Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	Leaderboard* leaderboard)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard)
 {
 	initializeLevel(path);
 	spawnPlayer();

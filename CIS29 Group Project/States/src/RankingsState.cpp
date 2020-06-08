@@ -6,34 +6,24 @@ void RankingsState::initializeBackground()
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	if (!backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
-	{
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
-
-	background.setTexture(&backgrounTexture);
-}
-
-void RankingsState::initializeFonts()
-{
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-	{
-		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-	}
+	background.setTexture(&textures->at("DOSIS_BOLD"));
 }
 
 void RankingsState::initializeGUI()
 {
 	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
-		&font, "Back",
+		&fonts->at("DOSIS_BOLD"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures)
-	: State(renderWindow, states, textures), leaderboard(leaderboard)
+RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	Leaderboard* leaderboard)
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard)
 {
 	initializeBackground();
-	initializeFonts();
 	initializeGUI();
 }
 

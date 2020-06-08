@@ -10,9 +10,6 @@ protected:
 	sf::RectangleShape container;
 
 	sf::Text title;
-	sf::Font font;
-
-	int i;
 
 	sf::RenderWindow* renderWindow;
 
@@ -25,8 +22,7 @@ protected:
 	// Initializers
 	void initializeBackground();
 	void initializeContainer();
-	void initializeFonts();
-	virtual void initializeGUI() = 0;
+	virtual void initializeGUI(sf::Font& font) = 0;
 
 public:
 	Overlay(sf::RenderWindow* renderWindow);

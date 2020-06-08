@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DeathMenu.h"
 
-void DeathMenu::initializeGUI()
+void DeathMenu::initializeGUI(sf::Font& font)
 {
 	float width = 250.f;
 	float height = 100.f;
@@ -25,10 +25,10 @@ void DeathMenu::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-DeathMenu::DeathMenu(sf::RenderWindow* renderWindow)
+DeathMenu::DeathMenu(sf::RenderWindow* renderWindow, sf::Font& font)
 	: Overlay(renderWindow)
 {
-	initializeGUI();
+	initializeGUI(font);
 }
 
 DeathMenu::~DeathMenu()

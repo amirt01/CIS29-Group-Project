@@ -8,13 +8,7 @@ void HUD::initializeContainer()
 	container.setPosition(100.f, container.getSize().y / 2.f);
 }
 
-void HUD::initializeFonts() {
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf")) {
-		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-	}
-}
-
-void HUD::initializeScore()
+void HUD::initializeScore(sf::Font& font)
 {
 	score.setFont(font);
 	score.setCharacterSize(48);
@@ -37,12 +31,11 @@ void HUD::initializeHearts(sf::Texture& heartTexture)
 	}
 }
 
-HUD::HUD(Player* player, sf::Texture& heartTexture)
+HUD::HUD(Player* player, sf::Texture& heartTexture, sf::Font& font)
 	: player(player)
 {
 	initializeContainer();
-	initializeFonts();
-	initializeScore();
+	initializeScore(font);
 	initializeHearts(heartTexture);
 }
 

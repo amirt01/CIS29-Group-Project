@@ -13,16 +13,13 @@ private:
 	sf::Text score;
 	sf::Text coins;
 
-	sf::Font font;
-
 	// Initializers
 	void initializeHearts(sf::Texture& heartTexture);
-	void initializeFonts();
 	void initializeContainer();
-	void initializeScore();
+	void initializeScore(sf::Font& font);
 
 public:
-	HUD(Player* player, sf::Texture& heartTexture);
+	HUD(Player* player, sf::Texture& heartTexture, sf::Font& font);
 	~HUD();
 
 	void update();

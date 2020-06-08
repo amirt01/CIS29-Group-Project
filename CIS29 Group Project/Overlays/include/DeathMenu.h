@@ -8,9 +8,9 @@ class DeathMenu : public Overlay
 private:
 	sf::Text score;
 
-	void initializeGUI();
+	void initializeGUI(sf::Font& font);
 public:
-	DeathMenu(sf::RenderWindow* renderWindow);
+	DeathMenu(sf::RenderWindow* renderWindow, sf::Font& font);
 	~DeathMenu();
 
 	void setScore(const float& score);

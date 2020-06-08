@@ -93,29 +93,43 @@ void Game::initializeWindow(std::string path)
 	renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
 }
 
-void Game::initializeStates()
-{
-	states.push(new MainMenuState(renderWindow, &states, &leaderboard, &textures));
-}
-
 void Game::initializeTextures()
 {
-	for (auto& kv : TEXTRUE_PATHS)
-		if (!textures[kv.first].loadFromFile(kv.second))
+	std::for_each(TEXTRUE_PATHS.begin(), TEXTRUE_PATHS.end(), [this](const auto& texturePair) {
+		if (!textures[texturePair.first].loadFromFile(texturePair.second))
 			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 								// when it fails so no need to throw
+		});
+}
+
+void Game::initializeFonts()
+{
+	std::for_each(FONT_PATHS.begin(), FONT_PATHS.end(), [this](const auto& fontPair) {
+		if (!fonts[fontPair.first].loadFromFile(fontPair.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
+		});
+}
+
+void Game::initializeAudio()
+{
+	std::for_each(AUDIO_PATHS.begin(), AUDIO_PATHS.end(), [this](const auto& audioPair) {
+		if (!soundBuffers[audioPair.first].loadFromFile(audioPair.second))
+			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
+								// when it fails so no need to throw
+		});
 }
 
 // Constructor / Destructors
 Game::Game()
 	: leaderboard(MAX_NUM_OF_SCORES), deltaTime(0.f)
 {
-	//std::thread leaderboard(&Game::initializeLeaderboard);
 	initializeTextures();
+	initializeFonts();
+	initializeAudio();
 	initializeLeaderboard(LEADERBOARD_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
-	initializeStates();
-	//leaderboard.join();
+	states.push(new MainMenuState(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard));
 }
 
 Game::~Game()

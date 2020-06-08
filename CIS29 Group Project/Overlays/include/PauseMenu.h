@@ -6,9 +6,9 @@
 class PauseMenu : public Overlay
 {
 private:
-	void initializeGUI();
+	void initializeGUI(sf::Font& font);
 
 public:
-	PauseMenu(sf::RenderWindow* renderWindow);
+	PauseMenu(sf::RenderWindow* renderWindow, sf::Font& font);
 	~PauseMenu();
 };

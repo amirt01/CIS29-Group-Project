@@ -186,7 +186,6 @@
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
-    <ClCompile Include="States\src\LevelEditor.cpp" />
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="Overlays\src\PauseMenu.cpp" />
     <ClCompile Include="States\src\RankingsState.cpp" />
@@ -210,7 +209,6 @@
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />
-    <ClInclude Include="States\include\LevelEditor.h" />
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="Overlays\include\PauseMenu.h" />
     <ClInclude Include="States\include\RankingsState.h" />
@@ -230,7 +228,9 @@
     <Image Include="Resources\Images\MainMenu.png" />
     <Image Include="Resources\Images\main_menu_background.jpg" />
     <Image Include="Resources\Images\motorbiker.png" />
+    <Image Include="Resources\Images\Rankings.png" />
     <Image Include="Resources\Images\temp_background.jpg" />
+    <Image Include="Resources\Images\Tutorial_Background.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Exception Handler\Exception Handler.vcxproj">
@@ -251,6 +251,16 @@
     <Media Include="Resources\Audio\coin.wav" />
     <Media Include="Resources\Audio\crash.wav" />
     <Media Include="Resources\Audio\crash2.wav" />
+    <Media Include="Resources\Audio\woosh.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Dosis-Bold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Book.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraBold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraLight.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Light.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Medium.ttf" />
+    <Font Include="Resources\Fonts\Dosis-SemiBold.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

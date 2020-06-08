@@ -9,30 +9,22 @@
 #include "Constants.h"
 
 // Initializers
-
-void MainMenuState::initializeFonts()
-{
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-		exit(-1); // the loadFromFile() function has an ouput
-				  // when it fails so no need to throw
-}
-
 void MainMenuState::initializeGUI()
 {
 	buttons["FREE_PLAY"] = new gui::Button(220, 250, 150, 50,
-		&font, "Free Play",
+		&fonts->at("DOSIS-BOLD"), "Free Play",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_1"] = new gui::Button(520, 250, 150, 50,
-		&font, "Level 1",
+		&fonts->at("DOSIS-BOLD"), "Level 1",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_2"] = new gui::Button(520, 350, 150, 50,
-		&font, "Level 2",
+		&fonts->at("DOSIS-BOLD"), "Level 2",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_3"] = new gui::Button(520, 450, 150, 50,
-		&font, "Level 3",
+		&fonts->at("DOSIS-BOLD"), "Level 3",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	/*
 	buttons["LEVEL_4"] = new gui::Button(720, 250, 150, 50,
@@ -60,23 +52,26 @@ void MainMenuState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
 	buttons["RANKGINGS_STATE"] = new gui::Button(220, 350, 150, 50,
-		&font, "Rankings",
+		&fonts->at("DOSIS-BOLD"), "Rankings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["TUTORIAL_STATE"] = new gui::Button(920, 450, 150, 50,
-		&font, "Tutorial",
+		&fonts->at("DOSIS-BOLD"), "Tutorial",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
-		&font, "Quit",
+		&fonts->at("DOSIS-BOLD"), "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures)
-	: State(renderWindow, states, textures), leaderboard(leaderboard)
+MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	Leaderboard* leaderboard)
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard)
 {
-	initializeFonts();
 	initializeGUI();
 
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
@@ -105,7 +100,7 @@ void MainMenuState::updateMouseWheel(const short& mouseDelta)
 void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states, textures, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 }
 
 void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -131,17 +126,17 @@ void MainMenuState::updateGUI()
 	}
 
 	if (buttons["FREE_PLAY"]->getIsActivated())
-		states->push(new FreePlayState(renderWindow, states, textures, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["LEVEL_1"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, leaderboard));
+		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["LEVEL_2"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, leaderboard));
+		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["LEVEL_3"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, leaderboard));
+		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
-		states->push(new RankingsState(renderWindow, states, leaderboard, textures));
+		states->push(new RankingsState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
-		states->push(new TutorialState(renderWindow, states, textures));
+		states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
 	if (buttons["EXIT_STATE"]->getIsActivated())
 		quitState();
 }

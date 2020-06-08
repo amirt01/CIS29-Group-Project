@@ -9,9 +9,11 @@ private:
 protected:
 	//Variables
 	sf::RenderWindow* renderWindow;
-	std::map<std::string, sf::Texture>* textures;
-	std::map<std::string, sf::SoundBuffer> soundBuffers;
-	sf::Sound sounds;
+
+	std::unordered_map<std::string, sf::Texture>* textures;
+	std::unordered_map<std::string, sf::Font>* fonts;
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers;
+	sf::Sound sound;
 
 	bool quit;
 
@@ -21,11 +23,12 @@ protected:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 
-	void initializeSounds();
-
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures);
+	State(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers);
 	virtual ~State();
 
 	// Sound Functions

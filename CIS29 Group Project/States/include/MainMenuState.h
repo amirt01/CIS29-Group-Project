@@ -10,19 +10,21 @@ class MainMenuState :
 private:
 	//Variables
 	sf::RectangleShape background;
-	sf::Font font;
 
 	Leaderboard* leaderboard;
 
-	std::map<std::string, gui::Button*> buttons;
+	std::unordered_map<std::string, gui::Button*> buttons;
 
 	// Initializers
-	void initializeFonts();
 	void initializeGUI();
 
 public:
 	// Constructors/Destructors
-	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures);
+	MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+		Leaderboard* leaderboard);
 	virtual ~MainMenuState();
 
 	// Update

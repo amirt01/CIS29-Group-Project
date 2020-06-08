@@ -63,9 +63,6 @@
     <ClCompile Include="Entity\src\Collide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\LevelEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="States\src\RankingsState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity\include\CollisionDetection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="States\include\LevelEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="App\include\Leaderboard.h">
@@ -187,6 +181,12 @@
     <Image Include="Resources\Images\motorbiker.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\Rankings.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\Tutorial_Background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\level1.bin">
@@ -215,5 +215,17 @@
     <Media Include="Resources\Audio\crash2.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="Resources\Audio\woosh.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Dosis-SemiBold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Bold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Book.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraBold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraLight.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Light.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Medium.ttf" />
   </ItemGroup>
 </Project>

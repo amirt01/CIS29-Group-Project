@@ -40,8 +40,12 @@ void FreePlayState::updateSpawning()
 	}
 }
 
-FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard)
-	: GameState(renderWindow, states, textures, leaderboard)
+FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	Leaderboard* leaderboard)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard)
 {
 	spawnPlayer();
 }

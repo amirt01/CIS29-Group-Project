@@ -6,31 +6,26 @@
 #include "Level.h"
 
 // Initializers
-void TutorialState::initializeFonts()
-{
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-		exit(-1); // the loadFromFile() function has an ouput
-				  // when it fails so no need to throw
-}
-
 void TutorialState::initializeGUI()
 {
 	buttons["MAINMENU_STATE"] = new gui::Button(220, 225, 150, 50,
-		&font, "Main Menu",
+		&fonts->at("DOSIS-BOLD"), "Main Menu",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures)
-	: State(renderWindow, states, textures)
+TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers)
+	: State(renderWindow, states, textures, fonts, soundBuffers)
 {
-	initializeFonts();
 	initializeGUI();
 
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures->at("BACKGROUND"));
+	background.setTexture(&textures->at("TUTORIAL_BACKGROUND"));
 }
 
 TutorialState::~TutorialState()

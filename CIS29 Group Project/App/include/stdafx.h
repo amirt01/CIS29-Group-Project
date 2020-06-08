@@ -15,6 +15,7 @@
 #include<string>
 #include<array>
 #include<list>
+#include<unordered_map>
 
 //Other
 #include<cstdlib>

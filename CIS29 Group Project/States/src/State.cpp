@@ -2,29 +2,24 @@
 #include "State.h"
 
 // Constructors / destructors
-State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures)
-	: renderWindow(renderWindow), states(states), textures(textures), quit(false)
+State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers)
+	: renderWindow(renderWindow), states(states), quit(false),
+	textures(textures), fonts(fonts), soundBuffers(soundBuffers)
 {
-	initializeSounds();
 }
 
 State::~State()
 {
 }
 
-void State::initializeSounds()
-{
-	for (auto& kv : AUDIO_PATHS)
-		if (!soundBuffers[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-}
-
 void State::playSound(std::string soundBuffer, float volume)
 {
-	sounds.setBuffer(soundBuffers[soundBuffer]);
-	sounds.setVolume(volume);
-	sounds.play();
+	sound.setBuffer(soundBuffers->at(soundBuffer));
+	sound.setVolume(volume);
+	sound.play();
 }
 
 const bool& State::getQuit() const

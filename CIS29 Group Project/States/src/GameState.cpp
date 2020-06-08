@@ -6,10 +6,14 @@
 #include "Constants.h"
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard)
-	: State(renderWindow, states, textures), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
+GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	Leaderboard* leaderboard)
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
-	pauseMenu(renderWindow), deathMenu(renderWindow)
+	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
@@ -34,7 +38,7 @@ GameState::~GameState()
 void GameState::spawnPlayer()
 {
 	player = new Player(textures->at("BLUE_PLAYER"), 104, 107);
-	hud = new HUD(player, textures->at("HEART"));
+	hud = new HUD(player, textures->at("HEART"), fonts->at("DOSIS-BOLD"));
 	collide = new Collide(textures->at("COLLISION"));
 }
 
@@ -75,36 +79,6 @@ void GameState::updateGUI()
 			it.second->updateColor(mousePosView);
 		};
 	}
-
-	switch (currentState)
-	{
-	case PLAY:
-		buttons = nullptr;
-		break;
-	case PAUSED:
-		// Resume the Game
-		if (buttons->at("RESUME")->getIsActivated())
-			currentState = PLAY;
-
-		//Go to Tutorial Screen
-		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
-			states->push(new TutorialState(renderWindow, states, textures));
-
-		// Quit This Game
-		if (buttons->at("QUIT")->getIsActivated())
-			quitState();
-		break;
-	case DEAD:
-		// Quit This Game
-		if (buttons->at("QUIT")->getIsActivated())
-			quitState();
-		break;
-	case WIN:
-		break;
-	default:
-		buttons = nullptr;
-		break;
-	}
 }
 
 void GameState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -124,7 +98,23 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Escape == keyCode)
 	{
-		currentState = PAUSED;
+		switch (currentState)
+		{
+		case PLAY:
+			currentState = PAUSED;
+			break;
+		case PAUSED:
+			currentState = PLAY;
+			break;
+		case DEAD:
+			quitState();
+			break;
+		case WIN:
+			quitState();
+			break;
+		default:
+			break;
+		}
 	}
 
 	if (sf::Keyboard::W == keyCode ||
@@ -195,10 +185,10 @@ void GameState::updateBackground(const float& deltaTime, const short dir)
 void GameState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
-	updateGUI();
 	switch (currentState)
 	{
 	case PLAY:
+		buttons = nullptr;
 		updateGameSpeed(deltaTime);
 		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
@@ -212,11 +202,33 @@ void GameState::updateState(const float& deltaTime)
 		}
 		break;
 	case PAUSED:
+		// do pause things
 		buttons = pauseMenu.getButtons();
+		updateGUI();
+		// Resume the Game
+		if (buttons->at("RESUME")->getIsActivated())
+			currentState = PLAY;
+
+		//Go to Tutorial Screen
+		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
+			states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+
+		// Quit This Game
+		if (buttons->at("QUIT")->getIsActivated())
+			quitState();
 		break;
 	case DEAD:
+		// do dead things
+		buttons = deathMenu.getButtons();
+		updateGUI();
+		// Quit This Game
+		if (buttons->at("QUIT")->getIsActivated())
+			quitState();
+		break;
 		break;
 	case WIN:
+		// do win things
+		updateGUI();
 		break;
 	default:
 		break;
@@ -233,7 +245,6 @@ void GameState::updateCollision(Object* object)
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
 			currentState = DEAD;
-			buttons = deathMenu.getButtons();
 			deathMenu.setScore(player->getCurrentScore());
 			leaderboard->addNewScore("default", player->getCurrentScore());
 		}

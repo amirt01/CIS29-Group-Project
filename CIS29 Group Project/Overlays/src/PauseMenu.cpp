@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PauseMenu.h"
 
-void PauseMenu::initializeGUI() {
+void PauseMenu::initializeGUI(sf::Font& font) {
 	float width = 250.f;
 	float height = 100.f;
 	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
@@ -17,10 +17,10 @@ void PauseMenu::initializeGUI() {
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-PauseMenu::PauseMenu(sf::RenderWindow* renderWindow)
+PauseMenu::PauseMenu(sf::RenderWindow* renderWindow, sf::Font& font)
 	: Overlay(renderWindow)
 {
-	initializeGUI();
+	initializeGUI(font);
 }
 
 PauseMenu::~PauseMenu()

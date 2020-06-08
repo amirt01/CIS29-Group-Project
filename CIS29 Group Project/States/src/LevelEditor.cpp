@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "LevelEditor.h"
 
-LevelEditor::LevelEditor(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures)
-	: GameState(renderWindow, states, textures)
+LevelEditor::LevelEditor(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers)
 {
 }
 

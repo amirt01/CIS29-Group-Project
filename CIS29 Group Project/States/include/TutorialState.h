@@ -9,17 +9,18 @@ class TutorialState :
 private:
 	//Variables
 	sf::RectangleShape background;
-	sf::Font font;
 
 	std::map<std::string, gui::Button*> buttons;
 
 	// Initializers
-	void initializeFonts();
 	void initializeGUI();
 
 public:
 	// Constructors/Destructors
-	TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures);
+	TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers);
 	virtual ~TutorialState();
 
 	// Update

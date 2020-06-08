@@ -9,9 +9,7 @@ class RankingsState
 {
 private:
 	// Variables
-	sf::Texture backgrounTexture;
 	sf::RectangleShape background;
-	sf::Font font;
 
 	std::map<std::string, gui::Button*> buttons;
 
@@ -20,10 +18,13 @@ private:
 	// Functions
 	// Initializers
 	void initializeBackground();
-	void initializeFonts();
 	void initializeGUI();
 public:
-	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states, Leaderboard* leaderboard, std::map<std::string, sf::Texture>* textures);
+	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+		Leaderboard* leaderboard);
 	~RankingsState();
 
 	// Update

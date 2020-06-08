@@ -44,7 +44,11 @@ protected:
 
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states, std::map<std::string, sf::Texture>* textures, Leaderboard* leaderboard = nullptr);
+	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+		Leaderboard* leaderboard = nullptr);
 	virtual ~GameState();
 
 	void spawnPlayer();

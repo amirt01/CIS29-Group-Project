@@ -86,8 +86,8 @@ namespace gui {
 		this->text.setFont(*font);
 		this->text.setString(text);
 		this->text.setCharacterSize(32);
-		this->text.setPosition((shape.getPosition().x + shape.getGlobalBounds().width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
-			(shape.getPosition().y + shape.getGlobalBounds().height / 2.f) - (this->text.getGlobalBounds().height * 1.7f / 2.f));
+		this->text.setPosition((x + width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
+			(y + height / 2.f) - (this->text.getGlobalBounds().height / 2.f) - 7.5f);
 
 		//Color
 		shape.setFillColor(idleColor);

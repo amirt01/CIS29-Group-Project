@@ -19,18 +19,11 @@ void Overlay::initializeContainer()
 	container.setPosition(static_cast<float>(renderWindow->getSize().x) / 2.f - container.getSize().x / 2.f, 0);
 }
 
-void Overlay::initializeFonts()
-{
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-		exit(EXIT_FAILURE);
-}
-
 Overlay::Overlay(sf::RenderWindow* renderWindow)
 	: renderWindow(renderWindow)
 {
 	initializeBackground();
 	initializeContainer();
-	initializeFonts();
 }
 
 Overlay::~Overlay()

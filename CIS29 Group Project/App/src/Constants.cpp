@@ -15,10 +15,23 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"GAME_BACKGROUND", "Resources/Images/GameBackground.png"},
 	{"HEART", "Resources/Images/Heart.png"},
 	{"COLLISION", "Resources/Images/CrashCartoon.png"},
+	{"TEMP_BACKGROUND", "Resources/Images/MainMenu.png"},
+	{"RANKGINGS_BACKGROUND", "Resources/Images/Rankings.png"},
+	{"TUTORIAL_BACKGROUND", "Resources/Images/Tutorial_Background.png"}
 };
 const std::map<const std::string, const std::string> AUDIO_PATHS =
 {
 	{"CRASH", "Resources/Audio/crash2.wav"},
 	{"COIN", "Resources/Audio/coin.wav"},
 	{"WOOSH", "Resources/Audio/woosh.wav"}
+};
+const std::map<const std::string, const std::string> FONT_PATHS =
+{
+	{"DOSIS-BOLD", "Resources/Fonts/Dosis-Bold.ttf"},
+	{"DOSIS-BOOK", "Resources/Fonts/Dosis-Book.ttf"},
+	{"DOSIS-EXTRABOLD", "Resources/Fonts/Dosis-ExtraBold.ttf"},
+	{"DOSIS-EXTRALIGHT", "Resources/Fonts/Dosis-ExtraLight.ttf"},
+	{"DOSIS-LIGHT", "Resources/Fonts/Dosis-Light.ttf"},
+	{"DOSIS-MEDIUM", "Resources/Fonts/Dosis-Medium.ttf"},
+	{"DOSIS-SEMIBOLD", "Resources/Fonts/Dosis-ExtraLight.ttf"}
 };
