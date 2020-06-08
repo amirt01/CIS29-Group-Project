@@ -1,10 +1,4 @@
 #pragma once
-#pragma once
-
-#include "State.h"
-#include "GUI.h"
-
-#pragma once
 
 #include "State.h"
 #include "GUI.h"

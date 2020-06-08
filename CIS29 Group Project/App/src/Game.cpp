@@ -1,13 +1,10 @@
 #include "stdafx.h"
 
+#include "Constants.h"
 #include "ExceptionHandler.h"
 #include "Game.h"
 #include "GameState.h"
 #include "MainMenuState.h"
-
-const std::string LEADERBOARD_PATH = "Config/leaderboard.txt";
-const std::string SFML_WINDOW_SETTINGS_PATH = "Config/render_window_settings.txt";
-const int MAX_NUM_OF_SCORES = 10;
 
 // Initializers
 void Game::initializeLeaderboard(std::string path)

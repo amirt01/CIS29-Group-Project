@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "State.h"
 
-const std::map<const std::string, const std::string> AUDIO_PATHS =
-{
-	{"CRASH", "Resources/Audio/crash2.wav"},
-	{"COIN", "Resources/Audio/coin.wav"},
-	{"WOOSH", "Resources/Audio/woosh.wav"}
-};
-
 // Constructors / destructors
 State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states)
 	: renderWindow(renderWindow), states(states), quit(false)

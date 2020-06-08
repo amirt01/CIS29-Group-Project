@@ -6,10 +6,7 @@
 #include "LevelEditor.h"
 #include "RankingsState.h"
 #include "TutorialState.h"
-
-const std::map<const std::string, const std::string> TEXTRUE_PATHS =
-{ {"BACKGROUND", "Resources/Images/MainMenu.png"}
-};
+#include "Constants.h"
 
 // Initializers
 void MainMenuState::initializeTextures()
@@ -95,7 +92,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures.at("BACKGROUND"));
+	background.setTexture(&textures.at("MAIN_MENU_BACKGROUND"));
 }
 
 MainMenuState::~MainMenuState()

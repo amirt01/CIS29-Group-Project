@@ -5,10 +5,6 @@
 #include "SettingsState.h"
 #include "Level.h"
 
-const std::map<const std::string, const std::string> TEXTRUE_PATHS =
-{ {"BACKGROUND", "Resources/Images/MainMenu.png"}
-};
-
 // Initializers
 void TutorialState::initializeTextures()
 {

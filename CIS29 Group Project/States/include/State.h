@@ -1,4 +1,7 @@
 #pragma once
+
+#include "Constants.h"
+
 class State
 {
 private:

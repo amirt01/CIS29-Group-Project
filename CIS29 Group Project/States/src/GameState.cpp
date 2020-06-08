@@ -3,18 +3,7 @@
 #include "CollisionDetection.h"
 #include "ExceptionHandler.h"
 #include "TutorialState.h"
-
-const std::map<const std::string, const std::string> TEXTRUE_PATHS =
-{
-	{"DEFAULT_PLAYER", "Resources/Images/motorbiker.png"},
-	{"BLUE_PLAYER", "Resources/Images/motorbiker-blue.png"},
-	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
-	{"YELLOW_CAR", "Resources/Images/CarFramesYellow.png"},
-	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
-	{"BACKGROUND", "Resources/Images/GameBackground.png"},
-	{"HEART", "Resources/Images/Heart.png"},
-	{"COLLISION", "Resources/Images/CrashCartoon.png"}
-};
+#include "Constants.h"
 
 //Initializers
 void GameState::initializeTextures()
@@ -32,14 +21,13 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	pauseMenu(renderWindow), deathMenu(renderWindow)
 {
 	initializeTextures();
-	initializeSounds();
 
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
 		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 			static_cast<float>(renderWindow->getSize().y)));
 		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
-		backgrounds[i].setTexture(&textures.at("BACKGROUND"));
+		backgrounds[i].setTexture(&textures.at("GAME_BACKGROUND"));
 	}
 }
 
