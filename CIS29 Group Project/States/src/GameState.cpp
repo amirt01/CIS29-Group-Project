@@ -16,26 +16,11 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"COLLISION", "Resources/Images/CrashCartoon.png"}
 };
 
-const std::map<const std::string, const std::string> AUDIO_PATHS =
-{
-	{"CRASH", "Resources/Audio/crash2.wav"},
-	{"COIN", "Resources/Audio/coin.wav"},
-	{"WOOSH", "Resources/Audio/woosh.wav"}
-};
-
 //Initializers
 void GameState::initializeTextures()
 {
 	for (auto& kv : TEXTRUE_PATHS)
 		if (!textures[kv.first].loadFromFile(kv.second))
-			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
-								// when it fails so no need to throw
-}
-
-void GameState::initializeSounds()
-{
-	for (auto& kv : AUDIO_PATHS)
-		if (!soundBuffers[kv.first].loadFromFile(kv.second))
 			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 								// when it fails so no need to throw
 }
@@ -266,7 +251,7 @@ void GameState::updateCollision(Object* object)
 	switch (object->type)
 	{
 	case Obstacle:
-		collide->playaudio(soundBuffers.at("CRASH"));
+		playSound("CRASH", 50.f);
 		player->takeDamage();
 		object->hit = true;
 		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
@@ -279,7 +264,7 @@ void GameState::updateCollision(Object* object)
 		player->collisionMove();
 		break;
 	case Coin:
-		collide->playaudio(soundBuffers.at("COIN"));
+		playSound("COIN", 50.f);
 		player->gainCoin();
 		break;
 	default:
