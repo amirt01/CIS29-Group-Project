@@ -8,8 +8,8 @@
 // Initializers
 void TutorialState::initializeGUI()
 {
-	buttons["MAINMENU_STATE"] = new gui::Button(220, 225, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Main Menu",
+	buttons["BACK"] = new gui::Button(920, 450, 150, 50,
+		&fonts->at("DOSIS-BOLD"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
@@ -69,7 +69,7 @@ void TutorialState::updateGUI()
 		it.second->updateColor(mousePosView);
 	}
 
-	if (buttons["MAINMENU_STATE"]->getIsActivated())
+	if (buttons["BACK"]->getIsActivated())
 		quitState();
 }
 

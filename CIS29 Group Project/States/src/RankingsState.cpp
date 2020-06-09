@@ -6,13 +6,13 @@ void RankingsState::initializeBackground()
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures->at("DOSIS_BOLD"));
+	background.setTexture(&textures->at("RANKGINGS_BACKGROUND"));
 }
 
 void RankingsState::initializeGUI()
 {
 	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
-		&fonts->at("DOSIS_BOLD"), "Back",
+		&fonts->at("DOSIS-BOLD"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

@@ -6,7 +6,6 @@
 #include "LevelEditor.h"
 #include "RankingsState.h"
 #include "TutorialState.h"
-#include "Constants.h"
 
 // Initializers
 void MainMenuState::initializeGUI()

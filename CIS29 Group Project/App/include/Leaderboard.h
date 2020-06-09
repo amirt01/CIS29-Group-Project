@@ -67,8 +67,6 @@ private:
 		}
 	};
 
-	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
-
 public:
 	std::list<Score> scores;
 
@@ -80,4 +78,6 @@ public:
 
 	bool addNewScore(const std::string& name, const float& score, time_t date = time(0));
 	bool checkIfHighScore(const float& score);
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
 };

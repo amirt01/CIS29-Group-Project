@@ -3,7 +3,6 @@
 #include "CollisionDetection.h"
 #include "ExceptionHandler.h"
 #include "TutorialState.h"
-#include "Constants.h"
 
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
