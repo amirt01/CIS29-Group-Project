@@ -75,8 +75,9 @@ void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 	float y = 150.f;
 
 	renderStates.transform.translate(x, y);
-	for (auto score : scores)
+	auto it = scores.crbegin();
+	for (it = scores.crbegin(); it != scores.crend(); ++it)
 	{
-		renderTarget.draw(score, renderStates.transform.translate(0.f, 50.f));
+		renderTarget.draw(*it, renderStates.transform.translate(0.f, 50.f));
 	}
 }

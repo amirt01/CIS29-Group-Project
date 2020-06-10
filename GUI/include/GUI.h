@@ -38,7 +38,7 @@ namespace gui {
 
 		//Functions
 		virtual void updateColor(const sf::Vector2f mousePos);
-		void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;
+		virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const;
 	};
 
 	class DropDownMenu
@@ -67,6 +67,9 @@ namespace gui {
 	{
 	private:
 		enum textBoxState { IDLE = 0, SELECTED } state;
+
+		sf::String defaultText;
+
 	public:
 		TextBox(float x, float y, float width, float height,
 			sf::Font* font, std::string text,
@@ -75,5 +78,7 @@ namespace gui {
 
 		void updateColor(const sf::Vector2f mousePos);
 		void addText(const sf::Keyboard::Key& keycode);
+
+		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const;
 	};
 }

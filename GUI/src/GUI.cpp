@@ -5,42 +5,42 @@ namespace gui {
 	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode)
 	{
 		switch (keyCode) {
-		case sf::Keyboard::A: return("A");
-		case sf::Keyboard::B: return("B");
-		case sf::Keyboard::C: return("C");
-		case sf::Keyboard::D: return("D");
-		case sf::Keyboard::E: return("E");
-		case sf::Keyboard::F: return("F");
-		case sf::Keyboard::G: return("G");
-		case sf::Keyboard::H: return("H");
-		case sf::Keyboard::I: return("I");
-		case sf::Keyboard::J: return("J");
-		case sf::Keyboard::K: return("K");
-		case sf::Keyboard::L: return("L");
-		case sf::Keyboard::M: return("M");
-		case sf::Keyboard::N: return("N");
-		case sf::Keyboard::O: return("O");
-		case sf::Keyboard::P: return("P");
-		case sf::Keyboard::Q: return("Q");
-		case sf::Keyboard::R: return("R");
-		case sf::Keyboard::S: return("S");
-		case sf::Keyboard::T: return("T");
-		case sf::Keyboard::U: return("U");
-		case sf::Keyboard::V: return("V");
-		case sf::Keyboard::W: return("W");
-		case sf::Keyboard::X: return("X");
-		case sf::Keyboard::Y: return("Y");
-		case sf::Keyboard::Z: return("Z");
-		case sf::Keyboard::Num0: return("Num0");
-		case sf::Keyboard::Num1: return("Num1");
-		case sf::Keyboard::Num2: return("Num2");
-		case sf::Keyboard::Num3: return("Num3");
-		case sf::Keyboard::Num4: return("Num4");
-		case sf::Keyboard::Num5: return("Num5");
-		case sf::Keyboard::Num6: return("Num6");
-		case sf::Keyboard::Num7: return("Num7");
-		case sf::Keyboard::Num8: return("Num8");
-		case sf::Keyboard::Num9: return("Num9");
+		case sf::Keyboard::A: return("a");
+		case sf::Keyboard::B: return("b");
+		case sf::Keyboard::C: return("c");
+		case sf::Keyboard::D: return("d");
+		case sf::Keyboard::E: return("e");
+		case sf::Keyboard::F: return("f");
+		case sf::Keyboard::G: return("g");
+		case sf::Keyboard::H: return("h");
+		case sf::Keyboard::I: return("i");
+		case sf::Keyboard::J: return("j");
+		case sf::Keyboard::K: return("k");
+		case sf::Keyboard::L: return("l");
+		case sf::Keyboard::M: return("m");
+		case sf::Keyboard::N: return("n");
+		case sf::Keyboard::O: return("o");
+		case sf::Keyboard::P: return("p");
+		case sf::Keyboard::Q: return("q");
+		case sf::Keyboard::R: return("r");
+		case sf::Keyboard::S: return("s");
+		case sf::Keyboard::T: return("t");
+		case sf::Keyboard::U: return("u");
+		case sf::Keyboard::V: return("v");
+		case sf::Keyboard::W: return("w");
+		case sf::Keyboard::X: return("x");
+		case sf::Keyboard::Y: return("y");
+		case sf::Keyboard::Z: return("z");
+		case sf::Keyboard::Num0: return("0");
+		case sf::Keyboard::Num1: return("1");
+		case sf::Keyboard::Num2: return("2");
+		case sf::Keyboard::Num3: return("3");
+		case sf::Keyboard::Num4: return("4");
+		case sf::Keyboard::Num5: return("5");
+		case sf::Keyboard::Num6: return("6");
+		case sf::Keyboard::Num7: return("7");
+		case sf::Keyboard::Num8: return("8");
+		case sf::Keyboard::Num9: return("9");
 		case sf::Keyboard::LBracket: return("[");
 		case sf::Keyboard::RBracket: return("]");
 		case sf::Keyboard::SemiColon: return(";");
@@ -51,8 +51,8 @@ namespace gui {
 		case sf::Keyboard::BackSlash: return("\\");
 		case sf::Keyboard::Tilde: return("~");
 		case sf::Keyboard::Equal: return("=");
-		case sf::Keyboard::Space: return("Space");
-		case sf::Keyboard::Return: return("Return");
+		case sf::Keyboard::Space: return(" ");
+		case sf::Keyboard::Return: return("\n");
 		case sf::Keyboard::BackSpace: return("BackSpace");
 		case sf::Keyboard::Delete: return("Delete");
 		case sf::Keyboard::Add: return("+");
@@ -127,7 +127,21 @@ namespace gui {
 
 	void Button::addText(const sf::Keyboard::Key& keycode)
 	{
-		text.setString(text.getString() + keyCodeToChar(keycode));
+		if (keyCodeToChar(keycode) == "BackSpace")
+			text.setString(text.getString().substring(0, text.getString().getSize() - 1));
+		else if (keyCodeToChar(keycode) == "Unknow")
+			return;
+		else if (keyCodeToChar(keycode) == "\n")
+			return;
+		else if (text.getString().getSize() < 9)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) ||
+				sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift))
+			{
+				char c = std::toupper(*keyCodeToChar(keycode).getData());
+				text.setString(text.getString() + sf::String(c));
+			}
+			else
+				text.setString(text.getString() + keyCodeToChar(keycode));
 	}
 
 	// Functions
@@ -149,10 +163,10 @@ namespace gui {
 		}
 	}
 
-	void Button::draw(sf::RenderTarget& renderTarget, sf::RenderStates states) const
+	void Button::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 	{
-		renderTarget.draw(shape, states);
-		renderTarget.draw(text, states);
+		renderTarget.draw(shape, renderStates);
+		renderTarget.draw(text, renderStates);
 	}
 
 	/************************* Drop Down List *************************/
@@ -239,8 +253,11 @@ namespace gui {
 
 	TextBox::TextBox(float x, float y, float width, float height, sf::Font* font, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
-		: Button(x, y, width, height, font, text, idleColor, hoverColor, activeColor), state(IDLE)
+		: Button(x, y, width, height, font, text, idleColor, hoverColor, activeColor), state(IDLE),
+		defaultText(text)
 	{
+		this->text.setPosition((x + width / 2.f),
+			(y + height / 2.f) - (this->text.getGlobalBounds().height / 2.f) - 7.5f);
 	}
 
 	TextBox::~TextBox()
@@ -256,11 +273,17 @@ namespace gui {
 		{
 			state = SELECTED;
 			shape.setFillColor(hoverColor);
+
+			if (text.getString() == defaultText)
+				text.setString("");
 		}
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			state = IDLE;
 			shape.setFillColor(idleColor);
+
+			if (text.getString() == "")
+				text.setString(defaultText);
 		}
 	}
 
@@ -268,5 +291,12 @@ namespace gui {
 	{
 		if (state == SELECTED)
 			Button::addText(keycode);
+	}
+
+	void TextBox::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
+	{
+		renderTarget.draw(shape, renderStates);
+		renderStates.transform.translate(-text.getGlobalBounds().width / 2.f, 0.f);
+		renderTarget.draw(text, renderStates);
 	}
 }

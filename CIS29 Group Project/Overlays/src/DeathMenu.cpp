@@ -24,13 +24,17 @@ void DeathMenu::initializeGUI(sf::Font& font)
 		&font, "Restart",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["QUIT"] = new gui::Button(x, 480, width, height,
+	buttons["NAME"] = new gui::TextBox(x, 480, width, height,
+		&font, "Name",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	buttons["QUIT"] = new gui::Button(x, 580, width, height,
 		&font, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 DeathMenu::DeathMenu(sf::RenderWindow* renderWindow, sf::Font& font)
-	: Overlay(renderWindow)
+	: Overlay(renderWindow), isInputtingName(false)
 {
 	initializeGUI(font);
 }
@@ -43,6 +47,16 @@ void DeathMenu::setScore(const float& score)
 {
 	sf::String strScore(std::to_string(score));
 	this->score.setString(strScore.substring(0, strScore.find('.') + 3));
+}
+
+void DeathMenu::setIsInputtingName(const bool& isInputtingName)
+{
+	this->isInputtingName = isInputtingName;
+}
+
+const bool DeathMenu::getIsInputtingName() const
+{
+	return isInputtingName;
 }
 
 void DeathMenu::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const

@@ -105,49 +105,57 @@ void GameState::updateMouseButtons(const sf::Mouse::Button& button)
 
 void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
-	if (sf::Keyboard::Escape == keyCode)
+	switch (currentState)
 	{
-		switch (currentState)
+	case PLAY:
+		switch (keyCode)
 		{
-		case PLAY:
+		case sf::Keyboard::Escape:
 			currentState = PAUSED;
 			break;
-		case PAUSED:
-			currentState = PLAY;
+		case sf::Keyboard::W:
+			playSound("WOOSH", 25.f);
+			player->updateMovement(-1);
 			break;
-		case DEAD:
-			quitState();
+		case sf::Keyboard::Up:
+			playSound("WOOSH", 25.f);
+			player->updateMovement(-1);
 			break;
-		case WIN:
-			quitState();
+		case sf::Keyboard::S:
+			playSound("WOOSH", 25.f);
+			player->updateMovement(1);
+			break;
+		case sf::Keyboard::Down:
+			playSound("WOOSH", 25.f);
+			player->updateMovement(1);
+			break;
+		case sf::Keyboard::Tab:
+			updateGameSpeed(10.f);
+			player->updateScore(10.f);
+			objects.clear();
 			break;
 		default:
 			break;
 		}
-	}
-
-	if (sf::Keyboard::W == keyCode ||
-		sf::Keyboard::Up == keyCode &&
-		currentState == PLAY)
-	{
-		// MOVE UP
-		playSound("WOOSH", 25.f);
-		player->updateMovement(-1);
-	}
-	else if (sf::Keyboard::S == keyCode ||
-		sf::Keyboard::Down == keyCode &&
-		currentState == PLAY)
-	{
-		// MOVE DOWN
-		playSound("WOOSH", 25.f);
-		player->updateMovement(1);
-	}
-	else if (sf::Keyboard::Tab == keyCode &&
-		currentState == PLAY)
-	{
-		updateGameSpeed(10.f);
-		player->updateScore(10.f);
-		objects.clear();
+		break;
+	case PAUSED:
+		if (sf::Keyboard::Escape == keyCode)
+			currentState = PLAY;
+		break;
+	case DEAD:
+		switch (keyCode)
+		{
+		case sf::Keyboard::Escape:
+			quitState();
+			break;
+		default:
+			buttons->at("NAME")->addText(keyCode);
+		}
+		break;
+	case WIN:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -235,8 +243,10 @@ void GameState::updateState(const float& deltaTime)
 			restartState();
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
+		{
+			leaderboard->addNewScore(buttons->at("NAME")->getText(), player->getCurrentScore(), fonts->at("DOSIS-BOLD"));
 			quitState();
-		break;
+		}
 		break;
 	case WIN:
 		// do win things
@@ -258,7 +268,6 @@ void GameState::updateCollision(Object* object)
 		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
 			currentState = DEAD;
 			deathMenu.setScore(player->getCurrentScore());
-			leaderboard->addNewScore("default", player->getCurrentScore(), fonts->at("DOSIS-BOLD"));
 		}
 		collide->collisionPosition(player->getCurrentPosition());
 		player->collisionMove();
