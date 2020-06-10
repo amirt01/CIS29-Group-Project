@@ -2,7 +2,7 @@
 #include "Leaderboard.h"
 #include "ExceptionHandler.h"
 
-bool Leaderboard::loadFromFile(const std::string& path)
+bool Leaderboard::loadFromFile(sf::Font& font, const std::string& path)
 {
 	std::ifstream fin;
 	fin.open(path);
@@ -18,7 +18,7 @@ bool Leaderboard::loadFromFile(const std::string& path)
 
 	while (fin >> name >> score >> date)
 	{
-		addNewScore(name, score, date);
+		addNewScore(name, score, font, date);
 	}
 
 	fin.close();
@@ -46,17 +46,17 @@ bool Leaderboard::writeToFile(const std::string& path)
 	return true;
 }
 
-bool Leaderboard::addNewScore(const std::string& name, const float& score, time_t date)
+bool Leaderboard::addNewScore(const std::string& name, const float& score, sf::Font& font, time_t date)
 {
 	if (scores.size() < 10)
 	{
-		scores.emplace_back(Score(name, score, date));
+		scores.emplace_back(Score(name, score, font, date));
 		scores.sort();
 		return true;
 	}
 	else if (score > scores.cbegin()->getScore())
 	{
-		scores.emplace_back(Score(name, score, date));
+		scores.emplace_back(Score(name, score, font, date));
 		scores.sort();
 		scores.pop_front();
 		return true;
@@ -71,14 +71,13 @@ bool Leaderboard::checkIfHighScore(const float& score)
 
 void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
-	float x = 100.f;
-	float y = 100.f;
+	float x = renderTarget.getSize().x / 2.f - 255.f;
+	float y = 150.f;
 
 	renderStates.transform.translate(x, y);
 	auto it = scores.crbegin();
 	for (it = scores.crbegin(); it != scores.crend(); ++it)
 	{
-		renderStates.transform.translate(0, 50);
-		renderTarget.draw(*it, renderStates);
+		renderTarget.draw(*it, renderStates.transform.translate(0.f, 50.f));
 	}
 }

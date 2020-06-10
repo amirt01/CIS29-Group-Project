@@ -5,13 +5,13 @@ void RankingsState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
-
-	background.setTexture(&textures->at("RANKGINGS_BACKGROUND"));
+	background.setFillColor(sf::Color(55, 148, 110, 255));
+	//background.setTexture(&textures->at("RANKGINGS_BACKGROUND"));
 }
 
 void RankingsState::initializeGUI()
 {
-	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
+	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
@@ -94,7 +94,15 @@ void RankingsState::renderState(sf::RenderTarget* renderTarget)
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
+	sf::Text title("Rankings", fonts->at("DOSIS-BOLD"));
+	title.setCharacterSize(128);
+	title.setStyle(sf::Text::Bold);
+	title.setFillColor(sf::Color::White);
+
+	sf::RenderStates renderStates;
+
 	renderTarget->draw(background);
+	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f - title.getGlobalBounds().width / 2.f, 0.f)));
 	renderTarget->draw(*leaderboard);
 	renerGUI(renderTarget);
 }

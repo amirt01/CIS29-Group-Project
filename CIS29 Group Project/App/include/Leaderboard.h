@@ -5,21 +5,30 @@ class Leaderboard : public sf::Drawable
 private:
 	const int MAX_NUM_OF_SCORES;
 
-	class Date {
+	class Date : public sf::Drawable
+	{
 	private:
-		const time_t date;
+		sf::Font font;
+		time_t date;
 	public:
-		Date() : date(time(0)) {};
+		Date(const sf::Font& font) : date(time(0)), font(font) {};
 		Date(const Date&) = default;
-		Date(time_t d) : date(d) {} // Date in time_t format
-		operator sf::String() const
+		Date(time_t date, const sf::Font& font) : date(date), font(font) {} // Date in time_t format
+
+		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const
 		{
 			std::tm* ptm = new tm{ 0 };
 			localtime_s(ptm, &date);
 			char buffer[32];
 			std::strftime(buffer, 32, "%m/%d/%y", ptm);
 			delete ptm;
-			return sf::String(buffer);
+
+			sf::Text texDate;
+
+			texDate.setString(buffer);
+			texDate.setCharacterSize(32U);
+			texDate.setFont(font);
+			renderTarget.draw(texDate, renderStates);
 		};
 		const time_t getDate() const { return date; };
 		friend bool operator<(const Date& d1, const Date& d2) { return d1.date < d2.date; }
@@ -29,41 +38,56 @@ private:
 	class Score : public sf::Drawable
 	{
 	private:
-		const std::string name;
-		const float score;
+		sf::Text name;
+		sf::Text score;
+		const float numScore;
 		Date date;
+
+		sf::Font font;
+
 	public:
-		Score()
-			: name(""), score(0), date() {};
-		Score(const std::string& name, const float& score, const time_t date = time(0))
-			: name(name), score(score), date(Date(date)) {};
-		const std::string getName() const { return name; };
-		const float getScore() const { return score; };
-		const time_t getDate() const { return date.getDate(); };
-		void draw(sf::RenderTarget& renderTarget, sf::RenderStates states = sf::RenderStates::Default) const
+		Score(const std::string& name, const float& score, const sf::Font& font, const time_t date = time(0))
+			: date(Date(date, font)), numScore(score), font(font)
 		{
-			sf::Font font;
-			font.loadFromFile("Resources/Fonts/Dosis-Light.ttf");
-			sf::Text date(sf::String(name), font, 50);
-
+			// max name length will be 9
 			sf::String strScore(std::to_string(score));
+			this->score.setString(strScore.substring(0, strScore.find('.') + 3));
+			this->score.setFont(font);
+			this->score.setCharacterSize(32);
 
-			sf::Text tScore(strScore.substring(0, strScore.find('.') + 3), font, 50);
-			renderTarget.draw(date, states);
-			states.transform.translate(200.f, 0.f);
-			renderTarget.draw(tScore, states);
+			this->name = this->score;
+			this->name.setString(name);
+		};
+		const std::string getName() const { return name.getString().toAnsiString(); };
+		const time_t getDate() const { return date.getDate(); };
+		const float getScore() const { return numScore; };
+		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const
+		{
+			const float padding = 50.f;
+
+			sf::RectangleShape container;
+			container.setFillColor(sf::Color(100, 100, 100, 200));
+			container.setSize(sf::Vector2f(510.f, 45.f));
+			renderTarget.draw(container, renderStates);
+
+			renderStates.transform.translate(padding / 2.f, 0.f);
+			renderTarget.draw(date, renderStates);
+			renderStates.transform.translate(135.f + padding, 0.f);
+			renderTarget.draw(name, renderStates);
+			renderStates.transform.translate(135.f + padding, 0.f);
+			renderTarget.draw(score, renderStates);
 		}
 		friend bool operator<(const Score& s1, const Score& s2)
 		{
-			if (s1.score == s2.score)
+			if (s1.numScore == s2.numScore)
 				return s1.date < s2.date;
-			return s1.score < s2.score;
+			return s1.numScore < s2.numScore;
 		}
 		friend bool operator<(const Score& s1, const float& s2)
 		{
-			if (s1.score == s2)
+			if (s1.numScore == s2)
 				return s1.date < time(0);
-			return s1.score < s2;
+			return s1.numScore < s2;
 		}
 	};
 
@@ -73,10 +97,10 @@ public:
 	Leaderboard(const int MAX_NUM_OF_SCORES) : MAX_NUM_OF_SCORES(MAX_NUM_OF_SCORES) {};
 	~Leaderboard() {};
 
-	bool loadFromFile(const std::string& path);
+	bool loadFromFile(sf::Font& font, const std::string& path);
 	bool writeToFile(const std::string& path);
 
-	bool addNewScore(const std::string& name, const float& score, time_t date = time(0));
+	bool addNewScore(const std::string& name, const float& score, sf::Font& font, time_t date = time(0));
 	bool checkIfHighScore(const float& score);
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default) const;

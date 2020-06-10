@@ -245,7 +245,7 @@ void GameState::updateCollision(Object* object)
 		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
 			currentState = DEAD;
 			deathMenu.setScore(player->getCurrentScore());
-			leaderboard->addNewScore("default", player->getCurrentScore());
+			leaderboard->addNewScore("default", player->getCurrentScore(), fonts->at("DOSIS-BOLD"));
 		}
 		collide->collisionPosition(player->getCurrentPosition());
 		player->collisionMove();

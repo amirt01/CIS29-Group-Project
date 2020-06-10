@@ -11,7 +11,7 @@ void Game::initializeLeaderboard(std::string path)
 {
 	try
 	{
-		if (!leaderboard.loadFromFile(path))
+		if (!leaderboard.loadFromFile(fonts.at("DOSIS-BOLD"), path))
 			throw exc::LoadFromFileError(path);
 	}
 	catch (exc::LoadFromFileError& error)
