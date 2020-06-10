@@ -11,6 +11,7 @@ private:
 
 	// Functions
 	void updateSpawning();
+
 public:
 	FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 		std::unordered_map<std::string, sf::Texture>* textures,

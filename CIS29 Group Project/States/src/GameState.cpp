@@ -4,13 +4,23 @@
 #include "ExceptionHandler.h"
 #include "TutorialState.h"
 
+void GameState::restartState()
+{
+	currentState = PLAY;
+	objects.clear();
+	frequency = 5.f;
+	spawnTime = frequency;
+	speed = -75.f;
+	player->resetPlayer();
+}
+
 // Constructors/Destructors
 GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard)
-	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75), frequency(5), states(states),
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75.f), frequency(5.f), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD"))
 {
@@ -209,11 +219,9 @@ void GameState::updateState(const float& deltaTime)
 		// Resume the Game
 		if (buttons->at("RESUME")->getIsActivated())
 			currentState = PLAY;
-
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
 			states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
-
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
 			quitState();
@@ -222,6 +230,9 @@ void GameState::updateState(const float& deltaTime)
 		// do dead things
 		buttons = deathMenu.getButtons();
 		updateGUI();
+		// Restart Game
+		if (buttons->at("RESTART")->getIsActivated())
+			restartState();
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
 			quitState();

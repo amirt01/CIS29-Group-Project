@@ -41,6 +41,7 @@ protected:
 
 	// Initializers
 	virtual void updateSpawning() = 0;
+	virtual void restartState();
 
 public:
 	// Constructors/Destructors

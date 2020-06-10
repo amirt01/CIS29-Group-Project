@@ -5,14 +5,14 @@
 unsigned char leftNibble(unsigned char data) { return data >> 4; }
 unsigned char rightNibble(unsigned char data) { return data & 0xF; }
 
-void Level::initializeLevel(std::string path)
+void Level::initializeLevel()
 {
 	unsigned char buffer;
 
-	std::ifstream fin(path);
+	std::ifstream fin(levelPath);
 	try {
 		if (!fin.is_open())
-			throw exc::LoadFromFileError(path);
+			throw exc::LoadFromFileError(levelPath);
 
 		while (fin.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
 		{
@@ -78,14 +78,23 @@ void Level::updateSpawning()
 	}
 }
 
+void Level::restartState()
+{
+	GameState::renderState();
+	std::queue<unsigned char> empty;
+	std::swap(waves, empty);
+
+	initializeLevel();
+}
+
 Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard)
-	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard), levelPath(path)
 {
-	initializeLevel(path);
+	initializeLevel();
 	spawnPlayer();
 }
 

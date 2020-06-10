@@ -37,6 +37,18 @@ unsigned int Player::getCoins()
 	return coins;
 }
 
+void Player::resetPlayer()
+{
+	score = 0.f;
+	currentHealth = 3;
+	coins = 0;
+
+	if (checkPosition(-1))
+		updateMovement(-1);
+	else if (checkPosition(1))
+		updateMovement(1);
+}
+
 void Player::collisionMove()
 {
 	switch (currentPosition)
@@ -64,7 +76,6 @@ void Player::playerDamage()
 		sprite.setColor(sf::Color::Transparent);
 		isDamaged = true;
 	}
-
 }
 
 void Player::revertPlayer()
@@ -107,17 +118,11 @@ void Player::updateMovement(int shift) {
 bool Player::checkPosition(int direction) {
 	if (direction == -1) {
 		//wants to move up
-		if (currentPosition != 0) {
-			return true;
-		}
-		else { return false; }
+		return currentPosition != 0;
 	}
 	else if (direction == 1) {
 		//wants to move down
-		if (currentPosition != 2) {
-			return true;
-		}
-		else { return false; }
+		return currentPosition != 2;
 	}
 	else
 	{

@@ -29,6 +29,8 @@ public:
 	void gainCoin();
 	unsigned int getCoins();
 
+	void resetPlayer();
+
 	//player health
 	void takeDamage();
 	void setCurrentHealth(int);

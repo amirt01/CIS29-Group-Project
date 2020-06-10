@@ -56,8 +56,12 @@ void Overlay::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates
 	renderTarget.draw(background);
 	renderTarget.draw(container);
 
+	renderTarget.draw(title, renderStates.transform.translate(container.getPosition().x +
+		container.getSize().x / 2.f -
+		title.getLocalBounds().width / 2.f, 0.f));
+
 	for (auto it : buttons)
 	{
-		it.second->draw(renderTarget, renderStates);
+		it.second->draw(renderTarget);
 	}
 }

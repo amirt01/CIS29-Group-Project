@@ -4,13 +4,13 @@
 void DeathMenu::initializeGUI(sf::Font& font)
 {
 	float width = 250.f;
-	float height = 100.f;
+	float height = 75.f;
 	float x = container.getPosition().x + container.getSize().x / 2.f - width / 2.f;
 
 	title.setPosition(0.f, 150.f);
 	title.setFont(font);
-	title.setString("GAME OVER");
-	title.setCharacterSize(26); //26 pixels
+	title.setString("Game Over!");
+	title.setCharacterSize(56); //26 pixels
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 
@@ -19,6 +19,10 @@ void DeathMenu::initializeGUI(sf::Font& font)
 	score.setCharacterSize(48U);
 	score.setStyle(sf::Text::Bold);
 	score.setFillColor(sf::Color::White);
+
+	buttons["RESTART"] = new gui::Button(x, 380, width, height,
+		&font, "Restart",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["QUIT"] = new gui::Button(x, 480, width, height,
 		&font, "Quit",
@@ -48,10 +52,4 @@ void DeathMenu::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStat
 	renderTarget.draw(score, renderStates.transform.translate(container.getPosition().x +
 		container.getSize().x / 2.f -
 		score.getLocalBounds().width / 2.f, 0.f));
-
-	renderStates = renderStates.Default;
-
-	renderTarget.draw(title, renderStates.transform.translate(container.getPosition().x +
-		container.getSize().x / 2.f -
-		title.getLocalBounds().width / 2.f, 0.f));
 }
