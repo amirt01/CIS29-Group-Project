@@ -6,7 +6,6 @@ const std::string SFML_WINDOW_SETTINGS_PATH = "Config/render_window_settings.txt
 const int MAX_NUM_OF_SCORES = 10;
 const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 {
-	{"MAIN_MENU_BACKGROUND", "Resources/Images/MainMenu.png"},
 	{"DEFAULT_PLAYER", "Resources/Images/motorbiker.png"},
 	{"BLUE_PLAYER", "Resources/Images/motorbiker-blue.png"},
 	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
@@ -14,10 +13,7 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
 	{"GAME_BACKGROUND", "Resources/Images/GameBackground.png"},
 	{"HEART", "Resources/Images/Heart.png"},
-	{"COLLISION", "Resources/Images/CrashCartoon.png"},
-	{"TEMP_BACKGROUND", "Resources/Images/MainMenu.png"},
-	{"RANKGINGS_BACKGROUND", "Resources/Images/Rankings.png"},
-	{"TUTORIAL_BACKGROUND", "Resources/Images/Tutorial_Background.png"}
+	{"COLLISION", "Resources/Images/CrashCartoon.png"}
 };
 const std::map<const std::string, const std::string> AUDIO_PATHS =
 {

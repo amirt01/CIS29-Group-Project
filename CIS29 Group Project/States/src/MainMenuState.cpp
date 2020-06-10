@@ -76,7 +76,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	background.setTexture(&textures->at("MAIN_MENU_BACKGROUND"));
+	background.setFillColor(sf::Color(55, 148, 110, 255));
 }
 
 MainMenuState::~MainMenuState()
@@ -160,6 +160,15 @@ void MainMenuState::renderState(sf::RenderTarget* renderTarget)
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
+	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
+	title.setCharacterSize(128);
+	title.setStyle(sf::Text::Bold);
+	title.setFillColor(sf::Color::White);
+
+	sf::RenderStates renderStates;
+
 	renderTarget->draw(background);
+	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
+		title.getGlobalBounds().width / 2.f, 0.f)));
 	renerGUI(renderTarget);
 }

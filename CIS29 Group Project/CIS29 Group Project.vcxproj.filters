@@ -151,18 +151,6 @@
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Images\main_menu_background.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Images\temp_background.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Images\MainMenu.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Images\GameBackground.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Images\CarFramesYellow.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -181,10 +169,13 @@
     <Image Include="Resources\Images\motorbiker.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\Rankings.png">
+    <Image Include="Resources\Images\GameBackground.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\Tutorial_Background.png">
+    <Image Include="Resources\Images\CrashCartoon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\motorbiker-blue.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

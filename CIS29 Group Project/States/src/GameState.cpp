@@ -121,6 +121,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 		currentState == PLAY)
 	{
 		// MOVE UP
+		playSound("WOOSH", 25.f);
 		player->updateMovement(-1);
 	}
 	else if (sf::Keyboard::S == keyCode ||
@@ -128,6 +129,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 		currentState == PLAY)
 	{
 		// MOVE DOWN
+		playSound("WOOSH", 25.f);
 		player->updateMovement(1);
 	}
 	else if (sf::Keyboard::Tab == keyCode &&

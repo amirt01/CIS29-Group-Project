@@ -6,7 +6,6 @@ void RankingsState::initializeBackground()
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 	background.setFillColor(sf::Color(55, 148, 110, 255));
-	//background.setTexture(&textures->at("RANKGINGS_BACKGROUND"));
 }
 
 void RankingsState::initializeGUI()
@@ -102,7 +101,8 @@ void RankingsState::renderState(sf::RenderTarget* renderTarget)
 	sf::RenderStates renderStates;
 
 	renderTarget->draw(background);
-	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f - title.getGlobalBounds().width / 2.f, 0.f)));
+	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
+		title.getGlobalBounds().width / 2.f, 0.f)));
 	renderTarget->draw(*leaderboard);
 	renerGUI(renderTarget);
 }
