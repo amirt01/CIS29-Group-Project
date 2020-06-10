@@ -28,12 +28,5 @@ void Collide::collisionPosition(int position)
 
 bool Collide::collisionTiming()
 {
-	if (clock.getElapsedTime().asMilliseconds() < 100) {
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return clock.getElapsedTime().asMilliseconds() < 100;
 }
-

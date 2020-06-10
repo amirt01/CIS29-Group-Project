@@ -4,6 +4,7 @@
 CollisionDetection::BitmaskManager::~BitmaskManager()
 {
 	std::map<const sf::Texture*, sf::Uint8*>::const_iterator end = Bitmasks.end();
+
 	for (auto iterator = Bitmasks.begin(); iterator != end; iterator++)
 	{
 		delete[] iterator->second;

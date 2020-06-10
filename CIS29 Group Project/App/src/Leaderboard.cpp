@@ -35,11 +35,9 @@ bool Leaderboard::writeToFile(const std::string& path)
 		return false;
 	}
 
-	auto it = scores.rbegin();
-	for (it = scores.rbegin(); it != scores.rend(); ++it)
-	{
-		fout << it->getName() << ' ' << it->getScore() << ' ' << it->getDate() << '\n';
-	}
+	std::for_each(scores.rbegin(), scores.rend(),
+		[&](Score& score) {fout << score.getName() << ' ' << score.getScore() << ' ' << score.getDate() << '\n'; }
+	);
 
 	fout.close();
 
@@ -75,9 +73,8 @@ void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderSt
 	float y = 150.f;
 
 	renderStates.transform.translate(x, y);
-	auto it = scores.crbegin();
-	for (it = scores.crbegin(); it != scores.crend(); ++it)
-	{
-		renderTarget.draw(*it, renderStates.transform.translate(0.f, 50.f));
-	}
+
+	std::for_each(scores.crbegin(), scores.crend(),
+		[&](Score score) { renderTarget.draw(score, renderStates.transform.translate(0.f, 50.f)); }
+	);
 }

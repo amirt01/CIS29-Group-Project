@@ -22,13 +22,16 @@ void HUD::initializeScore(sf::Font& font)
 void HUD::initializeHearts(sf::Texture& heartTexture)
 {
 	float position = score.getGlobalBounds().width + score.getPosition().x;
-	for (Entity& heart : hearts)
-	{
-		heart.setTexture(heartTexture);
-		heart.setPosition(position += 1.5f * static_cast<float>(heart.getSprite().getTextureRect().width),
-			(container.getPosition().y + container.getSize().y / 2) -
-			(heart.getSprite().getTextureRect().height / 2));
-	}
+
+	std::for_each(hearts.begin(), hearts.end(),
+		[&](Entity& heart)
+		{
+			heart.setTexture(heartTexture);
+			heart.setPosition(position += 1.5f * static_cast<float>(heart.getSprite().getTextureRect().width),
+				(container.getPosition().y + container.getSize().y / 2) -
+				(heart.getSprite().getTextureRect().height / 2));
+		}
+	);
 }
 
 HUD::HUD(Player* player, sf::Texture& heartTexture, sf::Font& font)
@@ -65,9 +68,7 @@ void HUD::render(sf::RenderTarget* renderTarget)
 	renderTarget->draw(container);
 
 	for (int i = 0; i < player->getCurrentHealth(); i++)
-	{
 		hearts[i].render(renderTarget);
-	}
 
 	renderTarget->draw(score);
 }

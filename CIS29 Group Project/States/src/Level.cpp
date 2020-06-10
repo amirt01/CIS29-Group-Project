@@ -92,10 +92,9 @@ Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard)
-	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard), levelPath(path)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard), levelPath(path),
 {
 	initializeLevel();
-	spawnPlayer();
 }
 
 Level::~Level()

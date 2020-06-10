@@ -26,9 +26,6 @@ private:
 	const std::map<std::string, gui::Button*>* buttons;
 
 	Leaderboard* leaderboard;
-	Player* player;
-	HUD* hud;
-	Collide* collide;
 
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 3> backgrounds;
@@ -36,6 +33,10 @@ private:
 protected:
 	float frequency;
 	float spawnTime;
+
+	Player player;
+	HUD hud;
+	Collide collide;
 
 	std::deque<Object*> objects;
 
@@ -52,7 +53,6 @@ public:
 		Leaderboard* leaderboard = nullptr);
 	virtual ~GameState();
 
-	void spawnPlayer();
 	void spawnObject(unsigned short level, unsigned short type);
 
 	// Update

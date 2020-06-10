@@ -7,11 +7,13 @@
 void GameState::restartState()
 {
 	currentState = PLAY;
+	std::for_each(objects.begin(), objects.end(),
+		[&](Object* object) { delete object; });
 	objects.clear();
 	frequency = 5.f;
 	spawnTime = frequency;
 	speed = -75.f;
-	player->resetPlayer();
+	player.resetPlayer();
 }
 
 // Constructors/Destructors
@@ -22,7 +24,8 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	Leaderboard* leaderboard)
 	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75.f), frequency(5.f), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
-	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD"))
+	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD")),
+	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
@@ -35,20 +38,9 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 
 GameState::~GameState()
 {
-	delete player;
-	delete hud;
-	while (!objects.empty())
-	{
-		delete objects.front();
-		objects.pop_front();
-	}
-}
-
-void GameState::spawnPlayer()
-{
-	player = new Player(textures->at("BLUE_PLAYER"), 104, 107);
-	hud = new HUD(player, textures->at("HEART"), fonts->at("DOSIS-BOLD"));
-	collide = new Collide(textures->at("COLLISION"));
+	std::for_each(objects.begin(), objects.end(),
+		[&](Object* object) { delete object; });
+	objects.clear();
 }
 
 void GameState::spawnObject(unsigned short level, unsigned short type)
@@ -115,23 +107,25 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			break;
 		case sf::Keyboard::W:
 			playSound("WOOSH", 25.f);
-			player->updateMovement(-1);
+			player.updateMovement(-1);
 			break;
 		case sf::Keyboard::Up:
 			playSound("WOOSH", 25.f);
-			player->updateMovement(-1);
+			player.updateMovement(-1);
 			break;
 		case sf::Keyboard::S:
 			playSound("WOOSH", 25.f);
-			player->updateMovement(1);
+			player.updateMovement(1);
 			break;
 		case sf::Keyboard::Down:
 			playSound("WOOSH", 25.f);
-			player->updateMovement(1);
+			player.updateMovement(1);
 			break;
 		case sf::Keyboard::Tab:
 			updateGameSpeed(10.f);
-			player->updateScore(10.f);
+			player.updateScore(10.f);
+			std::for_each(objects.begin(), objects.end(),
+				[&](Object* object) { delete object; });
 			objects.clear();
 			break;
 		default:
@@ -211,9 +205,9 @@ void GameState::updateState(const float& deltaTime)
 		updateGameSpeed(deltaTime);
 		updateBackground(deltaTime, FORWARDS);
 		updateSpawning();
-		player->updateScore(deltaTime);
-		player->updateAnimation(deltaTime);
-		hud->update();
+		player.updateScore(deltaTime);
+		player.updateAnimation(deltaTime);
+		hud.update();
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -244,7 +238,7 @@ void GameState::updateState(const float& deltaTime)
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
 		{
-			leaderboard->addNewScore(buttons->at("NAME")->getText(), player->getCurrentScore(), fonts->at("DOSIS-BOLD"));
+			leaderboard->addNewScore(buttons->at("NAME")->getText(), player.getCurrentScore(), fonts->at("DOSIS-BOLD"));
 			quitState();
 		}
 		break;
@@ -263,18 +257,18 @@ void GameState::updateCollision(Object* object)
 	{
 	case Obstacle:
 		playSound("CRASH", 50.f);
-		player->takeDamage();
+		player.takeDamage();
 		object->hit = true;
-		if (player->getCurrentHealth() == 0) { // render death menu if the player dies
+		if (player.getCurrentHealth() == 0) { // render death menu if the player dies
 			currentState = DEAD;
-			deathMenu.setScore(player->getCurrentScore());
+			deathMenu.setScore(player.getCurrentScore());
 		}
-		collide->collisionPosition(player->getCurrentPosition());
-		player->collisionMove();
+		collide.collisionPosition(player.getCurrentPosition());
+		player.collisionMove();
 		break;
 	case Coin:
 		playSound("COIN", 50.f);
-		player->gainCoin();
+		player.gainCoin();
 		break;
 	default:
 		break;
@@ -283,11 +277,11 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
-	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.front()->getSprite())))
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player.getSprite(), objects.front()->getSprite())))
 	{
 		updateCollision(objects.front());
 	}
-	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player->getSprite(), objects.at(1)->getSprite()))
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player.getSprite(), objects.at(1)->getSprite()))
 	{
 		updateCollision(objects.at(1));
 	}
@@ -305,11 +299,8 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 	for (auto it : objects)
 		it->render(renderTarget);
 
-	if (player != nullptr)
-		player->render(renderTarget);
-
-	if (hud != nullptr)
-		hud->render(renderTarget);
+	player.render(renderTarget);
+	hud.render(renderTarget);
 
 	switch (currentState)
 	{
@@ -327,6 +318,6 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		break;
 	}
 
-	if (collide->collisionTiming())
-		collide->render(renderTarget);
+	if (collide.collisionTiming())
+		collide.render(renderTarget);
 }
