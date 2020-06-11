@@ -77,7 +77,7 @@ void Level::updateSpawning()
 
 void Level::restartState()
 {
-	GameState::renderState();
+	GameState::restartState();
 	std::queue<unsigned char> empty;
 	std::swap(waves, empty);
 

@@ -11,19 +11,19 @@
 void MainMenuState::initializeGUI()
 {
 	buttons["FREE_PLAY"] = new gui::Button(220, 250, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Free Play",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Free Play",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_1"] = new gui::Button(520, 250, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Level 1",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 1",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_2"] = new gui::Button(520, 350, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Level 2",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 2",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["LEVEL_3"] = new gui::Button(520, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Level 3",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 3",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	/*
 	buttons["LEVEL_4"] = new gui::Button(720, 250, 150, 50,
@@ -51,15 +51,15 @@ void MainMenuState::initializeGUI()
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
 	buttons["RANKGINGS_STATE"] = new gui::Button(220, 350, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Rankings",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Rankings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["TUTORIAL_STATE"] = new gui::Button(920, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Tutorial",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Quit",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
@@ -137,7 +137,11 @@ void MainMenuState::updateGUI()
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
 		states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
 	if (buttons["EXIT_STATE"]->getIsActivated())
+	{
+		using namespace std::chrono_literals; // for ms
+		std::this_thread::sleep_for(51ms);
 		quitState();
+	}
 }
 
 void MainMenuState::updateState(const float& deltaTime)

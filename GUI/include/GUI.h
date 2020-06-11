@@ -14,6 +14,7 @@ namespace gui {
 		//Graphics
 		sf::RectangleShape shape;
 		sf::Font* font;
+		sf::Sound sound;
 		sf::Text text;
 
 		//Color
@@ -23,7 +24,7 @@ namespace gui {
 
 	public:
 		Button(float x, float y, float width, float height,
-			sf::Font* font, std::string text,
+			sf::Font* font, sf::SoundBuffer* sound, std::string text,
 			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 		~Button();
 
@@ -53,7 +54,9 @@ namespace gui {
 		bool showMenu;
 
 	public:
-		DropDownMenu(float x, float y, float width, float height, sf::Font& font, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index = 0);
+		DropDownMenu(float x, float y, float width, float height,
+			sf::Font&, sf::SoundBuffer* sound, std::string listOfTexts[],
+			unsigned numberOfElements, const unsigned default_index = 0);
 		~DropDownMenu();
 
 		//Functions
@@ -72,7 +75,7 @@ namespace gui {
 
 	public:
 		TextBox(float x, float y, float width, float height,
-			sf::Font* font, std::string text,
+			sf::Font* font, sf::SoundBuffer* sound, std::string text,
 			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 		~TextBox();
 

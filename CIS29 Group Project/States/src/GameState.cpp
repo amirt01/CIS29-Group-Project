@@ -24,7 +24,9 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	Leaderboard* leaderboard)
 	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75.f), frequency(5.f), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
-	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD")), winMenu(renderWindow, fonts->at("DOSIS-BOLD")),
+	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
+	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
+	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
@@ -224,9 +226,11 @@ void GameState::updateState(const float& deltaTime)
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
 			states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
 			quitState();
+
 		break;
 	case DEAD:
 		// do dead things

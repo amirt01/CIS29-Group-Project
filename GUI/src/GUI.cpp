@@ -74,22 +74,26 @@ namespace gui {
 	}
 
 	//Constructors/Destructors
-	Button::Button(float x, float y, float width, float height, sf::Font* font, std::string text,
+	Button::Button(float x, float y, float width, float height,
+		sf::Font* font, sf::SoundBuffer* sound, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
-		: idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor)
+		: idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor), sound(*sound)
 	{
-		//Shape
+		// Sound
+		this->sound.setVolume(50.f);
+
+		// Shape
 		shape.setPosition(sf::Vector2f(x, y));
 		shape.setSize(sf::Vector2f(width, height));
 
-		//Text
+		// Text
 		this->text.setFont(*font);
 		this->text.setString(text);
 		this->text.setCharacterSize(32);
 		this->text.setPosition((x + width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
 			(y + height / 2.f) - (this->text.getGlobalBounds().height / 2.f) - 7.5f);
 
-		//Color
+		// Color
 		shape.setFillColor(idleColor);
 	}
 
@@ -101,10 +105,12 @@ namespace gui {
 	{
 		if (isActivated)
 		{
+			using namespace std::chrono_literals; // for ms
+			sound.play();
 			isActivated = false;
+			std::this_thread::sleep_for(11ms);
 			return true;
 		}
-
 		return false;
 	}
 
@@ -172,17 +178,17 @@ namespace gui {
 	/************************* Drop Down List *************************/
 
 	DropDownMenu::DropDownMenu(float x, float y, float width, float height,
-		sf::Font& font, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index)
+		sf::Font& font, sf::SoundBuffer* sound, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index)
 		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(1.f)
 	{
 		activeElement = new gui::Button(x, y, width, height,
-			&font, listOfTexts[default_index],
+			&font, sound, listOfTexts[default_index],
 			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
 		for (size_t i = 0; i < numberOfElements; i++)
 		{
 			elements.push_back(new gui::Button(x, y + ((i + 1) * height), width, height,
-				&font, listOfTexts[i],
+				&font, sound, listOfTexts[i],
 				sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)));
 		}
 	}
@@ -251,9 +257,10 @@ namespace gui {
 
 	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode);
 
-	TextBox::TextBox(float x, float y, float width, float height, sf::Font* font, std::string text,
+	TextBox::TextBox(float x, float y, float width, float height,
+		sf::Font* font, sf::SoundBuffer* sound, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
-		: Button(x, y, width, height, font, text, idleColor, hoverColor, activeColor), state(IDLE),
+		: Button(x, y, width, height, font, sound, text, idleColor, hoverColor, activeColor), state(IDLE),
 		defaultText(text)
 	{
 		this->text.setPosition((x + width / 2.f),

@@ -22,7 +22,7 @@ protected:
 	// Initializers
 	void initializeBackground();
 	void initializeContainer();
-	virtual void initializeGUI(sf::Font& font) = 0;
+	virtual void initializeGUI(sf::Font* font, sf::SoundBuffer* sound) = 0;
 
 public:
 	Overlay(sf::RenderWindow* renderWindow);

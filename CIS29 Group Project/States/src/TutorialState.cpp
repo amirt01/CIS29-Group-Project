@@ -9,7 +9,7 @@
 void TutorialState::initializeGUI()
 {
 	buttons["BACK"] = new gui::Button(920, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), "Back",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

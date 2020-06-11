@@ -212,9 +212,7 @@ void Game::renderGame()
 		states.top()->renderState(renderWindow);
 	}
 	else
-	{
 		renderWindow->close();
-	}
 
 	renderWindow->display();
 }

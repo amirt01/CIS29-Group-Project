@@ -247,6 +247,7 @@
     <None Include="Resources\Audio\Collision.flac" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Resources\Audio\click.wav" />
     <Media Include="Resources\Audio\coin.wav" />
     <Media Include="Resources\Audio\crash.wav" />
     <Media Include="Resources\Audio\crash2.wav" />
