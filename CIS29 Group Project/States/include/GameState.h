@@ -27,6 +27,8 @@ private:
 
 	Leaderboard* leaderboard;
 
+	sf::Sound backgroundMusic;
+
 	std::stack<State*>* states;
 	std::array<sf::RectangleShape, 3> backgrounds;
 

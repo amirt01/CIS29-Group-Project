@@ -27,7 +27,8 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION"))
+	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION")),
+	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
 	{
@@ -36,6 +37,11 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
 		backgrounds[i].setTexture(&textures->at("GAME_BACKGROUND"));
 	}
+
+	// Background Music Loop
+	backgroundMusic.setLoop(true);
+	backgroundMusic.setVolume(25.f);
+	backgroundMusic.play();
 }
 
 GameState::~GameState()
@@ -145,7 +151,8 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			quitState();
 			break;
 		default:
-			buttons->at("NAME")->addText(keyCode);
+			if (buttons != nullptr)
+				buttons->at("NAME")->addText(keyCode);
 		}
 		break;
 	case WIN:
@@ -203,6 +210,7 @@ void GameState::updateState(const float& deltaTime)
 	switch (currentState)
 	{
 	case PLAY:
+		backgroundMusic.setVolume(25.f);
 		buttons = nullptr;
 		updateGameSpeed(deltaTime);
 		updateBackground(deltaTime, FORWARDS);
@@ -218,6 +226,7 @@ void GameState::updateState(const float& deltaTime)
 		break;
 	case PAUSED:
 		// do pause things
+		backgroundMusic.setVolume(10.f);
 		buttons = pauseMenu.getButtons();
 		updateGUI();
 		// Resume the Game
@@ -234,6 +243,7 @@ void GameState::updateState(const float& deltaTime)
 		break;
 	case DEAD:
 		// do dead things
+		sound.stop();
 		buttons = deathMenu.getButtons();
 		updateGUI();
 		// Restart Game
@@ -248,6 +258,7 @@ void GameState::updateState(const float& deltaTime)
 		break;
 	case WIN:
 		// do win things
+		sound.stop();
 		buttons = winMenu.getButtons();
 		updateGUI();
 		// Restart Game

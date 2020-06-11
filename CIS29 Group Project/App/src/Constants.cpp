@@ -20,7 +20,8 @@ const std::map<const std::string, const std::string> AUDIO_PATHS =
 	{"CRASH", "Resources/Audio/crash2.wav"},
 	{"COIN", "Resources/Audio/coin.wav"},
 	{"WOOSH", "Resources/Audio/woosh.wav"},
-	{"CLICK", "Resources/Audio/click.wav"}
+	{"CLICK", "Resources/Audio/click.wav"},
+	{"TECHNO_BACKGROUND", "Resources/Audio/music-loop.wav"}
 };
 const std::map<const std::string, const std::string> FONT_PATHS =
 {
