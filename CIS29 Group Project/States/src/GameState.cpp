@@ -24,7 +24,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	Leaderboard* leaderboard)
 	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75.f), frequency(5.f), states(states),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
-	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD")),
+	pauseMenu(renderWindow, fonts->at("DOSIS-BOLD")), deathMenu(renderWindow, fonts->at("DOSIS-BOLD")), winMenu(renderWindow, fonts->at("DOSIS-BOLD")),
 	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
@@ -244,7 +244,14 @@ void GameState::updateState(const float& deltaTime)
 		break;
 	case WIN:
 		// do win things
+		buttons = winMenu.getButtons();
 		updateGUI();
+		// Restart Game
+		if (buttons->at("RESTART")->getIsActivated())
+			restartState();
+		// Quit This Game
+		if (buttons->at("QUIT")->getIsActivated())
+			quitState();
 		break;
 	default:
 		break;
@@ -313,11 +320,13 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		renderTarget->draw(deathMenu);
 		break;
 	case WIN:
+		renderTarget->draw(winMenu);
 		break;
 	default:
 		break;
 	}
 
-	if (collide.collisionTiming())
+	if (collide.collisionTiming() &&
+		!objects.empty())
 		collide.render(renderTarget);
 }

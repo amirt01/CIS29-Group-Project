@@ -45,8 +45,7 @@ FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>*
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard)
-	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard),
-	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION"))
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard)
 {
 }
 

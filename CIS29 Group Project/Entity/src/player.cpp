@@ -10,6 +10,7 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	coins(0)
 {
 	setTexture(playerTexture);
+	sprite.setTextureRect(sf::IntRect(0, 0, width, height));
 
 	addAnimation("IDLE", 0.1f, 0, 4, width, height);
 
@@ -43,10 +44,10 @@ void Player::resetPlayer()
 	currentHealth = 3;
 	coins = 0;
 
-	if (checkPosition(-1))
-		updateMovement(-1);
-	else if (checkPosition(1))
+	if (currentPosition == 0)
 		updateMovement(1);
+	else if (currentPosition == 2)
+		updateMovement(-1);
 }
 
 void Player::collisionMove()

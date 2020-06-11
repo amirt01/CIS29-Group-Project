@@ -183,6 +183,7 @@
     <ClCompile Include="Entity\src\Player.cpp" />
     <ClCompile Include="Overlays\src\Overlay.cpp" />
     <ClCompile Include="Overlays\src\DeathMenu.cpp" />
+    <ClCompile Include="Overlays\src\WinMenu.cpp" />
     <ClCompile Include="States\src\FreePlayState.cpp" />
     <ClCompile Include="States\src\GameState.cpp" />
     <ClCompile Include="States\src\Level.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Entity\include\Player.h" />
     <ClInclude Include="Overlays\include\Overlay.h" />
     <ClInclude Include="Overlays\include\DeathMenu.h" />
+    <ClInclude Include="Overlays\include\WinMenu.h" />
     <ClInclude Include="States\include\FreePlayState.h" />
     <ClInclude Include="States\include\GameState.h" />
     <ClInclude Include="States\include\Level.h" />

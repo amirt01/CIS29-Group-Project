@@ -8,6 +8,7 @@
 #include "Collide.h"
 #include "HUD.h"
 #include "Object.h"
+#include "WinMenu.h"
 
 enum Color { RED = 0, YELLOW, ORANGE };
 enum Obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -19,10 +20,9 @@ class GameState : public State
 private:
 	float speed;
 
-	GameStates currentState;
-
 	PauseMenu pauseMenu;
 	DeathMenu deathMenu;
+	WinMenu winMenu;
 	const std::map<std::string, gui::Button*>* buttons;
 
 	Leaderboard* leaderboard;
@@ -31,6 +31,8 @@ private:
 	std::array<sf::RectangleShape, 3> backgrounds;
 
 protected:
+	GameStates currentState;
+
 	float frequency;
 	float spawnTime;
 

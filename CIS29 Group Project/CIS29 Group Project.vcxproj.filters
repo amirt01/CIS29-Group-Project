@@ -81,6 +81,9 @@
     <ClCompile Include="App\src\Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Overlays\src\WinMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="App\include\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\WinMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
