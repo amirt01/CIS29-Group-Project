@@ -6,7 +6,7 @@ public:
 	// Variables
 	long coins;
 	std::string playerTexture;
-	std::string themes;
+	std::string theme;
 
 	GameStats();
 

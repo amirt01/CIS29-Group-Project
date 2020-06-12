@@ -9,6 +9,7 @@
 #include "HUD.h"
 #include "Object.h"
 #include "WinMenu.h"
+#include "GameStats.h"
 
 enum Color { RED = 0, YELLOW, ORANGE };
 enum Obsticle { MEDIUM = 0, LARGE, SMALL };
@@ -26,6 +27,7 @@ private:
 	const std::map<std::string, gui::Button*>* buttons;
 
 	Leaderboard* leaderboard;
+	GameStats* gameStats;
 
 	sf::Sound backgroundMusic;
 
@@ -54,7 +56,7 @@ public:
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-		Leaderboard* leaderboard = nullptr);
+		Leaderboard* leaderboard, GameStats* gameStats);
 	virtual ~GameState();
 
 	void spawnObject(unsigned short level, unsigned short type);

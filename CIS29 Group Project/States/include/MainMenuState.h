@@ -3,6 +3,7 @@
 #include "State.h"
 #include "GUI.h"
 #include "Leaderboard.h"
+#include "GameStats.h"
 
 class MainMenuState :
 	public State
@@ -12,6 +13,7 @@ private:
 	sf::RectangleShape background;
 
 	Leaderboard* leaderboard;
+	GameStats* gameStats;
 
 	std::unordered_map<std::string, gui::Button*> buttons;
 
@@ -24,7 +26,7 @@ public:
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-		Leaderboard* leaderboard);
+		Leaderboard* leaderboard, GameStats* gameStats);
 	virtual ~MainMenuState();
 
 	// Update

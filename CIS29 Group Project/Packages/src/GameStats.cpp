@@ -3,7 +3,7 @@
 #include "ExceptionHandler.h"
 
 GameStats::GameStats()
-	: coins(0), playerTexture("DEFAULT_PLAYER"), themes("DAY")
+	: coins(0), playerTexture("DEFAULT_PLAYER"), theme("DAY")
 {
 }
 
@@ -23,7 +23,7 @@ bool GameStats::loadFromFile(const std::string& path)
 		{
 			fin >> coins;
 			fin >> playerTexture;
-			fin >> themes;
+			fin >> theme;
 		}
 		else
 			throw exc::LoadFromFileError(path);
@@ -41,7 +41,7 @@ bool GameStats::loadFromFile(const std::string& path)
 		{
 			coins = 0;
 			playerTexture = "DEFAULT_PLAYER";
-			themes = "DAY";
+			theme = "GAME_BACKGROUND";
 		}
 		else
 			return false;
@@ -62,7 +62,7 @@ bool GameStats::writeToFile(const std::string& path)
 
 	fout << coins << '\n';
 	fout << playerTexture << '\n';
-	fout << themes << '\n';
+	fout << theme << '\n';
 
 	fout.close();
 

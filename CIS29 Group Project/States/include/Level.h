@@ -25,6 +25,6 @@ public:
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-		Leaderboard* leaderboard);
+		Leaderboard* leaderboard, GameStats* gameStats);
 	~Level();
 };

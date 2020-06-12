@@ -68,8 +68,8 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-	Leaderboard* leaderboard)
-	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard)
+	Leaderboard* leaderboard, GameStats* gameStats)
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), gameStats(gameStats)
 {
 	initializeGUI();
 
@@ -99,7 +99,7 @@ void MainMenuState::updateMouseWheel(const short& mouseDelta)
 void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
 }
 
 void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -125,13 +125,13 @@ void MainMenuState::updateGUI()
 	}
 
 	if (buttons["FREE_PLAY"]->getIsActivated())
-		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
+		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_1"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard));
+		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_2"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard));
+		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_3"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard));
+		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
 		states->push(new RankingsState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())

@@ -21,13 +21,17 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-	Leaderboard* leaderboard)
-	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), speed(-75.f), frequency(5.f), states(states),
+	Leaderboard* leaderboard, GameStats* gameStats)
+	: State(renderWindow, states, textures, fonts, soundBuffers),
+	leaderboard(leaderboard), states(states), gameStats(gameStats),
+	speed(-75.f), frequency(5.f),
 	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at("BLUE_PLAYER"), 104, 107), hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")), collide(textures->at("COLLISION")),
+	player(textures->at(gameStats->playerTexture), 104, 107),
+	hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")),
+	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
@@ -35,7 +39,7 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 		backgrounds[i].setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 			static_cast<float>(renderWindow->getSize().y)));
 		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
-		backgrounds[i].setTexture(&textures->at("GAME_BACKGROUND"));
+		backgrounds[i].setTexture(&textures->at(gameStats->theme));
 	}
 
 	// Background Music Loop

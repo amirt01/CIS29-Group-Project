@@ -132,7 +132,7 @@ Game::Game()
 	initializeAudio();
 	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
-	states.push(new MainMenuState(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard));
+	states.push(new MainMenuState(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats));
 }
 
 Game::~Game()

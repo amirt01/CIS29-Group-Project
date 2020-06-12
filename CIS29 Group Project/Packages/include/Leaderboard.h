@@ -34,7 +34,6 @@ private:
 		friend bool operator<(const Date& d1, const Date& d2) { return d1.date < d2.date; }
 		friend bool operator<(const Date& d1, const time_t& d2) { return d1.date < d2; }
 	};
-
 	class Score : public sf::Drawable
 	{
 	private:
@@ -91,8 +90,9 @@ private:
 		}
 	};
 
-public:
 	std::list<Score> scores;
+
+public:
 
 	Leaderboard(const int MAX_NUM_OF_SCORES) : MAX_NUM_OF_SCORES(MAX_NUM_OF_SCORES) {};
 	~Leaderboard() {};
