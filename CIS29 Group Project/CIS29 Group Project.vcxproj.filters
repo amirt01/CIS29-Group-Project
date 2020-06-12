@@ -57,9 +57,6 @@
     <ClCompile Include="Entity\src\CollisionDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="App\src\Leaderboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\src\Collide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,7 +81,10 @@
     <ClCompile Include="Overlays\src\WinMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="App\src\GameStats.cpp">
+    <ClCompile Include="Packages\src\Leaderboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Packages\src\GameStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,9 +128,6 @@
     <ClInclude Include="Entity\include\CollisionDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="App\include\Leaderboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="States\include\RankingsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -155,12 +152,16 @@
     <ClInclude Include="Overlays\include\WinMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="App\include\GameStats.h">
+    <ClInclude Include="Packages\include\GameStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packages\include\Leaderboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
+    <Text Include="Config\gamestats.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Images\CarFramesYellow.png">

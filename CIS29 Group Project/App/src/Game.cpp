@@ -7,12 +7,14 @@
 #include "MainMenuState.h"
 
 // Initializers
-void Game::initializeLeaderboard(std::string path)
+void Game::initializePackages(std::string leaderboardPath, std::string gameStatsPath)
 {
 	try
 	{
-		if (!leaderboard.loadFromFile(fonts.at("DOSIS-BOLD"), path))
-			throw exc::LoadFromFileError(path);
+		if (!leaderboard.loadFromFile(fonts.at("DOSIS-BOLD"), leaderboardPath))
+			throw exc::LoadFromFileError(leaderboardPath);
+		if (!gameStats.loadFromFile(gameStatsPath))
+			throw exc::LoadFromFileError(gameStatsPath);
 	}
 	catch (exc::LoadFromFileError& error)
 	{
@@ -55,10 +57,11 @@ void Game::initializeWindow(std::string path)
 		else
 			throw exc::LoadFromFileError(path);
 	}
-	catch (exc::LoadFromFileError&) {
+	catch (exc::LoadFromFileError&)
+	{
 		unsigned int in;
 
-		std::cout << "Error reading file window setting's file. "
+		std::cout << "Error reading file window setting's file.\n"
 			<< "(1) Load Default Settings\n"
 			<< "(2) Exit\n";
 		std::cin >> in;
@@ -127,7 +130,7 @@ Game::Game()
 	initializeTextures();
 	initializeFonts();
 	initializeAudio();
-	initializeLeaderboard(LEADERBOARD_PATH);
+	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
 	states.push(new MainMenuState(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard));
 }
@@ -144,13 +147,15 @@ Game::~Game()
 }
 
 // Functions
-void Game::endApplication(std::string leaderboardPath)
+void Game::endApplication(std::string leaderboardPath, std::string gameStatsPath)
 {
-	// Save Leaderboard Data
+	// Save Data
 	try
 	{
 		if (!leaderboard.writeToFile(leaderboardPath))
 			throw exc::WriteToFileError(leaderboardPath);
+		if (!gameStats.writeToFile(gameStatsPath))
+			throw exc::WriteToFileError(gameStatsPath);
 	}
 	catch (exc::WriteToFileError& error)
 	{
@@ -226,5 +231,5 @@ void Game::runGame()
 		renderGame();
 	}
 
-	endApplication("Config/leaderboard.txt");
+	endApplication(LEADERBOARD_PATH, GAME_STATS_PATH);
 }

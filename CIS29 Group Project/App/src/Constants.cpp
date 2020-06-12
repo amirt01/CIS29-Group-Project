@@ -2,6 +2,7 @@
 #include "Constants.h"
 
 const std::string LEADERBOARD_PATH = "Config/leaderboard.txt";
+const std::string GAME_STATS_PATH = "Config/gamestats.txt";
 const std::string SFML_WINDOW_SETTINGS_PATH = "Config/render_window_settings.txt";
 const int MAX_NUM_OF_SCORES = 10;
 const std::map<const std::string, const std::string> TEXTRUE_PATHS =

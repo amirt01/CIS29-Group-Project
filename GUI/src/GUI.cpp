@@ -109,7 +109,7 @@ namespace gui {
 			using namespace std::chrono_literals; // for ms
 			sound.play();
 			isActivated = false;
-			std::this_thread::sleep_for(11ms);
+			std::this_thread::sleep_for(20ms); // delay for button sound
 			return true;
 		}
 		return false;

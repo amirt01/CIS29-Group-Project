@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Overlays\include;$(SolutionDir)Exception Handler/include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler/include;$(SolutionDir)External\SFML\include;$(ProjectDir)App\include;$(ProjectDir)Packages\include;$(ProjectDir)Overlays\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -151,7 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Overlays\include;$(SolutionDir)Exception Handler/include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include;$(ProjectDir)App\include;$(SolutionDir)External\SFML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Exception Handler/include;$(SolutionDir)External\SFML\include;$(ProjectDir)App\include;$(ProjectDir)Packages\include;$(ProjectDir)Overlays\include;$(ProjectDir)Entity\include;$(SolutionDir)GUI\include;$(ProjectDir)States\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
@@ -165,10 +165,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App\src\Constants.cpp" />
-    <ClCompile Include="App\src\Leaderboard.cpp" />
+    <ClCompile Include="Packages\src\Leaderboard.cpp" />
     <ClCompile Include="App\src\main.cpp" />
     <ClCompile Include="App\src\Game.cpp" />
-    <ClCompile Include="App\src\GameStats.cpp" />
+    <ClCompile Include="Packages\src\GameStats.cpp" />
     <ClCompile Include="App\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -197,8 +197,8 @@
   <ItemGroup>
     <ClInclude Include="App\include\Constants.h" />
     <ClInclude Include="App\include\Game.h" />
-    <ClInclude Include="App\include\Leaderboard.h" />
-    <ClInclude Include="App\include\GameStats.h" />
+    <ClInclude Include="Packages\include\Leaderboard.h" />
+    <ClInclude Include="Packages\include\GameStats.h" />
     <ClInclude Include="App\include\stdafx.h" />
     <ClInclude Include="Entity\include\Animation.h" />
     <ClInclude Include="Entity\include\Collide.h" />
@@ -220,6 +220,7 @@
     <ClInclude Include="States\include\TutorialState.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Config\gamestats.txt" />
     <Text Include="Config\render_window_settings.txt" />
   </ItemGroup>
   <ItemGroup>

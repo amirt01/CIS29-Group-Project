@@ -2,6 +2,7 @@
 
 #include "State.h"
 #include "Leaderboard.h"
+#include "GameStats.h"
 
 class Game
 {
@@ -10,15 +11,19 @@ private:
 	sf::RenderWindow* renderWindow;
 	sf::Event event;
 
+	// Graphics Settings
 	std::vector<sf::VideoMode> videoModes;
 	sf::ContextSettings windowSettings;
 	bool fullscreen;
 
+	// Loaded From Files
 	std::unordered_map<std::string, sf::Texture> textures;
 	std::unordered_map<std::string, sf::Font> fonts;
 	std::unordered_map<std::string, sf::SoundBuffer> soundBuffers;
 
+	// Packages
 	Leaderboard leaderboard;
+	GameStats gameStats;
 
 	// Delta Time
 	sf::Clock deltaTimeClock;
@@ -28,7 +33,7 @@ private:
 	std::stack<State*> states;
 
 	// Initialization
-	void initializeLeaderboard(std::string path);
+	void initializePackages(std::string leaderboardPath, std::string gameStatsPath);
 	void initializeWindow(std::string path);
 
 	void initializeTextures();
@@ -42,7 +47,7 @@ public:
 
 	/* Functions */
 	// Regular
-	void endApplication(std::string leaderboardPath);
+	void endApplication(std::string leaderboardPath, std::string gameStatsPath);
 
 	// Update
 	void updateDeltaTime();
