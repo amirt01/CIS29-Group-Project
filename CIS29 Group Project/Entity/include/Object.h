@@ -6,7 +6,6 @@ enum Type { Obstacle = 0, Coin };
 class Object : public Entity
 {
 protected:
-	int currentPosition; //might be unnecessary
 	int value; //damage or pt value
 
 public:
@@ -19,7 +18,6 @@ public:
 	int getValue();
 	const float getWidth() const;
 
-	void setCurrentPosition(int);
 	void setValue(int);
 
 	void move(const float x, const float& deltaTime);

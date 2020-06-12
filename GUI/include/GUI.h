@@ -13,7 +13,6 @@ namespace gui {
 
 		//Graphics
 		sf::RectangleShape shape;
-		sf::Font* font;
 		sf::Sound sound;
 		sf::Text text;
 

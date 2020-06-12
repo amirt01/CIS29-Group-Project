@@ -77,7 +77,8 @@ namespace gui {
 	Button::Button(float x, float y, float width, float height,
 		sf::Font* font, sf::SoundBuffer* sound, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
-		: idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor), sound(*sound)
+		: idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor), sound(*sound),
+		isActivated(false)
 	{
 		// Sound
 		this->sound.setVolume(50.f);

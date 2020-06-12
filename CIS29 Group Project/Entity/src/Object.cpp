@@ -46,12 +46,6 @@ float Object::getCurrentPosition()
 	return sprite.getPosition().x;
 }
 
-//might not be needed
-void Object::setCurrentPosition(int cp)
-{
-	currentPosition = cp;
-}
-
 void Object::updateAnimation(const float& deltaTime)
 {
 	animations["IDLE"]->update(deltaTime);
