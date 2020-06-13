@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Level.h"
-#include "ExceptionHandler.h"
+#include "LoadFromFileError.h"
 
 unsigned char leftNibble(unsigned char data) { return data >> 4; }
 unsigned char rightNibble(unsigned char data) { return data & 0xF; }
