@@ -14,13 +14,11 @@ public:
 
 	Object(const Type type, const short unsigned level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 
-	float getCurrentPosition();
 	int getValue();
-	const float getWidth() const;
 
 	void setValue(int);
 
-	void move(const float x, const float& deltaTime);
+	//void move(const float x, const float& deltaTime);
 
 	void updateAnimation(const float& deltaTime);
 	void update(const float& deltaTime);

@@ -10,12 +10,12 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	coins(0)
 {
 	setTexture(playerTexture);
-	sprite.setTextureRect(sf::IntRect(0, 0, width, height));
+	setTextureRect(sf::IntRect(0, 0, width, height));
 
-	addAnimation("IDLE", 0.1f, 0, 4, width, height);
+	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
 
-	sprite.setPosition(sf::Vector2f(50, 300));
-	playerColor = sprite.getColor();
+	sf::Sprite::setPosition(sf::Vector2f(50, 300));
+	playerColor = getColor();
 }
 
 void Player::updateScore(const float& deltaTime) {
@@ -24,8 +24,8 @@ void Player::updateScore(const float& deltaTime) {
 
 void Player::updateAnimation(const float& deltaTime)
 {
-	animations["IDLE"]->update(deltaTime);
-	sprite.setTextureRect(animations["IDLE"]->textureRect);
+	animations["WHEELS"]->update(deltaTime);
+	setTextureRect(animations["WHEELS"]->textureRect);
 }
 
 void Player::gainCoin()
@@ -69,12 +69,12 @@ void Player::collisionMove()
 void Player::playerDamage()
 {
 	if (isDamaged) {
-		sprite.setColor(playerColor);
+		setColor(playerColor);
 		isDamaged = false;
 	}
 	else
 	{
-		sprite.setColor(sf::Color::Transparent);
+		setColor(sf::Color::Transparent);
 		isDamaged = true;
 	}
 }
@@ -83,7 +83,7 @@ void Player::revertPlayer()
 {
 	if (isDamaged)
 	{
-		sprite.setColor(playerColor);
+		setColor(playerColor);
 	}
 }
 
@@ -92,14 +92,14 @@ void Player::updateMovement(int shift) {
 
 	if (shift == -1) {
 		if (checkPosition(-1)) {
-			sprite.move(sf::Vector2f(0, -movementShift));
+			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
 			clock.restart();
 		}
 	}
 	else if (shift == 1) {
 		if (checkPosition(1)) {
-			sprite.move(sf::Vector2f(0, movementShift));
+			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
 			clock.restart();
 		}

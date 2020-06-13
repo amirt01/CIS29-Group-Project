@@ -14,13 +14,13 @@ void Collide::collisionPosition(int position)
 	switch (position)
 	{
 	case 0:
-		sprite.setPosition(sf::Vector2f(80, 170));
+		setPosition(sf::Vector2f(80, 170));
 		break;
 	case 1:
-		sprite.setPosition(sf::Vector2f(80, 300));
+		setPosition(sf::Vector2f(80, 300));
 		break;
 	case 2:
-		sprite.setPosition(sf::Vector2f(80, 430));
+		setPosition(sf::Vector2f(80, 430));
 		break;
 	}
 	clock.restart();

@@ -4,10 +4,9 @@
 
 enum level { TOP = 0, MIDDLE, BOTTOM };
 
-class Entity
+class Entity : public sf::Sprite
 {
 protected:
-	sf::Sprite sprite;
 	sf::Texture textureSheet;
 
 	std::map<std::string, Animation*> animations;
@@ -16,12 +15,6 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	sf::Sprite getSprite();
-
 	//Component functions
-	void setTexture(sf::Texture& texture_sheet);
-	void setPosition(const float x, const float y);
 	void addAnimation(const std::string key, float animation_time, int animation_level, int frames, int width, int height);
-
-	void render(sf::RenderTarget* renderTarget);
 };

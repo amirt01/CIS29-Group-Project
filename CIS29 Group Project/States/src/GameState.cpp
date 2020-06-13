@@ -183,7 +183,7 @@ void GameState::updateGameSpeed(const float& deltaTime)
 
 void GameState::updateObjects(const float& deltaTime)
 {
-	if (objects.front()->getCurrentPosition() <= -objects.front()->getWidth())
+	if (objects.front()->getPosition().x <= -objects.front()->getGlobalBounds().width)
 	{
 		delete objects.front();
 		objects.pop_front();
@@ -191,7 +191,7 @@ void GameState::updateObjects(const float& deltaTime)
 
 	for (auto it : objects)
 	{
-		it->move(speed, deltaTime);
+		it->move(sf::Vector2f(speed, 0) * deltaTime);
 		it->update(deltaTime);
 	}
 }
@@ -303,11 +303,11 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
-	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player.getSprite(), objects.front()->getSprite())))
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
 		updateCollision(objects.front());
 	}
-	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player.getSprite(), objects.at(1)->getSprite()))
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
 	{
 		updateCollision(objects.at(1));
 	}
@@ -323,9 +323,9 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 		renderTarget->draw(backgrounds[i]);
 
 	for (auto it : objects)
-		it->render(renderTarget);
+		renderTarget->draw(*it);
 
-	player.render(renderTarget);
+	renderTarget->draw(player);
 	hud.render(renderTarget);
 
 	switch (currentState)
@@ -347,5 +347,5 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 
 	if (collide.collisionTiming() &&
 		!objects.empty())
-		collide.render(renderTarget);
+		renderTarget->draw(collide);
 }

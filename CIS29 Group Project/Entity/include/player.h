@@ -13,8 +13,14 @@ private:
 	unsigned int coins;
 	bool isDamaged;
 
-	sf::Texture playerTexture;
+	sf::RenderTexture renderTexture;
+
+	sf::Texture characterTexture;
+	sf::Texture bikeTexture;
+	sf::Texture wheelTexture;
+
 	sf::Color playerColor;
+
 	sf::Clock clock;
 
 public:
