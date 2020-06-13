@@ -1,7 +1,8 @@
 #include "pch.h"
-#include "GUI.h"
+#include "Button.h"
 
-namespace gui {
+namespace gui
+{
 	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode)
 	{
 		switch (keyCode) {
@@ -73,7 +74,6 @@ namespace gui {
 		}
 	}
 
-	//Constructors/Destructors
 	Button::Button(float x, float y, float width, float height,
 		sf::Font* font, sf::SoundBuffer* sound, std::string text,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
@@ -173,138 +173,6 @@ namespace gui {
 	void Button::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 	{
 		renderTarget.draw(shape, renderStates);
-		renderTarget.draw(text, renderStates);
-	}
-
-	/************************* Drop Down List *************************/
-
-	DropDownMenu::DropDownMenu(float x, float y, float width, float height,
-		sf::Font& font, sf::SoundBuffer* sound, std::string listOfTexts[], unsigned numberOfElements, const unsigned default_index)
-		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(1.f)
-	{
-		activeElement = new gui::Button(x, y, width, height,
-			&font, sound, listOfTexts[default_index],
-			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-		for (size_t i = 0; i < numberOfElements; i++)
-		{
-			elements.push_back(new gui::Button(x, y + ((i + 1) * height), width, height,
-				&font, sound, listOfTexts[i],
-				sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)));
-		}
-	}
-
-	DropDownMenu::~DropDownMenu()
-	{
-		delete activeElement;
-		for (auto& it : elements)
-			delete it;
-	}
-
-	const bool DropDownMenu::getClickTime()
-	{
-		if (clickTime >= clickTimeMax)
-		{
-			clickTime = 0.f;
-			return true;
-		}
-
-		return false;
-	}
-
-	void DropDownMenu::updateClickTime(const float& deltaTime)
-	{
-		if (clickTime < clickTimeMax)
-			clickTime += 10.f * deltaTime;
-	}
-
-	void DropDownMenu::update(const sf::Vector2f mousePos, const float& deltaTime)
-	{
-		updateClickTime(deltaTime);
-		activeElement->updateColor(mousePos);
-
-		if (activeElement->getIsActivated() && getClickTime())
-		{
-			showMenu = !showMenu;
-		}
-
-		if (showMenu)
-		{
-			for (auto& it : elements)
-			{
-				it->updateColor(mousePos);
-
-				if (it->getIsActivated() && getClickTime())
-				{
-					showMenu = false;
-					activeElement->setText(it->getText());
-				}
-			}
-		}
-	}
-
-	void DropDownMenu::render(sf::RenderTarget* renderTarget)
-	{
-		activeElement->draw(*renderTarget);
-
-		if (showMenu)
-		{
-			for (auto& it : elements)
-			{
-				it->draw(*renderTarget);
-			}
-		}
-	}
-
-	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode);
-
-	TextBox::TextBox(float x, float y, float width, float height,
-		sf::Font* font, sf::SoundBuffer* sound, std::string text,
-		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
-		: Button(x, y, width, height, font, sound, text, idleColor, hoverColor, activeColor), state(IDLE),
-		defaultText(text)
-	{
-		this->text.setPosition((x + width / 2.f),
-			(y + height / 2.f) - (this->text.getGlobalBounds().height / 2.f) - 7.5f);
-	}
-
-	TextBox::~TextBox()
-	{
-	}
-
-	void TextBox::updateColor(const sf::Vector2f mousePos)
-	{
-		/*Update the booleans for hover and pressed*/
-		//Hover
-		if (shape.getGlobalBounds().contains(mousePos) &&
-			sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			state = SELECTED;
-			shape.setFillColor(hoverColor);
-
-			if (text.getString() == defaultText)
-				text.setString("");
-		}
-		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			state = IDLE;
-			shape.setFillColor(idleColor);
-
-			if (text.getString() == "")
-				text.setString(defaultText);
-		}
-	}
-
-	void TextBox::addText(const sf::Keyboard::Key& keycode)
-	{
-		if (state == SELECTED)
-			Button::addText(keycode);
-	}
-
-	void TextBox::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
-	{
-		renderTarget.draw(shape, renderStates);
-		renderStates.transform.translate(-text.getGlobalBounds().width / 2.f, 0.f);
 		renderTarget.draw(text, renderStates);
 	}
 }

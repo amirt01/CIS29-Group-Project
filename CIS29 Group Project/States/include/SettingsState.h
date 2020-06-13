@@ -1,7 +1,7 @@
 #pragma once
 
 #include "State.h"
-#include "GUI.h"
+#include "DropDownMenu.h"
 
 class SettingsState :
 	public State

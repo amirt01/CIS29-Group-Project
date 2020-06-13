@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GUI.h"
+#include "Button.h"
 
 class Overlay : public sf::Drawable
 {

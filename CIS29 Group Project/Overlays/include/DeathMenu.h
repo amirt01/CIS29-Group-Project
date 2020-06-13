@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Overlay.h"
-#include "GUI.h"
+#include "TextBox.h"
 
 class DeathMenu : public Overlay
 {
