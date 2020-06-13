@@ -2,12 +2,13 @@
 #include "player.h"
 
 Player::Player(sf::Texture& playerTexture, const int width, const int height)
-	: Entity(), moveType{ -1,1 }, pos(Center),
+	: Entity(), moveType{ -1,1 },
 	movementShift(130), //shift space (distance between lanes)
-	currentPosition(pos), //pos = Center/1
+	currentPosition(1), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
-	coins(0)
+	coins(0),
+	isDamaged(false)
 {
 	setTexture(playerTexture);
 	setTextureRect(sf::IntRect(0, 0, width, height));
@@ -88,31 +89,19 @@ void Player::revertPlayer()
 }
 
 void Player::updateMovement(int shift) {
-	unsigned short currentPos = pos;
+	unsigned short currentPos = getCurrentPosition();
 
 	if (shift == -1) {
 		if (checkPosition(-1)) {
 			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
-			clock.restart();
 		}
 	}
 	else if (shift == 1) {
 		if (checkPosition(1)) {
 			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
-			clock.restart();
 		}
-	}
-
-	if (currentPosition == 0) {
-		setPosition(Up);
-	}
-	else if (currentPosition == 1) {
-		setPosition(Center);
-	}
-	else if (currentPosition == 2) {
-		setPosition(Down);
 	}
 }
 
@@ -163,11 +152,3 @@ int Player::getCurrentPosition() {
 	return currentPosition;
 }
 
-void Player::setPosition(position x)
-{
-	pos = x;
-}
-
-Player::position Player::getPosition() const {
-	return pos;
-}
