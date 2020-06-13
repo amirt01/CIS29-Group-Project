@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameStats.h"
-#include "ExceptionHandler.h"
+#include "LoadFromFileError.h"
 
 GameStats::GameStats()
 	: coins(0), playerTexture("DEFAULT_PLAYER"), theme("DAY")

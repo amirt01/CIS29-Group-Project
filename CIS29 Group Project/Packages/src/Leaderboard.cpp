@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Leaderboard.h"
-#include "ExceptionHandler.h"
 
 bool Leaderboard::loadFromFile(sf::Font& font, const std::string& path)
 {

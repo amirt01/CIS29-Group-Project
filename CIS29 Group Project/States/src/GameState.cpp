@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 #include "CollisionDetection.h"
-#include "ExceptionHandler.h"
+#include "SpawnError.h"
 #include "TutorialState.h"
 
 void GameState::restartState()
