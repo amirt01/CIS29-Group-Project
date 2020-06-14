@@ -12,8 +12,8 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	isPassing(false)
 {
 	setTexture(playerTexture);
-	setTextureRect(sf::IntRect(0, 0, width, height));
 
+	setTextureRect(sf::IntRect(0, 0, width, height));////////////////////
 	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
 
 	sf::Sprite::setPosition(sf::Vector2f(50, 300));

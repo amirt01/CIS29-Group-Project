@@ -1,6 +1,6 @@
 #pragma once
 #include "State.h"
-#include "GUI.h"
+#include "Button.h"
 #include "Entity.h"
 #include "GameStats.h"
 
@@ -20,7 +20,7 @@ private:
 	Entity player3;
 
 	GameStats * gameStats;
-
+	sf::Text coinAmount;
 
 	int rotate;
 

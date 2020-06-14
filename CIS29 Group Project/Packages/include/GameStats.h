@@ -1,5 +1,5 @@
 #pragma once
-#include <unordered_map>
+#include "stdafx.h"
 
 class GameStats
 {
@@ -10,7 +10,6 @@ public:
 	std::string theme;
 
 	std::unordered_map<std::string, bool> unlocked;
-
 
 	GameStats();
 

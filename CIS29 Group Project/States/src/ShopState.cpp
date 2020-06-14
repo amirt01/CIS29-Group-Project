@@ -53,12 +53,12 @@ void ShopState::initializeGUI() {
 
 
 	player1.setTexture(textures->at("DEFAULT_PLAYER"));
-	player1.getSprite().setTextureRect(sf::IntRect(0, 0, 104, 107));
+	player1.setTextureRect(sf::IntRect(0, 0, 104, 107));
 	player1.setPosition(185, 250);
 
 
 	player2.setTexture(textures->at("BLUE_PLAYER"));
-	player2.getSprite().setTextureRect(sf::IntRect(0, 0, 104, 107));
+	player2.setTextureRect(sf::IntRect(0, 0, 104, 107));
 	player2.setPosition(550, 250);
 
 	player3.setTexture(textures->at("DELOREAN_PLAYER"));
@@ -79,8 +79,8 @@ ShopState::ShopState(sf::RenderWindow * renderWindow, std::stack<State *> * stat
 {
 	initializeGUI();
 
-	background.getSprite().setTexture(textures->at("SHOP_BACKGROUND"));
-	background.getSprite().setScale(sf::Vector2f(static_cast<float>(renderWindow->getSize().x)/3000,
+	background.setTexture(textures->at("SHOP_BACKGROUND"));
+	background.setScale(sf::Vector2f(static_cast<float>(renderWindow->getSize().x)/3000,
 									static_cast<float>(renderWindow->getSize().y)/2000));
 }
 
@@ -172,25 +172,27 @@ void ShopState::updateGUI() {
 	if (buttons.find("PLAYER2BUY") != buttons.end() && buttons["PLAYER2BUY"]->getIsActivated() && gameStats->coins >= 100) {
 		gameStats->coins -= 100;
 		gameStats->unlocked.find("BLUE_PLAYER")->second = true;
+		coinAmount.setString(std::to_string(gameStats->coins));
 		delete buttons["PLAYER2BUY"];
 		buttons.erase("PLAYER2BUY");
 	}
 	if (buttons.find("PLAYER3BUY") != buttons.end() && buttons["PLAYER3BUY"]->getIsActivated() && gameStats->coins >= 200) {
 		gameStats->coins -= 200;
 		gameStats->unlocked.find("DELOREAN_PLAYER")->second = true;
+		coinAmount.setString(std::to_string(gameStats->coins));
 		delete buttons["PLAYER3BUY"];
 		buttons.erase("PLAYER3BUY");
 	}
 
 
 	if (rotate < 5) {
-		player1.getSprite().rotate(0.9f);
-		player2.getSprite().rotate(0.9f);
-		player3.getSprite().rotate(0.9f);
+		player1.rotate(0.9f);
+		player2.rotate(0.9f);
+		player3.rotate(0.9f);
 	} else if (rotate < 10){
-		player1.getSprite().rotate(-0.9f);
-		player2.getSprite().rotate(-0.9f);
-		player3.getSprite().rotate(-0.9f);
+		player1.rotate(-0.9f);
+		player2.rotate(-0.9f);
+		player3.rotate(-0.9f);
 	} else {
 		if (rotate == 44) {
 			rotate = -1;
@@ -214,7 +216,8 @@ void ShopState::renderState(sf::RenderTarget * renderTarget) {
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
-	background.render(renderTarget);
+	renderTarget->draw(background);
+	//background.render(renderTarget);
 
 	sf::Text title("SHOP", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);
@@ -237,7 +240,7 @@ void ShopState::renderGUI(sf::RenderTarget * renderTarget) {
 	coinBackground.setPosition(1050, 80);
 	renderWindow->draw(coinBackground);
 	
-	sf::Text coinAmount(std::to_string(gameStats->coins), fonts->at("DOSIS-BOLD"));
+	coinAmount = sf::Text(std::to_string(gameStats->coins), fonts->at("DOSIS-BOLD"));
 	coinAmount.setCharacterSize(40);
 	coinAmount.setStyle(sf::Text::Bold);
 	coinAmount.setFillColor(sf::Color::White);
@@ -247,13 +250,14 @@ void ShopState::renderGUI(sf::RenderTarget * renderTarget) {
 	Entity coinPic;
 	coinPic.setTexture(textures->at("COIN"));
 	coinPic.setPosition(1000, 60);
-	coinPic.getSprite().setScale(0.65f, 0.65f);
-	coinPic.render(renderTarget);
+	coinPic.setScale(0.65f, 0.65f);
+	renderWindow->draw(coinPic);
 
 	for (auto & it : buttons) {
 		it.second->draw(*renderTarget);
 	}
-	player1.render(renderTarget);
-	player2.render(renderTarget);
-	player3.render(renderTarget);
+	renderTarget->draw(player1);
+	renderTarget->draw(player2);
+	renderTarget->draw(player3);
+
 }
