@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), 104, 107),
+	player(textures->at(gameStats->playerTexture), 104, 107),					////////////////////////////////////////////////////////////////////////////////	
 	hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))

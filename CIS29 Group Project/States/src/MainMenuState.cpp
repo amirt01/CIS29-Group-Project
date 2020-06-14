@@ -6,6 +6,7 @@
 #include "LevelEditor.h"
 #include "RankingsState.h"
 #include "TutorialState.h"
+#include "ShopState.h"
 
 // Initializers
 void MainMenuState::initializeGUI()
@@ -58,13 +59,17 @@ void MainMenuState::initializeGUI()
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["SHOP_STATE"] = std::make_unique<gui::Button>(920, 350, 150, 50,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)); 
+	
 	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(220, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
+MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>> * states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -81,6 +86,7 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std
 
 MainMenuState::~MainMenuState()
 {
+
 }
 
 void MainMenuState::updateMouseWheel(const short& mouseDelta)
@@ -131,6 +137,8 @@ void MainMenuState::updateGUI()
 		states->push(std::make_unique<RankingsState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
 		states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
+	if (buttons["SHOP_STATE"]->getIsActivated())
+		states->push(std::make_unique<ShopState>(renderWindow, states, textures, fonts, soundBuffers, gameStats));
 	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
 		using namespace std::chrono_literals; // for ms
@@ -156,8 +164,8 @@ void MainMenuState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 
 void MainMenuState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	//if (!renderTarget)
-	//	renderTarget = renderWindow;
+	if (!renderTarget)
+		renderTarget = renderWindow;
 
 	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);
