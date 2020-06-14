@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameState.h"
-#include "GUI.h"
+#include "Button.h"
 #include "Object.h"
 
 class LevelEditor : public GameState

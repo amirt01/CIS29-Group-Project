@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Overlay.h"
-#include "GUI.h"
+#include "Button.h"
 
 class PauseMenu : public Overlay
 {

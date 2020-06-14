@@ -1,7 +1,8 @@
 #include "stdafx.h"
 
 #include "Constants.h"
-#include "ExceptionHandler.h"
+#include "loadFromFileError.h"
+#include "WriteToFileError.h"
 #include "Game.h"
 #include "GameState.h"
 #include "MainMenuState.h"

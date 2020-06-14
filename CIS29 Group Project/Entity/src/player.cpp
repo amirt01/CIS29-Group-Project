@@ -2,20 +2,22 @@
 #include "player.h"
 
 Player::Player(sf::Texture& playerTexture, const int width, const int height)
-	: Entity(), moveType{ -1,1 }, pos(Center),
+	: Entity(), moveType{ -1,1 },
 	movementShift(130), //shift space (distance between lanes)
-	currentPosition(pos), //pos = Center/1
+	currentPosition(1), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
-	coins(0)
+	coins(0),
+	isDamaged(false),
+	isPassing(false)
 {
 	setTexture(playerTexture);
-	sprite.setTextureRect(sf::IntRect(0, 0, width, height));
+	setTextureRect(sf::IntRect(0, 0, width, height));
 
-	addAnimation("IDLE", 0.1f, 0, 4, width, height);
+	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
 
-	sprite.setPosition(sf::Vector2f(50, 300));
-	playerColor = sprite.getColor();
+	sf::Sprite::setPosition(sf::Vector2f(50, 300));
+	playerColor = getColor();
 }
 
 void Player::updateScore(const float& deltaTime) {
@@ -24,8 +26,8 @@ void Player::updateScore(const float& deltaTime) {
 
 void Player::updateAnimation(const float& deltaTime)
 {
-	animations["IDLE"]->update(deltaTime);
-	sprite.setTextureRect(animations["IDLE"]->textureRect);
+	animations["WHEELS"]->update(deltaTime);
+	setTextureRect(animations["WHEELS"]->textureRect);
 }
 
 void Player::gainCoin()
@@ -69,12 +71,12 @@ void Player::collisionMove()
 void Player::playerDamage()
 {
 	if (isDamaged) {
-		sprite.setColor(playerColor);
+		setColor(playerColor);
 		isDamaged = false;
 	}
 	else
 	{
-		sprite.setColor(sf::Color::Transparent);
+		setColor(sf::Color::Transparent);
 		isDamaged = true;
 	}
 }
@@ -83,36 +85,24 @@ void Player::revertPlayer()
 {
 	if (isDamaged)
 	{
-		sprite.setColor(playerColor);
+		setColor(playerColor);
 	}
 }
 
 void Player::updateMovement(int shift) {
-	unsigned short currentPos = pos;
+	unsigned short currentPos = getCurrentPosition();
 
 	if (shift == -1) {
 		if (checkPosition(-1)) {
-			sprite.move(sf::Vector2f(0, -movementShift));
+			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
-			clock.restart();
 		}
 	}
 	else if (shift == 1) {
 		if (checkPosition(1)) {
-			sprite.move(sf::Vector2f(0, movementShift));
+			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
-			clock.restart();
 		}
-	}
-
-	if (currentPosition == 0) {
-		setPosition(Up);
-	}
-	else if (currentPosition == 1) {
-		setPosition(Center);
-	}
-	else if (currentPosition == 2) {
-		setPosition(Down);
 	}
 }
 
@@ -163,11 +153,20 @@ int Player::getCurrentPosition() {
 	return currentPosition;
 }
 
-void Player::setPosition(position x)
+bool Player::passed(bool pass)
 {
-	pos = x;
-}
-
-Player::position Player::getPosition() const {
-	return pos;
+	if (pass && isPassing)
+	{
+		return false;
+	}
+	else if (pass && !isPassing)
+	{
+		isPassing = true;
+		return true;
+	}
+	else
+	{
+		isPassing = false;
+		return false;
+	}
 }

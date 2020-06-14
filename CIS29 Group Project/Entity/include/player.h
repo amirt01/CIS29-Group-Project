@@ -4,7 +4,6 @@
 
 class Player : public Entity {
 private:
-	enum position { Up = 0, Center = 1, Down = 2 } pos;
 	int moveType[2];
 	float movementShift;
 	int currentPosition;
@@ -12,10 +11,15 @@ private:
 	float score;
 	unsigned int coins;
 	bool isDamaged;
+	bool isPassing;
 
-	sf::Texture playerTexture;
+	sf::RenderTexture renderTexture;
+
+	sf::Texture characterTexture;
+	sf::Texture bikeTexture;
+	sf::Texture wheelTexture;
+
 	sf::Color playerColor;
-	sf::Clock clock;
 
 public:
 	Player(sf::Texture& playerTexture, const int width, const int height);
@@ -29,7 +33,7 @@ public:
 	void gainCoin();
 	unsigned int getCoins();
 
-	void resetPlayer();
+	
 
 	//player health
 	void takeDamage();
@@ -38,6 +42,7 @@ public:
 	void collisionMove(); // player auto moves
 	void playerDamage(); // player transparency
 	void revertPlayer();
+	void resetPlayer();
 
 	//Score
 	float getCurrentScore();
@@ -48,6 +53,7 @@ public:
 	float getMovementShift();
 	void setCurrentPosition(int);
 	int getCurrentPosition();
-	void setPosition(position);
-	position getPosition() const;
+
+	//passing
+	bool passed(bool);
 };
