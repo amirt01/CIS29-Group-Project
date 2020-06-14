@@ -11,6 +11,7 @@ private:
 	float score;
 	unsigned int coins;
 	bool isDamaged;
+	bool isPassing;
 
 	sf::RenderTexture renderTexture;
 
@@ -52,4 +53,7 @@ public:
 	float getMovementShift();
 	void setCurrentPosition(int);
 	int getCurrentPosition();
+
+	//passing
+	bool passed(bool);
 };

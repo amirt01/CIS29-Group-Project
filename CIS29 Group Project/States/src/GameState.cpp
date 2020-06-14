@@ -303,6 +303,7 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
+
 	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
 		updateCollision(objects.front());
@@ -311,6 +312,19 @@ void GameState::checkCollision() {
 	{
 		updateCollision(objects.at(1));
 	}
+
+	if (abs(objects.front()->getPosition().x -player.getPosition().x) < 100 && !objects.front()->hit)
+	{
+		if (player.passed(true)) 
+		{
+			playSound("CAR_PASSING", 30.f);
+		}
+	}
+	else
+	{
+		player.passed(false); //reset boolean in player
+	}
+
 }
 
 // Render

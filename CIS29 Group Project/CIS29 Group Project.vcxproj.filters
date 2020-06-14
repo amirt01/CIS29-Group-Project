@@ -228,6 +228,12 @@
     <Media Include="Resources\Audio\music-loop.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="Resources\Audio\car-passing.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\honk.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\Dosis-SemiBold.ttf" />

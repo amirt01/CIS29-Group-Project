@@ -8,7 +8,8 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(0),
-	isDamaged(false)
+	isDamaged(false),
+	isPassing(false)
 {
 	setTexture(playerTexture);
 	setTextureRect(sf::IntRect(0, 0, width, height));
@@ -152,3 +153,20 @@ int Player::getCurrentPosition() {
 	return currentPosition;
 }
 
+bool Player::passed(bool pass)
+{
+	if (pass && isPassing)
+	{
+		return false;
+	}
+	else if (pass && !isPassing)
+	{
+		isPassing = true;
+		return true;
+	}
+	else
+	{
+		isPassing = false;
+		return false;
+	}
+}
