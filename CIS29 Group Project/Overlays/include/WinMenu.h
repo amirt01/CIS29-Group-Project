@@ -9,7 +9,7 @@ private:
 
 	void initializeGUI(sf::Font* font, sf::SoundBuffer* sound);
 public:
-	WinMenu(sf::RenderWindow* renderWindow, sf::Font* font, sf::SoundBuffer* sound);
+	WinMenu(std::shared_ptr<sf::RenderWindow> renderWindow, sf::Font* font, sf::SoundBuffer* sound);
 	~WinMenu();
 
 	void setScore(const float& score);

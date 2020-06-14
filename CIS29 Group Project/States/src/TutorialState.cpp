@@ -8,13 +8,13 @@
 // Initializers
 void TutorialState::initializeGUI()
 {
-	buttons["BACK"] = new gui::Button(920, 450, 150, 50,
+	buttons["BACK"] = std::make_unique<gui::Button>(920, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+TutorialState::TutorialState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers)
@@ -30,11 +30,6 @@ TutorialState::TutorialState(sf::RenderWindow* renderWindow, std::stack<State*>*
 
 TutorialState::~TutorialState()
 {
-	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it)
-	{
-		delete it->second;
-	}
 }
 
 void TutorialState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -80,7 +75,7 @@ void TutorialState::updateState(const float& deltaTime)
 }
 
 // Render
-void TutorialState::renerGUI(sf::RenderTarget* renderTarget)
+void TutorialState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -88,10 +83,10 @@ void TutorialState::renerGUI(sf::RenderTarget* renderTarget)
 	}
 }
 
-void TutorialState::renderState(sf::RenderTarget* renderTarget)
+void TutorialState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	if (!renderTarget)
-		renderTarget = renderWindow;
+	//if (!renderTarget)
+	//	renderTarget = renderWindow;
 
 	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);

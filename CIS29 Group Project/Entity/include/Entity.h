@@ -9,7 +9,7 @@ class Entity : public sf::Sprite
 protected:
 	sf::Texture textureSheet;
 
-	std::map<std::string, Animation*> animations;
+	std::map<std::string, std::unique_ptr<Animation>> animations;
 
 public:
 	Entity();

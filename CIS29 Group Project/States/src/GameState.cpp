@@ -7,8 +7,6 @@
 void GameState::restartState()
 {
 	currentState = PLAY;
-	std::for_each(objects.begin(), objects.end(),
-		[&](Object* object) { delete object; });
 	objects.clear();
 	frequency = 5.f;
 	spawnTime = frequency;
@@ -17,7 +15,7 @@ void GameState::restartState()
 }
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -50,8 +48,6 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 
 GameState::~GameState()
 {
-	std::for_each(objects.begin(), objects.end(),
-		[&](Object* object) { delete object; });
 	objects.clear();
 }
 
@@ -61,13 +57,13 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		switch (type)
 		{
 		case RED:
-			objects.push_back(new Object(Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case YELLOW:
-			objects.push_back(new Object(Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case ORANGE:
-			objects.push_back(new Object(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
 			throw exc::SpawnError(level, type);
@@ -100,7 +96,7 @@ void GameState::updateMouseButtons(const sf::Mouse::Button& button)
 	{
 	case sf::Mouse::Button::Left:
 		if (buttons != nullptr)
-			for (auto button : *buttons)
+			for (auto&& button : *buttons)
 				button.second->checkBounds(mousePosView);
 	default:
 		break;
@@ -136,8 +132,6 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 		case sf::Keyboard::Tab:
 			updateGameSpeed(10.f);
 			player.updateScore(10.f);
-			std::for_each(objects.begin(), objects.end(),
-				[&](Object* object) { delete object; });
 			objects.clear();
 			break;
 		default:
@@ -185,11 +179,10 @@ void GameState::updateObjects(const float& deltaTime)
 {
 	if (objects.front()->getPosition().x <= -objects.front()->getGlobalBounds().width)
 	{
-		delete objects.front();
 		objects.pop_front();
 	}
 
-	for (auto it : objects)
+	for (auto&& it : objects)
 	{
 		it->move(sf::Vector2f(speed, 0) * deltaTime);
 		it->update(deltaTime);
@@ -239,7 +232,7 @@ void GameState::updateState(const float& deltaTime)
 			currentState = PLAY;
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
-			states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+			states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
 
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
@@ -278,7 +271,7 @@ void GameState::updateState(const float& deltaTime)
 	}
 }
 
-void GameState::updateCollision(Object* object)
+void GameState::updateCollision(std::unique_ptr<Object>& object)
 {
 	switch (object->type)
 	{
@@ -304,7 +297,6 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
-
 	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
 		updateCollision(objects.front());
@@ -331,15 +323,15 @@ void GameState::checkCarPassing()
 }
 
 // Render
-void GameState::renderState(sf::RenderTarget* renderTarget)
+void GameState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	if (!renderTarget)
-		renderTarget = renderWindow;
+	//if (!renderTarget)
+	//	renderTarget = renderWindow;
 
 	for (int i = 0; i < backgrounds.size(); i++)
 		renderTarget->draw(backgrounds[i]);
 
-	for (auto it : objects)
+	for (auto&& it : objects)
 		renderTarget->draw(*it);
 
 	renderTarget->draw(player);

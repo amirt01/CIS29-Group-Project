@@ -20,16 +20,16 @@ void WinMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
 	score.setStyle(sf::Text::Bold);
 	score.setFillColor(sf::Color::White);
 
-	buttons["RESTART"] = new gui::Button(x, 380, width, height,
+	buttons["RESTART"] = std::make_unique<gui::Button>(x, 380, width, height,
 		font, sound, "Restart",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["QUIT"] = new gui::Button(x, 480, width, height,
+	buttons["QUIT"] = std::make_unique<gui::Button>(x, 480, width, height,
 		font, sound, "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-WinMenu::WinMenu(sf::RenderWindow* renderWindow, sf::Font* font, sf::SoundBuffer* sound)
+WinMenu::WinMenu(std::shared_ptr<sf::RenderWindow> renderWindow, sf::Font* font, sf::SoundBuffer* sound)
 	: Overlay(renderWindow)
 {
 	initializeGUI(font, sound);

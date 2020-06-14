@@ -24,14 +24,14 @@ private:
 	PauseMenu pauseMenu;
 	DeathMenu deathMenu;
 	WinMenu winMenu;
-	const std::map<std::string, gui::Button*>* buttons;
+	const std::map<std::string, std::unique_ptr<gui::Button>>* buttons;
 
 	Leaderboard* leaderboard;
 	GameStats* gameStats;
 
 	sf::Sound backgroundMusic;
 
-	std::stack<State*>* states;
+	std::stack<std::unique_ptr<State>>* states;
 	std::array<sf::RectangleShape, 3> backgrounds;
 
 protected:
@@ -44,7 +44,7 @@ protected:
 	HUD hud;
 	Collide collide;
 
-	std::deque<Object*> objects;
+	std::deque<std::unique_ptr<Object>> objects;
 
 	// Initializers
 	virtual void updateSpawning() = 0;
@@ -52,7 +52,7 @@ protected:
 
 public:
 	// Constructors/Destructors
-	GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -70,12 +70,12 @@ public:
 	void updateObjects(const float& deltaTime);
 	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);
 	virtual void updateState(const float& deltaTime);
-	void updateCollision(Object* object);
+	void updateCollision(std::unique_ptr<Object>& object);
 	void checkCarPassing();
 
 	// Collision Detection
 	void checkCollision();
 
 	// Render
-	void renderState(sf::RenderTarget* renderTarget = nullptr);
+	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 };

@@ -10,12 +10,12 @@ void RankingsState::initializeBackground()
 
 void RankingsState::initializeGUI()
 {
-	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
+	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(220, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+RankingsState::RankingsState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -28,11 +28,6 @@ RankingsState::RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>*
 
 RankingsState::~RankingsState()
 {
-	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it)
-	{
-		delete it->second;
-	}
 }
 
 void RankingsState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -80,7 +75,7 @@ void RankingsState::updateState(const float& deltaTime)
 }
 
 // Render
-void RankingsState::renerGUI(sf::RenderTarget* renderTarget)
+void RankingsState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -88,10 +83,10 @@ void RankingsState::renerGUI(sf::RenderTarget* renderTarget)
 	}
 }
 
-void RankingsState::renderState(sf::RenderTarget* renderTarget)
+void RankingsState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	if (!renderTarget)
-		renderTarget = renderWindow;
+	//if (!renderTarget)
+	//	renderTarget = renderWindow;
 
 	sf::Text title("Rankings", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);

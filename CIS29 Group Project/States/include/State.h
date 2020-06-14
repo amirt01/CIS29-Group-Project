@@ -6,7 +6,7 @@ private:
 
 protected:
 	//Variables
-	sf::RenderWindow* renderWindow;
+	std::shared_ptr<sf::RenderWindow> renderWindow;
 
 	std::unordered_map<std::string, sf::Texture>* textures;
 	std::unordered_map<std::string, sf::Font>* fonts;
@@ -15,7 +15,7 @@ protected:
 
 	bool quit;
 
-	std::stack<State*>* states;
+	std::stack<std::unique_ptr<State>>* states;
 
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;
@@ -23,7 +23,7 @@ protected:
 
 public:
 	// Constructors/Destructors
-	State(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	State(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers);
@@ -46,5 +46,5 @@ public:
 	virtual void updateState(const float& deltaTime) = 0;
 
 	// Render
-	virtual void renderState(sf::RenderTarget* renderTarget = nullptr) = 0;
+	virtual void renderState(std::shared_ptr<sf::RenderTarget> renderTarget) = 0;
 };
