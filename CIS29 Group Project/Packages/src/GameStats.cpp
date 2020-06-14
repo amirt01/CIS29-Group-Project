@@ -5,6 +5,7 @@
 GameStats::GameStats()
 	: coins(0), playerTexture("DEFAULT_PLAYER"), theme("DAY")
 {
+
 }
 
 bool GameStats::loadFromFile(const std::string& path)
@@ -24,6 +25,14 @@ bool GameStats::loadFromFile(const std::string& path)
 			fin >> coins;
 			fin >> playerTexture;
 			fin >> theme;
+
+			bool isUnlocked;
+			fin >> isUnlocked;
+			unlocked.insert({"DEFAULT_PLAYER", isUnlocked});
+			fin >> isUnlocked;
+			unlocked.insert({"BLUE_PLAYER", isUnlocked});
+			fin >> isUnlocked;
+			unlocked.insert({"DELOREAN_PLAYER", isUnlocked});
 		}
 		else
 			throw exc::LoadFromFileError(path);
@@ -63,7 +72,9 @@ bool GameStats::writeToFile(const std::string& path)
 	fout << coins << '\n';
 	fout << playerTexture << '\n';
 	fout << theme << '\n';
-
+	fout << unlocked.find("DEFAULT_PLAYER")->second << "\n";
+	fout << unlocked.find("BLUE_PLAYER")->second << "\n";
+	fout << unlocked.find("DELOREAN_PLAYER")->second << "\n";
 	fout.close();
 
 	return true;

@@ -6,6 +6,7 @@
 #include "LevelEditor.h"
 #include "RankingsState.h"
 #include "TutorialState.h"
+#include "ShopState.h"
 
 // Initializers
 void MainMenuState::initializeGUI()
@@ -58,6 +59,10 @@ void MainMenuState::initializeGUI()
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["SHOP_STATE"] = new gui::Button(920, 350, 150, 50,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)); 
+	
 	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
@@ -136,6 +141,8 @@ void MainMenuState::updateGUI()
 		states->push(new RankingsState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
 		states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+	if (buttons["SHOP_STATE"]->getIsActivated())
+		states->push(new ShopState(renderWindow, states, textures, fonts, soundBuffers, gameStats));
 	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
 		using namespace std::chrono_literals; // for ms

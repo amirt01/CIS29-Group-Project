@@ -16,7 +16,7 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	sf::Sprite getSprite();
+	sf::Sprite& getSprite();
 
 	//Component functions
 	void setTexture(sf::Texture& texture_sheet);

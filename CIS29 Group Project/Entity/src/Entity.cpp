@@ -19,7 +19,7 @@ Entity::~Entity()
 {
 }
 
-sf::Sprite Entity::getSprite()
+sf::Sprite& Entity::getSprite()
 {
 	return sprite;
 }
