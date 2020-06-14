@@ -9,7 +9,7 @@ class ShopState :
 private:
 	//Variables
 	Entity background;
-	std::map<std::string, gui::Button *> buttons;
+	std::map<std::string, std::unique_ptr<gui::Button>> buttons;
 
 	void initializeGUI();
 
@@ -26,7 +26,7 @@ private:
 
 public:
 
-	ShopState(sf::RenderWindow * renderWindow, std::stack<State *> * states,
+	ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>> * states,
 			  std::unordered_map<std::string, sf::Texture> * textures,
 			  std::unordered_map<std::string, sf::Font> * fonts,
 			  std::unordered_map<std::string, sf::SoundBuffer> * soundBuffers,
@@ -39,8 +39,8 @@ public:
 	void updateMouseButtons(const sf::Mouse::Button & button);
 	void updateGUI();
 	void updateState(const float & deltaTime);
-	void renderState(sf::RenderTarget * renderTarget);
-	void renderGUI(sf::RenderTarget * renderTarget);
+	void renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
+	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 
 };
 

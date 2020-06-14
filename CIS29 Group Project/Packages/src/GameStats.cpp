@@ -3,7 +3,7 @@
 #include "LoadFromFileError.h"
 
 GameStats::GameStats()
-	: coins(0), playerTexture("DEFAULT_PLAYER"), theme("DAY")
+	: coins(0), playerTexture("DEFAULT_PLAYER"), theme("GAME_BACKGROUND")
 {
 
 }

@@ -11,19 +11,19 @@
 // Initializers
 void MainMenuState::initializeGUI()
 {
-	buttons["FREE_PLAY"] = new gui::Button(220, 250, 150, 50,
+	buttons["FREE_PLAY"] = std::make_unique<gui::Button>(220, 250, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Free Play",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_1"] = new gui::Button(520, 250, 150, 50,
+	buttons["LEVEL_1"] = std::make_unique<gui::Button>(520, 250, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 1",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_2"] = new gui::Button(520, 350, 150, 50,
+	buttons["LEVEL_2"] = std::make_unique<gui::Button>(520, 350, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 2",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_3"] = new gui::Button(520, 450, 150, 50,
+	buttons["LEVEL_3"] = std::make_unique<gui::Button>(520, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 3",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	/*
@@ -51,25 +51,25 @@ void MainMenuState::initializeGUI()
 		&font, "Level 9",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	*/
-	buttons["RANKGINGS_STATE"] = new gui::Button(220, 350, 150, 50,
+	buttons["RANKGINGS_STATE"] = std::make_unique<gui::Button>(220, 350, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Rankings",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["TUTORIAL_STATE"] = new gui::Button(920, 450, 150, 50,
+	buttons["TUTORIAL_STATE"] = std::make_unique<gui::Button>(920, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["SHOP_STATE"] = new gui::Button(920, 350, 150, 50,
+	buttons["SHOP_STATE"] = std::make_unique<gui::Button>(920, 350, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)); 
 	
-	buttons["EXIT_STATE"] = new gui::Button(220, 450, 150, 50,
+	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(220, 450, 150, 50,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit",
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>> * states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -86,11 +86,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* renderWindow, std::stack<State*>*
 
 MainMenuState::~MainMenuState()
 {
-	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it)
-	{
-		delete it->second;
-	}
+
 }
 
 void MainMenuState::updateMouseWheel(const short& mouseDelta)
@@ -104,7 +100,7 @@ void MainMenuState::updateMouseWheel(const short& mouseDelta)
 void MainMenuState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::G == keyCode)
-		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<FreePlayState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
 }
 
 void MainMenuState::updateMouseButtons(const sf::Mouse::Button& button)
@@ -130,19 +126,19 @@ void MainMenuState::updateGUI()
 	}
 
 	if (buttons["FREE_PLAY"]->getIsActivated())
-		states->push(new FreePlayState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<FreePlayState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_1"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_2"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_3"]->getIsActivated())
-		states->push(new Level(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
-		states->push(new RankingsState(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
+		states->push(std::make_unique<RankingsState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
-		states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+		states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
 	if (buttons["SHOP_STATE"]->getIsActivated())
-		states->push(new ShopState(renderWindow, states, textures, fonts, soundBuffers, gameStats));
+		states->push(std::make_unique<ShopState>(renderWindow, states, textures, fonts, soundBuffers, gameStats));
 	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
 		using namespace std::chrono_literals; // for ms
@@ -158,7 +154,7 @@ void MainMenuState::updateState(const float& deltaTime)
 }
 
 // Render
-void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
+void MainMenuState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -166,7 +162,7 @@ void MainMenuState::renerGUI(sf::RenderTarget* renderTarget)
 	}
 }
 
-void MainMenuState::renderState(sf::RenderTarget* renderTarget)
+void MainMenuState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
