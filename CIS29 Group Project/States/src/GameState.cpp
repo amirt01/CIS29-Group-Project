@@ -51,19 +51,22 @@ GameState::~GameState()
 	objects.clear();
 }
 
-void GameState::spawnObject(const Levels level, const Color type)
+void GameState::spawnObject(const Levels level, const Color color)
 {
 	try {
-		switch (type)
+		switch (color)
 		{
 		case Color::RED:
-			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case Color::YELLOW:
-			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case Color::ORANGE:
-			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			break;
+		case Color::GOLD:
+			objects.push_back(std::make_unique<Object>(Type::COIN, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
 			break;
 		default:
 			//throw exc::SpawnError(level, type);
@@ -275,7 +278,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 {
 	switch (object->type)
 	{
-	case Type::Obstacle:
+	case Type::OBSTACLE:
 		playSound("CRASH", 50.f);
 		player.takeDamage();
 		object->hit = true;
@@ -286,8 +289,9 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 		collide.collisionPosition(player.getCurrentPosition());
 		player.collisionMove();
 		break;
-	case Type::Coin:
+	case Type::COIN:
 		playSound("COIN", 50.f);
+		object->hit = true;
 		player.gainCoin();
 		break;
 	default:

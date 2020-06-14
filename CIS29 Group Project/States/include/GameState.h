@@ -11,7 +11,7 @@
 #include "WinMenu.h"
 #include "GameStats.h"
 
-enum class Color { RED = 0, YELLOW, ORANGE };
+enum class Color { RED = 0, YELLOW, ORANGE, GOLD };
 enum class Obsticle { MEDIUM = 0, LARGE, SMALL };
 enum class Direction { FORWARDS = 1, BACKWARDS = -1 };
 enum class GameStates { PLAY = 0, PAUSED, DEAD, WIN };
@@ -59,7 +59,7 @@ public:
 		Leaderboard* leaderboard, GameStats* gameStats);
 	virtual ~GameState();
 
-	void spawnObject(const Levels level, const Color type);
+	void spawnObject(const Levels level, const Color color);
 
 	// Update
 	void updateGUI();

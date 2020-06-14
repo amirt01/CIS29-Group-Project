@@ -197,6 +197,9 @@
     <Image Include="Resources\Images\motorbiker-blue.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\coins.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\level1.bin">

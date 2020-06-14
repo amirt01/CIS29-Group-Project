@@ -229,6 +229,7 @@
     <Image Include="Resources\Images\CarFramesOrange.png" />
     <Image Include="Resources\Images\CarFramesRed.png" />
     <Image Include="Resources\Images\CarFramesYellow.png" />
+    <Image Include="Resources\Images\coins.png" />
     <Image Include="Resources\Images\CrashCartoon.jpg" />
     <Image Include="Resources\Images\CrashCartoon.png" />
     <Image Include="Resources\Images\GameBackground.png" />

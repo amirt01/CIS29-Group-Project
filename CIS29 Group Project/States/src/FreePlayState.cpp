@@ -11,7 +11,7 @@ void FreePlayState::updateSpawning()
 		Levels spawnLevel2 = static_cast<Levels>(randomDevice() % 3);
 
 		spawnObject(spawnLevel1,  // random position
-			static_cast<Color>(randomDevice() % 3)); // random color
+			static_cast<Color>(randomDevice() % 4)); // random color
 
 		if (spawnLevel1 == spawnLevel2)
 		{
@@ -36,7 +36,7 @@ void FreePlayState::updateSpawning()
 		}
 
 		spawnObject(spawnLevel2,  // random position
-			static_cast<Color>(randomDevice() % 3)); // random color
+			static_cast<Color>(randomDevice() % 4)); // random color
 	}
 }
 
