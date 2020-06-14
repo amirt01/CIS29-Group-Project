@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-enum Type { Obstacle = 0, Coin };
+enum class Type { Obstacle = 0, Coin };
 
 class Object : public Entity
 {
@@ -12,7 +12,7 @@ public:
 	bool hit;
 	Type type;
 
-	Object(const Type type, const short unsigned level, sf::Texture& texture, const int width, const int height, const int startingLocation);
+	Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 
 	int getValue();
 

@@ -6,7 +6,7 @@
 
 void GameState::restartState()
 {
-	currentState = PLAY;
+	currentState = GameStates::PLAY;
 	objects.clear();
 	frequency = 5.f;
 	spawnTime = frequency;
@@ -23,7 +23,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	: State(renderWindow, states, textures, fonts, soundBuffers),
 	leaderboard(leaderboard), states(states), gameStats(gameStats),
 	speed(-75.f), frequency(5.f),
-	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
+	currentState(GameStates::PLAY), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
@@ -51,22 +51,22 @@ GameState::~GameState()
 	objects.clear();
 }
 
-void GameState::spawnObject(unsigned short level, unsigned short type)
+void GameState::spawnObject(const Levels level, const Color type)
 {
 	try {
 		switch (type)
 		{
-		case RED:
-			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::RED:
+			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case YELLOW:
-			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::YELLOW:
+			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case ORANGE:
-			objects.push_back(std::make_unique<Object>(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::ORANGE:
+			objects.push_back(std::make_unique<Object>(Type::Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		default:
-			throw exc::SpawnError(level, type);
+			//throw exc::SpawnError(level, type);
 			break;
 		}
 	}
@@ -107,11 +107,11 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		switch (keyCode)
 		{
 		case sf::Keyboard::Escape:
-			currentState = PAUSED;
+			currentState = GameStates::PAUSED;
 			break;
 		case sf::Keyboard::W:
 			playSound("WOOSH", 25.f);
@@ -138,11 +138,11 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			break;
 		}
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		if (sf::Keyboard::Escape == keyCode)
-			currentState = PLAY;
+			currentState = GameStates::PLAY;
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		switch (keyCode)
 		{
 		case sf::Keyboard::Escape:
@@ -153,7 +153,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 				buttons->at("NAME")->addText(keyCode);
 		}
 		break;
-	case WIN:
+	case GameStates::WIN:
 		break;
 	default:
 		break;
@@ -189,14 +189,14 @@ void GameState::updateObjects(const float& deltaTime)
 	}
 }
 
-void GameState::updateBackground(const float& deltaTime, const short dir)
+void GameState::updateBackground(const float& deltaTime, const Direction dir)
 {
 	for (sf::RectangleShape& background : backgrounds) {
-		background.move(2 * speed * dir * deltaTime, 0);
+		background.move(2.f * speed * static_cast<float>(dir) * deltaTime, 0.f);
 
 		if (background.getPosition().x + background.getSize().x < -background.getSize().x)
 			background.move(sf::Vector2f(3.f * renderWindow->getSize().x, 0.f));
-		if (background.getPosition().x > 2 * background.getSize().x)
+		if (background.getPosition().x > 2.f * background.getSize().x)
 			background.move(sf::Vector2f(-3.f * renderWindow->getSize().x, 0.f));
 	}
 }
@@ -206,11 +206,11 @@ void GameState::updateState(const float& deltaTime)
 	updateMousePositions();
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		backgroundMusic.setVolume(25.f);
 		buttons = nullptr;
 		updateGameSpeed(deltaTime);
-		updateBackground(deltaTime, FORWARDS);
+		updateBackground(deltaTime, Direction::FORWARDS);
 		updateSpawning();
 		player.updateScore(deltaTime);
 		player.updateAnimation(deltaTime);
@@ -222,14 +222,14 @@ void GameState::updateState(const float& deltaTime)
 			updateObjects(deltaTime);
 		}
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		// do pause things
 		backgroundMusic.setVolume(10.f);
 		buttons = pauseMenu.getButtons();
 		updateGUI();
 		// Resume the Game
 		if (buttons->at("RESUME")->getIsActivated())
-			currentState = PLAY;
+			currentState = GameStates::PLAY;
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
 			states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
@@ -239,7 +239,7 @@ void GameState::updateState(const float& deltaTime)
 			quitState();
 
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		// do dead things
 		sound.stop();
 		buttons = deathMenu.getButtons();
@@ -254,7 +254,7 @@ void GameState::updateState(const float& deltaTime)
 			quitState();
 		}
 		break;
-	case WIN:
+	case GameStates::WIN:
 		// do win things
 		sound.stop();
 		buttons = winMenu.getButtons();
@@ -275,18 +275,18 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 {
 	switch (object->type)
 	{
-	case Obstacle:
+	case Type::Obstacle:
 		playSound("CRASH", 50.f);
 		player.takeDamage();
 		object->hit = true;
 		if (player.getCurrentHealth() == 0) { // render death menu if the player dies
-			currentState = DEAD;
+			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
 		collide.collisionPosition(player.getCurrentPosition());
 		player.collisionMove();
 		break;
-	case Coin:
+	case Type::Coin:
 		playSound("COIN", 50.f);
 		player.gainCoin();
 		break;
@@ -339,15 +339,15 @@ void GameState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		renderTarget->draw(pauseMenu);
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		renderTarget->draw(deathMenu);
 		break;
-	case WIN:
+	case GameStates::WIN:
 		renderTarget->draw(winMenu);
 		break;
 	default:

@@ -30,14 +30,12 @@ bool GameStats::loadFromFile(const std::string& path)
 	}
 	catch (exc::LoadFromFileError&)
 	{
-		unsigned int in;
-
 		std::cout << "Error reading file window setting's file.\n"
 			<< "(1) Load Default Settings\n"
 			<< "(2) Exit\n";
-		std::cin >> in;
+		char in = std::cin.get();
 
-		if (in == 1)
+		if (in == '1')
 		{
 			coins = 0;
 			playerTexture = "DEFAULT_PLAYER";

@@ -11,10 +11,10 @@
 #include "WinMenu.h"
 #include "GameStats.h"
 
-enum Color { RED = 0, YELLOW, ORANGE };
-enum Obsticle { MEDIUM = 0, LARGE, SMALL };
-enum Direction { FORWARDS = 1, BACKWARDS = -1 };
-enum GameStates { PLAY = 0, PAUSED, DEAD, WIN };
+enum class Color { RED = 0, YELLOW, ORANGE };
+enum class Obsticle { MEDIUM = 0, LARGE, SMALL };
+enum class Direction { FORWARDS = 1, BACKWARDS = -1 };
+enum class GameStates { PLAY = 0, PAUSED, DEAD, WIN };
 
 class GameState : public State
 {
@@ -59,7 +59,7 @@ public:
 		Leaderboard* leaderboard, GameStats* gameStats);
 	virtual ~GameState();
 
-	void spawnObject(unsigned short level, unsigned short type);
+	void spawnObject(const Levels level, const Color type);
 
 	// Update
 	void updateGUI();
@@ -68,7 +68,7 @@ public:
 	void updateMouseWheel(const short& mouseDelta);
 	void updateGameSpeed(const float& deltaTime);
 	void updateObjects(const float& deltaTime);
-	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);
+	virtual void updateBackground(const float& deltaTime, const Direction dir = Direction::FORWARDS);
 	virtual void updateState(const float& deltaTime);
 	void updateCollision(std::unique_ptr<Object>& object);
 	void checkCarPassing();

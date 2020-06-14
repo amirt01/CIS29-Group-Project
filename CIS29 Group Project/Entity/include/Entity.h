@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Animation.h"
 
-enum level { TOP = 0, MIDDLE, BOTTOM };
+enum class Levels { TOP = 0, MIDDLE, BOTTOM };
 
 class Entity : public sf::Sprite
 {

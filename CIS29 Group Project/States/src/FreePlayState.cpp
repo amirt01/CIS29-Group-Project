@@ -7,36 +7,36 @@ void FreePlayState::updateSpawning()
 	{
 		spawnTime = 0;
 
-		unsigned short spawnLevel1 = randomDevice() % 3;
-		unsigned short spawnLevel2 = randomDevice() % 3;
+		Levels spawnLevel1 = static_cast<Levels>(randomDevice() % 3);
+		Levels spawnLevel2 = static_cast<Levels>(randomDevice() % 3);
 
-		spawnObject(static_cast<unsigned short>(spawnLevel1),  // random position
-			static_cast<unsigned short>(randomDevice() % 3)); // random color
+		spawnObject(spawnLevel1,  // random position
+			static_cast<Color>(randomDevice() % 3)); // random color
 
 		if (spawnLevel1 == spawnLevel2)
 		{
-			std::array<unsigned short, 2> spawnLevels;
+			std::array<Levels, 2> spawnLevels;
 
 			switch (spawnLevel1)
 			{
-			case 0:
-				spawnLevels = { 1, 2 };
+			case Levels::BOTTOM:
+				spawnLevels = { Levels::MIDDLE, Levels::TOP };
 				break;
-			case 1:
-				spawnLevels = { 0, 2 };
+			case Levels::MIDDLE:
+				spawnLevels = { Levels::BOTTOM, Levels::TOP };
 				break;
-			case 2:
-				spawnLevels = { 0, 1 };
+			case Levels::TOP:
+				spawnLevels = { Levels::BOTTOM, Levels::MIDDLE };
 				break;
 			default:
 				break;
 			}
 
-			spawnLevel2 = spawnLevels[randomDevice() % 2];
+			spawnLevel2 = static_cast<Levels>(spawnLevels[randomDevice() % 2]);
 		}
 
-		spawnObject(static_cast<unsigned short>(spawnLevel2),  // random position
-			static_cast<unsigned short>(randomDevice() % 3)); // random color
+		spawnObject(spawnLevel2,  // random position
+			static_cast<Color>(randomDevice() % 3)); // random color
 	}
 }
 

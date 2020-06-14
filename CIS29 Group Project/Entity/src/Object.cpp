@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "Object.h"
 
-Object::Object(const Type type, const short unsigned level, sf::Texture& texture, const int width, const int height, const int startingLocation)
-	: Entity(), hit(false), type(type)
+Object::Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation)
+	: Entity(), hit(false), type(type), value(1)
 {
 	switch (level)
 	{
-	case TOP:
+	case Levels::TOP:
 		setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 200.f - static_cast<float>(height / 2)));
 		break;
-	case MIDDLE:
+	case Levels::MIDDLE:
 		setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 335.f - static_cast<float>(height / 2)));
 		break;
-	case BOTTOM:
+	case Levels::BOTTOM:
 		setPosition(sf::Vector2f(static_cast<float>(startingLocation + width), 460.f - static_cast<float>(height / 2)));
 		break;
 	default:
