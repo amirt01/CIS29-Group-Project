@@ -71,6 +71,7 @@ public:
 	virtual void updateBackground(const float& deltaTime, const short dir = FORWARDS);
 	virtual void updateState(const float& deltaTime);
 	void updateCollision(Object* object);
+	void checkCarPassing();
 
 	// Collision Detection
 	void checkCollision();

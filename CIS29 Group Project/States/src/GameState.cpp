@@ -225,6 +225,7 @@ void GameState::updateState(const float& deltaTime)
 		if (!objects.empty())
 		{
 			checkCollision();
+			checkCarPassing();
 			updateObjects(deltaTime);
 		}
 		break;
@@ -312,19 +313,21 @@ void GameState::checkCollision() {
 	{
 		updateCollision(objects.at(1));
 	}
+}
 
-	if (abs(objects.front()->getPosition().x -player.getPosition().x) < 100 && !objects.front()->hit)
+void GameState::checkCarPassing()
+{
+	if (abs(objects.front()->getPosition().x - player.getPosition().x) < 100 && !objects.front()->hit)
 	{
-		if (player.passed(true)) 
+		if (player.passed(true))
 		{
-			playSound("CAR_PASSING", 30.f);
+			playSound("CAR_PASSING", 25.f);
 		}
 	}
 	else
 	{
 		player.passed(false); //reset boolean in player
 	}
-
 }
 
 // Render
