@@ -24,6 +24,7 @@
 #include<algorithm>
 #include<cmath>
 #include<thread>
+#include<memory>
 
 //SFML Specific
 #include"SFML\System.hpp"

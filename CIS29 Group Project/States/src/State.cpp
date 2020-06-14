@@ -2,11 +2,11 @@
 #include "State.h"
 
 // Constructors / destructors
-State::State(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+State::State(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers)
-	: renderWindow(renderWindow), states(states), quit(false),
+	: renderWindow(move(renderWindow)), states(states), quit(false),
 	textures(textures), fonts(fonts), soundBuffers(soundBuffers)
 {
 }

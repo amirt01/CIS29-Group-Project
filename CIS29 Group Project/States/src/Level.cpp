@@ -84,7 +84,7 @@ void Level::restartState()
 	initializeLevel();
 }
 
-Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states,
+Level::Level(std::shared_ptr<sf::RenderWindow> renderWindow, std::string path, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,

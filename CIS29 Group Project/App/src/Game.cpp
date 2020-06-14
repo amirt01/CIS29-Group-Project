@@ -89,9 +89,9 @@ void Game::initializeWindow(std::string path)
 	this->windowSettings.antialiasingLevel = antialiasing_level;
 
 	if (fullscreen)
-		renderWindow = new sf::RenderWindow(window_bounds, game_title, sf::Style::Fullscreen, windowSettings);
+		renderWindow = std::make_shared<sf::RenderWindow>(window_bounds, game_title, sf::Style::Fullscreen, windowSettings);
 	else
-		renderWindow = new sf::RenderWindow(window_bounds, game_title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
+		renderWindow = std::make_shared<sf::RenderWindow>(window_bounds, game_title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
 
 	renderWindow->setFramerateLimit(framerate_limit);
 	renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
@@ -133,16 +133,13 @@ Game::Game()
 	initializeAudio();
 	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
-	states.push(new MainMenuState(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats));
+	states.push(std::make_unique<MainMenuState>(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats));
 }
 
 Game::~Game()
 {
-	delete renderWindow;
-
 	while (!states.empty())
 	{
-		delete states.top();
 		states.pop();
 	}
 }
@@ -204,7 +201,6 @@ void Game::updateGame()
 	if (states.top()->getQuit())
 	{
 		states.top()->quitState();
-		delete states.top();
 		states.pop();
 	}
 }

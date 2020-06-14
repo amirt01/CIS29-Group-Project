@@ -40,7 +40,7 @@ void FreePlayState::updateSpawning()
 	}
 }
 
-FreePlayState::FreePlayState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+FreePlayState::FreePlayState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,

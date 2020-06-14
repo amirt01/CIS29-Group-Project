@@ -11,7 +11,7 @@ private:
 	void initializeGUI(sf::Font* font, sf::SoundBuffer* sound);
 
 public:
-	DeathMenu(sf::RenderWindow* renderWindow, sf::Font* font, sf::SoundBuffer* sound);
+	DeathMenu(std::shared_ptr<sf::RenderWindow> renderWindow, sf::Font* font, sf::SoundBuffer* sound);
 	~DeathMenu();
 
 	void setScore(const float& score);

@@ -11,7 +11,7 @@ private:
 	// Variables
 	sf::RectangleShape background;
 
-	std::map<std::string, gui::Button*> buttons;
+	std::map<std::string, std::unique_ptr<gui::Button>> buttons;
 
 	Leaderboard* leaderboard;
 
@@ -20,7 +20,7 @@ private:
 	void initializeBackground();
 	void initializeGUI();
 public:
-	RankingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+	RankingsState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -35,6 +35,6 @@ public:
 	void updateMouseWheel(const short& mouseDelta) {};
 
 	// Render
-	void renerGUI(sf::RenderTarget* renderTarget);
-	void renderState(sf::RenderTarget* renderTarget);
+	void renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
+	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 };
