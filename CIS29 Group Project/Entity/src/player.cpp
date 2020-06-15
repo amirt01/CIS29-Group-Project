@@ -16,7 +16,7 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	isDescending(false),
 	jumpHeight(130),
 	jumpState(NONE),
-	gravity(1.0f)
+	gravity(5.0f)
 {
 	setTexture(playerTexture);
 
@@ -132,7 +132,7 @@ void Player::updateMovement(int shift)
 	}
 }
 
-void Player::nowJumping(float speed, float deltaTime, bool passedCar)
+void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool passedCar)
 {
 	float moving = 0;
 	int i = currentPosition;
@@ -142,7 +142,16 @@ void Player::nowJumping(float speed, float deltaTime, bool passedCar)
 		moving = positions[i];
 		break;
 	case ASCEND:
-		if (abs(getPosition().y - positions[i]) > jumpHeight)
+		if (!carPresent && abs(getPosition().y - positions[i]) > jumpHeight)
+		{
+			moving = positions[i] - jumpHeight;
+			jumpState = DESCEND;
+		}
+		else if (!carPresent)
+		{
+			moving = getPosition().y - gravity;
+		}
+		else if (abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
 			jumpState = SUSPEND;
@@ -165,6 +174,10 @@ void Player::nowJumping(float speed, float deltaTime, bool passedCar)
 			moving = positions[i];
 			jumpState = NONE;
 			isJumping = false;
+		}
+		else if (!carPresent)
+		{
+			moving = getPosition().y + gravity;
 		}
 		else
 		{

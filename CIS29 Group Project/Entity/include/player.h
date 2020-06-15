@@ -62,7 +62,7 @@ public:
 	void setCurrentPosition(int);
 	int getCurrentPosition();
 	bool getIsJumping();
-	void nowJumping(float, float,bool);
+	void nowJumping(float, float, bool, bool);
 
 	//passing
 	bool passed(bool);

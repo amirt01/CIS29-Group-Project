@@ -69,7 +69,7 @@ void GameState::spawnObject(const Levels level, const Color color)
 			objects.push_back(std::make_unique<Object>(Type::COIN, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
 			break;
 		case CONVERTIBLE:
-			objects.push_back(new Object(Obstacle, level, textures->at("CONVERTIBLE"), 280, 98, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("CONVERTIBLE"), 280, 98, renderWindow->getSize().x));
 			break;
 		default:
 			//throw exc::SpawnError(level, type);
@@ -139,7 +139,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			updateGameSpeed(10.f);
 			player.updateScore(10.f);
 			objects.clear();
-			break;
+break;
 		case sf::Keyboard::Space:
 			player.updateMovement(2);
 			break;
@@ -227,11 +227,23 @@ void GameState::updateState(const float& deltaTime)
 		if (player.getIsJumping())
 		{
 			bool carPassing = false;
-			if (player.getPosition().y - objects.front()->getPosition().y <= 35)
+			bool carPresent = true;
+
+			if (objects.empty())
+			{
+				carPresent = false;
+			}
+			else if (abs(player.getPosition().x - objects.front()->getPosition().x) > 300)
+			{
+				carPresent = false;
+			}
+			else if (player.getPosition().y - objects.front()->getPosition().y <= 35)
 			{
 				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
+				carPresent = true;
 			}
-			player.nowJumping(speed, deltaTime,carPassing);
+			
+			player.nowJumping(speed, deltaTime,carPresent, carPassing);
 		}
 		
 		if (!objects.empty())
@@ -317,14 +329,16 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 
 //Collision Detection
 void GameState::checkCollision() {
-
-	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
+	if (!player.getIsJumping())
 	{
-		updateCollision(objects.front());
-	}
-	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
-	{
-		updateCollision(objects.at(1));
+		if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
+		{
+			updateCollision(objects.front());
+		}
+		if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
+		{
+			updateCollision(objects.at(1));
+		}
 	}
 }
 
