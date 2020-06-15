@@ -3,82 +3,69 @@
 
 void ShopState::initializeGUI() {
 	buttons["BACK"] = std::make_unique<gui::Button>(1115, 650, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+
+	const float WIDTH = 250.f;
+	const float HEIGHT = 200.f;
+
+	buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+	buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+	buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+	buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+	buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+	buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 
-	buttons["PLAYER2BUY"] = std::make_unique<gui::Button>(470, 355, 250, 40,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
-		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
-	buttons["PLAYER3BUY"] = std::make_unique<gui::Button>(835, 355, 250, 40,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
-		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
-	buttons["MAP2BUY"] = std::make_unique<gui::Button>(470, 660, 250, 40,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
-		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
-	buttons["MAP3BUY"] = std::make_unique<gui::Button>(835, 660, 250, 40,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
-		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+	const float BUYHEIGHT = 40.f;
 
-	if (gameStats->unlocked.find("BLUE_PLAYER")->second == true) { //check if player bought character before
-		buttons.erase("PLAYER2BUY");
+	if (!gameStats->unlocked.find("BLUE_PLAYER")->second) { //check if player bought character before
+		buttons["PLAYER2BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
 	}
-	if (gameStats->unlocked.find("DELOREAN_PLAYER")->second == true) {
-		buttons.erase("PLAYER3BUY");
+	if (!gameStats->unlocked.find("DELOREAN_PLAYER")->second) {
+		buttons["PLAYER3BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
 	}
-	if (gameStats->unlocked.find("GAME_BACKGROUND_PINK")->second == true) { //check if player bought map before
-		buttons.erase("MAP2BUY");
+	if (!gameStats->unlocked.find("GAME_BACKGROUND_PINK")->second) { //check if player bought map before
+		buttons["MAP2BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
 	}
-	if (gameStats->unlocked.find("GAME_BACKGROUND_DESERT")->second == true) {
-		buttons.erase("MAP3BUY");
+	if (!gameStats->unlocked.find("GAME_BACKGROUND_DESERT")->second) {
+		buttons["MAP3BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
 	}
 
 	if (gameStats->playerTexture == "DEFAULT_PLAYER") { //to show which character the player previously chose
-		buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["PLAYER1"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER1"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (gameStats->playerTexture == "BLUE_PLAYER") {
-		buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["PLAYER2"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER2"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (gameStats->playerTexture == "DELOREAN_PLAYER") {
-		buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["PLAYER3"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER3"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (gameStats->theme == "GAME_BACKGROUND") { //to show which map the player previously chose
-		buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["MAP1"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP1"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (gameStats->theme == "GAME_BACKGROUND_PINK") {
-		buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["MAP2"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP2"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (gameStats->theme == "GAME_BACKGROUND_DESERT") {
-		buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+		buttons["MAP3"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP3"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 
 	player1.setTexture(textures->at("DEFAULT_PLAYER"));
@@ -90,12 +77,12 @@ void ShopState::initializeGUI() {
 	player2.setPosition(545, 180);
 
 	player3.setTexture(textures->at("DELOREAN_PLAYER"));
-	player3.setTextureRect(sf::IntRect(0, 0, 191, 107)); 
+	player3.setTextureRect(sf::IntRect(0, 0, 280, 88)); 
 	player3.setPosition(870, 180);
 
 	map1.setTexture(textures->at("GAME_BACKGROUND"));
-	map1.setPosition(121, 480);
-	map1.setScale(0.084f, 0.084f);
+	map1.setPosition(125, 480);
+	map1.setScale(0.082875f, 0.082875f);
 
 	map2.setTexture(textures->at("GAME_BACKGROUND_PINK"));
 	map2.setPosition(490, 480);
@@ -161,75 +148,75 @@ void ShopState::updateGUI() {
 
 	if (buttons["PLAYER1"]->getIsActivated()) {
 		gameStats->playerTexture = "DEFAULT_PLAYER";
-		buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+
+		buttons["PLAYER1"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER1"]->setHoverColor(sf::Color(20, 20, 20, 50));
+
+		buttons["PLAYER2"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER2"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["PLAYER3"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER3"]->setHoverColor(sf::Color(74, 108, 135, 170));
 	}
 	if (buttons["PLAYER2"]->getIsActivated() && buttons.find("PLAYER2BUY") == buttons.end()) {
 		gameStats->playerTexture = "BLUE_PLAYER";
-		buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+
+		buttons["PLAYER1"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER1"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["PLAYER2"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER2"]->setHoverColor(sf::Color(20, 20, 20, 50));
+
+		buttons["PLAYER3"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER3"]->setHoverColor(sf::Color(74, 108, 135, 170));
 	}
 	if (buttons["PLAYER3"]->getIsActivated() && buttons.find("PLAYER3BUY") == buttons.end()) {
 		gameStats->playerTexture = "DELOREAN_PLAYER";
-		buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+
+		buttons["PLAYER1"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER1"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["PLAYER2"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["PLAYER2"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["PLAYER3"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["PLAYER3"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 	if (buttons["MAP1"]->getIsActivated()) {
 		gameStats->theme = "GAME_BACKGROUND";
-		buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
-		buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+
+		buttons["MAP1"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP1"]->setHoverColor(sf::Color(20, 20, 20, 50));
+
+		buttons["MAP2"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP2"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["MAP3"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP3"]->setHoverColor(sf::Color(74, 108, 135, 170));
 	}
 	if (buttons["MAP2"]->getIsActivated() && buttons.find("MAP2BUY") == buttons.end()) {
 		gameStats->theme = "GAME_BACKGROUND_PINK";
-		buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
-		buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+
+		buttons["MAP1"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP1"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["MAP2"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP2"]->setHoverColor(sf::Color(20, 20, 20, 50));
+
+		buttons["MAP3"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP3"]->setHoverColor(sf::Color(74, 108, 135, 170));
 	}
 	if (buttons["MAP3"]->getIsActivated() && buttons.find("MAP3BUY") == buttons.end()) {
 		gameStats->theme = "GAME_BACKGROUND_DESERT";
-		buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-		buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
+
+		buttons["MAP1"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP1"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["MAP2"]->setIdleColor(sf::Color(100, 100, 100, 100));
+		buttons["MAP2"]->setHoverColor(sf::Color(74, 108, 135, 170));
+
+		buttons["MAP3"]->setIdleColor(sf::Color(20, 20, 20, 50));
+		buttons["MAP3"]->setHoverColor(sf::Color(20, 20, 20, 50));
 	}
 
 	if (buttons.find("PLAYER2BUY") != buttons.end() && buttons["PLAYER2BUY"]->getIsActivated() && gameStats->coins >= 100) {
@@ -273,10 +260,6 @@ void ShopState::updateGUI() {
 		}
 	}
 	rotate++;
-	//// Updates all the buttons in the state and handles their functionality
-	//for (auto & it : buttons) {
-	//	it.second->updateColor(mousePosView);
-	//}
 }
 
 void ShopState::updateState(const float& deltaTime) {
@@ -289,7 +272,6 @@ void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 		renderTarget = renderWindow;
 
 	renderTarget->draw(background);
-	//background.render(renderTarget);
 
 	sf::Text title("SHOP", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(90);

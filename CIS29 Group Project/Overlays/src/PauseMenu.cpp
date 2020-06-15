@@ -2,9 +2,8 @@
 #include "PauseMenu.h"
 
 void PauseMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound) {
-	float width = 250.f;
-	float height = 75.f;
-	float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
+	const float WIDTH = 250.f;
+	const float HEIGHT = 75.f;
 
 	title.setPosition(0.f, 150.f);
 	title.setFont(*font);
@@ -13,14 +12,14 @@ void PauseMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound) {
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 
-	buttons["RESUME"] = std::make_unique<gui::Button>(x, 280, width, height,
-		font, sound, "Resume",
+	buttons["RESUME"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Resume", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	buttons["TUTORIAL_STATE"] = std::make_unique<gui::Button>(x, 380, width, height,
-		font, sound, "Help",
+	buttons["TUTORIAL_STATE"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(65.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Help", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	buttons["QUIT"] = std::make_unique<gui::Button>(x, 480, width, height,
-		font, sound, "Quit",
+	buttons["QUIT"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(80.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Quit", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

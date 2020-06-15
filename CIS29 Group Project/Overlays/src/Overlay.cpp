@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Overlay.h"
 
-void Overlay::initializeBackground(std::shared_ptr<sf::RenderWindow> renderWindow)
+void Overlay::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
@@ -9,7 +9,7 @@ void Overlay::initializeBackground(std::shared_ptr<sf::RenderWindow> renderWindo
 	background.setFillColor(sf::Color(20, 20, 20, 100));
 }
 
-void Overlay::initializeContainer(std::shared_ptr<sf::RenderWindow> renderWindow)
+void Overlay::initializeContainer()
 {
 	container.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x) / 4.f,
 		static_cast<float>(renderWindow->getSize().y)));
@@ -19,10 +19,26 @@ void Overlay::initializeContainer(std::shared_ptr<sf::RenderWindow> renderWindow
 	container.setPosition(static_cast<float>(renderWindow->getSize().x) / 2.f - container.getSize().x / 2.f, 0);
 }
 
-Overlay::Overlay(std::shared_ptr<sf::RenderWindow> renderWindow)
+const float Overlay::p2pX(const float perc)
 {
-	initializeBackground(renderWindow);
-	initializeContainer(renderWindow);
+	return std::floor(static_cast<float>(renderWindow->getSize().x) * (perc / 100.f));
+}
+
+const float Overlay::p2pY(const float perc)
+{
+	return std::floor(static_cast<float>(renderWindow->getSize().y) * (perc / 100.f));
+}
+
+const unsigned Overlay::calcCharSize()
+{
+	return static_cast<unsigned>((renderWindow->getSize().x + renderWindow->getSize().y) / 60);
+}
+
+Overlay::Overlay(std::shared_ptr<sf::RenderWindow> renderWindow)
+	: renderWindow(renderWindow)
+{
+	initializeBackground();
+	initializeContainer();
 }
 
 Overlay::~Overlay()

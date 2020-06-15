@@ -17,7 +17,7 @@ namespace gui
 
 	public:
 		DropDownMenu(float x, float y, float width, float height,
-			sf::Font&, sf::SoundBuffer* sound, std::string listOfTexts[],
+			sf::Font&, sf::SoundBuffer* sound, std::string listOfTexts[], unsigned charSize,
 			unsigned numberOfElements, const unsigned default_index = 0);
 		~DropDownMenu();
 

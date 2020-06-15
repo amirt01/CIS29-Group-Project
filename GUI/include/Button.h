@@ -18,13 +18,13 @@ namespace gui
 		sf::Text text;
 
 		//Color
-		const sf::Color idleColor;
-		const sf::Color hoverColor;
-		const sf::Color activeColor;
+		sf::Color idleColor;
+		sf::Color hoverColor;
+		sf::Color activeColor;
 
 	public:
 		Button(float x, float y, float width, float height,
-			sf::Font* font, sf::SoundBuffer* sound, std::string text,
+			sf::Font* font, sf::SoundBuffer* sound, std::string text, unsigned charSize,
 			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 		~Button();
 
@@ -36,6 +36,10 @@ namespace gui
 		void checkBounds(const sf::Vector2f mousePos);
 		void setText(const std::string text);
 		virtual void addText(const sf::Keyboard::Key& keycode);
+
+		void setIdleColor(const sf::Color& color);
+		void setHoverColor(const sf::Color& color);
+		void setActiveColor(const sf::Color& color);
 
 		//Functions
 		virtual void updateColor(const sf::Vector2f mousePos);

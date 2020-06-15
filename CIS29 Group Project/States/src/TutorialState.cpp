@@ -8,8 +8,11 @@
 // Initializers
 void TutorialState::initializeGUI()
 {
-	buttons["BACK"] = std::make_unique<gui::Button>(920, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
+	const float WIDTH = 150.f;
+	const float HEIGHT = 50.f;
+
+	buttons["BACK"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

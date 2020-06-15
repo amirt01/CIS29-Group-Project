@@ -3,33 +3,32 @@
 
 void DeathMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
 {
-	float width = 250.f;
-	float height = 75.f;
-	float x = container.getPosition().x + container.getSize().x / 2.f - width / 2.f;
+	const float WIDTH = 250.f;
+	const float HEIGHT = 75.f;
 
 	title.setPosition(0.f, 150.f);
 	title.setFont(*font);
 	title.setString("Game Over!");
-	title.setCharacterSize(56); //26 pixels
+	title.setCharacterSize(calcCharSize() * 1.9f); //26 pixels
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 
 	score.setPosition(0.f, 250.f);
 	score.setFont(*font);
-	score.setCharacterSize(48U);
+	score.setCharacterSize(calcCharSize() * 1.5f);
 	score.setStyle(sf::Text::Bold);
 	score.setFillColor(sf::Color::White);
 
-	buttons["RESTART"] = std::make_unique<gui::Button>(x, 380, width, height,
-		font, sound, "Restart",
+	buttons["RESTART"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Restart", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["NAME"] = std::make_unique<gui::TextBox>(x, 480, width, height,
-		font, sound, "Name",
+	buttons["NAME"] = std::make_unique<gui::TextBox>(p2pX(50.f) - WIDTH / 2.f, p2pY(65.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Name", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["QUIT"] = std::make_unique<gui::Button>(x, 580, width, height,
-		font, sound, "Quit",
+	buttons["QUIT"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(80.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		font, sound, "Quit", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

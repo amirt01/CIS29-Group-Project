@@ -13,7 +13,7 @@ namespace gui
 
 	public:
 		TextBox(float x, float y, float width, float height,
-			sf::Font* font, sf::SoundBuffer* sound, std::string text,
+			sf::Font* font, sf::SoundBuffer* sound, std::string text, unsigned charSize,
 			sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 		~TextBox();
 
