@@ -66,7 +66,7 @@ bool Leaderboard::checkIfHighScore(const float& score)
 
 void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
-	float x = renderTarget.getSize().x / 2.f - 255.f;
+	float x = renderTarget.getSize().x / 2.f - 200.f;
 	float y = 150.f;
 
 	renderStates.transform.translate(x, y);

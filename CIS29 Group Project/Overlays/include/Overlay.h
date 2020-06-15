@@ -6,6 +6,8 @@ class Overlay : public sf::Drawable
 {
 protected:
 	//Variables
+	std::shared_ptr<sf::RenderWindow> renderWindow;
+
 	sf::RectangleShape background;
 	sf::RectangleShape container;
 
@@ -18,9 +20,14 @@ protected:
 	sf::Vector2f mousePosView;
 
 	// Initializers
-	void initializeBackground(std::shared_ptr<sf::RenderWindow> renderWindow);
-	void initializeContainer(std::shared_ptr<sf::RenderWindow> renderWindow);
+	void initializeBackground();
+	void initializeContainer();
 	virtual void initializeGUI(sf::Font* font, sf::SoundBuffer* sound) = 0;
+
+	// Functions
+	const float p2pX(const float perc);
+	const float p2pY(const float perc);
+	const unsigned calcCharSize();
 
 public:
 	Overlay(std::shared_ptr<sf::RenderWindow> renderWindow);

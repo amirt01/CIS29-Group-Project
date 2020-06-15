@@ -5,7 +5,8 @@ namespace gui
 {
 	const sf::String keyCodeToChar(const sf::Keyboard::Key& keyCode)
 	{
-		switch (keyCode) {
+		switch (keyCode)
+		{
 		case sf::Keyboard::A: return("a");
 		case sf::Keyboard::B: return("b");
 		case sf::Keyboard::C: return("c");
@@ -75,7 +76,7 @@ namespace gui
 	}
 
 	Button::Button(float x, float y, float width, float height,
-		sf::Font* font, sf::SoundBuffer* sound, std::string text,
+		sf::Font* font, sf::SoundBuffer* sound, std::string text, unsigned charSize,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
 		: idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor), sound(*sound),
 		isActivated(false)
@@ -90,7 +91,7 @@ namespace gui
 		// Text
 		this->text.setFont(*font);
 		this->text.setString(text);
-		this->text.setCharacterSize(32);
+		this->text.setCharacterSize(charSize);
 		this->text.setPosition((x + width / 2.f) - (this->text.getGlobalBounds().width / 2.f),
 			(y + height / 2.f) - (this->text.getGlobalBounds().height / 2.f) - 7.5f);
 
@@ -149,6 +150,21 @@ namespace gui
 			}
 			else
 				text.setString(text.getString() + keyCodeToChar(keycode));
+	}
+
+	void Button::setIdleColor(const sf::Color& color)
+	{
+		idleColor = color;
+	}
+
+	void Button::setHoverColor(const sf::Color& color)
+	{
+		hoverColor = color;
+	}
+
+	void Button::setActiveColor(const sf::Color& color)
+	{
+		activeColor = color;
 	}
 
 	// Functions
