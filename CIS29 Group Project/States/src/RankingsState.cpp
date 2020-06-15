@@ -10,8 +10,11 @@ void RankingsState::initializeBackground()
 
 void RankingsState::initializeGUI()
 {
-	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(220, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
+	const float WIDTH = 175.f;
+	const float HEIGHT = 75.f;
+
+	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 

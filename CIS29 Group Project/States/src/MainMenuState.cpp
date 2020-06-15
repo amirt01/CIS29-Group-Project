@@ -11,65 +11,44 @@
 // Initializers
 void MainMenuState::initializeGUI()
 {
-	buttons["FREE_PLAY"] = std::make_unique<gui::Button>(220, 250, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Free Play",
+	const float WIDTH = 175.f;
+	const float HEIGHT = 75.f;
+
+	buttons["FREE_PLAY"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Free Play", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_1"] = std::make_unique<gui::Button>(520, 250, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 1",
+	buttons["LEVEL_1"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 1", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_2"] = std::make_unique<gui::Button>(520, 350, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 2",
+	buttons["LEVEL_2"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(55.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 2", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_3"] = std::make_unique<gui::Button>(520, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 3",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	/*
-	buttons["LEVEL_4"] = new gui::Button(720, 250, 150, 50,
-		&font, "Level 4",
+	buttons["LEVEL_3"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Level 3", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_5"] = new gui::Button(720, 350, 150, 50,
-		&font, "Level 5",
+	buttons["RANKGINGS_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(55.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Rankings", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_6"] = new gui::Button(720, 450, 150, 50,
-		&font, "Level 6",
+	buttons["TUTORIAL_STATE"] = std::make_unique<gui::Button>(p2pX(75.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_7"] = new gui::Button(920, 250, 150, 50,
-		&font, "Level 7",
+	buttons["SHOP_STATE"] = std::make_unique<gui::Button>(p2pX(75.f) - WIDTH / 2.f, p2pY(55.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["LEVEL_8"] = new gui::Button(920, 350, 150, 50,
-		&font, "Level 8",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["LEVEL_9"] = new gui::Button(920, 450, 150, 50,
-		&font, "Level 9",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	*/
-	buttons["RANKGINGS_STATE"] = std::make_unique<gui::Button>(220, 350, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Rankings",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["TUTORIAL_STATE"] = std::make_unique<gui::Button>(920, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-
-	buttons["SHOP_STATE"] = std::make_unique<gui::Button>(920, 350, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200)); 
-	
-	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(220, 450, 150, 50,
-		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit",
+	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Quit", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 // Constructors/Destructors
-MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>> * states,
+MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -86,7 +65,6 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std
 
 MainMenuState::~MainMenuState()
 {
-
 }
 
 void MainMenuState::updateMouseWheel(const short& mouseDelta)

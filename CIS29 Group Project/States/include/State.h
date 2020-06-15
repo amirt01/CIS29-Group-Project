@@ -21,6 +21,10 @@ protected:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 
+	const float p2pX(const float perc);
+	const float p2pY(const float perc);
+	const unsigned calcCharSize();
+
 public:
 	// Constructors/Destructors
 	State(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
