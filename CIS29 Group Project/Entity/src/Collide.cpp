@@ -20,7 +20,6 @@ void Collide::collisionPosition(int position, int player)
 		break;
 	case 1:
 		x = 180;
-		
 		break;
 	}
 	setPosition(sf::Vector2f(x, positions[position]));

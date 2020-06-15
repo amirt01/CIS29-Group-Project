@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-enum class Type { OBSTACLE = 0, COIN };
+enum class Type { OBSTACLE = 0, COIN, POTHOLE };
 
 class Object : public Entity
 {

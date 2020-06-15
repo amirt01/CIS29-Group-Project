@@ -203,6 +203,9 @@
     <Image Include="Resources\Images\convertible.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\pothole.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\level1.bin">

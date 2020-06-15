@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "GameState.h"
 #include "MainMenuState.h"
+#include "CollisionDetection.h"
 
 // Initializers
 void Game::initializePackages(std::string leaderboardPath, std::string gameStatsPath)
@@ -98,7 +99,7 @@ void Game::initializeWindow(std::string path)
 void Game::initializeTextures()
 {
 	std::for_each(TEXTRUE_PATHS.begin(), TEXTRUE_PATHS.end(), [this](const auto& texturePair) {
-		if (!textures[texturePair.first].loadFromFile(texturePair.second))
+		if (!CollisionDetection::CreateTextureAndBitmask(textures[texturePair.first], texturePair.second))
 			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 								// when it fails so no need to throw
 		});
