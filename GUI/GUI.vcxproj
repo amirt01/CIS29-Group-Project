@@ -151,10 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\GUI.h" />
+    <ClInclude Include="include\Button.h" />
+    <ClInclude Include="include\DropDownMenu.h" />
     <ClInclude Include="include\pch.h" />
+    <ClInclude Include="include\TextBox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\DropDownMenu.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -163,7 +167,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\GUI.cpp" />
+    <ClCompile Include="src\TextBox.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

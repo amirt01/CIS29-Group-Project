@@ -4,7 +4,7 @@
 void SettingsState::initializeBackground()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-									static_cast<float>(renderWindow->getSize().y)));
+		static_cast<float>(renderWindow->getSize().y)));
 
 	if (!backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
 	{
@@ -109,7 +109,6 @@ void SettingsState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
 	updateGUI(deltaTime);
-	std::cout << "Running MainMenuState" << std::endl;
 }
 
 // Render
@@ -117,7 +116,7 @@ void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
 {
 	for (auto& it : buttons)
 	{
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 
 	for (auto& it : dropDownMenus)
@@ -126,9 +125,8 @@ void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
 	}
 }
 
-void SettingsState::renderState(sf::RenderTarget *renderTarget)
+void SettingsState::renderState(sf::RenderTarget* renderTarget)
 {
-
 	if (!renderTarget)
 		renderTarget = renderWindow;
 

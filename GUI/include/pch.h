@@ -13,6 +13,8 @@
 //Other
 #include<cstdlib>
 #include<ctime>
+#include <chrono>
+#include <thread>
 
 //SFML Specific
 #include"SFML\System.hpp"

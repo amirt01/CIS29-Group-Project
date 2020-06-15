@@ -33,10 +33,61 @@
     <ClCompile Include="States\src\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\SettingsState.cpp">
+    <ClCompile Include="States\src\FreePlayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="States\src\PauseState.cpp">
+    <ClCompile Include="Entity\src\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\HUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\CollisionDetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\src\Collide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\RankingsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\TutorialState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\Overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\DeathMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App\src\Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Overlays\src\WinMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Packages\src\Leaderboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Packages\src\GameStats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\ShopState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="App\src\GraphicsSettings.cpp">
@@ -59,10 +110,61 @@
     <ClInclude Include="States\include\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="States\include\SettingsState.h">
+    <ClInclude Include="States\include\FreePlayState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="States\include\PauseState.h">
+    <ClInclude Include="Entity\include\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\HUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\CollisionDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\RankingsState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\include\Collide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\TutorialState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\Overlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\PauseMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\DeathMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App\include\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlays\include\WinMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packages\include\GameStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packages\include\Leaderboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\ShopState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="App\include\GraphicsSettings.h">
@@ -71,19 +173,93 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
+    <Text Include="Config\gamestats.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Images\main_menu_background.jpg">
+    <Image Include="Resources\Images\CarFramesYellow.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\temp_background.jpg">
+    <Image Include="Resources\Images\CarFramesRed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\CarFramesOrange.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\Heart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\CrashCartoon.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\motorbiker.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\GameBackground.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Images\MainMenu.png">
+    <Image Include="Resources\Images\CrashCartoon.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\motorbiker-blue.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\coins.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\convertible.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\level1.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\level2.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\level3.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Config\leaderboard.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Audio\Collision.flac">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Audio\crash.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\coin.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\crash2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\woosh.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\click.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\music-loop.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\car-passing.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\honk.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\Dosis-SemiBold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Bold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Book.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraBold.ttf" />
+    <Font Include="Resources\Fonts\Dosis-ExtraLight.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Light.ttf" />
+    <Font Include="Resources\Fonts\Dosis-Medium.ttf" />
   </ItemGroup>
 </Project>
