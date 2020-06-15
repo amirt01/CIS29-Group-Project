@@ -141,7 +141,10 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			objects.clear();
 break;
 		case sf::Keyboard::Space:
-			player.updateMovement(2);
+			if (level == 2 || level == 3)
+			{
+				player.updateMovement(2);
+			}
 			break;
 		default:
 			break;
@@ -368,6 +371,11 @@ void GameState::performJump(const float& deltaTime)
 	}
 
 	player.nowJumping(speed, deltaTime, carPresent, carPassing);
+}
+
+void GameState::setGameLevel(const int levelNumber)
+{
+	level = levelNumber;
 }
 
 // Render

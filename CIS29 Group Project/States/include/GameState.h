@@ -36,6 +36,7 @@ private:
 
 protected:
 	GameStates currentState;
+	int level;
 
 	float frequency;
 	float spawnTime;
@@ -72,6 +73,8 @@ public:
 	virtual void updateState(const float& deltaTime);
 	void updateCollision(std::unique_ptr<Object>& object);
 	void checkCarPassing();
+
+	void setGameLevel(const int);
 
 	//Jumping
 	void performJump(const float& deltaTime);

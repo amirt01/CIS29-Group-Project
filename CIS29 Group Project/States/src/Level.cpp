@@ -87,13 +87,14 @@ void Level::restartState()
 	initializeLevel();
 }
 
-Level::Level(std::shared_ptr<sf::RenderWindow> renderWindow, std::string path, std::stack<std::unique_ptr<State>>* states,
+Level::Level(std::shared_ptr<sf::RenderWindow> renderWindow, int level, std::string path, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard, GameStats* gameStats)
 	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats), levelPath(path)
 {
+	GameState::setGameLevel(level);
 	initializeLevel();
 }
 
