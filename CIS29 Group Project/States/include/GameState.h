@@ -40,13 +40,11 @@ protected:
 	float frequency;
 	float spawnTime;
 
-	Player player; 
+	Player player;
 	HUD hud;
 	Collide collide;
 
 	std::deque<std::unique_ptr<Object>> objects;
-
-	sf::Text coinAmount;
 
 	// Initializers
 	virtual void updateSpawning() = 0;

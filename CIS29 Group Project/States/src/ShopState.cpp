@@ -3,44 +3,39 @@
 
 void ShopState::initializeGUI() {
 	buttons["BACK"] = std::make_unique<gui::Button>(1115, 650, 150, 50,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
-			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 	buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 	buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 	buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 	buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 	buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, 250, 200,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
-			sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-
-
-
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "",
+		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 
 	buttons["PLAYER2BUY"] = std::make_unique<gui::Button>(470, 355, 250, 40,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
-			sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["PLAYER3BUY"] = std::make_unique<gui::Button>(835, 355, 250, 40,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
-			sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["MAP2BUY"] = std::make_unique<gui::Button>(470, 660, 250, 40,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
-			sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100",
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["MAP3BUY"] = std::make_unique<gui::Button>(835, 660, 250, 40,
-			&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
-			sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
-
-
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200",
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 
 	if (gameStats->unlocked.find("BLUE_PLAYER")->second == true) { //check if player bought character before
 		buttons.erase("PLAYER2BUY");
@@ -54,7 +49,6 @@ void ShopState::initializeGUI() {
 	if (gameStats->unlocked.find("GAME_BACKGROUND_DESERT")->second == true) {
 		buttons.erase("MAP3BUY");
 	}
-
 
 	if (gameStats->playerTexture == "DEFAULT_PLAYER") { //to show which character the player previously chose
 		buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, 250, 200,
@@ -87,12 +81,9 @@ void ShopState::initializeGUI() {
 			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
 	}
 
-
-
 	player1.setTexture(textures->at("DEFAULT_PLAYER"));
 	player1.setTextureRect(sf::IntRect(0, 0, 104, 107));
 	player1.setPosition(180, 180);
-
 
 	player2.setTexture(textures->at("BLUE_PLAYER"));
 	player2.setTextureRect(sf::IntRect(0, 0, 104, 107));
@@ -100,7 +91,6 @@ void ShopState::initializeGUI() {
 
 	player3.setTexture(textures->at("DELOREAN_PLAYER"));
 	player3.setPosition(870, 180);
-
 
 	map1.setTexture(textures->at("GAME_BACKGROUND"));
 	map1.setPosition(125, 480);
@@ -113,15 +103,13 @@ void ShopState::initializeGUI() {
 	map3.setTexture(textures->at("GAME_BACKGROUND_DESERT"));
 	map3.setPosition(855, 480);
 	map3.setScale(0.17f, 0.17f);
-
-
 }
 
-ShopState::ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>> * states,
-					 std::unordered_map<std::string, sf::Texture> * textures,
-					 std::unordered_map<std::string, sf::Font> * fonts,
-					 std::unordered_map<std::string, sf::SoundBuffer> * soundBuffers,
-					 GameStats * gameStats) :
+ShopState::ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	GameStats* gameStats) :
 	State(renderWindow, states, textures, fonts, soundBuffers),
 	gameStats(gameStats), rotate(0), player1(), player2(), player3(),
 	map1(), map2(), map3()
@@ -129,40 +117,41 @@ ShopState::ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	initializeGUI();
 
 	background.setTexture(textures->at("SHOP_BACKGROUND"));
-	background.setScale(sf::Vector2f(static_cast<float>(renderWindow->getSize().x)/3000,
-									static_cast<float>(renderWindow->getSize().y)/2000));
+	background.setScale(sf::Vector2f(static_cast<float>(renderWindow->getSize().x) / 3000.f,
+		static_cast<float>(renderWindow->getSize().y) / 2000.f));
 }
 
 ShopState::~ShopState() {
-
 }
 
-void ShopState::updateMouseWheel(const short & mouseDelta) {
+void ShopState::updateMouseWheel(const short& mouseDelta) {
 	// Any Unique Pause State Mouse Wheel Input
 }
 
-void ShopState::updateKeyboard(const sf::Keyboard::Key & keyCode) {
+void ShopState::updateKeyboard(const sf::Keyboard::Key& keyCode) {
 	if (sf::Keyboard::Key::Num4 == keyCode && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
 		gameStats->coins += 300;
+	if (sf::Keyboard::Key::Escape == keyCode)
+		quitState();
 }
 
-void ShopState::updateMouseButtons(const sf::Mouse::Button & button) {
+void ShopState::updateMouseButtons(const sf::Mouse::Button& button) {
 	switch (button) {
-		case sf::Mouse::Button::Left:
+	case sf::Mouse::Button::Left:
 
 		//gameStats->playerTexture = "BLUE_PLAYER";
 		//player.setTexture(textures->at(gameStats->playerTexture));
-		for (auto & button : buttons) {
+		for (auto& button : buttons) {
 			button.second->checkBounds(mousePosView);
 		}
-		default:
+	default:
 		break;
 	}
 }
 
 void ShopState::updateGUI() {
 	/*Updates all the buttons in the state and handles their functionality*/
-	for (auto & it : buttons) {
+	for (auto& it : buttons) {
 		it.second->updateColor(mousePosView);
 	}
 
@@ -242,8 +231,6 @@ void ShopState::updateGUI() {
 			sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50), sf::Color(20, 20, 20, 50));
 	}
 
-
-
 	if (buttons.find("PLAYER2BUY") != buttons.end() && buttons["PLAYER2BUY"]->getIsActivated() && gameStats->coins >= 100) {
 		gameStats->coins -= 100;
 		gameStats->unlocked.find("BLUE_PLAYER")->second = true;
@@ -269,16 +256,17 @@ void ShopState::updateGUI() {
 		buttons.erase("MAP3BUY");
 	}
 
-
 	if (rotate < 5) {
 		player1.rotate(0.9f);
 		player2.rotate(0.9f);
 		player3.rotate(0.9f);
-	} else if (rotate < 10){
+	}
+	else if (rotate < 10) {
 		player1.rotate(-0.9f);
 		player2.rotate(-0.9f);
 		player3.rotate(-0.9f);
-	} else {
+	}
+	else {
 		if (rotate == 44) {
 			rotate = -1;
 		}
@@ -288,14 +276,12 @@ void ShopState::updateGUI() {
 	//for (auto & it : buttons) {
 	//	it.second->updateColor(mousePosView);
 	//}
-
 }
 
-void ShopState::updateState(const float & deltaTime) {
+void ShopState::updateState(const float& deltaTime) {
 	updateMousePositions();
 	updateGUI();
 }
-
 
 void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	if (!renderTarget)
@@ -310,21 +296,19 @@ void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	title.setFillColor(sf::Color::White);
 	sf::RenderStates renderStates;
 	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
-																			title.getGlobalBounds().width / 2.f, 0.f)));
-	
-	
+		title.getGlobalBounds().width / 2.f, 0.f)));
+
 	renderGUI(renderTarget);
 }
 
 // Render
 void ShopState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget) {
-	
 	sf::RectangleShape coinBackground;
 	coinBackground.setFillColor(sf::Color(0, 0, 0, 50));
 	coinBackground.setSize(sf::Vector2f(200.f, 50.f));
 	coinBackground.setPosition(1050, 25);
 	renderWindow->draw(coinBackground);
-	
+
 	coinAmount = sf::Text(std::to_string(gameStats->coins), fonts->at("DOSIS-BOLD"));
 	coinAmount.setCharacterSize(40);
 	coinAmount.setStyle(sf::Text::Bold);
@@ -338,7 +322,7 @@ void ShopState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	coinPic.setScale(0.6f, 0.6f);
 	renderWindow->draw(coinPic);
 
-	for (auto & it : buttons) {
+	for (auto& it : buttons) {
 		it.second->draw(*renderTarget);
 	}
 	renderTarget->draw(player1);

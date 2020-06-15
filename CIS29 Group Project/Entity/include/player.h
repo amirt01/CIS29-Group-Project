@@ -4,13 +4,17 @@
 
 class Player : public Entity {
 private:
+	// movement
 	int moveType[2];
 	int positions[3];
 	float movementShift;
 	int currentPosition;
+
+	// stats
 	int currentHealth;
 	float score;
-	unsigned int coins;
+	float coins;
+
 	bool isDamaged;
 	bool isPassing;
 	bool isJumping;
@@ -18,7 +22,7 @@ private:
 	bool isDescending;
 	const float gravity;
 	float jumpHeight;
-	enum jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
+	enum jumpStates { NONE = 0, ASCEND, SUSPEND, DESCEND };
 	unsigned short jumpState;
 
 	sf::RenderTexture renderTexture;
@@ -30,7 +34,7 @@ private:
 	sf::Color playerColor;
 
 public:
-	Player(sf::Texture& playerTexture, const int width, const int height);
+	Player(sf::Texture& playerTexture, float coins, const int width, const int height);
 
 	//update
 	void updateMovement(int);
@@ -40,8 +44,6 @@ public:
 	//coins
 	void gainCoin();
 	unsigned int getCoins();
-
-	
 
 	//player health
 	void takeDamage();
