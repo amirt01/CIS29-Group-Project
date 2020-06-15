@@ -2,7 +2,7 @@
 #include "Object.h"
 
 Object::Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation)
-	: Entity(), hit(false), type(type), value(1)
+	: Entity(), hit(false), type(type), value(1), level(level)
 {
 	switch (level)
 	{

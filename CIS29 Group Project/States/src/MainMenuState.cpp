@@ -106,11 +106,11 @@ void MainMenuState::updateGUI()
 	if (buttons["FREE_PLAY"]->getIsActivated())
 		states->push(std::make_unique<FreePlayState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_1"]->getIsActivated())
-		states->push(std::make_unique<Level>(renderWindow, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, 1, "Config/level1.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_2"]->getIsActivated())
-		states->push(std::make_unique<Level>(renderWindow, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, 2, "Config/level2.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["LEVEL_3"]->getIsActivated())
-		states->push(std::make_unique<Level>(renderWindow, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
+		states->push(std::make_unique<Level>(renderWindow, 3, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
 		states->push(std::make_unique<RankingsState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())

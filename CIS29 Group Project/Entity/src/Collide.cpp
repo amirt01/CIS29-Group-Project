@@ -2,27 +2,28 @@
 #include "Collide.h"
 
 Collide::Collide(sf::Texture& texture) :
-	Entity()
+	Entity(), positions{170.f,300.f,430.f}
 {
 	setTexture(texture);
 	clock.restart();
 }
 
-void Collide::collisionPosition(int position)
+void Collide::collisionPosition(int position, int player)
 {
 	//player position is passed (0,1,2)
-	switch (position)
+	float x = 80;
+
+	switch (player)
 	{
 	case 0:
-		setPosition(sf::Vector2f(80, 170));
+		x = 80;
 		break;
 	case 1:
-		setPosition(sf::Vector2f(80, 300));
-		break;
-	case 2:
-		setPosition(sf::Vector2f(80, 430));
+		x = 180;
+		
 		break;
 	}
+	setPosition(sf::Vector2f(x, positions[position]));
 	clock.restart();
 }
 

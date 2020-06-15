@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+	enum class jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
 
 class Player : public Entity {
 private:
@@ -8,9 +9,6 @@ private:
 	int moveType[2];
 	int positions[3];
 	float movementShift;
-	int currentPosition;
-
-	// stats
 	int currentHealth;
 	float score;
 	float coins;
@@ -18,12 +16,8 @@ private:
 	bool isDamaged;
 	bool isPassing;
 	bool isJumping;
-	bool isAscending;
-	bool isDescending;
-	const float gravity;
 	float jumpHeight;
-	enum jumpStates { NONE = 0, ASCEND, SUSPEND, DESCEND };
-	unsigned short jumpState;
+	jumpStates jumpState;
 
 	sf::RenderTexture renderTexture;
 
@@ -35,6 +29,7 @@ private:
 
 public:
 	Player(sf::Texture& playerTexture, float coins, const int width, const int height);
+	Levels currentPosition;
 
 	//update
 	void updateMovement(int);

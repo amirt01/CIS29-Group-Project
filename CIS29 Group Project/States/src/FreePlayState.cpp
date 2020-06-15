@@ -47,6 +47,7 @@ FreePlayState::FreePlayState(std::shared_ptr<sf::RenderWindow> renderWindow, std
 	Leaderboard* leaderboard, GameStats* gameStats)
 	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats)
 {
+	GameState::setGameLevel(0);
 }
 
 FreePlayState::~FreePlayState()

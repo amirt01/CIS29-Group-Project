@@ -5,18 +5,15 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 	: Entity(), moveType{ -1,1 },
 	positions{ 170,300,431 },
 	movementShift(130), //shift space (distance between lanes)
-	currentPosition(1), //pos = Center/1
+	currentPosition(Levels::MIDDLE), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(coins),
 	isDamaged(false),
 	isPassing(false),
 	isJumping(false),
-	isAscending(false),
-	isDescending(false),
-	jumpHeight(130),
-	jumpState(NONE),
-	gravity(5.0f)
+	jumpHeight(120),
+	jumpState(jumpStates::NONE)
 {
 	setTexture(playerTexture);
 
@@ -59,9 +56,9 @@ void Player::resetPlayer()
 	currentHealth = 3;
 	coins = 0;
 
-	if (currentPosition == 0)
+	if (currentPosition == Levels::MIDDLE)
 		updateMovement(1);
-	else if (currentPosition == 2)
+	else if (currentPosition == Levels::BOTTOM)
 		updateMovement(-1);
 }
 
@@ -69,13 +66,13 @@ void Player::collisionMove()
 {
 	switch (currentPosition)
 	{
-	case 0:
+	case Levels::TOP:
 		updateMovement(moveType[1]);
 		break;
-	case 1:
+	case Levels::MIDDLE:
 		updateMovement(moveType[static_cast<int>(rand() % sizeof(moveType))]);
 		break;
-	case 2:
+	case Levels::BOTTOM:
 		updateMovement(moveType[0]);
 		break;
 	}
@@ -104,7 +101,7 @@ void Player::revertPlayer()
 
 void Player::updateMovement(int shift)
 {
-	unsigned short currentPos = getCurrentPosition();
+	auto currentPos = getCurrentPosition();
 
 	if (shift == -1)
 	{
@@ -128,7 +125,7 @@ void Player::updateMovement(int shift)
 		if (!isJumping)
 		{
 			isJumping = true;
-			jumpState = ASCEND;
+			jumpState = jumpStates::ASCEND;
 		}
 	}
 }
@@ -136,49 +133,50 @@ void Player::updateMovement(int shift)
 void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool passedCar)
 {
 	float moving = 0;
-	int i = currentPosition;
+	int i = getCurrentPosition();
+
 	switch (jumpState)
 	{
-	case NONE:
+	case jumpStates::NONE:
 		moving = positions[i];
 		break;
-	case ASCEND:
+	case jumpStates::ASCEND:
 		if (!carPresent && abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
-			jumpState = DESCEND;
+			jumpState = jumpStates::DESCEND;
 		}
 		else if (!carPresent)
 		{
-			moving = getPosition().y - gravity;
+			moving = getPosition().y + 5*(speed * deltaTime);
 		}
 		else if (abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
-			jumpState = SUSPEND;
+			jumpState = jumpStates::SUSPEND;
 		}
 		else
 		{
 			moving = getPosition().y + (speed * deltaTime);
 		}
 		break;
-	case SUSPEND:
+	case jumpStates::SUSPEND:
 		moving = getPosition().y;
 		if (passedCar)
 		{
-			jumpState = DESCEND;
+			jumpState = jumpStates::DESCEND;
 		}
 		break;
-	case DESCEND:
+	case jumpStates::DESCEND:
 		if (getPosition().y - positions[i] > 0)
 		{
 			moving = positions[i];
-			jumpState = NONE;
+			jumpState = jumpStates::NONE;
 			isJumping = false;
 		}
 		else if (!carPresent)
 		{
-			moving = getPosition().y + gravity;
+			moving = getPosition().y - 3*(speed * deltaTime);
 		}
 		else
 		{
@@ -199,11 +197,11 @@ bool Player::checkPosition(int direction)
 {
 	if (direction == -1) {
 		//wants to move up
-		return currentPosition != 0;
+		return currentPosition != Levels::TOP;
 	}
 	else if (direction == 1) {
 		//wants to move down
-		return currentPosition != 2;
+		return currentPosition != Levels::BOTTOM;
 	}
 	else
 	{
@@ -243,11 +241,36 @@ float Player::getMovementShift()
 }
 void Player::setCurrentPosition(int i)
 {
-	currentPosition = i;
+	switch (i)
+	{
+	case 0:
+		currentPosition = Levels::TOP;
+		break;
+	case 1:
+		currentPosition = Levels::MIDDLE;
+		break;
+	case 2:
+		currentPosition = Levels::BOTTOM;
+		break;
+	}
 }
+
 int Player::getCurrentPosition()
 {
-	return currentPosition;
+	int i = 0;
+	switch (currentPosition)
+	{
+	case Levels::TOP:
+		i = 0;
+		break;
+	case Levels::MIDDLE:
+		i = 1;
+		break;
+	case Levels::BOTTOM:
+		i = 2;
+		break;
+	}
+	return i;
 }
 
 bool Player::passed(bool pass)

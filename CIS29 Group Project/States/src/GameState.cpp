@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), gameStats->coins, 104, 107),
+	player(textures->at(gameStats->playerTexture), gameStats->coins, textures->at(gameStats->playerTexture).getSize().x/4, textures->at(gameStats->playerTexture).getSize().y),
 	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -142,7 +142,10 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			objects.clear();
 			break;
 		case sf::Keyboard::Space:
-			player.updateMovement(2);
+			if (level == 2 || level == 3)
+			{
+				player.updateMovement(2);
+			}
 			break;
 		default:
 			break;
@@ -227,26 +230,9 @@ void GameState::updateState(const float& deltaTime)
 		hud.update();
 		if (player.getIsJumping())
 		{
-			bool carPassing = false;
-			bool carPresent = true;
-
-			if (objects.empty())
-			{
-				carPresent = false;
-			}
-			else if (abs(player.getPosition().x - objects.front()->getPosition().x) > 300)
-			{
-				carPresent = false;
-			}
-			else if (player.getPosition().y - objects.front()->getPosition().y <= 35)
-			{
-				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
-				carPresent = true;
-			}
-
-			player.nowJumping(speed, deltaTime, carPresent, carPassing);
+			performJump(deltaTime);
 		}
-
+		
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -315,7 +301,15 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
-		collide.collisionPosition(player.getCurrentPosition());
+		if (player.getTextureRect().width < 200)
+		{
+			collide.collisionPosition(player.getCurrentPosition(), 0);
+		}
+		else
+		{
+			collide.collisionPosition(player.getCurrentPosition(), 1);
+		}
+		
 		player.collisionMove();
 		break;
 	case Type::COIN:
@@ -356,6 +350,41 @@ void GameState::checkCarPassing()
 	{
 		player.passed(false); //reset boolean in player
 	}
+}
+
+//Jumping
+
+void GameState::performJump(const float& deltaTime)
+{
+	bool carPassing = false;
+	bool carPresent = false;
+
+	if (objects.empty())
+	{
+		carPresent = false;
+	}
+	else if (objects.front()->type == Type::OBSTACLE)
+	{
+		if (objects.front()->level == player.currentPosition)
+		{
+			if (abs(player.getPosition().x - objects.front()->getPosition().x) > 400)
+			{
+				carPresent = false;
+			}
+			else
+			{
+				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
+				carPresent = true;
+			}
+		}
+	}
+
+	player.nowJumping(speed, deltaTime, carPresent, carPassing);
+}
+
+void GameState::setGameLevel(const int levelNumber)
+{
+	level = levelNumber;
 }
 
 // Render
