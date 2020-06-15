@@ -301,7 +301,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
-		if (player.getTextureRect().width < 200)
+		if (player.getTextureRect().width < 180)
 		{
 			collide.collisionPosition(player.getCurrentPosition(), 0);
 		}

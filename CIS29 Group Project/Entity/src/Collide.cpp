@@ -11,16 +11,15 @@ Collide::Collide(sf::Texture& texture) :
 void Collide::collisionPosition(int position, int player)
 {
 	//player position is passed (0,1,2)
-	float x = 80;
+	float x = 180;
 
 	switch (player)
 	{
 	case 0:
-		x = 80;
+		x = 180;
 		break;
 	case 1:
-		x = 180;
-		
+		x = 280;
 		break;
 	}
 	setPosition(sf::Vector2f(x, positions[position]));

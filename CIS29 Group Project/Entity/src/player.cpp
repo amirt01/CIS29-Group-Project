@@ -17,15 +17,11 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 {
 	setTexture(playerTexture);
 
-	if (playerTexture.getSize().x > 200) {
-		setTextureRect(sf::IntRect(0, 0, width, height));
-		addAnimation("WHEELS", 0.1f, 0, 4, width, height);
-	}
-	else {
-		addAnimation("WHEELS", 0.1f, 0, 1, 191, 107);
-	}
+	setTextureRect(sf::IntRect(0, 0, width, height));
+	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
+	
 
-	sf::Sprite::setPosition(sf::Vector2f(100, 300));
+	sf::Sprite::setPosition(sf::Vector2f(180, 300));
 	playerColor = getColor();
 }
 
