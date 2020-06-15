@@ -6,8 +6,9 @@
 class Collide : public Entity
 {
 	sf::Clock clock;
+	float positions[3];
 public:
 	Collide(sf::Texture& texture);
-	void collisionPosition(int position);
+	void collisionPosition(int position, int player);
 	bool collisionTiming();
 };

@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), gameStats->coins, 104, 107),
+	player(textures->at(gameStats->playerTexture), gameStats->coins, textures->at(gameStats->playerTexture).getSize().x/4, textures->at(gameStats->playerTexture).getSize().y),
 	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -301,7 +301,15 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
-		collide.collisionPosition(player.getCurrentPosition());
+		if (player.getTextureRect().width < 200)
+		{
+			collide.collisionPosition(player.getCurrentPosition(), 0);
+		}
+		else
+		{
+			collide.collisionPosition(player.getCurrentPosition(), 1);
+		}
+		
 		player.collisionMove();
 		break;
 	case Type::COIN:
