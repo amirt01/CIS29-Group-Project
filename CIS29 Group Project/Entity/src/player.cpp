@@ -44,7 +44,7 @@ void Player::updateAnimation(const float& deltaTime)
 
 void Player::gainCoin()
 {
-	coins++;
+	coins+=5;
 }
 
 unsigned int Player::getCoins()

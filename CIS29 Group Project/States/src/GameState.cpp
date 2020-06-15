@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), 104, 107),					////////////////////////////////////////////////////////////////////////////////	
+	player(textures->at(gameStats->playerTexture), 104, 107),
 	hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -139,7 +139,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			updateGameSpeed(10.f);
 			player.updateScore(10.f);
 			objects.clear();
-break;
+			break;
 		case sf::Keyboard::Space:
 			player.updateMovement(2);
 			break;
@@ -371,6 +371,26 @@ void GameState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 
 	renderTarget->draw(player);
 	hud.render(renderTarget);
+
+	sf::RectangleShape coinBackground;
+	coinBackground.setFillColor(sf::Color(0, 0, 0, 50));
+	coinBackground.setSize(sf::Vector2f(200.f, 50.f));
+	coinBackground.setPosition(1050, 25);
+	renderWindow->draw(coinBackground);
+
+	coinAmount = sf::Text(std::to_string(gameStats->coins), fonts->at("DOSIS-BOLD"));
+	coinAmount.setCharacterSize(40);
+	coinAmount.setStyle(sf::Text::Bold);
+	coinAmount.setFillColor(sf::Color::White);
+	coinAmount.setPosition(1140, 25);
+	renderWindow->draw(coinAmount);
+
+	Entity coinPic;
+	coinPic.setTexture(textures->at("COIN"));
+	coinPic.setPosition(1000, 12);
+	coinPic.setScale(0.6f, 0.6f);
+	renderWindow->draw(coinPic);
+
 
 	switch (currentState)
 	{

@@ -46,6 +46,8 @@ protected:
 
 	std::deque<std::unique_ptr<Object>> objects;
 
+	sf::Text coinAmount;
+
 	// Initializers
 	virtual void updateSpawning() = 0;
 	virtual void restartState();
