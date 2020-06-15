@@ -301,6 +301,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
+
 		if (player.getTextureRect().width < 180)
 		{
 			collide.collisionPosition(player.getCurrentPosition(), 0);
@@ -324,6 +325,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 
 //Collision Detection
 void GameState::checkCollision() {
+
 	if (!player.getIsJumping())
 	{
 		if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
