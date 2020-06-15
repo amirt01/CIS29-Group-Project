@@ -10,7 +10,6 @@ protected:
 	sf::Texture textureSheet;
 
 	std::map<std::string, std::unique_ptr<Animation>> animations;
-
 public:
 	Entity();
 	virtual ~Entity();

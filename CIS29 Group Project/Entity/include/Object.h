@@ -11,6 +11,7 @@ protected:
 public:
 	bool hit;
 	Type type;
+	Levels level;
 
 	Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 

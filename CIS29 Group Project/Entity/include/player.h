@@ -1,25 +1,22 @@
 #pragma once
 
 #include "Entity.h"
+	enum class jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
 
 class Player : public Entity {
 private:
 	int moveType[2];
 	int positions[3];
 	float movementShift;
-	int currentPosition;
+	
 	int currentHealth;
 	float score;
 	unsigned int coins;
 	bool isDamaged;
 	bool isPassing;
 	bool isJumping;
-	bool isAscending;
-	bool isDescending;
-	const float gravity;
 	float jumpHeight;
-	enum jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
-	unsigned short jumpState;
+	jumpStates jumpState;
 
 	sf::RenderTexture renderTexture;
 
@@ -30,6 +27,7 @@ private:
 	sf::Color playerColor;
 
 public:
+	Levels currentPosition;
 	Player(sf::Texture& playerTexture, const int width, const int height);
 
 	//update
@@ -40,8 +38,6 @@ public:
 	//coins
 	void gainCoin();
 	unsigned int getCoins();
-
-	
 
 	//player health
 	void takeDamage();

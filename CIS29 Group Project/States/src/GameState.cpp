@@ -226,24 +226,7 @@ void GameState::updateState(const float& deltaTime)
 		hud.update();
 		if (player.getIsJumping())
 		{
-			bool carPassing = false;
-			bool carPresent = true;
-
-			if (objects.empty())
-			{
-				carPresent = false;
-			}
-			else if (abs(player.getPosition().x - objects.front()->getPosition().x) > 300)
-			{
-				carPresent = false;
-			}
-			else if (player.getPosition().y - objects.front()->getPosition().y <= 35)
-			{
-				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
-				carPresent = true;
-			}
-			
-			player.nowJumping(speed, deltaTime,carPresent, carPassing);
+			performJump(deltaTime);
 		}
 		
 		if (!objects.empty())
@@ -355,6 +338,36 @@ void GameState::checkCarPassing()
 	{
 		player.passed(false); //reset boolean in player
 	}
+}
+
+//Jumping
+
+void GameState::performJump(const float& deltaTime)
+{
+	bool carPassing = false;
+	bool carPresent = false;
+
+	if (objects.empty())
+	{
+		carPresent = false;
+	}
+	else if (objects.front()->type == Type::OBSTACLE)
+	{
+		if (objects.front()->level == player.currentPosition)
+		{
+			if (abs(player.getPosition().x - objects.front()->getPosition().x) > 400)
+			{
+				carPresent = false;
+			}
+			else
+			{
+				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
+				carPresent = true;
+			}
+		}
+	}
+
+	player.nowJumping(speed, deltaTime, carPresent, carPassing);
 }
 
 // Render

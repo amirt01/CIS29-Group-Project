@@ -73,6 +73,9 @@ public:
 	void updateCollision(std::unique_ptr<Object>& object);
 	void checkCarPassing();
 
+	//Jumping
+	void performJump(const float& deltaTime);
+
 	// Collision Detection
 	void checkCollision();
 

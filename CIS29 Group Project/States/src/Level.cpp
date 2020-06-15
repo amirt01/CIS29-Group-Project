@@ -8,7 +8,6 @@ unsigned char rightNibble(unsigned char data) { return data & 0xF; }
 void Level::initializeLevel()
 {
 	unsigned char buffer;
-
 	std::ifstream fin(levelPath);
 	try {
 		if (!fin.is_open())
