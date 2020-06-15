@@ -4,6 +4,8 @@
 #include "Entity.h"
 #include "GameStats.h"
 
+//note: $ = backdoor to add more coins to shop
+
 class ShopState :
 	public State {
 private:
@@ -13,14 +15,15 @@ private:
 
 	void initializeGUI();
 
-
-
 	Entity player1;
 	Entity player2;
 	Entity player3;
+	Entity map1;
+	Entity map2;
+	Entity map3;
 
 	GameStats * gameStats;
-	sf::Text coinAmount;
+	sf::Text coinAmount; 
 
 	int rotate;
 

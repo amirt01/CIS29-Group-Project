@@ -27,8 +27,8 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), 104, 107),					////////////////////////////////////////////////////////////////////////////////	
-	hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")),
+	player(textures->at(gameStats->playerTexture), gameStats->coins, 104, 107),
+	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
 {
@@ -49,6 +49,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 GameState::~GameState()
 {
 	objects.clear();
+	gameStats->coins = player.getCoins();
 }
 
 void GameState::spawnObject(const Levels level, const Color color)
@@ -139,7 +140,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			updateGameSpeed(10.f);
 			player.updateScore(10.f);
 			objects.clear();
-break;
+			break;
 		case sf::Keyboard::Space:
 			if (level == 2 || level == 3)
 			{

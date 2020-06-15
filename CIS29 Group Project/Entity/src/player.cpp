@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "player.h"
 
-Player::Player(sf::Texture& playerTexture, const int width, const int height)
+Player::Player(sf::Texture& playerTexture, float coins, const int width, const int height)
 	: Entity(), moveType{ -1,1 },
 	positions{ 170,300,431 },
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(Levels::MIDDLE), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
-	coins(0),
+	coins(coins),
 	isDamaged(false),
 	isPassing(false),
 	isJumping(false),
@@ -20,7 +20,8 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	if (playerTexture.getSize().x > 200) {
 		setTextureRect(sf::IntRect(0, 0, width, height));
 		addAnimation("WHEELS", 0.1f, 0, 4, width, height);
-	} else {
+	}
+	else {
 		addAnimation("WHEELS", 0.1f, 0, 1, 191, 107);
 	}
 
@@ -28,7 +29,7 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	playerColor = getColor();
 }
 
-void Player::updateScore(const float& deltaTime) 
+void Player::updateScore(const float& deltaTime)
 {
 	score += deltaTime;
 }
@@ -41,7 +42,7 @@ void Player::updateAnimation(const float& deltaTime)
 
 void Player::gainCoin()
 {
-	coins++;
+	coins += 5;
 }
 
 unsigned int Player::getCoins()
@@ -98,11 +99,11 @@ void Player::revertPlayer()
 	}
 }
 
-void Player::updateMovement(int shift) 
+void Player::updateMovement(int shift)
 {
 	auto currentPos = getCurrentPosition();
 
-	if (shift == -1) 
+	if (shift == -1)
 	{
 		if (checkPosition(-1) && !isJumping)
 		{
@@ -110,9 +111,9 @@ void Player::updateMovement(int shift)
 			setCurrentPosition(currentPos - 1);
 		}
 	}
-	else if (shift == 1) 
+	else if (shift == 1)
 	{
-		if (checkPosition(1) && !isJumping) 
+		if (checkPosition(1) && !isJumping)
 		{
 			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
@@ -161,7 +162,7 @@ void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool pass
 		break;
 	case jumpStates::SUSPEND:
 		moving = getPosition().y;
-		if(passedCar)
+		if (passedCar)
 		{
 			jumpState = jumpStates::DESCEND;
 		}
@@ -187,13 +188,12 @@ void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool pass
 	setPosition(sf::Vector2f(getPosition().x, moving));
 }
 
-
 bool Player::getIsJumping()
 {
 	return isJumping;
 }
 
-bool Player::checkPosition(int direction) 
+bool Player::checkPosition(int direction)
 {
 	if (direction == -1) {
 		//wants to move up
@@ -209,7 +209,7 @@ bool Player::checkPosition(int direction)
 	}
 }
 
-void Player::takeDamage() 
+void Player::takeDamage()
 {
 	currentHealth -= 1;
 }
@@ -220,7 +220,7 @@ void Player::setCurrentHealth(int i)
 	currentHealth = i;
 }
 
-int Player::getCurrentHealth() 
+int Player::getCurrentHealth()
 {
 	return currentHealth;
 }
@@ -230,16 +230,16 @@ float Player::getCurrentScore()
 	return score;
 }
 
-void Player::setMovementShift(float i) 
+void Player::setMovementShift(float i)
 {
 	movementShift = i;
 }
 
-float Player::getMovementShift() 
+float Player::getMovementShift()
 {
 	return movementShift;
 }
-void Player::setCurrentPosition(int i) 
+void Player::setCurrentPosition(int i)
 {
 	switch (i)
 	{

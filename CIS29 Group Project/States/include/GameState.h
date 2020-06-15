@@ -41,7 +41,7 @@ protected:
 	float frequency;
 	float spawnTime;
 
-	Player player; 
+	Player player;
 	HUD hud;
 	Collide collide;
 

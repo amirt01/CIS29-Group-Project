@@ -33,6 +33,12 @@ bool GameStats::loadFromFile(const std::string& path)
 			unlocked.insert({"BLUE_PLAYER", isUnlocked});
 			fin >> isUnlocked;
 			unlocked.insert({"DELOREAN_PLAYER", isUnlocked});
+			fin >> isUnlocked;
+			unlocked.insert({"GAME_BACKGROUND", isUnlocked});
+			fin >> isUnlocked;
+			unlocked.insert({"GAME_BACKGROUND_PINK", isUnlocked});
+			fin >> isUnlocked;
+			unlocked.insert({"GAME_BACKGROUND_DESERT", isUnlocked});
 		}
 		else
 			throw exc::LoadFromFileError(path);
@@ -73,6 +79,9 @@ bool GameStats::writeToFile(const std::string& path)
 	fout << unlocked.find("DEFAULT_PLAYER")->second << "\n";
 	fout << unlocked.find("BLUE_PLAYER")->second << "\n";
 	fout << unlocked.find("DELOREAN_PLAYER")->second << "\n";
+	fout << unlocked.find("GAME_BACKGROUND")->second << "\n";
+	fout << unlocked.find("GAME_BACKGROUND_PINK")->second << "\n";
+	fout << unlocked.find("GAME_BACKGROUND_DESERT")->second << "\n";
 	fout.close();
 
 	return true;

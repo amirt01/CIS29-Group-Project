@@ -50,6 +50,8 @@ void TutorialState::updateMouseButtons(const sf::Mouse::Button& button)
 // Update
 void TutorialState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
+	if (sf::Keyboard::Key::Escape == keyCode)
+		quitState();
 }
 
 void TutorialState::updateMouseWheel(const short& mouseDelta)

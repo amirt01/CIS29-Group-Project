@@ -5,13 +5,15 @@
 
 class Player : public Entity {
 private:
+	// movement
 	int moveType[2];
 	int positions[3];
 	float movementShift;
-	
+	int currentPosition;
 	int currentHealth;
 	float score;
-	unsigned int coins;
+	float coins;
+
 	bool isDamaged;
 	bool isPassing;
 	bool isJumping;
@@ -27,8 +29,8 @@ private:
 	sf::Color playerColor;
 
 public:
+	Player(sf::Texture& playerTexture, float coins, const int width, const int height);
 	Levels currentPosition;
-	Player(sf::Texture& playerTexture, const int width, const int height);
 
 	//update
 	void updateMovement(int);
