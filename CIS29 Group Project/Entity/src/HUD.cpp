@@ -63,7 +63,7 @@ void HUD::updateCoins()
 	coins.setString(sf::String(std::to_string(player->getCoins())));
 }
 
-void HUD::render(sf::RenderTarget* renderTarget)
+void HUD::render(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	renderTarget->draw(container);
 

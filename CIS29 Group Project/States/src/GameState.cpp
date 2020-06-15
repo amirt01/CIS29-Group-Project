@@ -6,9 +6,7 @@
 
 void GameState::restartState()
 {
-	currentState = PLAY;
-	std::for_each(objects.begin(), objects.end(),
-		[&](Object* object) { delete object; });
+	currentState = GameStates::PLAY;
 	objects.clear();
 	frequency = 5.f;
 	spawnTime = frequency;
@@ -17,7 +15,7 @@ void GameState::restartState()
 }
 
 // Constructors/Destructors
-GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
+GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
@@ -25,11 +23,11 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 	: State(renderWindow, states, textures, fonts, soundBuffers),
 	leaderboard(leaderboard), states(states), gameStats(gameStats),
 	speed(-75.f), frequency(5.f),
-	currentState(PLAY), buttons(nullptr), spawnTime(frequency),
+	currentState(GameStates::PLAY), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), 104, 107),
+	player(textures->at(gameStats->playerTexture), 104, 107),					////////////////////////////////////////////////////////////////////////////////	
 	hud(&player, textures->at("HEART"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -50,30 +48,31 @@ GameState::GameState(sf::RenderWindow* renderWindow, std::stack<State*>* states,
 
 GameState::~GameState()
 {
-	std::for_each(objects.begin(), objects.end(),
-		[&](Object* object) { delete object; });
 	objects.clear();
 }
 
-void GameState::spawnObject(unsigned short level, unsigned short type)
+void GameState::spawnObject(const Levels level, const Color color)
 {
 	try {
-		switch (type)
+		switch (color)
 		{
-		case RED:
-			objects.push_back(new Object(Obstacle, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::RED:
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case YELLOW:
-			objects.push_back(new Object(Obstacle, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::YELLOW:
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
-		case ORANGE:
-			objects.push_back(new Object(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+		case Color::ORANGE:
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			break;
+		case Color::GOLD:
+			objects.push_back(std::make_unique<Object>(Type::COIN, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
 			break;
 		case CONVERTIBLE:
 			objects.push_back(new Object(Obstacle, level, textures->at("CONVERTIBLE"), 280, 98, renderWindow->getSize().x));
 			break;
 		default:
-			throw exc::SpawnError(level, type);
+			//throw exc::SpawnError(level, type);
 			break;
 		}
 	}
@@ -103,7 +102,7 @@ void GameState::updateMouseButtons(const sf::Mouse::Button& button)
 	{
 	case sf::Mouse::Button::Left:
 		if (buttons != nullptr)
-			for (auto button : *buttons)
+			for (auto&& button : *buttons)
 				button.second->checkBounds(mousePosView);
 	default:
 		break;
@@ -114,11 +113,11 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		switch (keyCode)
 		{
 		case sf::Keyboard::Escape:
-			currentState = PAUSED;
+			currentState = GameStates::PAUSED;
 			break;
 		case sf::Keyboard::W:
 			playSound("WOOSH", 25.f);
@@ -139,8 +138,6 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 		case sf::Keyboard::Tab:
 			updateGameSpeed(10.f);
 			player.updateScore(10.f);
-			std::for_each(objects.begin(), objects.end(),
-				[&](Object* object) { delete object; });
 			objects.clear();
 			break;
 		case sf::Keyboard::Space:
@@ -150,11 +147,11 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			break;
 		}
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		if (sf::Keyboard::Escape == keyCode)
-			currentState = PLAY;
+			currentState = GameStates::PLAY;
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		switch (keyCode)
 		{
 		case sf::Keyboard::Escape:
@@ -165,7 +162,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 				buttons->at("NAME")->addText(keyCode);
 		}
 		break;
-	case WIN:
+	case GameStates::WIN:
 		break;
 	default:
 		break;
@@ -191,25 +188,24 @@ void GameState::updateObjects(const float& deltaTime)
 {
 	if (objects.front()->getPosition().x <= -objects.front()->getGlobalBounds().width)
 	{
-		delete objects.front();
 		objects.pop_front();
 	}
 
-	for (auto it : objects)
+	for (auto&& it : objects)
 	{
 		it->move(sf::Vector2f(speed, 0) * deltaTime);
 		it->update(deltaTime);
 	}
 }
 
-void GameState::updateBackground(const float& deltaTime, const short dir)
+void GameState::updateBackground(const float& deltaTime, const Direction dir)
 {
 	for (sf::RectangleShape& background : backgrounds) {
-		background.move(2 * speed * dir * deltaTime, 0);
+		background.move(2.f * speed * static_cast<float>(dir) * deltaTime, 0.f);
 
 		if (background.getPosition().x + background.getSize().x < -background.getSize().x)
 			background.move(sf::Vector2f(3.f * renderWindow->getSize().x, 0.f));
-		if (background.getPosition().x > 2 * background.getSize().x)
+		if (background.getPosition().x > 2.f * background.getSize().x)
 			background.move(sf::Vector2f(-3.f * renderWindow->getSize().x, 0.f));
 	}
 }
@@ -219,11 +215,11 @@ void GameState::updateState(const float& deltaTime)
 	updateMousePositions();
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		backgroundMusic.setVolume(25.f);
 		buttons = nullptr;
 		updateGameSpeed(deltaTime);
-		updateBackground(deltaTime, FORWARDS);
+		updateBackground(deltaTime, Direction::FORWARDS);
 		updateSpawning();
 		player.updateScore(deltaTime);
 		player.updateAnimation(deltaTime);
@@ -245,24 +241,24 @@ void GameState::updateState(const float& deltaTime)
 			updateObjects(deltaTime);
 		}
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		// do pause things
 		backgroundMusic.setVolume(10.f);
 		buttons = pauseMenu.getButtons();
 		updateGUI();
 		// Resume the Game
 		if (buttons->at("RESUME")->getIsActivated())
-			currentState = PLAY;
+			currentState = GameStates::PLAY;
 		//Go to Tutorial Screen
 		if (buttons->at("TUTORIAL_STATE")->getIsActivated())
-			states->push(new TutorialState(renderWindow, states, textures, fonts, soundBuffers));
+			states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
 
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
 			quitState();
 
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		// do dead things
 		sound.stop();
 		buttons = deathMenu.getButtons();
@@ -277,7 +273,7 @@ void GameState::updateState(const float& deltaTime)
 			quitState();
 		}
 		break;
-	case WIN:
+	case GameStates::WIN:
 		// do win things
 		sound.stop();
 		buttons = winMenu.getButtons();
@@ -294,23 +290,24 @@ void GameState::updateState(const float& deltaTime)
 	}
 }
 
-void GameState::updateCollision(Object* object)
+void GameState::updateCollision(std::unique_ptr<Object>& object)
 {
 	switch (object->type)
 	{
-	case Obstacle:
+	case Type::OBSTACLE:
 		playSound("CRASH", 50.f);
 		player.takeDamage();
 		object->hit = true;
 		if (player.getCurrentHealth() == 0) { // render death menu if the player dies
-			currentState = DEAD;
+			currentState = GameStates::DEAD;
 			deathMenu.setScore(player.getCurrentScore());
 		}
 		collide.collisionPosition(player.getCurrentPosition());
 		player.collisionMove();
 		break;
-	case Coin:
+	case Type::COIN:
 		playSound("COIN", 50.f);
+		object->hit = true;
 		player.gainCoin();
 		break;
 	default:
@@ -320,16 +317,14 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
-	if (!player.getIsJumping())
+
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
-		if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
-		{
-			updateCollision(objects.front());
-		}
-		if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
-		{
-			updateCollision(objects.at(1));
-		}
+		updateCollision(objects.front());
+	}
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
+	{
+		updateCollision(objects.at(1));
 	}
 }
 
@@ -349,15 +344,15 @@ void GameState::checkCarPassing()
 }
 
 // Render
-void GameState::renderState(sf::RenderTarget* renderTarget)
+void GameState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	if (!renderTarget)
-		renderTarget = renderWindow;
+	//if (!renderTarget)
+	//	renderTarget = renderWindow;
 
 	for (int i = 0; i < backgrounds.size(); i++)
 		renderTarget->draw(backgrounds[i]);
 
-	for (auto it : objects)
+	for (auto&& it : objects)
 		renderTarget->draw(*it);
 
 	renderTarget->draw(player);
@@ -365,15 +360,15 @@ void GameState::renderState(sf::RenderTarget* renderTarget)
 
 	switch (currentState)
 	{
-	case PLAY:
+	case GameStates::PLAY:
 		break;
-	case PAUSED:
+	case GameStates::PAUSED:
 		renderTarget->draw(pauseMenu);
 		break;
-	case DEAD:
+	case GameStates::DEAD:
 		renderTarget->draw(deathMenu);
 		break;
-	case WIN:
+	case GameStates::WIN:
 		renderTarget->draw(winMenu);
 		break;
 	default:

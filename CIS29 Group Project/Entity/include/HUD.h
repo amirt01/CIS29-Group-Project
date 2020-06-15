@@ -25,5 +25,5 @@ public:
 	void update();
 	void updateScore();
 	void updateCoins();
-	void render(sf::RenderTarget* renderTarget);
+	void render(std::shared_ptr<sf::RenderTarget> renderTarget);
 };

@@ -2,14 +2,14 @@
 #include "stdafx.h"
 #include "Animation.h"
 
-enum level { TOP = 0, MIDDLE, BOTTOM };
+enum class Levels { TOP = 0, MIDDLE, BOTTOM };
 
 class Entity : public sf::Sprite
 {
 protected:
 	sf::Texture textureSheet;
 
-	std::map<std::string, Animation*> animations;
+	std::map<std::string, std::unique_ptr<Animation>> animations;
 
 public:
 	Entity();

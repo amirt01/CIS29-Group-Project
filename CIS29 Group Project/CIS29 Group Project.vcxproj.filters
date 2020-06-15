@@ -87,6 +87,9 @@
     <ClCompile Include="Packages\src\GameStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="States\src\ShopState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -158,6 +161,9 @@
     <ClInclude Include="Packages\include\Leaderboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="States\include\ShopState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\render_window_settings.txt" />
@@ -189,6 +195,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\motorbiker-blue.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Images\coins.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Images\convertible.png">

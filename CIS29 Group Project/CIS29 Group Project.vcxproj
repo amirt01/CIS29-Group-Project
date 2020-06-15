@@ -191,6 +191,7 @@
     <ClCompile Include="States\src\MainMenuState.cpp" />
     <ClCompile Include="Overlays\src\PauseMenu.cpp" />
     <ClCompile Include="States\src\RankingsState.cpp" />
+    <ClCompile Include="States\src\ShopState.cpp" />
     <ClCompile Include="States\src\State.cpp" />
     <ClCompile Include="States\src\TutorialState.cpp" />
   </ItemGroup>
@@ -216,6 +217,7 @@
     <ClInclude Include="States\include\MainMenuState.h" />
     <ClInclude Include="Overlays\include\PauseMenu.h" />
     <ClInclude Include="States\include\RankingsState.h" />
+    <ClInclude Include="States\include\ShopState.h" />
     <ClInclude Include="States\include\State.h" />
     <ClInclude Include="States\include\TutorialState.h" />
   </ItemGroup>
@@ -227,6 +229,7 @@
     <Image Include="Resources\Images\CarFramesOrange.png" />
     <Image Include="Resources\Images\CarFramesRed.png" />
     <Image Include="Resources\Images\CarFramesYellow.png" />
+    <Image Include="Resources\Images\coins.png" />
     <Image Include="Resources\Images\convertible.png" />
     <Image Include="Resources\Images\CrashCartoon.jpg" />
     <Image Include="Resources\Images\CrashCartoon.png" />

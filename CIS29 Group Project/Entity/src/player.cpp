@@ -19,11 +19,15 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	gravity(1.0f)
 {
 	setTexture(playerTexture);
-	setTextureRect(sf::IntRect(0, 0, width, height));
 
-	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
+	if (playerTexture.getSize().x > 200) {
+		setTextureRect(sf::IntRect(0, 0, width, height));
+		addAnimation("WHEELS", 0.1f, 0, 4, width, height);
+	} else {
+		addAnimation("WHEELS", 0.1f, 0, 1, 191, 107);
+	}
 
-	sf::Sprite::setPosition(sf::Vector2f(50, 300));
+	sf::Sprite::setPosition(sf::Vector2f(100, 300));
 	playerColor = getColor();
 }
 

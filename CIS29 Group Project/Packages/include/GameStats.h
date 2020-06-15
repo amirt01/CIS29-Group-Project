@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 
 class GameStats
 {
@@ -7,6 +8,8 @@ public:
 	long coins;
 	std::string playerTexture;
 	std::string theme;
+
+	std::unordered_map<std::string, bool> unlocked;
 
 	GameStats();
 

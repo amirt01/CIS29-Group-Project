@@ -17,11 +17,10 @@ private:
 
 		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const
 		{
-			std::tm* ptm = new tm{ 0 };
-			localtime_s(ptm, &date);
+			std::tm ptm{ 0, 0, 0, 0, 0,  0, 0, 0, 0 };
+			localtime_s(&ptm, &date);
 			char buffer[32];
-			std::strftime(buffer, 32, "%m/%d/%y", ptm);
-			delete ptm;
+			std::strftime(buffer, 32, "%m/%d/%y", &ptm);
 
 			sf::Text texDate;
 

@@ -34,46 +34,47 @@ void Level::updateSpawning()
 	{
 		if (!waves.empty())
 		{
-			unsigned short level, color;
+			Levels level;
+			Color color;
 			spawnTime = 0;
 			switch (rightNibble(waves.front()))
 			{
 			case(0x1): // Top
-				level = TOP;
+				level = Levels::TOP;
 				break;
 			case(0x2): // Middle
-				level = MIDDLE;
+				level = Levels::MIDDLE;
 				break;
 			case(0x4): // Bottom
-				level = BOTTOM;
+				level = Levels::BOTTOM;
 				break;
 			default:
-				level = -1;
+				level = Levels::MIDDLE;
 			}
 
 			switch (leftNibble(waves.front()))
 			{
 			case(0x1): // Top
-				color = RED;
+				color = Color::RED;
 				break;
 			case(0x2): // Middle
-				color = YELLOW;
+				color = Color::YELLOW;
 				break;
 			case(0x4): // Bottom
-				color = ORANGE;
+				color = Color::ORANGE;
 				break;
 			case(0x8):
 				color = CONVERTIBLE;
 				break;
 			default:
-				color = -1;
+				color = Color::RED;
 			}
 			spawnObject(level, color);
 			waves.pop();
 		}
 		else if (objects.empty())
 		{
-			currentState = WIN;
+			currentState = GameStates::WIN;
 		}
 	}
 }
@@ -87,7 +88,7 @@ void Level::restartState()
 	initializeLevel();
 }
 
-Level::Level(sf::RenderWindow* renderWindow, std::string path, std::stack<State*>* states,
+Level::Level(std::shared_ptr<sf::RenderWindow> renderWindow, std::string path, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,

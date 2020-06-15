@@ -8,7 +8,7 @@ class Game
 {
 private:
 	// Variables
-	sf::RenderWindow* renderWindow;
+	std::shared_ptr<sf::RenderWindow> renderWindow;
 	sf::Event event;
 
 	// Graphics Settings
@@ -30,7 +30,7 @@ private:
 	float deltaTime;
 
 	// States
-	std::stack<State*> states;
+	std::stack<std::unique_ptr<State>> states;
 
 	// Initialization
 	void initializePackages(std::string leaderboardPath, std::string gameStatsPath);

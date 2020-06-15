@@ -9,12 +9,16 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 {
 	{"DEFAULT_PLAYER", "Resources/Images/motorbiker.png"},
 	{"BLUE_PLAYER", "Resources/Images/motorbiker-blue.png"},
+	{"DELOREAN_PLAYER", "Resources/Images/delorean.png"},
 	{"RED_CAR", "Resources/Images/CarFramesRed.png"},
 	{"YELLOW_CAR", "Resources/Images/CarFramesYellow.png"},
 	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
 	{"GAME_BACKGROUND", "Resources/Images/GameBackground.png"},
 	{"HEART", "Resources/Images/Heart.png"},
 	{"COLLISION", "Resources/Images/CrashCartoon.png"},
+	{"SHOP_BACKGROUND", "Resources/Images/shopbackground.jpg"},
+	{"COIN", "Resources/Images/coin.png"},
+	{"COINS", "Resources/Images/coins.png"},
 	{"CONVERTIBLE", "Resources/Images/convertible.png"}
 };
 const std::map<const std::string, const std::string> AUDIO_PATHS =
