@@ -11,7 +11,7 @@
 #include "WinMenu.h"
 #include "GameStats.h"
 
-enum Color { RED = 0, YELLOW, ORANGE };
+enum Color { RED = 0, YELLOW, ORANGE, CONVERTIBLE };
 enum Obsticle { MEDIUM = 0, LARGE, SMALL };
 enum Direction { FORWARDS = 1, BACKWARDS = -1 };
 enum GameStates { PLAY = 0, PAUSED, DEAD, WIN };

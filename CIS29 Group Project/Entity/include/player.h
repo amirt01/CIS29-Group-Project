@@ -5,6 +5,7 @@
 class Player : public Entity {
 private:
 	int moveType[2];
+	int positions[3];
 	float movementShift;
 	int currentPosition;
 	int currentHealth;
@@ -12,6 +13,13 @@ private:
 	unsigned int coins;
 	bool isDamaged;
 	bool isPassing;
+	bool isJumping;
+	bool isAscending;
+	bool isDescending;
+	const float gravity;
+	float jumpHeight;
+	enum jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
+	unsigned short jumpState;
 
 	sf::RenderTexture renderTexture;
 
@@ -53,6 +61,8 @@ public:
 	float getMovementShift();
 	void setCurrentPosition(int);
 	int getCurrentPosition();
+	bool getIsJumping();
+	void nowJumping(float, float,bool);
 
 	//passing
 	bool passed(bool);

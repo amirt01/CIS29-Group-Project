@@ -3,13 +3,20 @@
 
 Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	: Entity(), moveType{ -1,1 },
+	positions{ 170,300,431 },
 	movementShift(130), //shift space (distance between lanes)
 	currentPosition(1), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(0),
 	isDamaged(false),
-	isPassing(false)
+	isPassing(false),
+	isJumping(false),
+	isAscending(false),
+	isDescending(false),
+	jumpHeight(130),
+	jumpState(NONE),
+	gravity(1.0f)
 {
 	setTexture(playerTexture);
 	setTextureRect(sf::IntRect(0, 0, width, height));
@@ -20,7 +27,8 @@ Player::Player(sf::Texture& playerTexture, const int width, const int height)
 	playerColor = getColor();
 }
 
-void Player::updateScore(const float& deltaTime) {
+void Player::updateScore(const float& deltaTime) 
+{
 	score += deltaTime;
 }
 
@@ -89,24 +97,89 @@ void Player::revertPlayer()
 	}
 }
 
-void Player::updateMovement(int shift) {
+void Player::updateMovement(int shift) 
+{
 	unsigned short currentPos = getCurrentPosition();
 
-	if (shift == -1) {
-		if (checkPosition(-1)) {
+	if (shift == -1) 
+	{
+		if (checkPosition(-1) && !isJumping)
+		{
 			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
 		}
 	}
-	else if (shift == 1) {
-		if (checkPosition(1)) {
+	else if (shift == 1) 
+	{
+		if (checkPosition(1) && !isJumping) 
+		{
 			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
 		}
 	}
+	else if (shift == 2)
+	{
+		int moving = 0;
+		if (!isJumping)
+		{
+			isJumping = true;
+			jumpState = ASCEND;
+		}
+	}
 }
 
-bool Player::checkPosition(int direction) {
+void Player::nowJumping(float speed, float deltaTime, bool passedCar)
+{
+	float moving = 0;
+	int i = currentPosition;
+	switch (jumpState)
+	{
+	case NONE:
+		moving = positions[i];
+		break;
+	case ASCEND:
+		if (abs(getPosition().y - positions[i]) > jumpHeight)
+		{
+			moving = positions[i] - jumpHeight;
+			jumpState = SUSPEND;
+		}
+		else
+		{
+			moving = getPosition().y + (speed * deltaTime);
+		}
+		break;
+	case SUSPEND:
+		moving = getPosition().y;
+		if(passedCar)
+		{
+			jumpState = DESCEND;
+		}
+		break;
+	case DESCEND:
+		if (getPosition().y - positions[i] > 0)
+		{
+			moving = positions[i];
+			jumpState = NONE;
+			isJumping = false;
+		}
+		else
+		{
+			moving = getPosition().y - ((speed * deltaTime) / 2);
+		}
+		break;
+	}
+
+	setPosition(sf::Vector2f(getPosition().x, moving));
+}
+
+
+bool Player::getIsJumping()
+{
+	return isJumping;
+}
+
+bool Player::checkPosition(int direction) 
+{
 	if (direction == -1) {
 		//wants to move up
 		return currentPosition != 0;
@@ -121,16 +194,19 @@ bool Player::checkPosition(int direction) {
 	}
 }
 
-void Player::takeDamage() {
+void Player::takeDamage() 
+{
 	currentHealth -= 1;
 }
 
 //Getters and Setters
-void Player::setCurrentHealth(int i) {
+void Player::setCurrentHealth(int i)
+{
 	currentHealth = i;
 }
 
-int Player::getCurrentHealth() {
+int Player::getCurrentHealth() 
+{
 	return currentHealth;
 }
 
@@ -139,17 +215,21 @@ float Player::getCurrentScore()
 	return score;
 }
 
-void Player::setMovementShift(float i) {
+void Player::setMovementShift(float i) 
+{
 	movementShift = i;
 }
 
-float Player::getMovementShift() {
+float Player::getMovementShift() 
+{
 	return movementShift;
 }
-void Player::setCurrentPosition(int i) {
+void Player::setCurrentPosition(int i) 
+{
 	currentPosition = i;
 }
-int Player::getCurrentPosition() {
+int Player::getCurrentPosition() 
+{
 	return currentPosition;
 }
 

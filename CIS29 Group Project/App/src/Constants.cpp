@@ -14,7 +14,8 @@ const std::map<const std::string, const std::string> TEXTRUE_PATHS =
 	{"ORANGE_CAR", "Resources/Images/CarFramesOrange.png"},
 	{"GAME_BACKGROUND", "Resources/Images/GameBackground.png"},
 	{"HEART", "Resources/Images/Heart.png"},
-	{"COLLISION", "Resources/Images/CrashCartoon.png"}
+	{"COLLISION", "Resources/Images/CrashCartoon.png"},
+	{"CONVERTIBLE", "Resources/Images/convertible.png"}
 };
 const std::map<const std::string, const std::string> AUDIO_PATHS =
 {

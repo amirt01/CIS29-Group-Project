@@ -62,6 +62,9 @@ void Level::updateSpawning()
 			case(0x4): // Bottom
 				color = ORANGE;
 				break;
+			case(0x8):
+				color = CONVERTIBLE;
+				break;
 			default:
 				color = -1;
 			}

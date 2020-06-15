@@ -69,6 +69,9 @@ void GameState::spawnObject(unsigned short level, unsigned short type)
 		case ORANGE:
 			objects.push_back(new Object(Obstacle, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
+		case CONVERTIBLE:
+			objects.push_back(new Object(Obstacle, level, textures->at("CONVERTIBLE"), 280, 98, renderWindow->getSize().x));
+			break;
 		default:
 			throw exc::SpawnError(level, type);
 			break;
@@ -139,6 +142,9 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			std::for_each(objects.begin(), objects.end(),
 				[&](Object* object) { delete object; });
 			objects.clear();
+			break;
+		case sf::Keyboard::Space:
+			player.updateMovement(2);
 			break;
 		default:
 			break;
@@ -222,6 +228,16 @@ void GameState::updateState(const float& deltaTime)
 		player.updateScore(deltaTime);
 		player.updateAnimation(deltaTime);
 		hud.update();
+		if (player.getIsJumping())
+		{
+			bool carPassing = false;
+			if (player.getPosition().y - objects.front()->getPosition().y <= 35)
+			{
+				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
+			}
+			player.nowJumping(speed, deltaTime,carPassing);
+		}
+		
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -304,14 +320,16 @@ void GameState::updateCollision(Object* object)
 
 //Collision Detection
 void GameState::checkCollision() {
-
-	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
+	if (!player.getIsJumping())
 	{
-		updateCollision(objects.front());
-	}
-	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
-	{
-		updateCollision(objects.at(1));
+		if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
+		{
+			updateCollision(objects.front());
+		}
+		if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
+		{
+			updateCollision(objects.at(1));
+		}
 	}
 }
 
