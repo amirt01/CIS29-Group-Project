@@ -9,7 +9,6 @@ private:
 	int moveType[2];
 	int positions[3];
 	float movementShift;
-	int currentPosition;
 	int currentHealth;
 	float score;
 	float coins;
