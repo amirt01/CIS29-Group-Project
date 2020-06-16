@@ -6,7 +6,7 @@ void PauseMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
 	const float WIDTH = p2pX(20.f);
 	const float HEIGHT = p2pY(10.f);
 
-	title.setPosition(0.f, 150.f);
+	title.setPosition(0.f, p2pY(18.f));
 	title.setFont(*font);
 	title.setString("Paused");
 	title.setCharacterSize(calcCharSize() * 1.9f); //26 pixels

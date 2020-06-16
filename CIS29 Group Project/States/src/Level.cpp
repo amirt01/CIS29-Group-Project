@@ -31,50 +31,55 @@ void Level::updateSpawning()
 {
 	if (spawnTime >= frequency) // ready to spawn
 	{
-		if (!waves.empty())
+		int i = 0;
+		do
 		{
-			Levels level;
-			Color color;
-			spawnTime = 0;
-			switch (rightNibble(waves.front()))
+			if (!waves.empty())
 			{
-			case(0x1): // Top
-				level = Levels::TOP;
-				break;
-			case(0x2): // Middle
-				level = Levels::MIDDLE;
-				break;
-			case(0x4): // Bottom
-				level = Levels::BOTTOM;
-				break;
-			default:
-				level = Levels::MIDDLE;
-			}
+				Levels level;
+				Color color;
+				spawnTime = 0;
+				switch (rightNibble(waves.front()))
+				{
+				case(0x1): // Top
+					level = Levels::TOP;
+					break;
+				case(0x2): // Middle
+					level = Levels::MIDDLE;
+					break;
+				case(0x4): // Bottom
+					level = Levels::BOTTOM;
+					break;
+				default:
+					level = Levels::MIDDLE;
+				}
 
-			switch (leftNibble(waves.front()))
-			{
-			case(0x1): // Top
-				color = Color::RED;
-				break;
-			case(0x2): // Middle
-				color = Color::YELLOW;
-				break;
-			case(0x4): // Bottom
-				color = Color::ORANGE;
-				break;
-			case(0x8):
-				color = Color::BLACK;
-				break;
-			default:
-				color = Color::RED;
+				switch (leftNibble(waves.front()))
+				{
+				case(0x1): // Top
+					color = Color::RED;
+					break;
+				case(0x2): // Middle
+					color = Color::YELLOW;
+					break;
+				case(0x4): // Bottom
+					color = Color::ORANGE;
+					break;
+				case(0x8):
+					color = Color::BLACK;
+					break;
+				default:
+					color = Color::RED;
+				}
+				spawnObject(level, color);
+				waves.pop();
 			}
-			spawnObject(level, color);
-			waves.pop();
-		}
-		else if (objects.empty())
-		{
-			currentState = GameStates::WIN;
-		}
+			else if (objects.empty())
+			{
+				currentState = GameStates::WIN;
+			}
+			i++;
+		} while (i < 2 && level > 2); // only spawn two cars if we're on level 3
 	}
 }
 
@@ -92,7 +97,7 @@ Level::Level(std::shared_ptr<sf::RenderWindow> renderWindow, int level, std::str
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
 	Leaderboard* leaderboard, GameStats* gameStats)
-	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats), levelPath(path)
+	: GameState(renderWindow, states, textures, fonts, soundBuffers, leaderboard, gameStats), levelPath(path), level(level)
 {
 	GameState::setGameLevel(level);
 	initializeLevel();
