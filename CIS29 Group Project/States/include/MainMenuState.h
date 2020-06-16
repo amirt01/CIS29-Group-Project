@@ -39,6 +39,6 @@ public:
 	void updateState(const float& deltaTime);
 
 	// Render
-	void renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
+	void renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
 	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 };
