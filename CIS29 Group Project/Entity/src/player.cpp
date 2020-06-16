@@ -143,7 +143,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		}
 		else
 		{
-			moving = getPosition().y + 2*(speed * deltaTime);
+			moving = getPosition().y + (speed * deltaTime);
 		}
 		break;
 	case jumpStates::DESCEND:
@@ -155,7 +155,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		}
 		else
 		{
-			moving = getPosition().y - (speed * deltaTime);
+			moving = getPosition().y - (speed * deltaTime)/1.5;
 		}
 		break;
 	}

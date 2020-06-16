@@ -258,7 +258,10 @@
     <Media Include="Resources\Audio\car-passing.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Resources\Audio\honk.wav">
+    <Media Include="Resources\Audio\engine_reving.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Resources\Audio\skid.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

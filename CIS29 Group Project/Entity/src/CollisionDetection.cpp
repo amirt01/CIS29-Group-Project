@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 
-namespace CollisionDetection
+namespace Collision
 {
     class BitmaskManager
     {
