@@ -80,7 +80,7 @@ void TutorialState::updateState(const float& deltaTime)
 }
 
 // Render
-void TutorialState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
+void TutorialState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -137,5 +137,5 @@ void TutorialState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
 		title.getGlobalBounds().width / 2.95f, 50.f)));
 		
-	renerGUI(renderTarget);
+	renderGUI(renderTarget);
 }
