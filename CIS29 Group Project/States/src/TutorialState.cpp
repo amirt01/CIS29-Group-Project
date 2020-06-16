@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "TutorialState.h"
+#include "MainMenuState.h"
+#include "FreePlayState.h"
+#include "SettingsState.h"
+#include "Level.h"
 
 // Initializers
 void TutorialState::initializeGUI()
@@ -7,7 +11,7 @@ void TutorialState::initializeGUI()
 	const float WIDTH = 150.f;
 	const float HEIGHT = 50.f;
 
-	buttons["BACK"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+	buttons["BACK"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.5f, p2pY(85.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
@@ -87,17 +91,51 @@ void TutorialState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 void TutorialState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	//if (!renderTarget)
-	//	renderTarget = renderWindow;
+// renderTarget = renderWindow;
 
 	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);
 	title.setStyle(sf::Text::Bold);
 	title.setFillColor(sf::Color::White);
 
+	sf::Text text;
+	text.setFont(fonts->at("DOSIS-BOLD"));
+	text.setString("Press either W or the Up Arrow to move up a lane.");
+	text.setCharacterSize(24);
+	title.setFillColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(background.getGlobalBounds().width / 20.f - title.getGlobalBounds().width / 10.f, background.getGlobalBounds().height / 4.0f));
+
 	sf::RenderStates renderStates;
 
 	renderTarget->draw(background);
 	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
 		title.getGlobalBounds().width / 2.f, 0.f)));
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 5.f -
+		title.getGlobalBounds().width / 2.f, 0.f)));
+	
+	text.setString("Press either S or the Down Arrow to move down a lane.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 3.5f -
+		title.getGlobalBounds().width / 1.48f, 50.f)));
+	
+	text.setString("Press the Space Bar to jump over potholes in Levels 2 and 3.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
+		title.getGlobalBounds().width / 2.95f, 50.f)));
+
+	text.setString("Avoid being hit by cars in the oncoming traffic.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
+		title.getGlobalBounds().width / 2.95f, 50.f)));
+
+	text.setString("Collect coins scattered in the oncoming traffic to use in the shop.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
+		title.getGlobalBounds().width / 2.95f, 50.f)));
+
+	text.setString("You have three lives, shown at the top of the screen.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
+		title.getGlobalBounds().width / 2.95f, 50.f)));
+		
+	text.setString("Press the Esc Key to pause the game.");
+	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
+		title.getGlobalBounds().width / 2.95f, 50.f)));
+		
 	renerGUI(renderTarget);
 }
