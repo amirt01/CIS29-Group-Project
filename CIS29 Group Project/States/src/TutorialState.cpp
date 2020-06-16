@@ -54,7 +54,7 @@ void TutorialState::updateMouseButtons(const sf::Mouse::Button& button)
 void TutorialState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
-		quitState();
+		states->pop();
 }
 
 void TutorialState::updateMouseWheel(const short& mouseDelta)
@@ -70,7 +70,7 @@ void TutorialState::updateGUI()
 	}
 
 	if (buttons["BACK"]->getIsActivated())
-		quitState();
+		states->pop();
 }
 
 void TutorialState::updateState(const float& deltaTime)
@@ -112,11 +112,11 @@ void TutorialState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 		title.getGlobalBounds().width / 2.f, 0.f)));
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 5.f -
 		title.getGlobalBounds().width / 2.f, 0.f)));
-	
+
 	text.setString("Press either S or the Down Arrow to move down a lane.");
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 3.5f -
 		title.getGlobalBounds().width / 1.48f, 50.f)));
-	
+
 	text.setString("Press the Space Bar to jump over potholes in Levels 2 and 3.");
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
 		title.getGlobalBounds().width / 2.95f, 50.f)));
@@ -132,10 +132,10 @@ void TutorialState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	text.setString("You have three lives, shown at the top of the screen.");
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
 		title.getGlobalBounds().width / 2.95f, 50.f)));
-		
+
 	text.setString("Press the Esc Key to pause the game.");
 	renderTarget->draw(text, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 7.f -
 		title.getGlobalBounds().width / 2.95f, 50.f)));
-		
+
 	renerGUI(renderTarget);
 }

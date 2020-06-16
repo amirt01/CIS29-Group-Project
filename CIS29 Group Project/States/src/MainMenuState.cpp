@@ -127,7 +127,7 @@ void MainMenuState::updateGUI()
 	{
 		using namespace std::chrono_literals; // for ms
 		std::this_thread::sleep_for(51ms);
-		quitState();
+		states->pop();
 	}
 }
 

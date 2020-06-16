@@ -179,7 +179,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 		switch (keyCode)
 		{
 		case sf::Keyboard::Escape:
-			quitState();
+			states->pop();
 			break;
 		default:
 			if (buttons != nullptr)
@@ -274,7 +274,7 @@ void GameState::updateState(const float& deltaTime)
 
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
-			quitState();
+			states->pop();
 
 		break;
 	case GameStates::DEAD:
@@ -289,7 +289,7 @@ void GameState::updateState(const float& deltaTime)
 		if (buttons->at("QUIT")->getIsActivated())
 		{
 			leaderboard->addNewScore(buttons->at("NAME")->getText(), player.getCurrentScore(), fonts->at("DOSIS-BOLD"));
-			quitState();
+			states->pop();
 		}
 		break;
 	case GameStates::WIN:
@@ -302,7 +302,7 @@ void GameState::updateState(const float& deltaTime)
 			restartState();
 		// Quit This Game
 		if (buttons->at("QUIT")->getIsActivated())
-			quitState();
+			states->pop();
 		break;
 	default:
 		break;

@@ -17,7 +17,7 @@ private:
 
 		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const
 		{
-			std::tm ptm{ 0, 0, 0, 0, 0,  0, 0, 0, 0 };
+			std::tm ptm{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 			localtime_s(&ptm, &date);
 			char buffer[32];
 			std::strftime(buffer, 32, "%m/%d/%y", &ptm);
@@ -65,7 +65,7 @@ private:
 
 			sf::RectangleShape container;
 			container.setFillColor(sf::Color(100, 100, 100, 200));
-			container.setSize(sf::Vector2f(510.f, 45.f));
+			container.setSize(sf::Vector2f(renderTarget.getSize().x * 0.4f, 45.f));
 			renderTarget.draw(container, renderStates);
 
 			renderStates.transform.translate(padding / 2.f, 0.f);

@@ -52,7 +52,7 @@ void RankingsState::updateMouseButtons(const sf::Mouse::Button& button)
 void RankingsState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
-		quitState();
+		states->pop();
 }
 
 void RankingsState::updateGUI(const float& deltaTime)
@@ -67,7 +67,7 @@ void RankingsState::updateGUI(const float& deltaTime)
 	//Quit This Game
 	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
-		quitState();
+		states->pop();
 	}
 }
 

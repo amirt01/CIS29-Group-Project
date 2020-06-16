@@ -13,8 +13,6 @@ protected:
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers;
 	sf::Sound sound;
 
-	bool quit;
-
 	std::stack<std::unique_ptr<State>>* states;
 
 	sf::Vector2i mousePosScreen;
@@ -35,10 +33,6 @@ public:
 
 	// Sound Functions
 	void playSound(std::string soundBuffer, float volume);
-
-	// Quit State Functions
-	const bool& getQuit() const;
-	void quitState();
 
 	virtual std::string name() const;
 

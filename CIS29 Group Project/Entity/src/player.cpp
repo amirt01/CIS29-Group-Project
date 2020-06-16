@@ -64,7 +64,7 @@ void Player::collisionMove()
 		updateMovement(moveType[1]);
 		break;
 	case Levels::MIDDLE:
-		updateMovement(moveType[static_cast<int>(rand() % sizeof(moveType))]);
+		updateMovement(moveType[static_cast<int>(rand() % static_cast<int>(sizeof(moveType)))]);
 		break;
 	case Levels::BOTTOM:
 		updateMovement(moveType[0]);
@@ -154,7 +154,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		}
 		else
 		{
-			moving = getPosition().y - (speed * deltaTime) / 1.5;
+			moving = getPosition().y - (speed * deltaTime) / 1.5f;
 		}
 		break;
 	}
