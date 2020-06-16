@@ -64,7 +64,7 @@ void Player::collisionMove()
 		updateMovement(moveType[1]);
 		break;
 	case Levels::MIDDLE:
-		updateMovement(moveType[static_cast<int>(rand() % sizeof(moveType))]);
+		updateMovement(moveType[rand() % 2]);
 		break;
 	case Levels::BOTTOM:
 		updateMovement(moveType[0]);
