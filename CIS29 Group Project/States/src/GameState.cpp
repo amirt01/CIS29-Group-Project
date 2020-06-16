@@ -385,6 +385,7 @@ void GameState::checkCollision()
 	{
 		updateCollision(objects.at(1));
 	}
+
 	if (objects.front()->hit == false && player.isDamaged)
 	{
 		player.revertPlayer();
@@ -393,11 +394,16 @@ void GameState::checkCollision()
 	{
 		player.revertPlayer();
 	}
-	if (objects.front()->hit == true && player.currentPosition == objects.front()->level)
+	else if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition != objects.front()->level)
+	{
+		player.revertPlayer();
+	}
+	
+	if (objects.front()->hit == true && player.currentPosition == objects.front()->level && objects.front()->type == Type::OBSTACLE)
 	{
 		player.playerDamage();
 	}
-	if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition == objects.at(1)->level)
+	if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition == objects.at(1)->level && objects.at(1)->type == Type::OBSTACLE)
 	{
 		player.playerDamage();
 	}
