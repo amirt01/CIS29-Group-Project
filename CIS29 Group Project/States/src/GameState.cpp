@@ -317,6 +317,12 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 		playSound("COIN", 50.f);
 		object->hit = true;
 		player.gainCoin();
+		for (auto it = objects.begin(); it != objects.end(); ++it) {
+			if ((*it)->height  == 128) {
+				objects.erase(it);
+				it = objects.end()-1;
+			}
+		}
 		break;
 	default:
 		break;
