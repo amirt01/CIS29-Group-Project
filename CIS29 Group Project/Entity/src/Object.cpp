@@ -23,7 +23,18 @@ Object::Object(const Type type, const Levels level, sf::Texture& texture, const 
 	setTexture(texture);
 
 	// MAKE SURE TO CREATE VARIABLES LATER
-	addAnimation("IDLE", 0.1f, 0, 7, width, height);
+	if (type == Type::OBSTACLE)
+	{
+		addAnimation("IDLE", 0.1f, 0, 7, width, height);
+	}
+	else if (type == Type::COIN)
+	{
+		addAnimation("IDLE", 0.1f, 0, 6, width, height);
+	}
+	else if (type == Type::POTHOLE)
+	{
+		addAnimation("IDLE", 0.1f, 0, 1, width, height);
+	}
 	
 }
 

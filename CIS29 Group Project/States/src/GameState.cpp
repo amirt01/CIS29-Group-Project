@@ -142,8 +142,9 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			objects.clear();
 			break;
 		case sf::Keyboard::Space:
-			if (level == 4) // disable jump
+			if (level == 2 || level == 3) // disable jump
 			{
+				playSound("REVING", 20.f);
 				player.updateMovement(2);
 			}
 			break;
@@ -345,6 +346,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			{
 				collide.collisionPosition(player.getCurrentPosition(), 1);
 			}
+			playSound("SKID", 20.f);
 			player.collisionMove();
 		}
 		break;
@@ -372,7 +374,10 @@ void GameState::checkCarPassing()
 	{
 		if (player.passed(true))
 		{
-			playSound("CAR_PASSING", 25.f);
+			if (rand() % 2 == 0)
+			{
+				playSound("CAR_PASSING", 15.f);
+			}
 		}
 	}
 	else
