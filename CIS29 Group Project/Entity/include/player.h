@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Entity.h"
-	enum class jumpStates {NONE = 0, ASCEND, DESCEND};
+enum class jumpStates { NONE = 0, ASCEND, DESCEND };
 
 class Player : public Entity {
 private:
 	// movement
 	int moveType[2];
-	int positions[3];
+	std::array<float, 3> positions;
 	float movementShift;
 	int currentHealth;
 	float score;
@@ -28,7 +28,7 @@ private:
 	sf::Color playerColor;
 
 public:
-	Player(sf::Texture& playerTexture, float coins, const int width, const int height);
+	Player(sf::Texture& playerTexture, float coins, std::array<float, 3> positions, const int width, const int height);
 	Levels currentPosition;
 
 	//update

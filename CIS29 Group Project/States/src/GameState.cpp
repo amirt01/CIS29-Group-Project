@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), gameStats->coins, textures->at(gameStats->playerTexture).getSize().x / 4, textures->at(gameStats->playerTexture).getSize().y),
+	player(textures->at(gameStats->playerTexture), gameStats->coins, { p2pY(24.f), p2pY(42.f), p2pY(60.f) }, textures->at(gameStats->playerTexture).getSize().x / 4, textures->at(gameStats->playerTexture).getSize().y),
 	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -39,6 +39,8 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 		backgrounds[i].setPosition(static_cast<float>(renderWindow->getSize().x * (i - 1.f)), 0.f);
 		backgrounds[i].setTexture(&textures->at(gameStats->theme));
 	}
+
+	player.setMovementShift(p2pY(18.f));
 
 	// Background Music Loop
 	backgroundMusic.setLoop(true);
@@ -54,23 +56,40 @@ GameState::~GameState()
 
 void GameState::spawnObject(const Levels level, const Color color)
 {
+	float pixLevel = 0.f;
+
+	switch (level)
+	{
+	case Levels::TOP:
+		pixLevel = p2pY(28.f);
+		break;
+	case Levels::MIDDLE:
+		pixLevel = p2pY(46.5f);
+		break;
+	case Levels::BOTTOM:
+		pixLevel = p2pY(64.f);
+		break;
+	default:
+		break;
+	}
+
 	try {
 		switch (color)
 		{
 		case Color::RED:
-			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, pixLevel, level, textures->at("RED_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case Color::YELLOW:
-			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, pixLevel, level, textures->at("YELLOW_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case Color::ORANGE:
-			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, pixLevel, level, textures->at("ORANGE_CAR"), 280, 100, renderWindow->getSize().x));
 			break;
 		case Color::GOLD:
-			objects.push_back(std::make_unique<Object>(Type::COIN, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::COIN, pixLevel, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
 			break;
 		case Color::BLACK:
-			objects.push_back(std::make_unique<Object>(Type::POTHOLE, level, textures->at("POTHOLE"), 115, 110, renderWindow->getSize().x));
+			objects.push_back(std::make_unique<Object>(Type::POTHOLE, pixLevel, level, textures->at("POTHOLE"), 115, 110, renderWindow->getSize().x));
 			break;
 		default:
 			throw exc::SpawnError();

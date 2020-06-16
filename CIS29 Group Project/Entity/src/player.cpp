@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "player.h"
 
-Player::Player(sf::Texture& playerTexture, float coins, const int width, const int height)
+Player::Player(sf::Texture& playerTexture, float coins, std::array<float, 3> positions, const int width, const int height)
 	: Entity(), moveType{ -1,1 },
-	positions{ 170,300,431 },
-	movementShift(130), //shift space (distance between lanes)
+	positions(positions),
+	movementShift(0),
 	currentPosition(Levels::MIDDLE), //pos = Center/1
 	currentHealth(3), //3 being full health
 	score(0),
@@ -19,9 +19,8 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 
 	setTextureRect(sf::IntRect(0, 0, width, height));
 	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
-	
 
-	sf::Sprite::setPosition(sf::Vector2f(80, 300));
+	sf::Sprite::setPosition(sf::Vector2f(80, positions[1]));
 	playerColor = getColor();
 }
 
@@ -136,7 +135,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		moving = positions[i];
 		break;
 	case jumpStates::ASCEND:
-		if ( abs(getPosition().y - positions[i]) > jumpHeight)
+		if (abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
 			jumpState = jumpStates::DESCEND;
@@ -155,7 +154,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		}
 		else
 		{
-			moving = getPosition().y - (speed * deltaTime)/1.5;
+			moving = getPosition().y - (speed * deltaTime) / 1.5;
 		}
 		break;
 	}

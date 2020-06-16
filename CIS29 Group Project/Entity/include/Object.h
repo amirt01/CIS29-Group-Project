@@ -15,7 +15,7 @@ public:
 	int width;
 	int height;
 
-	Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation);
+	Object(const Type type, const float posY, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 
 	int getValue();
 	void setValue(int);
