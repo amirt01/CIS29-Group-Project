@@ -3,8 +3,8 @@
 
 void WinMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
 {
-	const float WIDTH = 250.f;
-	const float HEIGHT = 75.f;
+	const float WIDTH = p2pX(20.f);
+	const float HEIGHT = p2pY(10.f);
 
 	title.setPosition(0.f, 150.f);
 	title.setFont(*font);

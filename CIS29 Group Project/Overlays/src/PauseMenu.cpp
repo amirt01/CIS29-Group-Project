@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "PauseMenu.h"
 
-void PauseMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound) {
-	const float WIDTH = 250.f;
-	const float HEIGHT = 75.f;
+void PauseMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
+{
+	const float WIDTH = p2pX(20.f);
+	const float HEIGHT = p2pY(10.f);
 
 	title.setPosition(0.f, 150.f);
 	title.setFont(*font);
 	title.setString("Paused");
-	title.setCharacterSize(56); //26 pixels
+	title.setCharacterSize(calcCharSize() * 1.9f); //26 pixels
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 

@@ -10,8 +10,8 @@ void RankingsState::initializeBackground()
 
 void RankingsState::initializeGUI()
 {
-	const float WIDTH = 175.f;
-	const float HEIGHT = 75.f;
+	const float WIDTH = p2pX(14.f);
+	const float HEIGHT = p2pY(10.f);
 
 	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),

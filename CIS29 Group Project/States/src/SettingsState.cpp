@@ -9,8 +9,8 @@ void SettingsState::initializeGUI()
 
 	background.setFillColor(sf::Color(55, 148, 110, 255));
 
-	const float WIDTH = 150.f;
-	const float HEIGHT = 50.f;
+	const float WIDTH = p2pX(14.f);
+	const float HEIGHT = p2pY(10.f);
 
 	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),

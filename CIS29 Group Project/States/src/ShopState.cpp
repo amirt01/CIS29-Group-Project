@@ -2,29 +2,32 @@
 #include "ShopState.h"
 
 void ShopState::initializeGUI() {
-	buttons["BACK"] = std::make_unique<gui::Button>(1115, 650, 150, 50,
+	const float BUTTONWIDTH = p2pX(14.f);
+	const float BUTTONHEIGHT = p2pY(10.f);
+
+	buttons["BACK"] = std::make_unique<gui::Button>(p2pX(93.f) - BUTTONWIDTH / 2.f, p2pY(93.f) - BUTTONHEIGHT / 2.f, BUTTONWIDTH, BUTTONHEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	const float WIDTH = 250.f;
-	const float HEIGHT = 200.f;
+	const float WIDTH = p2pX(20.f);
+	const float HEIGHT = p2pY(28.f);
 
-	buttons["PLAYER1"] = std::make_unique<gui::Button>(105, 130, WIDTH, HEIGHT,
+	buttons["PLAYER1"] = std::make_unique<gui::Button>(p2pX(8.f), p2pY(18.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["PLAYER2"] = std::make_unique<gui::Button>(470, 130, WIDTH, HEIGHT,
+	buttons["PLAYER2"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(18.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["PLAYER3"] = std::make_unique<gui::Button>(835, 130, WIDTH, HEIGHT,
+	buttons["PLAYER3"] = std::make_unique<gui::Button>(p2pX(65.f), p2pY(18.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP1"] = std::make_unique<gui::Button>(105, 435, WIDTH, HEIGHT,
+	buttons["MAP1"] = std::make_unique<gui::Button>(p2pX(8.f), p2pY(60.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP2"] = std::make_unique<gui::Button>(470, 435, WIDTH, HEIGHT,
+	buttons["MAP2"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(60.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
-	buttons["MAP3"] = std::make_unique<gui::Button>(835, 435, WIDTH, HEIGHT,
+	buttons["MAP3"] = std::make_unique<gui::Button>(p2pX(65.f), p2pY(60.f), WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 
@@ -70,26 +73,26 @@ void ShopState::initializeGUI() {
 
 	player1.setTexture(textures->at("DEFAULT_PLAYER"));
 	player1.setTextureRect(sf::IntRect(0, 0, 104, 107));
-	player1.setPosition(180, 180);
+	player1.setPosition(p2pX(14.f), p2pY(22.f));
 
 	player2.setTexture(textures->at("BLUE_PLAYER"));
 	player2.setTextureRect(sf::IntRect(0, 0, 104, 107));
-	player2.setPosition(545, 180);
+	player2.setPosition(p2pX(43.f), p2pY(22.f));
 
 	player3.setTexture(textures->at("DELOREAN_PLAYER"));
-	player3.setTextureRect(sf::IntRect(0, 0, 191, 107)); 
-	player3.setPosition(870, 180);
+	player3.setTextureRect(sf::IntRect(0, 0, 191, 107));
+	player3.setPosition(p2pX(68.f), p2pY(22.f));
 
 	map1.setTexture(textures->at("GAME_BACKGROUND"));
-	map1.setPosition(121, 480);
+	map1.setPosition(p2pX(9.5f), p2pY(67.f));
 	map1.setScale(0.084f, 0.084f);
 
 	map2.setTexture(textures->at("GAME_BACKGROUND_PINK"));
-	map2.setPosition(490, 480);
+	map2.setPosition(p2pX(39.f), p2pY(67.f));
 	map2.setScale(0.17f, 0.17f);
 
 	map3.setTexture(textures->at("GAME_BACKGROUND_DESERT"));
-	map3.setPosition(855, 480);
+	map3.setPosition(p2pX(67.f), p2pY(67.f));
 	map3.setScale(0.17f, 0.17f);
 }
 
