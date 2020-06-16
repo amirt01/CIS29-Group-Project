@@ -9,7 +9,6 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(coins),
-	gainedCoins(0),
 	isDamaged(false),
 	isPassing(false),
 	isJumping(false),
@@ -39,19 +38,18 @@ void Player::updateAnimation(const float& deltaTime)
 
 void Player::gainCoin()
 {
-	gainedCoins += 5;
+	coins += 5;
 }
 
 unsigned int Player::getCoins()
 {
-	return coins+gainedCoins;
+	return coins;
 }
 
 void Player::resetPlayer()
 {
 	score = 0.f;
 	currentHealth = 3;
-	gainedCoins = 0;
 
 	if (currentPosition == Levels::MIDDLE)
 		updateMovement(1);
