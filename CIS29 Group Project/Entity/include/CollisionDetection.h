@@ -39,7 +39,7 @@
  */
 
 
-namespace CollisionDetection {
+namespace Collision {
     //////
     /// Test for a collision between two sprites by comparing the alpha values of overlapping pixels
     /// Supports scaling and rotation

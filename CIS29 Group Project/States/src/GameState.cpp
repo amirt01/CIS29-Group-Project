@@ -358,11 +358,11 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 //Collision Detection
 void GameState::checkCollision()
 {
-	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
+	if ((objects.front()->hit == false && Collision::PixelPerfectTest(player, *objects.front())))
 	{
 		updateCollision(objects.front());
 	}
-	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
+	if (objects.size() > 1 && objects.at(1)->hit == false && Collision::PixelPerfectTest(player, *objects.at(1)))
 	{
 		updateCollision(objects.at(1));
 	}

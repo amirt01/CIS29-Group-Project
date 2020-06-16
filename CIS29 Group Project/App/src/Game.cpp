@@ -99,7 +99,7 @@ void Game::initializeWindow(std::string path)
 void Game::initializeTextures()
 {
 	std::for_each(TEXTRUE_PATHS.begin(), TEXTRUE_PATHS.end(), [this](const auto& texturePair) {
-		if (!CollisionDetection::CreateTextureAndBitmask(textures[texturePair.first], texturePair.second))
+		if (!Collision::CreateTextureAndBitmask(textures[texturePair.first], texturePair.second))
 			exit(EXIT_FAILURE); // the loadFromFile() function has an ouput
 								// when it fails so no need to throw
 		});
