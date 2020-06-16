@@ -12,7 +12,6 @@ private:
 	int currentHealth;
 	float score;
 	float coins;
-	float gainedCoins;
 
 	bool isDamaged;
 	bool isPassing;
