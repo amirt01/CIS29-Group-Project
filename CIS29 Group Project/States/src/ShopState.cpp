@@ -77,12 +77,12 @@ void ShopState::initializeGUI() {
 	player2.setPosition(545, 180);
 
 	player3.setTexture(textures->at("DELOREAN_PLAYER"));
-	player3.setTextureRect(sf::IntRect(0, 0, 280, 88)); 
+	player3.setTextureRect(sf::IntRect(0, 0, 191, 107)); 
 	player3.setPosition(870, 180);
 
 	map1.setTexture(textures->at("GAME_BACKGROUND"));
-	map1.setPosition(125, 480);
-	map1.setScale(0.082875f, 0.082875f);
+	map1.setPosition(121, 480);
+	map1.setScale(0.084f, 0.084f);
 
 	map2.setTexture(textures->at("GAME_BACKGROUND_PINK"));
 	map2.setPosition(490, 480);

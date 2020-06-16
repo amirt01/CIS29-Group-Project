@@ -2,7 +2,7 @@
 #include "Object.h"
 
 Object::Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation)
-	: Entity(), hit(false), type(type), value(1), level(level)
+	: Entity(), hit(false), type(type), value(1), level(level), width(width), height(height)
 {
 	switch (level)
 	{
@@ -24,11 +24,13 @@ Object::Object(const Type type, const Levels level, sf::Texture& texture, const 
 
 	// MAKE SURE TO CREATE VARIABLES LATER
 	addAnimation("IDLE", 0.1f, 0, 7, width, height);
+	
 }
 
 int Object::getValue() {
 	return value;
 }
+
 
 void Object::setValue(int v)
 {

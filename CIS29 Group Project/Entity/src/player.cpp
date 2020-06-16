@@ -9,6 +9,7 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 	currentHealth(3), //3 being full health
 	score(0),
 	coins(coins),
+	gainedCoins(0),
 	isDamaged(false),
 	isPassing(false),
 	isJumping(false),
@@ -17,15 +18,11 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 {
 	setTexture(playerTexture);
 
-	if (playerTexture.getSize().x > 200) {
-		setTextureRect(sf::IntRect(0, 0, width, height));
-		addAnimation("WHEELS", 0.1f, 0, 4, width, height);
-	}
-	else {
-		addAnimation("WHEELS", 0.1f, 0, 1, 191, 107);
-	}
+	setTextureRect(sf::IntRect(0, 0, width, height));
+	addAnimation("WHEELS", 0.1f, 0, 4, width, height);
+	
 
-	sf::Sprite::setPosition(sf::Vector2f(100, 300));
+	sf::Sprite::setPosition(sf::Vector2f(80, 300));
 	playerColor = getColor();
 }
 
@@ -42,19 +39,19 @@ void Player::updateAnimation(const float& deltaTime)
 
 void Player::gainCoin()
 {
-	coins += 5;
+	gainedCoins += 5;
 }
 
 unsigned int Player::getCoins()
 {
-	return coins;
+	return coins+gainedCoins;
 }
 
 void Player::resetPlayer()
 {
 	score = 0.f;
 	currentHealth = 3;
-	coins = 0;
+	gainedCoins = 0;
 
 	if (currentPosition == Levels::MIDDLE)
 		updateMovement(1);

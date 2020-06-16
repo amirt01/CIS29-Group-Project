@@ -12,11 +12,12 @@ public:
 	bool hit;
 	Type type;
 	Levels level;
+	int width;
+	int height;
 
 	Object(const Type type, const Levels level, sf::Texture& texture, const int width, const int height, const int startingLocation);
 
 	int getValue();
-
 	void setValue(int);
 
 	//void move(const float x, const float& deltaTime);
