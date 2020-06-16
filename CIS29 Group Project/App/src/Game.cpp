@@ -80,6 +80,7 @@ Game::Game()
 	initializeTextures();
 	initializeFonts();
 	initializeAudio();
+
 	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
 	states.push(std::make_unique<MainMenuState>(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats, &graphicsSettings));

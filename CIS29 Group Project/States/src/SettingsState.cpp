@@ -20,10 +20,19 @@ void SettingsState::initializeGUI()
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Apply", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["FULLSCREEN"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Fullscreen", calcCharSize(),
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	if (graphicsSettings->fullscreen)
+	{
+		buttons["FULLSCREEN"]->setIdleColor(sf::Color(150, 150, 150, 255));
+	}
+
 	//Drop down lists
-	std::string resolutions[] = { "1920x1080", "1280x720","800x600", "640x480" };
-	dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(25.f) - HEIGHT / 2.f,
-		WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, 32, 4, 1);
+	std::string resolutions[] = { "2560x1440", "1920x1080", "1280x720" };
+	dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f,
+		WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 2);
 }
 
 void SettingsState::resetGUI()
@@ -92,6 +101,15 @@ void SettingsState::updateGUI()
 		it.second->update(mousePosView);
 	}
 
+	if (buttons["FULLSCREEN"]->getIsActivated())
+	{
+		graphicsSettings->fullscreen = !graphicsSettings->fullscreen;
+		if (graphicsSettings->fullscreen)
+			buttons["FULLSCREEN"]->setIdleColor(sf::Color(150, 150, 150, 255));
+		else
+			buttons["FULLSCREEN"]->setIdleColor(sf::Color(100, 100, 100, 200));
+	}
+
 	if (buttons["APPLY"]->getIsActivated())
 	{
 		char width_str[10], height_str[10];
@@ -102,7 +120,22 @@ void SettingsState::updateGUI()
 		ss.getline(height_str, 10);
 		graphicsSettings->resolution = sf::VideoMode(atoi(width_str), atoi(height_str));
 
-		renderWindow->create(graphicsSettings->resolution, graphicsSettings->gameTitle, sf::Style::Titlebar | sf::Style::Close, graphicsSettings->contextSettings);
+		if (graphicsSettings->fullscreen)
+		{
+			renderWindow->create(
+				sf::VideoMode::getFullscreenModes()[0],
+				graphicsSettings->gameTitle,
+				sf::Style::Fullscreen,
+				graphicsSettings->contextSettings);
+		}
+		else
+		{
+			renderWindow->create(
+				graphicsSettings->resolution,
+				graphicsSettings->gameTitle,
+				sf::Style::Titlebar | sf::Style::Close,
+				graphicsSettings->contextSettings);
+		}
 
 		resetGUI();
 	}

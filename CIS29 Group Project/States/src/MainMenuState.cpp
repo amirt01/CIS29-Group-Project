@@ -151,7 +151,7 @@ void MainMenuState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	if (!renderTarget)
 		renderTarget = renderWindow;
 
-	if (background.getSize().y != graphicsSettings->resolution.height)
+	if (background.getSize().x != renderTarget->getSize().x)
 	{
 		buttons.clear();
 		initializeGUI();
