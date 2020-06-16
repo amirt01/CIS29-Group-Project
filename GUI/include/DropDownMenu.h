@@ -4,12 +4,9 @@
 
 namespace gui
 {
-	class DropDownMenu
+	class DropDownMenu : public sf::Drawable
 	{
 	private:
-		float clickTime;
-		float clickTimeMax;
-
 		sf::Font& font;
 		Button* activeElement;
 		std::vector<Button*> elements;
@@ -22,9 +19,10 @@ namespace gui
 		~DropDownMenu();
 
 		//Functions
-		const bool getClickTime();
-		void updateClickTime(const float& deltaTime);
-		void update(const sf::Vector2f mousePos, const float& deltaTime);
-		void render(sf::RenderTarget* renderTarget);
+		Button* getActiveElement() const;
+		void checkBounds(const sf::Vector2f mousePos);
+
+		void update(const sf::Vector2f mousePos);
+		void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates = sf::RenderStates::Default) const;
 	};
 }

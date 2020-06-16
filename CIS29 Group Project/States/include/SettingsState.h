@@ -2,32 +2,42 @@
 
 #include "State.h"
 #include "DropDownMenu.h"
+#include "GraphicsSettings.h"
 
 class SettingsState :
 	public State
 {
 private:
-	// Variables
+	//Variables
 	sf::RectangleShape background;
 
-	std::map<std::string, gui::Button*> buttons;
-	std::map<std::string, gui::DropDownMenu*> dropDownMenus;
+	std::map<std::string, std::unique_ptr<gui::Button>> buttons;
+	std::map<std::string, std::unique_ptr<gui::DropDownMenu>> dropDownMenus;
 
-	// Functions
+	GraphicsSettings* graphicsSettings;
+
 	// Initializers
-	void initializeBackground();
-	void initializeFonts();
 	void initializeGUI();
+	void resetGUI();
+
 public:
-	SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states);
-	~SettingsState();
+	// Constructors/Destructors
+	SettingsState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
+		std::unordered_map<std::string, sf::Texture>* textures,
+		std::unordered_map<std::string, sf::Font>* fonts,
+		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+		GraphicsSettings* graphicsSettings);
+	virtual ~SettingsState();
 
 	// Update
-	void updateKeyboard(unsigned short keyCode);
-	void updateGUI(const float& deltaTime);
+	void updateMouseButtons(const sf::Mouse::Button& button);
+	void updateKeyboard(const sf::Keyboard::Key& keyCode);
+	void updateMouseWheel(const short& mouseDelta);
+
+	void updateGUI();
 	void updateState(const float& deltaTime);
 
 	// Render
-	void renerGUI(sf::RenderTarget* renderTarget);
-	void renderState(sf::RenderTarget* renderTarget);
+	void renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
+	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 };

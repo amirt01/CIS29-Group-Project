@@ -90,6 +90,12 @@
     <ClCompile Include="States\src\ShopState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Packages\src\GraphicsSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\src\SettingsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\include\Game.h">
@@ -162,6 +168,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States\include\ShopState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packages\include\GraphicsSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\include\SettingsState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

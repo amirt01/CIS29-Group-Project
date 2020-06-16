@@ -1,98 +1,127 @@
 #include "stdafx.h"
 #include "SettingsState.h"
 
-void SettingsState::initializeBackground()
+// Initializers
+void SettingsState::initializeGUI()
 {
 	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
 		static_cast<float>(renderWindow->getSize().y)));
 
-	if (!backgrounTexture.loadFromFile("Resources/Images/main_menu_background.jpg"))
-	{
-		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
-	}
+	background.setFillColor(sf::Color(55, 148, 110, 255));
 
-	background.setTexture(&backgrounTexture);
-}
+	const float WIDTH = 150.f;
+	const float HEIGHT = 50.f;
 
-void SettingsState::initializeFonts()
-{
-	if (!font.loadFromFile("Resources/Fonts/Dosis-Light.ttf"))
-	{
-		throw("ERROR::MAINMENUSTATE::COULD NOT LOAD FONT");
-	}
-}
-
-void SettingsState::initializeGUI()
-{
-	buttons["EXIT_STATE"] = new gui::Button(900.f, 450.f, 150.f, 50.f,
-		&font, "Back",
+	buttons["EXIT_STATE"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Back", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	std::string resolutions[] = { "1920x1080", "800x600", "640x480" };
-	dropDownMenus["RESOLUTION"] = new gui::DropDownMenu(400.f, 200.f, 200.f, 50.f, font, resolutions, 3);
+	buttons["APPLY"] = std::make_unique<gui::Button>(p2pX(50.f) - WIDTH / 2.f, p2pY(75.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Apply", calcCharSize(),
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	//Drop down lists
+	std::string resolutions[] = { "1920x1080", "1280x720","800x600", "640x480" };
+	dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(25.f) - HEIGHT / 2.f,
+		WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, 32, 4, 1);
 }
 
-SettingsState::SettingsState(sf::RenderWindow* renderWindow, std::stack<State*>* states)
-	: State(renderWindow, states)
+void SettingsState::resetGUI()
 {
-	initializeBackground();
-	initializeFonts();
+	dropDownMenus.clear();
+	buttons.clear();
+	initializeGUI();
+}
+
+// Constructors/Destructors
+SettingsState::SettingsState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
+	std::unordered_map<std::string, sf::Texture>* textures,
+	std::unordered_map<std::string, sf::Font>* fonts,
+	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
+	GraphicsSettings* graphicsSettings)
+	: State(renderWindow, states, textures, fonts, soundBuffers), graphicsSettings(graphicsSettings)
+{
 	initializeGUI();
 }
 
 SettingsState::~SettingsState()
 {
-	auto it = buttons.begin();
-	for (it = buttons.begin(); it != buttons.end(); ++it)
-	{
-		delete it->second;
-	}
+}
 
-	auto it2 = dropDownMenus.begin();
-	for (it2 = dropDownMenus.begin(); it2 != dropDownMenus.end(); ++it2)
+void SettingsState::updateMouseButtons(const sf::Mouse::Button& button)
+{
+	switch (button)
 	{
-		delete it2->second;
+	case sf::Mouse::Button::Left:
+		for (auto& button : buttons)
+		{
+			button.second->checkBounds(mousePosView);
+		}
+		for (auto& dropDownMenu : dropDownMenus)
+		{
+			dropDownMenu.second->checkBounds(mousePosView);
+		}
+	default:
+		break;
 	}
 }
 
 /* Functions */
 // Update
-void SettingsState::updateInput(unsigned short keyCode)
+void SettingsState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
 		quitState();
 }
 
-void SettingsState::updateGUI(const float& deltaTime)
+void SettingsState::updateMouseWheel(const short& mouseDelta)
 {
-	/*Updates all the GUI elements in the state and handles their functionality*/
-	// Buttons
+}
+
+void SettingsState::updateGUI()
+{
+	/*Updates all the buttons in the state and handles their functionality*/
 	for (auto& it : buttons)
 	{
-		it.second->update(mousePosView);
-	}
-
-	//Quit This Game
-	if (buttons["EXIT_STATE"]->isPressed())
-	{
-		quitState();
+		it.second->updateColor(mousePosView);
 	}
 
 	// Drop Down Menus
 	for (auto& it : dropDownMenus)
 	{
-		it.second->update(mousePosView, deltaTime);
+		it.second->update(mousePosView);
+	}
+
+	if (buttons["APPLY"]->getIsActivated())
+	{
+		char width_str[10], height_str[10];
+
+		std::stringstream ss;
+		ss << dropDownMenus["RESOLUTION"]->getActiveElement()->getText();
+		ss.getline(width_str, 10, 'x');
+		ss.getline(height_str, 10);
+		graphicsSettings->resolution = sf::VideoMode(atoi(width_str), atoi(height_str));
+
+		renderWindow->create(graphicsSettings->resolution, graphicsSettings->gameTitle, sf::Style::Titlebar | sf::Style::Close, graphicsSettings->contextSettings);
+
+		resetGUI();
+	}
+
+	// Quit This Game
+	if (buttons["EXIT_STATE"]->getIsActivated())
+	{
+		quitState();
 	}
 }
 
 void SettingsState::updateState(const float& deltaTime)
 {
 	updateMousePositions();
-	updateGUI(deltaTime);
+	updateGUI();
 }
 
 // Render
-void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
+void SettingsState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -101,17 +130,24 @@ void SettingsState::renerGUI(sf::RenderTarget* renderTarget)
 
 	for (auto& it : dropDownMenus)
 	{
-		it.second->render(renderTarget);
+		it.second->draw(*renderTarget);
 	}
 }
 
-void SettingsState::renderState(sf::RenderTarget* renderTarget)
+void SettingsState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
-	if (!renderTarget)
-		renderTarget = renderWindow;
+	//if (!renderTarget)
+	//	renderTarget = renderWindow;
+
+	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
+	title.setCharacterSize(128);
+	title.setStyle(sf::Text::Bold);
+	title.setFillColor(sf::Color::White);
+
+	sf::RenderStates renderStates;
 
 	renderTarget->draw(background);
-
-	renderTarget->draw(background);
+	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
+		title.getGlobalBounds().width / 2.f, 0.f)));
 	renerGUI(renderTarget);
 }

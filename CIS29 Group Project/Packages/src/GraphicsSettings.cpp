@@ -3,7 +3,7 @@
 
 GraphicsSettings::GraphicsSettings()
 {
-	title = "DEFAULT";
+	gameTitle = "DEFAULT";
 	resolution = sf::VideoMode::getDesktopMode();
 	fullscreen = false;
 	verticalSync = false;
@@ -13,36 +13,40 @@ GraphicsSettings::GraphicsSettings()
 }
 
 //Functions
-void GraphicsSettings::saveToFile(const std::string path)
+bool GraphicsSettings::saveToFile(const std::string path)
 {
 	std::ofstream ofs(path);
 
 	if (ofs.is_open())
 	{
-		ofs << title;
+		ofs << gameTitle;
 		ofs << resolution.width << " " << resolution.height;
 		ofs << fullscreen;
 		ofs << frameRateLimit;
 		ofs << verticalSync;
 		ofs << contextSettings.antialiasingLevel;
 	}
+	else return false;
 
 	ofs.close();
+	return true;
 }
 
-void GraphicsSettings::loadFromFile(const std::string path)
+bool GraphicsSettings::loadFromFile(const std::string path)
 {
 	std::ifstream ifs(path);
 
 	if (ifs.is_open())
 	{
-		std::getline(ifs, title);
+		std::getline(ifs, gameTitle);
 		ifs >> resolution.width >> resolution.height;
 		ifs >> fullscreen;
 		ifs >> frameRateLimit;
 		ifs >> verticalSync;
 		ifs >> contextSettings.antialiasingLevel;
 	}
+	else return false;
 
 	ifs.close();
+	return true;
 }

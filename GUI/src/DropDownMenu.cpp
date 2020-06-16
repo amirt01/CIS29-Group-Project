@@ -5,7 +5,7 @@ namespace gui
 	DropDownMenu::DropDownMenu(float x, float y, float width, float height,
 		sf::Font& font, sf::SoundBuffer* sound, std::string listOfTexts[], unsigned charSize,
 		unsigned numberOfElements, const unsigned default_index)
-		: font(font), showMenu(false), clickTimeMax(1.f), clickTime(1.f)
+		: font(font), showMenu(false)
 	{
 		activeElement = new gui::Button(x, y, width, height,
 			&font, sound, listOfTexts[default_index], charSize,
@@ -26,29 +26,26 @@ namespace gui
 			delete it;
 	}
 
-	const bool DropDownMenu::getClickTime()
+	Button* DropDownMenu::getActiveElement() const
 	{
-		if (clickTime >= clickTimeMax)
+		return activeElement;
+	}
+
+	void DropDownMenu::checkBounds(const sf::Vector2f mousePos)
+	{
+		activeElement->checkBounds(mousePos);
+
+		for (auto& element : elements)
 		{
-			clickTime = 0.f;
-			return true;
+			element->checkBounds(mousePos);
 		}
-
-		return false;
 	}
 
-	void DropDownMenu::updateClickTime(const float& deltaTime)
+	void DropDownMenu::update(const sf::Vector2f mousePos)
 	{
-		if (clickTime < clickTimeMax)
-			clickTime += 10.f * deltaTime;
-	}
-
-	void DropDownMenu::update(const sf::Vector2f mousePos, const float& deltaTime)
-	{
-		updateClickTime(deltaTime);
 		activeElement->updateColor(mousePos);
 
-		if (activeElement->getIsActivated() && getClickTime())
+		if (activeElement->getIsActivated())
 		{
 			showMenu = !showMenu;
 		}
@@ -59,7 +56,7 @@ namespace gui
 			{
 				it->updateColor(mousePos);
 
-				if (it->getIsActivated() && getClickTime())
+				if (it->getIsActivated())
 				{
 					showMenu = false;
 					activeElement->setText(it->getText());
@@ -68,15 +65,15 @@ namespace gui
 		}
 	}
 
-	void DropDownMenu::render(sf::RenderTarget* renderTarget)
+	void DropDownMenu::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 	{
-		activeElement->draw(*renderTarget);
+		activeElement->draw(renderTarget);
 
 		if (showMenu)
 		{
 			for (auto& it : elements)
 			{
-				it->draw(*renderTarget);
+				it->draw(renderTarget);
 			}
 		}
 	}

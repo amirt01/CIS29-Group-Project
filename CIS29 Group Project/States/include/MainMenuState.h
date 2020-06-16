@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Leaderboard.h"
 #include "GameStats.h"
+#include "GraphicsSettings.h"
 
 class MainMenuState :
 	public State
@@ -14,6 +15,7 @@ private:
 
 	Leaderboard* leaderboard;
 	GameStats* gameStats;
+	GraphicsSettings* graphicsSettings;
 
 	std::unordered_map<std::string, std::unique_ptr<gui::Button>> buttons;
 
@@ -26,7 +28,7 @@ public:
 		std::unordered_map<std::string, sf::Texture>* textures,
 		std::unordered_map<std::string, sf::Font>* fonts,
 		std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-		Leaderboard* leaderboard, GameStats* gameStats);
+		Leaderboard* leaderboard, GameStats* gameStats, GraphicsSettings* graphicsSettings);
 	virtual ~MainMenuState();
 
 	// Update

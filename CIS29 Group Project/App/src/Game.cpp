@@ -17,6 +17,8 @@ void Game::initializePackages(std::string leaderboardPath, std::string gameStats
 			throw exc::LoadFromFileError(leaderboardPath);
 		if (!gameStats.loadFromFile(gameStatsPath))
 			throw exc::LoadFromFileError(gameStatsPath);
+		if (!graphicsSettings.loadFromFile(SFML_WINDOW_SETTINGS_PATH))
+			throw exc::LoadFromFileError(SFML_WINDOW_SETTINGS_PATH);
 	}
 	catch (exc::LoadFromFileError& error)
 	{
@@ -27,73 +29,21 @@ void Game::initializePackages(std::string leaderboardPath, std::string gameStats
 
 void Game::initializeWindow(std::string path)
 {
-	std::ifstream fin(path);
-	std::string game_title;
-	sf::VideoMode render_window_bounds;
-	bool fullscreen;
-	unsigned framerate_limit;
-	sf::VideoMode window_bounds;
-	bool vertical_sync_enabled;
-	unsigned antialiasing_level;
-
-	try
-	{
-		/*
-		Game Title
-		render window width _ render window height
-		fullscreen
-		framerate limit
-		vertical sync enabled
-		antialiasing
-		*/
-
-		if (fin.is_open())
-		{
-			std::getline(fin, game_title);
-			fin >> window_bounds.width >> window_bounds.height;
-			fin >> fullscreen;
-			fin >> framerate_limit;
-			fin >> vertical_sync_enabled;
-			fin >> antialiasing_level;
-		}
-		else
-			throw exc::LoadFromFileError(path);
-	}
-	catch (exc::LoadFromFileError&)
-	{
-		std::cout << "Error reading file window setting's file.\n"
-			<< "(1) Load Default Settings\n"
-			<< "(2) Exit\n";
-		char in = std::cin.get();
-
-		if (in == '1')
-		{
-			game_title = "DEFAULT";
-			render_window_bounds.height = 720;
-			render_window_bounds.width = 1280;
-			fullscreen = false;
-			framerate_limit = 120;
-			window_bounds = sf::VideoMode::getDesktopMode();
-			vertical_sync_enabled = false;
-			antialiasing_level = 0;
-		}
-		else
-			exit(EXIT_FAILURE);
-	}
-
-	fin.close();
-
-	/*Adjust window as needed*/
-	this->fullscreen = fullscreen;
-	this->windowSettings.antialiasingLevel = antialiasing_level;
-
-	if (fullscreen)
-		renderWindow = std::make_shared<sf::RenderWindow>(window_bounds, game_title, sf::Style::Fullscreen, windowSettings);
+	if (graphicsSettings.fullscreen)
+		renderWindow = std::make_shared<sf::RenderWindow>(
+			graphicsSettings.resolution,
+			graphicsSettings.gameTitle,
+			sf::Style::Fullscreen,
+			graphicsSettings.contextSettings);
 	else
-		renderWindow = std::make_shared<sf::RenderWindow>(window_bounds, game_title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
+		renderWindow = std::make_shared<sf::RenderWindow>(
+			graphicsSettings.resolution,
+			graphicsSettings.gameTitle,
+			sf::Style::Titlebar | sf::Style::Close,
+			graphicsSettings.contextSettings);
 
-	renderWindow->setFramerateLimit(framerate_limit);
-	renderWindow->setVerticalSyncEnabled(vertical_sync_enabled);
+	renderWindow->setFramerateLimit(graphicsSettings.frameRateLimit);
+	renderWindow->setVerticalSyncEnabled(graphicsSettings.verticalSync);
 }
 
 void Game::initializeTextures()
@@ -125,14 +75,14 @@ void Game::initializeAudio()
 
 // Constructor / Destructors
 Game::Game()
-	: leaderboard(MAX_NUM_OF_SCORES), deltaTime(0.f)
+	: leaderboard(MAX_NUM_OF_SCORES), deltaTime(0.f), renderWindow(nullptr)
 {
 	initializeTextures();
 	initializeFonts();
 	initializeAudio();
 	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
 	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
-	states.push(std::make_unique<MainMenuState>(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats));
+	states.push(std::make_unique<MainMenuState>(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats, &graphicsSettings));
 }
 
 Game::~Game()

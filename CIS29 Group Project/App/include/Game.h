@@ -3,11 +3,13 @@
 #include "State.h"
 #include "Leaderboard.h"
 #include "GameStats.h"
+#include "GraphicsSettings.h"
 
 class Game
 {
 private:
 	// Variables
+	GraphicsSettings graphicsSettings;
 	std::shared_ptr<sf::RenderWindow> renderWindow;
 	sf::Event event;
 

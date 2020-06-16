@@ -5,7 +5,7 @@ public:
 	GraphicsSettings();
 
 	//Variables
-	std::string title;
+	std::string gameTitle;
 	sf::VideoMode resolution;
 	bool fullscreen;
 	bool verticalSync;
@@ -14,6 +14,6 @@ public:
 	std::vector<sf::VideoMode> videoModes;
 
 	//Functions
-	void saveToFile(const std::string path);
-	void loadFromFile(const std::string path);
+	bool saveToFile(const std::string path);
+	bool loadFromFile(const std::string path);
 };

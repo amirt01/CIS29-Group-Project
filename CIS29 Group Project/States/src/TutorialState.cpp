@@ -1,9 +1,5 @@
 #include "stdafx.h"
 #include "TutorialState.h"
-#include "MainMenuState.h"
-#include "FreePlayState.h"
-#include "SettingsState.h"
-#include "Level.h"
 
 // Initializers
 void TutorialState::initializeGUI()

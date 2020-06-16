@@ -11,8 +11,13 @@
 // Initializers
 void MainMenuState::initializeGUI()
 {
-	const float WIDTH = 175.f;
-	const float HEIGHT = 75.f;
+	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
+		static_cast<float>(renderWindow->getSize().y)));
+
+	background.setFillColor(sf::Color(55, 148, 110, 255));
+
+	const float WIDTH = p2pX(14.f);
+	const float HEIGHT = p2pY(10.f);
 
 	buttons["FREE_PLAY"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Free Play", calcCharSize(),
@@ -38,6 +43,10 @@ void MainMenuState::initializeGUI()
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Tutorial", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
+	buttons["SETTINGS_STATE"] = std::make_unique<gui::Button>(p2pX(75.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Settings", calcCharSize(),
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
 	buttons["SHOP_STATE"] = std::make_unique<gui::Button>(p2pX(75.f) - WIDTH / 2.f, p2pY(55.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Shop", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
@@ -52,15 +61,10 @@ MainMenuState::MainMenuState(std::shared_ptr<sf::RenderWindow> renderWindow, std
 	std::unordered_map<std::string, sf::Texture>* textures,
 	std::unordered_map<std::string, sf::Font>* fonts,
 	std::unordered_map<std::string, sf::SoundBuffer>* soundBuffers,
-	Leaderboard* leaderboard, GameStats* gameStats)
-	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), gameStats(gameStats)
+	Leaderboard* leaderboard, GameStats* gameStats, GraphicsSettings* graphicsSettings)
+	: State(renderWindow, states, textures, fonts, soundBuffers), leaderboard(leaderboard), gameStats(gameStats), graphicsSettings(graphicsSettings)
 {
 	initializeGUI();
-
-	background.setSize(sf::Vector2f(static_cast<float>(renderWindow->getSize().x),
-		static_cast<float>(renderWindow->getSize().y)));
-
-	background.setFillColor(sf::Color(55, 148, 110, 255));
 }
 
 MainMenuState::~MainMenuState()
@@ -113,6 +117,8 @@ void MainMenuState::updateGUI()
 		states->push(std::make_unique<Level>(renderWindow, 3, "Config/level3.bin", states, textures, fonts, soundBuffers, leaderboard, gameStats));
 	if (buttons["RANKGINGS_STATE"]->getIsActivated())
 		states->push(std::make_unique<RankingsState>(renderWindow, states, textures, fonts, soundBuffers, leaderboard));
+	if (buttons["SETTINGS_STATE"]->getIsActivated())
+		states->push(std::make_unique<SettingsState>(renderWindow, states, textures, fonts, soundBuffers, graphicsSettings));
 	if (buttons["TUTORIAL_STATE"]->getIsActivated())
 		states->push(std::make_unique<TutorialState>(renderWindow, states, textures, fonts, soundBuffers));
 	if (buttons["SHOP_STATE"]->getIsActivated())
@@ -144,6 +150,12 @@ void MainMenuState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	if (!renderTarget)
 		renderTarget = renderWindow;
+
+	if (background.getSize().y != graphicsSettings->resolution.height)
+	{
+		buttons.clear();
+		initializeGUI();
+	}
 
 	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
 	title.setCharacterSize(128);
