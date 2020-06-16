@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Entity.h"
-	enum class jumpStates {NONE = 0, ASCEND, SUSPEND, DESCEND};
+	enum class jumpStates {NONE = 0, ASCEND, DESCEND};
 
 class Player : public Entity {
 private:
@@ -60,7 +60,7 @@ public:
 	void setCurrentPosition(int);
 	int getCurrentPosition();
 	bool getIsJumping();
-	void nowJumping(float, float, bool, bool);
+	void nowJumping(float, float);
 
 	//passing
 	bool passed(bool);

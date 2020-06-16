@@ -63,7 +63,7 @@ void Level::updateSpawning()
 				color = Color::ORANGE;
 				break;
 			case(0x8):
-				color = CONVERTIBLE;
+				color = Color::BLACK;
 				break;
 			default:
 				color = Color::RED;

@@ -13,7 +13,7 @@ Player::Player(sf::Texture& playerTexture, float coins, const int width, const i
 	isDamaged(false),
 	isPassing(false),
 	isJumping(false),
-	jumpHeight(120),
+	jumpHeight(100),
 	jumpState(jumpStates::NONE)
 {
 	setTexture(playerTexture);
@@ -127,7 +127,7 @@ void Player::updateMovement(int shift)
 	}
 }
 
-void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool passedCar)
+void Player::nowJumping(float speed, float deltaTime)
 {
 	float moving = 0;
 	int i = getCurrentPosition();
@@ -138,30 +138,14 @@ void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool pass
 		moving = positions[i];
 		break;
 	case jumpStates::ASCEND:
-		if (!carPresent && abs(getPosition().y - positions[i]) > jumpHeight)
+		if ( abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
 			jumpState = jumpStates::DESCEND;
-		}
-		else if (!carPresent)
-		{
-			moving = getPosition().y + 5*(speed * deltaTime);
-		}
-		else if (abs(getPosition().y - positions[i]) > jumpHeight)
-		{
-			moving = positions[i] - jumpHeight;
-			jumpState = jumpStates::SUSPEND;
 		}
 		else
 		{
-			moving = getPosition().y + (speed * deltaTime);
-		}
-		break;
-	case jumpStates::SUSPEND:
-		moving = getPosition().y;
-		if (passedCar)
-		{
-			jumpState = jumpStates::DESCEND;
+			moving = getPosition().y + 2*(speed * deltaTime);
 		}
 		break;
 	case jumpStates::DESCEND:
@@ -171,13 +155,9 @@ void Player::nowJumping(float speed, float deltaTime, bool carPresent, bool pass
 			jumpState = jumpStates::NONE;
 			isJumping = false;
 		}
-		else if (!carPresent)
-		{
-			moving = getPosition().y - 3*(speed * deltaTime);
-		}
 		else
 		{
-			moving = getPosition().y - ((speed * deltaTime) / 2);
+			moving = getPosition().y - (speed * deltaTime);
 		}
 		break;
 	}

@@ -69,8 +69,8 @@ void GameState::spawnObject(const Levels level, const Color color)
 		case Color::GOLD:
 			objects.push_back(std::make_unique<Object>(Type::COIN, level, textures->at("COINS"), 128, 128, renderWindow->getSize().x));
 			break;
-		case CONVERTIBLE:
-			objects.push_back(std::make_unique<Object>(Type::OBSTACLE, level, textures->at("CONVERTIBLE"), 280, 98, renderWindow->getSize().x));
+		case Color::BLACK:
+			objects.push_back(std::make_unique<Object>(Type::POTHOLE, level, textures->at("POTHOLE"), 115, 110, renderWindow->getSize().x));
 			break;
 		default:
 			//throw exc::SpawnError(level, type);
@@ -294,24 +294,31 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 	switch (object->type)
 	{
 	case Type::OBSTACLE:
-		playSound("CRASH", 50.f);
-		player.takeDamage();
-		object->hit = true;
-		if (player.getCurrentHealth() == 0) { // render death menu if the player dies
-			currentState = GameStates::DEAD;
-			deathMenu.setScore(player.getCurrentScore());
-		}
-
-		if (player.getTextureRect().width < 180)
+		if (player.currentPosition != object->level && player.getIsJumping())
 		{
-			collide.collisionPosition(player.getCurrentPosition(), 0);
+			//do nothing
 		}
 		else
 		{
-			collide.collisionPosition(player.getCurrentPosition(), 1);
+			playSound("CRASH", 50.f);
+			player.takeDamage();
+			object->hit = true;
+			if (player.getCurrentHealth() == 0) { // render death menu if the player dies
+				currentState = GameStates::DEAD;
+				deathMenu.setScore(player.getCurrentScore());
+			}
+			if (player.getTextureRect().width < 180)
+			{
+				// <180 being motorbike
+				collide.collisionPosition(player.getCurrentPosition(), 0);
+			}
+			else
+			{
+				collide.collisionPosition(player.getCurrentPosition(), 1);
+			}
+
+			player.collisionMove();
 		}
-		
-		player.collisionMove();
 		break;
 	case Type::COIN:
 		playSound("COIN", 50.f);
@@ -324,24 +331,37 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			}
 		}
 		break;
+	case Type::POTHOLE:
+		//no damage but player "spins out" of current lane
+		object->hit = true;
+		if (!player.getIsJumping())
+		{
+			if (player.getTextureRect().width < 200)
+			{
+				collide.collisionPosition(player.getCurrentPosition(), 0);
+			}
+			else
+			{
+				collide.collisionPosition(player.getCurrentPosition(), 1);
+			}
+			player.collisionMove();
+		}
+		break;
 	default:
 		break;
 	}
 }
 
 //Collision Detection
-void GameState::checkCollision() {
-
-	if (!player.getIsJumping())
+void GameState::checkCollision() 
+{
+	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
-		if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
-		{
-			updateCollision(objects.front());
-		}
-		if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
-		{
-			updateCollision(objects.at(1));
-		}
+		updateCollision(objects.front());
+	}
+	if (objects.size() > 1 && objects.at(1)->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.at(1)))
+	{
+		updateCollision(objects.at(1));
 	}
 }
 
@@ -364,30 +384,7 @@ void GameState::checkCarPassing()
 
 void GameState::performJump(const float& deltaTime)
 {
-	bool carPassing = false;
-	bool carPresent = false;
-
-	if (objects.empty())
-	{
-		carPresent = false;
-	}
-	else if (objects.front()->type == Type::OBSTACLE)
-	{
-		if (objects.front()->level == player.currentPosition)
-		{
-			if (abs(player.getPosition().x - objects.front()->getPosition().x) > 400)
-			{
-				carPresent = false;
-			}
-			else
-			{
-				carPassing = objects.front()->getPosition().x - player.getPosition().x < -150;
-				carPresent = true;
-			}
-		}
-	}
-
-	player.nowJumping(speed, deltaTime, carPresent, carPassing);
+	player.nowJumping(speed, deltaTime);
 }
 
 void GameState::setGameLevel(const int levelNumber)
