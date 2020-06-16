@@ -67,11 +67,11 @@ bool Leaderboard::checkIfHighScore(const float& score)
 void Leaderboard::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
 	float x = renderTarget.getSize().x / 2.f - 200.f;
-	float y = 150.f;
+	float y = renderTarget.getSize().y * 0.21f;
 
 	renderStates.transform.translate(x, y);
 
 	std::for_each(scores.crbegin(), scores.crend(),
-		[&](Score score) { renderTarget.draw(score, renderStates.transform.translate(0.f, 50.f)); }
+		[&](Score score) { renderTarget.draw(score, renderStates.transform.translate(0.f, renderTarget.getSize().y * .07f)); }
 	);
 }

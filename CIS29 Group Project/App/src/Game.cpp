@@ -146,12 +146,8 @@ void Game::updateGame()
 {
 	updateSFMLEvents();
 	states.top()->updateState(deltaTime);
-	std::cout << "Running " << states.top()->name() << std::endl;
-	if (states.top()->getQuit())
-	{
-		states.top()->quitState();
-		states.pop();
-	}
+	if (!states.empty())
+		std::cout << "Running " << states.top()->name() << std::endl;
 }
 
 // Core

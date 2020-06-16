@@ -34,7 +34,6 @@ public:
 	Overlay(const Overlay&) = delete;
 	virtual ~Overlay();
 
-	virtual std::string name() const;
 	const std::map<std::string, std::unique_ptr<gui::Button>>* getButtons() const;
 
 	virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderTargets = sf::RenderStates::Default) const;

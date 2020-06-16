@@ -71,7 +71,7 @@ void SettingsState::updateMouseButtons(const sf::Mouse::Button& button)
 void SettingsState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 {
 	if (sf::Keyboard::Key::Escape == keyCode)
-		quitState();
+		states->pop();
 }
 
 void SettingsState::updateMouseWheel(const short& mouseDelta)
@@ -110,7 +110,7 @@ void SettingsState::updateGUI()
 	// Quit This Game
 	if (buttons["EXIT_STATE"]->getIsActivated())
 	{
-		quitState();
+		states->pop();
 	}
 }
 

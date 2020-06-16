@@ -123,7 +123,7 @@ void ShopState::updateKeyboard(const sf::Keyboard::Key& keyCode) {
 	if (sf::Keyboard::Key::Num4 == keyCode && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
 		gameStats->coins += 300;
 	if (sf::Keyboard::Key::Escape == keyCode)
-		quitState();
+		states->pop();
 }
 
 void ShopState::updateMouseButtons(const sf::Mouse::Button& button) {
@@ -147,7 +147,10 @@ void ShopState::updateGUI() {
 	}
 
 	if (buttons["BACK"]->getIsActivated())
-		quitState();
+	{
+		states->pop();
+		return;
+	}
 
 	if (buttons["PLAYER1"]->getIsActivated()) {
 		gameStats->playerTexture = "DEFAULT_PLAYER";

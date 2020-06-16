@@ -45,17 +45,6 @@ Overlay::~Overlay()
 {
 }
 
-std::string Overlay::name() const
-{
-	std::string name = typeid(*this).name();
-#ifdef _MSC_VER       // for MS Visual Studio
-	name = name.substr(6);
-#else                 // for other compilers
-	name = name.substr(name.find_first_not_of("0123456789"));
-#endif
-	return name;
-}
-
 const std::map<std::string, std::unique_ptr<gui::Button>>* Overlay::getButtons() const
 {
 	return &buttons;

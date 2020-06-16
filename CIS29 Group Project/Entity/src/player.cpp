@@ -154,7 +154,7 @@ void Player::nowJumping(float speed, float deltaTime)
 		}
 		else
 		{
-			moving = getPosition().y - (speed * deltaTime) / 1.5;
+			moving = getPosition().y - (speed * deltaTime) / 1.5f;
 		}
 		break;
 	}
