@@ -142,7 +142,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			objects.clear();
 			break;
 		case sf::Keyboard::Space:
-			if (level == 2 || level == 3)
+			if (level == 4) // disable jump
 			{
 				player.updateMovement(2);
 			}
