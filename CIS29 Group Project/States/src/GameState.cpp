@@ -73,7 +73,7 @@ void GameState::spawnObject(const Levels level, const Color color)
 			objects.push_back(std::make_unique<Object>(Type::POTHOLE, level, textures->at("POTHOLE"), 115, 110, renderWindow->getSize().x));
 			break;
 		default:
-			throw exc::SpawnError(level, color);
+			throw exc::SpawnError();
 			break;
 		}
 	}
