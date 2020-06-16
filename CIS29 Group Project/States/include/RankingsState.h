@@ -35,6 +35,6 @@ public:
 	void updateMouseWheel(const short& mouseDelta) {};
 
 	// Render
-	void renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
+	void renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget);
 	void renderState(std::shared_ptr<sf::RenderTarget> renderTarget);
 };

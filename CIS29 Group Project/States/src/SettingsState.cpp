@@ -172,7 +172,7 @@ void SettingsState::updateState(const float& deltaTime)
 }
 
 // Render
-void SettingsState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
+void SettingsState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -200,5 +200,5 @@ void SettingsState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	renderTarget->draw(background);
 	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
 		title.getGlobalBounds().width / 2.f, 0.f)));
-	renerGUI(renderTarget);
+	renderGUI(renderTarget);
 }

@@ -78,7 +78,7 @@ void RankingsState::updateState(const float& deltaTime)
 }
 
 // Render
-void RankingsState::renerGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
+void RankingsState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget)
 {
 	for (auto& it : buttons)
 	{
@@ -102,5 +102,5 @@ void RankingsState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	renderTarget->draw(title, renderStates.transform.translate(sf::Vector2f(renderTarget->getSize().x / 2.f -
 		title.getGlobalBounds().width / 2.f, 0.f)));
 	renderTarget->draw(*leaderboard);
-	renerGUI(renderTarget);
+	renderGUI(renderTarget);
 }

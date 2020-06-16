@@ -13,7 +13,7 @@ private:
 	float score;
 	float coins;
 
-	bool isDamaged;
+	
 	bool isPassing;
 	bool isJumping;
 	float jumpHeight;
@@ -30,7 +30,8 @@ private:
 public:
 	Player(sf::Texture& playerTexture, float coins, std::array<float, 3> positions, const int width, const int height);
 	Levels currentPosition;
-
+	bool isDamaged;
+	
 	//update
 	void updateMovement(int);
 	void updateScore(const float& deltaTime);

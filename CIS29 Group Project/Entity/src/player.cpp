@@ -54,6 +54,7 @@ void Player::resetPlayer()
 		updateMovement(1);
 	else if (currentPosition == Levels::BOTTOM)
 		updateMovement(-1);
+	revertPlayer();
 }
 
 void Player::collisionMove()
@@ -64,7 +65,7 @@ void Player::collisionMove()
 		updateMovement(moveType[1]);
 		break;
 	case Levels::MIDDLE:
-		updateMovement(moveType[static_cast<int>(rand() % static_cast<int>(sizeof(moveType)))]);
+		updateMovement(moveType[rand() % 2]);
 		break;
 	case Levels::BOTTOM:
 		updateMovement(moveType[0]);
@@ -186,6 +187,7 @@ bool Player::checkPosition(int direction)
 void Player::takeDamage()
 {
 	currentHealth -= 1;
+	isDamaged = true;
 }
 
 //Getters and Setters

@@ -336,8 +336,8 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			{
 				collide.collisionPosition(player.getCurrentPosition(), 1);
 			}
-
-			player.collisionMove();
+			player.playerDamage();
+			//player.collisionMove();
 		}
 		break;
 	case Type::COIN:
@@ -385,6 +385,29 @@ void GameState::checkCollision()
 	{
 		updateCollision(objects.at(1));
 	}
+
+	if (objects.front()->hit == false && player.isDamaged)
+	{
+		player.revertPlayer();
+	}
+	else if (objects.front()->hit == true && player.currentPosition != objects.front()->level)
+	{
+		player.revertPlayer();
+	}
+	else if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition != objects.front()->level)
+	{
+		player.revertPlayer();
+	}
+	
+	if (objects.front()->hit == true && player.currentPosition == objects.front()->level && objects.front()->type == Type::OBSTACLE)
+	{
+		player.playerDamage();
+	}
+	if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition == objects.at(1)->level && objects.at(1)->type == Type::OBSTACLE)
+	{
+		player.playerDamage();
+	}
+	
 }
 
 void GameState::checkCarPassing()
