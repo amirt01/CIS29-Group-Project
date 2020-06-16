@@ -20,7 +20,7 @@ void SettingsState::initializeGUI()
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Apply", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	buttons["FULLSCREEN"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
+	buttons["FULLSCREEN"] = std::make_unique<gui::Button>(p2pX(25.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f, WIDTH, HEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "Fullscreen", calcCharSize(),
 		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
@@ -31,8 +31,26 @@ void SettingsState::initializeGUI()
 
 	//Drop down lists
 	std::string resolutions[] = { "2560x1440", "1920x1080", "1280x720" };
-	dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(50.f) - HEIGHT / 2.f,
-		WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 2);
+
+	switch (renderWindow->getSize().y)
+	{
+	case 1440:
+		dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f,
+			WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 0);
+		break;
+	case 1080:
+		dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f,
+			WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 1);
+		break;
+	case 720:
+		dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f,
+			WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 2);
+		break;
+	default:
+		dropDownMenus["RESOLUTION"] = std::make_unique<gui::DropDownMenu>(p2pX(50.f) - WIDTH / 2.f, p2pY(35.f) - HEIGHT / 2.f,
+			WIDTH, HEIGHT, fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), resolutions, calcCharSize(), 3, 2);
+		break;
+	}
 }
 
 void SettingsState::resetGUI()

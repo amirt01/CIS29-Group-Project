@@ -13,20 +13,23 @@ GraphicsSettings::GraphicsSettings()
 }
 
 //Functions
-bool GraphicsSettings::saveToFile(const std::string path)
+bool GraphicsSettings::writeToFile(const std::string path)
 {
 	std::ofstream ofs(path);
 
 	if (ofs.is_open())
 	{
-		ofs << gameTitle;
-		ofs << resolution.width << " " << resolution.height;
-		ofs << fullscreen;
-		ofs << frameRateLimit;
-		ofs << verticalSync;
-		ofs << contextSettings.antialiasingLevel;
+		ofs << gameTitle << std::endl;
+		ofs << resolution.width << " " << resolution.height << std::endl;
+		ofs << fullscreen << std::endl;
+		ofs << frameRateLimit << std::endl;
+		ofs << verticalSync << std::endl;
+		ofs << contextSettings.antialiasingLevel << std::endl;
 	}
-	else return false;
+	else
+	{
+		return false;
+	}
 
 	ofs.close();
 	return true;
@@ -45,7 +48,10 @@ bool GraphicsSettings::loadFromFile(const std::string path)
 		ifs >> verticalSync;
 		ifs >> contextSettings.antialiasingLevel;
 	}
-	else return false;
+	else
+	{
+		return false;
+	}
 
 	ifs.close();
 	return true;

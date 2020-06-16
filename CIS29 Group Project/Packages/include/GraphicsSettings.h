@@ -14,6 +14,6 @@ public:
 	std::vector<sf::VideoMode> videoModes;
 
 	//Functions
-	bool saveToFile(const std::string path);
+	bool writeToFile(const std::string path);
 	bool loadFromFile(const std::string path);
 };

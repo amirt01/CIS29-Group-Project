@@ -9,14 +9,14 @@
 #include "CollisionDetection.h"
 
 // Initializers
-void Game::initializePackages(std::string leaderboardPath, std::string gameStatsPath)
+void Game::initializePackages()
 {
 	try
 	{
-		if (!leaderboard.loadFromFile(fonts.at("DOSIS-BOLD"), leaderboardPath))
-			throw exc::LoadFromFileError(leaderboardPath);
-		if (!gameStats.loadFromFile(gameStatsPath))
-			throw exc::LoadFromFileError(gameStatsPath);
+		if (!leaderboard.loadFromFile(fonts.at("DOSIS-BOLD"), LEADERBOARD_PATH))
+			throw exc::LoadFromFileError(LEADERBOARD_PATH);
+		if (!gameStats.loadFromFile(GAME_STATS_PATH))
+			throw exc::LoadFromFileError(GAME_STATS_PATH);
 		if (!graphicsSettings.loadFromFile(SFML_WINDOW_SETTINGS_PATH))
 			throw exc::LoadFromFileError(SFML_WINDOW_SETTINGS_PATH);
 	}
@@ -27,7 +27,7 @@ void Game::initializePackages(std::string leaderboardPath, std::string gameStats
 	}
 }
 
-void Game::initializeWindow(std::string path)
+void Game::initializeWindow()
 {
 	if (graphicsSettings.fullscreen)
 		renderWindow = std::make_shared<sf::RenderWindow>(
@@ -80,9 +80,8 @@ Game::Game()
 	initializeTextures();
 	initializeFonts();
 	initializeAudio();
-
-	initializePackages(LEADERBOARD_PATH, GAME_STATS_PATH);
-	initializeWindow(SFML_WINDOW_SETTINGS_PATH);
+	initializePackages();
+	initializeWindow();
 	states.push(std::make_unique<MainMenuState>(renderWindow, &states, &textures, &fonts, &soundBuffers, &leaderboard, &gameStats, &graphicsSettings));
 }
 
@@ -100,10 +99,12 @@ void Game::endApplication(std::string leaderboardPath, std::string gameStatsPath
 	// Save Data
 	try
 	{
-		if (!leaderboard.writeToFile(leaderboardPath))
-			throw exc::WriteToFileError(leaderboardPath);
-		if (!gameStats.writeToFile(gameStatsPath))
-			throw exc::WriteToFileError(gameStatsPath);
+		if (!leaderboard.writeToFile(LEADERBOARD_PATH))
+			throw exc::WriteToFileError(LEADERBOARD_PATH);
+		if (!gameStats.writeToFile(GAME_STATS_PATH))
+			throw exc::WriteToFileError(GAME_STATS_PATH);
+		if (!graphicsSettings.writeToFile(SFML_WINDOW_SETTINGS_PATH))
+			throw exc::WriteToFileError(SFML_WINDOW_SETTINGS_PATH);
 	}
 	catch (exc::WriteToFileError& error)
 	{

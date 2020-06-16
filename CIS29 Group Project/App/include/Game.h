@@ -35,8 +35,8 @@ private:
 	std::stack<std::unique_ptr<State>> states;
 
 	// Initialization
-	void initializePackages(std::string leaderboardPath, std::string gameStatsPath);
-	void initializeWindow(std::string path);
+	void initializePackages();
+	void initializeWindow();
 
 	void initializeTextures();
 	void initializeFonts();
