@@ -1,13 +1,16 @@
 #pragma once
 
+enum class Levels;
+enum class Color;
+
 namespace exc {
 	class SpawnError
 	{
 	private:
-		const unsigned int level;
-		const unsigned int type;
+		const Levels level;
+		const Color type;
 	public:
-		SpawnError(const unsigned int& level, const unsigned int& type);
+		SpawnError(const Levels& level, const Color& type);
 
 		const std::string what() const;
 	};

@@ -27,7 +27,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
-	player(textures->at(gameStats->playerTexture), gameStats->coins, textures->at(gameStats->playerTexture).getSize().x/4, textures->at(gameStats->playerTexture).getSize().y),
+	player(textures->at(gameStats->playerTexture), gameStats->coins, textures->at(gameStats->playerTexture).getSize().x / 4, textures->at(gameStats->playerTexture).getSize().y),
 	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
 	collide(textures->at("COLLISION")),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
@@ -73,7 +73,7 @@ void GameState::spawnObject(const Levels level, const Color color)
 			objects.push_back(std::make_unique<Object>(Type::POTHOLE, level, textures->at("POTHOLE"), 115, 110, renderWindow->getSize().x));
 			break;
 		default:
-			//throw exc::SpawnError(level, type);
+			throw exc::SpawnError(level, color);
 			break;
 		}
 	}
@@ -232,7 +232,7 @@ void GameState::updateState(const float& deltaTime)
 		{
 			performJump(deltaTime);
 		}
-		
+
 		if (!objects.empty())
 		{
 			checkCollision();
@@ -327,9 +327,8 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 
 		for (auto it = objects.begin(); it != objects.end(); ++it) {
 			if ((*it)->height == 128 && abs(player.getPosition().y - (*it)->getPosition().y) < 40) {
-		
 				objects.erase(it);
-				it = objects.end()-1;
+				it = objects.end() - 1;
 			}
 		}
 		break;
@@ -355,7 +354,7 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 }
 
 //Collision Detection
-void GameState::checkCollision() 
+void GameState::checkCollision()
 {
 	if ((objects.front()->hit == false && CollisionDetection::PixelPerfectTest(player, *objects.front())))
 	{
