@@ -50,10 +50,10 @@ void Player::resetPlayer()
 	score = 0.f;
 	currentHealth = 3;
 
-	if (currentPosition == Levels::MIDDLE)
-		updateMovement(1);
+	if (currentPosition == Levels::TOP)
+		updateMovement(Directions::DOWN);
 	else if (currentPosition == Levels::BOTTOM)
-		updateMovement(-1);
+		updateMovement(Directions::UP);
 	revertPlayer();
 }
 
@@ -62,13 +62,13 @@ void Player::collisionMove()
 	switch (currentPosition)
 	{
 	case Levels::TOP:
-		updateMovement(moveType[1]);
+		updateMovement(Directions::DOWN);
 		break;
 	case Levels::MIDDLE:
-		updateMovement(moveType[rand() % 2]);
+		updateMovement(Directions::UP);
 		break;
 	case Levels::BOTTOM:
-		updateMovement(moveType[0]);
+		updateMovement(Directions::UP);
 		break;
 	}
 }
@@ -94,34 +94,35 @@ void Player::revertPlayer()
 	}
 }
 
-void Player::updateMovement(int shift)
+void Player::updateMovement(Directions direction)
 {
 	auto currentPos = getCurrentPosition();
 
-	if (shift == -1)
+	switch (direction)
 	{
+	case Directions::UP:
 		if (!isJumping)
 		{
 			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
 		}
-	}
-	else if (shift == 1)
-	{
+		break;
+	case Directions::DOWN:
 		if (!isJumping)
 		{
 			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);
 		}
-	}
-	else if (shift == 2)
-	{
-		int moving = 0;
+		break;
+
+	case Directions::JUMP:
 		if (!isJumping)
 		{
 			isJumping = true;
 			jumpState = jumpStates::ASCEND;
 		}
+	default:
+		break;
 	}
 }
 
@@ -168,19 +169,19 @@ bool Player::getIsJumping()
 	return isJumping;
 }
 
-bool Player::checkPosition(int direction)
+bool Player::checkPosition(Directions direction)
 {
-	if (direction == -1) {
-		//wants to move up
-		return currentPosition != Levels::TOP;
-	}
-	else if (direction == 1) {
-		//wants to move down
-		return currentPosition != Levels::BOTTOM;
-	}
-	else
+	switch (direction)
 	{
-		return false; //temp
+	case Directions::UP:
+		return currentPosition != Levels::TOP;
+		break;
+	case Directions::DOWN:
+		return currentPosition != Levels::BOTTOM;
+		break;
+	default:
+		return false;
+		break;
 	}
 }
 

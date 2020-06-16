@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 enum class jumpStates { NONE = 0, ASCEND, DESCEND };
+enum class Directions { UP = -1, DOWN = 1, JUMP = 2 };
 
 class Player : public Entity {
 private:
@@ -13,7 +14,6 @@ private:
 	float score;
 	float coins;
 
-	
 	bool isPassing;
 	bool isJumping;
 	float jumpHeight;
@@ -31,9 +31,9 @@ public:
 	Player(sf::Texture& playerTexture, float coins, std::array<float, 3> positions, const int width, const int height);
 	Levels currentPosition;
 	bool isDamaged;
-	
+
 	//update
-	void updateMovement(int);
+	void updateMovement(Directions);
 	void updateScore(const float& deltaTime);
 	void updateAnimation(const float& deltaTime);
 
@@ -54,7 +54,7 @@ public:
 	float getCurrentScore();
 
 	//position and movement
-	bool checkPosition(int);
+	bool checkPosition(Directions);
 	void setMovementShift(float);
 	float getMovementShift();
 	void setCurrentPosition(int);
