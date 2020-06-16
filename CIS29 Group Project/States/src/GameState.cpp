@@ -385,7 +385,23 @@ void GameState::checkCollision()
 	{
 		updateCollision(objects.at(1));
 	}
-	player.revertPlayer();
+	if (objects.front()->hit == false && player.isDamaged)
+	{
+		player.revertPlayer();
+	}
+	else if (objects.front()->hit == true && player.currentPosition != objects.front()->level)
+	{
+		player.revertPlayer();
+	}
+	if (objects.front()->hit == true && player.currentPosition == objects.front()->level)
+	{
+		player.playerDamage();
+	}
+	if (objects.size() > 1 && objects.at(1)->hit == true && player.currentPosition == objects.at(1)->level)
+	{
+		player.playerDamage();
+	}
+	
 }
 
 void GameState::checkCarPassing()

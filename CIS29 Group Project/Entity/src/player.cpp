@@ -54,6 +54,7 @@ void Player::resetPlayer()
 		updateMovement(1);
 	else if (currentPosition == Levels::BOTTOM)
 		updateMovement(-1);
+	revertPlayer();
 }
 
 void Player::collisionMove()
