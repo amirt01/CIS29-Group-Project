@@ -100,7 +100,7 @@ void Player::updateMovement(int shift)
 
 	if (shift == -1)
 	{
-		if (checkPosition(-1) && !isJumping)
+		if (!isJumping)
 		{
 			move(sf::Vector2f(0, -movementShift));
 			setCurrentPosition(currentPos - 1);
@@ -108,7 +108,7 @@ void Player::updateMovement(int shift)
 	}
 	else if (shift == 1)
 	{
-		if (checkPosition(1) && !isJumping)
+		if (!isJumping)
 		{
 			move(sf::Vector2f(0, movementShift));
 			setCurrentPosition(currentPos + 1);

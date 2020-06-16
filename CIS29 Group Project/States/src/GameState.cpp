@@ -140,20 +140,32 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			currentState = GameStates::PAUSED;
 			break;
 		case sf::Keyboard::W:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(-1);
+			if (player.checkPosition(-1))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(-1);
+			}
 			break;
 		case sf::Keyboard::Up:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(-1);
+			if (player.checkPosition(-1))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(-1);
+			}
 			break;
 		case sf::Keyboard::S:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(1);
+			if (player.checkPosition(1))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(1);
+			}
 			break;
 		case sf::Keyboard::Down:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(1);
+			if (player.checkPosition(1))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(1);
+			}
 			break;
 		case sf::Keyboard::Tab:
 			updateGameSpeed(10.f);
@@ -398,7 +410,7 @@ void GameState::checkCollision()
 	{
 		player.revertPlayer();
 	}
-	
+
 	if (objects.front()->hit == true && player.currentPosition == objects.front()->level && objects.front()->type == Type::OBSTACLE)
 	{
 		player.playerDamage();
@@ -407,7 +419,6 @@ void GameState::checkCollision()
 	{
 		player.playerDamage();
 	}
-	
 }
 
 void GameState::checkCarPassing()
