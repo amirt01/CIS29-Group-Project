@@ -336,8 +336,8 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 			{
 				collide.collisionPosition(player.getCurrentPosition(), 1);
 			}
-
-			player.collisionMove();
+			player.playerDamage();
+			//player.collisionMove();
 		}
 		break;
 	case Type::COIN:
@@ -385,6 +385,7 @@ void GameState::checkCollision()
 	{
 		updateCollision(objects.at(1));
 	}
+	player.revertPlayer();
 }
 
 void GameState::checkCarPassing()

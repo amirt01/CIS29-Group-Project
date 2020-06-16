@@ -186,6 +186,7 @@ bool Player::checkPosition(int direction)
 void Player::takeDamage()
 {
 	currentHealth -= 1;
+	isDamaged = true;
 }
 
 //Getters and Setters
