@@ -13,7 +13,7 @@ Player::Player(sf::Texture& playerTexture, float coins, std::array<float, 3> pos
 	isPassing(false),
 	isJumping(false),
 	jumpHeight(100),
-	jumpState(jumpStates::NONE)
+	jumpState(JumpStates::NONE)
 {
 	setTexture(playerTexture);
 
@@ -119,7 +119,7 @@ void Player::updateMovement(Directions direction)
 		if (!isJumping)
 		{
 			isJumping = true;
-			jumpState = jumpStates::ASCEND;
+			jumpState = JumpStates::ASCEND;
 		}
 	default:
 		break;
@@ -133,25 +133,25 @@ void Player::nowJumping(float speed, float deltaTime)
 
 	switch (jumpState)
 	{
-	case jumpStates::NONE:
+	case JumpStates::NONE:
 		moving = positions[i];
 		break;
-	case jumpStates::ASCEND:
+	case JumpStates::ASCEND:
 		if (abs(getPosition().y - positions[i]) > jumpHeight)
 		{
 			moving = positions[i] - jumpHeight;
-			jumpState = jumpStates::DESCEND;
+			jumpState = JumpStates::DESCEND;
 		}
 		else
 		{
 			moving = getPosition().y + (speed * deltaTime);
 		}
 		break;
-	case jumpStates::DESCEND:
+	case JumpStates::DESCEND:
 		if (getPosition().y - positions[i] > 0)
 		{
 			moving = positions[i];
-			jumpState = jumpStates::NONE;
+			jumpState = JumpStates::NONE;
 			isJumping = false;
 		}
 		else

@@ -23,7 +23,7 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	: State(renderWindow, states, textures, fonts, soundBuffers),
 	leaderboard(leaderboard), states(states), gameStats(gameStats),
 	speed(-75.f), frequency(5.f),
-	currentState(GameStates::PLAY), buttons(nullptr), spawnTime(frequency),
+	currentState(GameStates::PLAY), level(0), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),

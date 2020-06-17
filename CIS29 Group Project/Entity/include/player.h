@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Entity.h"
-enum class jumpStates { NONE = 0, ASCEND, DESCEND };
+enum class JumpStates { NONE = 0, ASCEND, DESCEND };
 enum class Directions { UP = -1, DOWN = 1, JUMP = 2 };
 
-class Player : public Entity {
+class Player : public Entity
+{
 private:
 	// movement
 	int moveType[2];
@@ -17,7 +18,7 @@ private:
 	bool isPassing;
 	bool isJumping;
 	float jumpHeight;
-	jumpStates jumpState;
+	JumpStates jumpState;
 
 	sf::RenderTexture renderTexture;
 
