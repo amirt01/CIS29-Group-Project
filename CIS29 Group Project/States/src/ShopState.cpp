@@ -31,21 +31,20 @@ void ShopState::initializeGUI() {
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "", calcCharSize(),
 		sf::Color(100, 100, 100, 100), sf::Color(74, 108, 135, 170), sf::Color(20, 20, 20, 50));
 
-	const float BUYHEIGHT = 40.f;
+	const float BUYHEIGHT = p2pY(5.f);
 
 	buttons["PLAYER2BUY"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(49.3), WIDTH, BUYHEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100", calcCharSize(),
-        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["PLAYER3BUY"] = std::make_unique<gui::Button>(p2pX(65.2), p2pY(49.3), WIDTH, BUYHEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200", calcCharSize(),
-        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["MAP2BUY"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(91.7), WIDTH, BUYHEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100", calcCharSize(),
-        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 	buttons["MAP3BUY"] = std::make_unique<gui::Button>(p2pX(65.2), p2pY(91.7), WIDTH, BUYHEIGHT,
 		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200", calcCharSize(),
-        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
-
+		sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
 
 	if (!gameStats->unlocked.find("BLUE_PLAYER")->second) { //check if player bought character before
 		buttons["PLAYER2BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
@@ -109,7 +108,6 @@ void ShopState::initializeGUI() {
 	map3.setPosition(p2pX(67.f), p2pY(67.f));
 	map3.setScale(p2pX(0.0133), p2pX(0.0133));
 }
-
 
 ShopState::ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
@@ -295,7 +293,7 @@ void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	renderTarget->draw(background);
 
 	sf::Text title("SHOP", fonts->at("DOSIS-BOLD"));
-	title.setCharacterSize(calcCharSize()*3);
+	title.setCharacterSize(calcCharSize() * 3);
 	title.setStyle(sf::Text::Bold);
 	title.setFillColor(sf::Color::White);
 	sf::RenderStates renderStates;
