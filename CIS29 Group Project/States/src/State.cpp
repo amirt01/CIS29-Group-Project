@@ -3,12 +3,12 @@
 
 const float State::p2pX(const float perc)
 {
-	return std::floor(static_cast<float>(renderWindow->getSize().x) * (perc / 100.f));
+	return static_cast<float>(renderWindow->getSize().x) * (perc / 100.f);
 }
 
 const float State::p2pY(const float perc)
 {
-	return std::floor(static_cast<float>(renderWindow->getSize().y) * (perc / 100.f));
+	return static_cast<float>(renderWindow->getSize().y) * (perc / 100.f);
 }
 
 const unsigned State::calcCharSize()

@@ -22,18 +22,21 @@ void HUD::initializeScore(sf::Font& font)
 void HUD::initializeCoins(sf::Font& font, sf::Texture& coinTexture)
 {
 	coinBackground.setFillColor(sf::Color(0, 0, 0, 50));
-	coinBackground.setSize(sf::Vector2f(200.f, 50.f));
-	coinBackground.setPosition(1050, 25);
+	coinBackground.setSize(sf::Vector2f(p2pXFactor *15.625, p2pYFactor * 6.9444));
+	coinBackground.setPosition(p2pXFactor *82.f, p2pYFactor * 3.47);
 
 	coins.setFont(font);
-	coins.setCharacterSize(40);
+	coins.setCharacterSize(p2pYFactor * 5.5555);
 	coins.setStyle(sf::Text::Bold);
 	coins.setFillColor(sf::Color::White);
-	coins.setPosition(1140, 25);
+	coins.setPosition(p2pXFactor * 89.f, p2pYFactor * 3.47);
 
-	coinPic.setSize(sf::Vector2f(75.f, 75.f));
-	coinPic.setTexture(&coinTexture);
-	coinPic.setPosition(1000, 12);
+
+	coinPic.setTexture(coinTexture);
+	coinPic.setScale(p2pXFactor *0.06, p2pXFactor * 0.06);
+	coinPic.setPosition(p2pXFactor * 78.125, p2pYFactor * 0.4);
+
+
 }
 
 void HUD::initializeHearts(sf::Texture& heartTexture)
@@ -52,12 +55,12 @@ void HUD::initializeHearts(sf::Texture& heartTexture)
 }
 
 HUD::HUD(Player* player, sf::Texture& heartTexture, sf::Texture& coinTexture, sf::Font& font)
-	: player(player)
+	: player(player), font(font), coinTexture(coinTexture), initializedCoins(false)
 {
 	initializeContainer();
 	initializeScore(font);
 	initializeHearts(heartTexture);
-	initializeCoins(font, coinTexture);
+	//initializeCoins(font, coinTexture);
 }
 
 HUD::~HUD()
@@ -88,9 +91,16 @@ void HUD::render(std::shared_ptr<sf::RenderTarget> renderTarget)
 	for (int i = 0; i < player->getCurrentHealth(); i++)
 		renderTarget->draw(hearts[i]);
 
+
+	renderTarget->draw(score);
+
+	if (!initializedCoins) {
+		p2pXFactor = static_cast<float>(renderTarget->getSize().x) / 100.f;
+		p2pYFactor = static_cast<float>(renderTarget->getSize().y) / 100.f;
+		initializeCoins(font, coinTexture);
+		initializedCoins = true;
+	}
 	renderTarget->draw(coinBackground);
 	renderTarget->draw(coins);
 	renderTarget->draw(coinPic);
-
-	renderTarget->draw(score);
 }

@@ -12,13 +12,20 @@ private:
 	sf::Text score;
 	sf::Text coins;
 	sf::RectangleShape coinBackground;
-	sf::RectangleShape coinPic;
+	Entity coinPic;
+	sf::Texture coinTexture;
+	sf::Font font;
+	bool initializedCoins;
 
 	// Initializers
 	void initializeHearts(sf::Texture& heartTexture);
 	void initializeContainer();
 	void initializeScore(sf::Font& font);
 	void initializeCoins(sf::Font& font, sf::Texture& coinTexture);
+
+
+	float p2pXFactor;
+	float p2pYFactor;
 
 public:
 	HUD(Player* player, sf::Texture& heartTexture, sf::Texture& coinTexture, sf::Font& font);

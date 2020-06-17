@@ -33,6 +33,20 @@ void ShopState::initializeGUI() {
 
 	const float BUYHEIGHT = 40.f;
 
+	buttons["PLAYER2BUY"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(49.3), WIDTH, BUYHEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100", calcCharSize(),
+        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+	buttons["PLAYER3BUY"] = std::make_unique<gui::Button>(p2pX(65.2), p2pY(49.3), WIDTH, BUYHEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200", calcCharSize(),
+        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+	buttons["MAP2BUY"] = std::make_unique<gui::Button>(p2pX(37.f), p2pY(91.7), WIDTH, BUYHEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "100", calcCharSize(),
+        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+	buttons["MAP3BUY"] = std::make_unique<gui::Button>(p2pX(65.2), p2pY(91.7), WIDTH, BUYHEIGHT,
+		&fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK"), "200", calcCharSize(),
+        sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 255), sf::Color(255, 106, 0, 200));
+
+
 	if (!gameStats->unlocked.find("BLUE_PLAYER")->second) { //check if player bought character before
 		buttons["PLAYER2BUY"]->setIdleColor(sf::Color(255, 106, 0, 255));
 	}
@@ -85,16 +99,17 @@ void ShopState::initializeGUI() {
 
 	map1.setTexture(textures->at("GAME_BACKGROUND"));
 	map1.setPosition(p2pX(9.5f), p2pY(67.f));
-	map1.setScale(0.084f, 0.084f);
+	map1.setScale(p2pX(0.006682), p2pX(0.006682));
 
 	map2.setTexture(textures->at("GAME_BACKGROUND_PINK"));
 	map2.setPosition(p2pX(39.f), p2pY(67.f));
-	map2.setScale(0.17f, 0.17f);
+	map2.setScale(p2pX(0.0133), p2pX(0.0133));
 
 	map3.setTexture(textures->at("GAME_BACKGROUND_DESERT"));
 	map3.setPosition(p2pX(67.f), p2pY(67.f));
-	map3.setScale(0.17f, 0.17f);
+	map3.setScale(p2pX(0.0133), p2pX(0.0133));
 }
+
 
 ShopState::ShopState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<std::unique_ptr<State>>* states,
 	std::unordered_map<std::string, sf::Texture>* textures,
@@ -280,7 +295,7 @@ void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	renderTarget->draw(background);
 
 	sf::Text title("SHOP", fonts->at("DOSIS-BOLD"));
-	title.setCharacterSize(90);
+	title.setCharacterSize(calcCharSize()*3);
 	title.setStyle(sf::Text::Bold);
 	title.setFillColor(sf::Color::White);
 	sf::RenderStates renderStates;
@@ -294,21 +309,21 @@ void ShopState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget) {
 void ShopState::renderGUI(std::shared_ptr<sf::RenderTarget> renderTarget) {
 	sf::RectangleShape coinBackground;
 	coinBackground.setFillColor(sf::Color(0, 0, 0, 50));
-	coinBackground.setSize(sf::Vector2f(200.f, 50.f));
-	coinBackground.setPosition(1050, 25);
+	coinBackground.setSize(sf::Vector2f(p2pX(15.625), p2pY(6.9444)));
+	coinBackground.setPosition(p2pX(82.f), p2pY(3.47));
 	renderWindow->draw(coinBackground);
 
 	coinAmount = sf::Text(std::to_string(gameStats->coins), fonts->at("DOSIS-BOLD"));
-	coinAmount.setCharacterSize(40);
+	coinAmount.setCharacterSize(p2pY(5.5555));
 	coinAmount.setStyle(sf::Text::Bold);
 	coinAmount.setFillColor(sf::Color::White);
-	coinAmount.setPosition(1140, 25);
+	coinAmount.setPosition(p2pX(89.f), p2pY(3.47));
 	renderWindow->draw(coinAmount);
 
 	Entity coinPic;
 	coinPic.setTexture(textures->at("COIN"));
-	coinPic.setPosition(1000, 12);
-	coinPic.setScale(0.6f, 0.6f);
+	coinPic.setScale(p2pX(0.06), p2pX(0.06));
+	coinPic.setPosition(p2pX(78.125), p2pY(0.4));
 	renderWindow->draw(coinPic);
 
 	for (auto& it : buttons) {
