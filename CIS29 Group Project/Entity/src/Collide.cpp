@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Collide.h"
 
-Collide::Collide(sf::Texture& texture) :
-	Entity(), positions{170.f,300.f,430.f}
+Collide::Collide(sf::Texture& texture, std::array<float, 3> positions) :
+	Entity(), positions(positions)
 {
 	setTexture(texture);
 	clock.restart();
@@ -10,19 +10,18 @@ Collide::Collide(sf::Texture& texture) :
 
 void Collide::collisionPosition(int position, int player)
 {
-	//player position is passed (0,1,2)
-	float x = 80;
+	float x = 0.f;
 
 	switch (player)
 	{
 	case 0:
-		x = 80;
+		x = 50.f;
 		break;
 	case 1:
-		x = 180;
+		x = 150.f;
 		break;
 	}
-	setPosition(sf::Vector2f(x, positions[position]));
+	setPosition(sf::Vector2f(x, positions[position])); //player position is passed (0,1,2)
 	clock.restart();
 }
 

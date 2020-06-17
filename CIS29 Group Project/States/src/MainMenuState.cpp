@@ -158,7 +158,7 @@ void MainMenuState::renderState(std::shared_ptr<sf::RenderTarget> renderTarget)
 	}
 
 	sf::Text title("Rush Hour", fonts->at("DOSIS-BOLD"));
-	title.setCharacterSize(128);
+	title.setCharacterSize(calcCharSize() * 4U);
 	title.setStyle(sf::Text::Bold);
 	title.setFillColor(sf::Color::White);
 

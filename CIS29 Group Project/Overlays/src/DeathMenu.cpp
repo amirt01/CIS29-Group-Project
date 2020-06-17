@@ -6,14 +6,14 @@ void DeathMenu::initializeGUI(sf::Font* font, sf::SoundBuffer* sound)
 	const float WIDTH = p2pX(20.f);
 	const float HEIGHT = p2pY(10.f);
 
-	title.setPosition(0.f, 150.f);
+	title.setPosition(0.f, p2pY(18.f));
 	title.setFont(*font);
 	title.setString("Game Over!");
 	title.setCharacterSize(calcCharSize() * 1.9f); //26 pixels
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 
-	score.setPosition(0.f, 250.f);
+	score.setPosition(0.f, p2pY(30.f));
 	score.setFont(*font);
 	score.setCharacterSize(calcCharSize() * 1.5f);
 	score.setStyle(sf::Text::Bold);

@@ -23,13 +23,13 @@ GameState::GameState(std::shared_ptr<sf::RenderWindow> renderWindow, std::stack<
 	: State(renderWindow, states, textures, fonts, soundBuffers),
 	leaderboard(leaderboard), states(states), gameStats(gameStats),
 	speed(-75.f), frequency(5.f),
-	currentState(GameStates::PLAY), buttons(nullptr), spawnTime(frequency),
+	currentState(GameStates::PLAY), level(0), buttons(nullptr), spawnTime(frequency),
 	pauseMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	deathMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	winMenu(renderWindow, &fonts->at("DOSIS-BOLD"), &soundBuffers->at("CLICK")),
 	player(textures->at(gameStats->playerTexture), gameStats->coins, { p2pY(24.f), p2pY(42.f), p2pY(60.f) }, textures->at(gameStats->playerTexture).getSize().x / 4, textures->at(gameStats->playerTexture).getSize().y),
 	hud(&player, textures->at("HEART"), textures->at("COIN"), fonts->at("DOSIS-BOLD")),
-	collide(textures->at("COLLISION")),
+	collide(textures->at("COLLISION"), { p2pY(24.f), p2pY(42.f), p2pY(60.f) }),
 	backgroundMusic(soundBuffers->at("TECHNO_BACKGROUND"))
 {
 	for (int i = 0; i < backgrounds.size(); i++)
@@ -140,20 +140,32 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			currentState = GameStates::PAUSED;
 			break;
 		case sf::Keyboard::W:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(-1);
+			if (player.checkPosition(Directions::UP))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(Directions::UP);
+			}
 			break;
 		case sf::Keyboard::Up:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(-1);
+			if (player.checkPosition(Directions::UP))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(Directions::UP);
+			}
 			break;
 		case sf::Keyboard::S:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(1);
+			if (player.checkPosition(Directions::DOWN))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(Directions::DOWN);
+			}
 			break;
 		case sf::Keyboard::Down:
-			playSound("WOOSH", 25.f);
-			player.updateMovement(1);
+			if (player.checkPosition(Directions::DOWN))
+			{
+				playSound("WOOSH", 25.f);
+				player.updateMovement(Directions::DOWN);
+			}
 			break;
 		case sf::Keyboard::Tab:
 			updateGameSpeed(10.f);
@@ -164,7 +176,7 @@ void GameState::updateKeyboard(const sf::Keyboard::Key& keyCode)
 			if (level == 2 || level == 3) // disable jump
 			{
 				playSound("REVING", 20.f);
-				player.updateMovement(2);
+				player.updateMovement(Directions::JUMP);
 			}
 			break;
 		default:
@@ -222,7 +234,7 @@ void GameState::updateObjects(const float& deltaTime)
 	}
 }
 
-void GameState::updateBackground(const float& deltaTime, const Direction dir)
+void GameState::updateBackground(const float& deltaTime, const BackgroundDirection dir)
 {
 	for (sf::RectangleShape& background : backgrounds) {
 		background.move(2.f * speed * static_cast<float>(dir) * deltaTime, 0.f);
@@ -243,7 +255,7 @@ void GameState::updateState(const float& deltaTime)
 		backgroundMusic.setVolume(25.f);
 		buttons = nullptr;
 		updateGameSpeed(deltaTime);
-		updateBackground(deltaTime, Direction::FORWARDS);
+		updateBackground(deltaTime, BackgroundDirection::FORWARDS);
 		updateSpawning();
 		player.updateScore(deltaTime);
 		player.updateAnimation(deltaTime);
@@ -337,7 +349,6 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 				collide.collisionPosition(player.getCurrentPosition(), 1);
 			}
 			player.playerDamage();
-			//player.collisionMove();
 		}
 		break;
 	case Type::COIN:
@@ -377,6 +388,11 @@ void GameState::updateCollision(std::unique_ptr<Object>& object)
 //Collision Detection
 void GameState::checkCollision()
 {
+	if (objects.empty())
+	{
+		return;
+	}
+
 	if ((objects.front()->hit == false && Collision::PixelPerfectTest(player, *objects.front())))
 	{
 		updateCollision(objects.front());
@@ -398,7 +414,7 @@ void GameState::checkCollision()
 	{
 		player.revertPlayer();
 	}
-	
+
 	if (objects.front()->hit == true && player.currentPosition == objects.front()->level && objects.front()->type == Type::OBSTACLE)
 	{
 		player.playerDamage();
@@ -407,7 +423,6 @@ void GameState::checkCollision()
 	{
 		player.playerDamage();
 	}
-	
 }
 
 void GameState::checkCarPassing()

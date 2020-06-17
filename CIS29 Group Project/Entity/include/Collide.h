@@ -6,9 +6,9 @@
 class Collide : public Entity
 {
 	sf::Clock clock;
-	float positions[3];
+	std::array<float, 3> positions;
 public:
-	Collide(sf::Texture& texture);
+	Collide(sf::Texture& texture, std::array<float, 3> positions);
 	void collisionPosition(int position, int player);
 	bool collisionTiming();
 };
